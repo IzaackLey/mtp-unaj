@@ -1,0 +1,14 @@
+package StarbuzzSelf;
+
+public abstract class Beverage {
+	String description = "Unknown Beverage";
+	  
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setSize(){
+		
+	}
+	public abstract double cost();
+}

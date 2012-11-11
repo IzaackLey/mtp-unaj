@@ -1,0 +1,12 @@
+package StarbuzzSelf;
+
+public class HouseBlend extends Beverage{
+	public HouseBlend(Size size){
+		super(0.8,1.0,1.2);
+		description = "Hose Blend Coffe";
+		setSize(size);
+	}
+	public double cost() {
+		return cost.get(size);
+	}
+}

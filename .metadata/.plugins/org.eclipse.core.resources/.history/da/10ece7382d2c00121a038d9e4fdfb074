@@ -1,0 +1,32 @@
+package StarbuzzSelf;
+
+import java.util.Hashtable;
+
+public abstract class Beverage {
+	String description = "Unknown Beverage";
+	public enum Size {
+	    SMALL, MEDIUM, LARGE
+	}
+	public Hashtable<Size, Double> cost;
+	
+	public Beverage(double small, double medium, double large){
+		this.cost.put(Size.SMALL, small);
+		this.cost.put(Size.MEDIUM, medium);
+		this.cost.put(Size.LARGE, large);
+	}
+	public Size size;
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setSize(Size size){
+		this.size = size;
+	}
+	
+	public Size getSize(){
+		return this.size;
+	}
+	
+	public abstract double cost();
+}

@@ -1,0 +1,23 @@
+package StarbuzzSelf;
+
+import pre.DarkRoast;
+
+public class StarbuzzCoffee {
+	public static void main(String args[]){
+		Beverage beverage = new Expresso();
+		System.out.println(beverage.getDescription() + " $ " + beverage.cost());
+		
+		Beverage beverage2 = new HouseBlend();
+		System.out.println(beverage2.getDescription() + " $ " + beverage2.cost());
+		beverage2 = new Mocha(beverage2);
+		System.out.println(beverage2.getDescription() + " $ " + beverage2.cost());
+		beverage2 = new Mocha(beverage2);
+		System.out.println(beverage2.getDescription() + " $ " + beverage2.cost());
+		
+		//esto es lo que no se puede cuando uso clases concretas
+//		HouseBlend houseBlend = new HouseBlend();
+//		System.out.println(houseBlend.getDescription() + " $ " + houseBlend.cost());
+//		houseBlend = new Mocha(houseBlend);
+		
+	}
+}

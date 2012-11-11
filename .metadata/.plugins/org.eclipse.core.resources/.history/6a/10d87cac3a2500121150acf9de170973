@@ -1,0 +1,14 @@
+package StarbuzzSelf;
+
+public class HouseBlend extends Beverage{
+	public HouseBlend(){
+		description = "Hose Blend Coffe";
+	}
+
+	public double cost() {
+		return .89;
+	}
+	
+	
+
+}

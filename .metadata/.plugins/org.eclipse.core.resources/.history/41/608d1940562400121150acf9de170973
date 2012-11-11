@@ -1,0 +1,11 @@
+package Interface;
+
+public class Main {
+
+	public static void main(String[] arg){
+		Persona p1 = new Persona();
+		Alarma.despertar(p1);
+		Despertable p2 = new Persona();
+		Alarma.despertar(p2);
+	}
+}

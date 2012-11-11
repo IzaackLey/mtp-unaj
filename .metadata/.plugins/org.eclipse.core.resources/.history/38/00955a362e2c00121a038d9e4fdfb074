@@ -1,0 +1,10 @@
+package StarbuzzSelf;
+
+public abstract class CondimentDecorator extends Beverage{
+	public CondimentDecorator(double small, double medium, double large) {
+
+
+	}
+	public Beverage beverage;
+	public abstract String getDescription();
+}

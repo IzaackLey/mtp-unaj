@@ -1,0 +1,14 @@
+package StarbuzzSelf;
+
+public class Expresso extends Beverage{
+	public Expresso(){
+		description = "Expresso";
+		setSize(size);
+		SetCost(0.8, 1.0, 1.2);
+	}
+
+	public double cost() {
+		return 1.99;
+	}
+	
+}

@@ -1,0 +1,9 @@
+
+public class Cuadrado extends Poligono{
+	int longitud;
+	
+	public double getArea() {
+		return longitud*longitud;
+	}
+
+}

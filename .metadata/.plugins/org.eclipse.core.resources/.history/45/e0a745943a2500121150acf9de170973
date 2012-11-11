@@ -1,0 +1,10 @@
+package StarbuzzSelf;
+
+public class HoseBlend extends Beverage{
+	public HouseBlend(){
+		description = "Hose Blend Coffe";
+	}
+	
+	
+
+}
