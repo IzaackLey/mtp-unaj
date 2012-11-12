@@ -4,4 +4,7 @@
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="StarbuzzSelf.CondimentDecorator"/>
 <fullyQualifiedTypeName name="pre.DarkRoast"/>
+<fullyQualifiedTypeName name="StarbuzzSelf.Beverage"/>
+<fullyQualifiedTypeName name="java.util.Hashtable"/>
+<fullyQualifiedTypeName name="StarbuzzSelf.Beverage.Size"/>
 </qualifiedTypeNameHistroy>
