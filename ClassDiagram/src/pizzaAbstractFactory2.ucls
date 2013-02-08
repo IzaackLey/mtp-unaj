@@ -1,81 +1,85 @@
-<class-diagram version="1.0.10" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+<class-diagram version="1.0.11" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
-  <class id="1" corner="BOTTOM_RIGHT" language="java" name="Squeak" project="DuckSimulator" 
-    file="/DuckSimulator/src/Squeak.java" binary="false">    
-    <position height="-1" width="-1" x="119" y="188"/>    
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="pizzaaf.CheesePizza" project="Factory" 
+    file="/Factory/src/pizzaaf/CheesePizza.java" binary="false">    
+    <position height="-1" width="-1" x="65" y="388"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="2" corner="BOTTOM_RIGHT" language="java" name="MuteQuack" project="DuckSimulator" 
-    file="/DuckSimulator/src/MuteQuack.java" binary="false">    
-    <position height="-1" width="-1" x="246" y="188"/>    
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="pizzaaf.Pizza" project="Factory" 
+    file="/Factory/src/pizzaaf/Pizza.java" binary="false">    
+    <position height="-1" width="-1" x="144" y="128"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <interface id="3" corner="BOTTOM_RIGHT" language="java" name="QuackBehavior" project="DuckSimulator" 
-    file="/DuckSimulator/src/QuackBehavior.java" binary="false">    
-    <position height="-1" width="-1" x="184" y="52"/>    
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="pizzaaf.ClamPizza" project="Factory" 
+    file="/Factory/src/pizzaaf/ClamPizza.java" binary="false">    
+    <position height="-1" width="-1" x="325" y="390"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="pizzaaf.NYPizzaIngredientFactory" project="Factory" 
+    file="/Factory/src/pizzaaf/NYPizzaIngredientFactory.java" binary="false">    
+    <position height="-1" width="-1" x="540" y="410"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="pizzaaf.ChicagoPizzaIngredientFactory" project="Factory" 
+    file="/Factory/src/pizzaaf/ChicagoPizzaIngredientFactory.java" binary="false">    
+    <position height="-1" width="-1" x="752" y="410"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="6" corner="BOTTOM_RIGHT" language="java" name="pizzaaf.PizzaIngredientFactory" project="Factory" 
+    file="/Factory/src/pizzaaf/PizzaIngredientFactory.java" binary="false">    
+    <position height="-1" width="-1" x="620" y="148"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </interface>  
-  <class id="4" corner="BOTTOM_RIGHT" language="java" name="FlyWithRocket" project="DuckSimulator" 
-    file="/DuckSimulator/src/FlyWithRocket.java" binary="false">    
-    <position height="-1" width="-1" x="508" y="188"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
-  <class id="5" corner="BOTTOM_RIGHT" language="java" name="FlyNoWay" project="DuckSimulator" 
-    file="/DuckSimulator/src/FlyNoWay.java" binary="false">    
-    <position height="-1" width="-1" x="373" y="188"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
-  <class id="6" corner="BOTTOM_RIGHT" language="java" name="FlyWithWings" project="DuckSimulator" 
-    file="/DuckSimulator/src/FlyWithWings.java" binary="false">    
-    <position height="-1" width="-1" x="651" y="188"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
-  <interface id="7" corner="BOTTOM_RIGHT" language="java" name="FlyBehavior" project="DuckSimulator" 
-    file="/DuckSimulator/src/FlyBehavior.java" binary="false">    
-    <position height="-1" width="-1" x="507" y="54"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </interface>  
-  <realization id="8">    
+  <generalization id="7">    
     <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="3"/>  
-  </realization>  
-  <realization id="9">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="7"/>  
-  </realization>  
-  <realization id="10">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="3"/>  
-  </realization>  
-  <realization id="11">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="7"/>  
-  </realization>  
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <association id="8">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="9" name="ingredientFactory"/>      
+      <multiplicity id="10" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="11">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
   <realization id="12">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="7"/>  
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
   </realization>  
+  <realization id="13">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="6"/>  
+  </realization>  
+  <association id="14">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="15" name="ingredientFactory"/>      
+      <multiplicity id="16" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     visibility="true">    
     <attributes public="true" package="true" protected="true" private="true"/>    
