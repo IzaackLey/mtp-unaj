@@ -1,9 +1,10 @@
 package herencia;
 
 public class Circulo extends FiguraGeometrica{
-	private double radio;
+	public double radio;
 	
 	public Circulo(double radio) {
+		super("Circulo");
 		this.radio = radio;
 	}
 
