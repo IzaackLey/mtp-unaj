@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>Getting Started with deck.js</title>
+	
+	<meta name="description" content="A jQuery library for modern HTML presentations">
+	<meta name="author" content="Caleb Troughton">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	
+	<!-- Core and extension CSS files -->
+	<link rel="stylesheet" href="../core/deck.core.css">
+	<link rel="stylesheet" href="../extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="../extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="../extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="../extensions/status/deck.status.css">
+	<link rel="stylesheet" href="../extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="../extensions/scale/deck.scale.css">
+	
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="../themes/style/swiss.css">
+	
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="../themes/transition/horizontal-slide.css">
+	
+	<script src="../modernizr.custom.js"></script>
+	
+
+    <!-- SintaxHighlighter -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SyntaxHighlighter Large File Demo</title>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/XRegExp.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shCore.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushPython.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushJava.js"></script>
+	<!--link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shCore.css"/-->
+	<!--link type="text/css" rel="Stylesheet" href="../SyntaxHighlighter-master/styles/shThemeDefault.css" /-->
+	<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shCoreEclipse.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	
+	
+</head>
+
+<body class="deck-container">
+
+<!-- Begin slides -->
+<section class="slide" id="title-slide">
+	
+	<h1>Repaso de Objetos</h1>
+	
+</section>
+
+<section class="slide" id="objects">
+	<h2>Conceptos fundamentales</h2>
+	<ul>
+		<li>
+			<h3>Clase</h3>
+			<p>Definiciones de las propiedades y comportamiento de un tipo de objeto concreto.<BR>
+			La instanciación es la lectura de estas definiciones y la creación de un objeto a partir de ellas.</p>
+		</li>
+		<li>
+			<h3>Objeto</h3>
+			<p>Entidad provista de un conjunto de propiedades o atributos (datos) y de comportamiento o funcionalidad (métodos), los mismos que consecuentemente reaccionan a eventos. <BR>
+			Se corresponden con los objetos reales del mundo que nos rodea, o con objetos internos del sistema (del programa).<BR> Es una instancia a una clase.</p>
+		</li>
+		<li>
+			<h3>Propiedad o atributo</h3>
+			<p>Contenedor de un tipo de datos asociados a un objeto (o a una clase de objetos), que hace los datos visibles desde fuera del objeto y esto se define como sus características predeterminadas, y cuyo valor puede ser alterado por la ejecución de algún método.</p>
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="objects">
+	<h2>Conceptos fundamentales</h2>
+	<ul>
+		<li>
+			<h3>Método</h3>
+			<p>Algoritmo asociado a un objeto (o a una clase de objetos), cuya ejecución se desencadena tras la recepción de un "mensaje". Desde el punto de vista del comportamiento, es lo que el objeto puede hacer. Un método puede producir un cambio en las propiedades del objeto, o la generación de un "evento" con un nuevo mensaje para otro objeto del sistema.</p>
+		</li>
+		<li>
+			<h3>Identidad</h3>
+			<p>La identidad es la propiedad que permite a un objeto diferenciarse de otros. Generalmente esta propiedad es tal, que da nombre al objeto.
+			En programación la identidad de los objetos sirve para comparar si dos objetos son iguales o no. No es raro encontrar que en muchos lenguajes de programación la identidad de un objeto esté determinada por la dirección de memoria de la computadora en la que se encuentra el objeto, pero este comportamiento puede ser variado redefiniendo la identidad del objeto a otra propiedad.</p>
+		</li>
+		<li>
+			<h3>Mensaje</h3>
+			<p>Una comunicación dirigida a un objeto, que le ordena que ejecute uno de sus métodos con ciertos parámetros asociados al evento que lo generó.</p>
+		</li>
+	</ul>
+</section>	
+
+<section class="slide" id="objects">
+	<h2>Conceptos fundamentales</h2>
+	<ul>
+		<li>
+			<h3>Comportamiento</h3>
+			<p>Una comunicación dirigida a un objeto, que le ordena que ejecute uno de sus métodos con ciertos parámetros asociados al evento que lo generó.</p>
+		</li>
+		<li>
+			<h3>Estado</h3>
+			<p>El comportamiento de un objeto está directamente relacionado con su funcionalidad y determina las operaciones que este puede realizar o a las que puede responder ante mensajes enviados por otros objetos. La funcionalidad de un objeto está determinada, primariamente, por su responsabilidad. Una de las ventajas fundamentales de la POO es la reusabilidad del código; un objeto es más fácil de reutilizarse en tanto su responsabilidad sea mejor definida y más concreta.</p>
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="relaciones">
+	<h2>Relaciones</h2>
+	<p>Es posible crear objetos de diferentes clases y establecer una relación entre ellos. Cuando los objetos son relacionados es posible acceder a los miembros de un objeto desde otro objeto.
+	Esto supone una ventaja cuando un objeto debe comenzar el procesamiento de información justo en donde otro objeto habría terminado el procesamiento.
+	Adicionalmente nos permite pasar información de un objeto a otro y de ahí a otro objeto de forma encadenada.<BR>
+	Formas de realizar la relación entre objetos:</p>
+	<h3>Asociacion</h3>
+	<ul>
+		<li>
+			hacer una referencia de una clase dentro de otra.
+			Al menos un atributo de la clase B es una referencia a la clase A.
+		</li>
+		<li>
+			No es una relación fuerte, es decir, el tiempo de vida de un objeto no depende del otro, es decir La creación de B no implica la creación de A.
+				Es una relación duradera
+		</li>
+		<li>
+			Es una relación duradera
+		</li>
+		<li>
+			Normalmente la conexión entre los objetos se realiza recibiendo la referencia de uno de ellos en el constructor u otro método.
+		</li>
+		<li>
+			Si la relación tiene cardinalidad superior a uno hay que usar un array o una estructura de datos dinámica.
+		</li>
+		<li>
+			La clase B usa a la clase A.
+		</li>
+		<li>
+			La asociación se podría definir como el momento en que dos objetos se unen para trabajar juntos y así, alcanzar una meta.
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="relaciones">
+	<h2>Relaciones</h2>
+	<h3>Dependencia o Instanciación (uso)</h3>
+
+	<ul>
+		<li>
+			Un objeto usa (conoce) a otro cuando puede enviarle mensajes, por ejemplo, para requerir de éste algún servicio. 
+		</li>
+		<li>
+			La clase B necesita de un objeto de la clase A para llevar a caba una funcionalidad.
+		</li>
+		<li>
+			En un método de b se crea un objeto auxiliar de A o en un método de B aparece A como argumento.
+		</li>
+		<li>
+			La durabilidad es temporal.
+		</li>
+		<script type="syntaxhighlighter" class="brush: java;">
+			perimetro = new Calculador().calcularPerimetro(triangulo);
+		</script>
+	</ul>
+</section>
+
+<section class="slide" id="extensions">
+	<h2>Extensions</h2>
+	<p>Core gives you basic slide functionality with left and right arrow navigation, but you may want more. Here are the ones included in this&nbsp;deck:</p>
+	
+	<ul>
+		<li class="slide" id="extensions-goto">
+			<strong>deck.goto</strong>: Adds a shortcut key to jump to any slide number.  Hit g, type in the slide number, and hit&nbsp;enter.
+		</li>
+		
+		<li class="slide" id="extensions-hash">
+			<strong>deck.hash</strong>: Enables internal linking within slides, deep linking to individual slides, and updates the address bar &amp; a permalink anchor with each slide&nbsp;change.
+		</li>
+
+		<li class="slide" id="extensions-menu">
+			<strong>deck.menu</strong>: Adds a menu view, letting you see all slides in a grid. Hit m to toggle to menu view, continue navigating your deck, and hit m to return to normal view. Touch devices can double-tap the deck to switch between&nbsp;views.
+		</li>
+
+		<li class="slide" id="extensions-navigation">
+			<strong>deck.navigation</strong>: Adds clickable left and right buttons for the less keyboard&nbsp;inclined.
+		</li>
+
+		<li class="slide" id="extensions-status">
+			<strong>deck.status</strong>: Adds a page number indicator. (current/total)
+		</li>
+
+		<li class="slide" id="extensions-scale">
+			<strong>deck.scale</strong>: Scales each slide to fit within the deck container using CSS Transforms for those browsers that support them.
+		</li>
+	</ul>
+	
+	<p class="slide" id="extension-folders">Each extension folder in the download package contains the necessary JavaScript, CSS, and HTML&nbsp;files. For a complete list of extension modules included in deck.js, check out the&nbsp;<a href="http://imakewebthings.github.com/deck.js/docs">documentation</a>.</p>
+</section>
+
+<section class="slide" id="nested">
+	<h2>Nested Slides</h2>
+	<p>That last slide had a few steps.  To create substeps in slides, just nest them:</p>
+	<pre><code>&lt;section class=&quot;slide&quot;&gt;
+  &lt;h2&gt;Extensions&lt;/h2&gt;
+  &lt;p&gt;Core gives you basic slide functionality...&lt;/p&gt;		
+  &lt;ul&gt;
+     &lt;li class=&quot;slide&quot;&gt;
+        &lt;h3&gt;deck.goto&lt;/h3&gt;
+        &lt;p&gt;Adds a shortcut key to jump to any slide number...&lt;/p&gt;
+     &lt;/li&gt;
+     &lt;li class=&quot;slide&quot;&gt;...&lt;/li&gt;	
+     &lt;li class=&quot;slide&quot;&gt;...&lt;/li&gt;
+     &lt;li class=&quot;slide&quot;&gt;...&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;</code></pre>
+</section>
+
+<section class="slide" id="elements-images">
+	<h2>Other Elements: Images</h2>
+	<img src="http://placekitten.com/600/375" alt="Kitties">
+	<pre><code>&lt;img src=&quot;http://placekitten.com/600/375&quot; alt=&quot;Kitties&quot;&gt;</code></pre>
+</section>
+
+<section class="slide" id="elements-blockquotes">
+	<h2>Other Elements: Blockquotes</h2>
+	<blockquote cite="http://example.org">
+		<p>Food is an important part of a balanced diet.</p>
+		<p><cite>Fran Lebowitz</cite></p>
+	</blockquote>
+	<pre><code>&lt;blockquote cite=&quot;http://example.org&quot;&gt;
+  &lt;p&gt;Food is an important part of a balanced diet.&lt;/p&gt;
+  &lt;p&gt;&lt;cite&gt;Fran Lebowitz&lt;/cite&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</code></pre>
+</section>
+
+
+<section class="slide" id="elements-videos">
+	<h2>Other Elements: Video Embeds</h2>
+	<p>Embed videos from your favorite online video service or with an HTML5 video&nbsp;element.</p>
+	
+	 <!-- <iframe src="http://player.vimeo.com/video/1063136?title=0&amp;byline=0&amp;portrait=0" width="400" height="225" frameborder="0"></iframe> -->
+	
+	<pre><code>&lt;iframe src=&quot;http://player.vimeo.com/video/1063136?title=0&amp;amp;byline=0&amp;amp;portrait=0&quot; width=&quot;400&quot; height=&quot;225&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;</code></pre>
+</section>
+
+<section class="slide" id="digging-deeper">
+	<h2>Digging Deeper</h2>
+	<p>If you want to learn about making your own themes, extending deck.js, and more, check out the&nbsp;<a href="../docs/">documentation</a>.</p>
+</section>
+
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+	/
+	<span class="deck-status-total"></span>
+</p>
+
+<!-- deck.goto snippet -->
+<form action="." method="get" class="goto-form">
+	<label for="goto-slide">Go to slide:</label>
+	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+	<datalist id="goto-datalist"></datalist>
+	<input type="submit" value="Go">
+</form>
+
+<!-- deck.hash snippet -->
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+
+<!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../jquery-1.7.2.min.js"><\/script>')</script>
+
+<!-- Deck Core and extensions -->
+<script src="../core/deck.core.js"></script>
+<script src="../extensions/hash/deck.hash.js"></script>
+<script src="../extensions/menu/deck.menu.js"></script>
+<script src="../extensions/goto/deck.goto.js"></script>
+<script src="../extensions/status/deck.status.js"></script>
+<script src="../extensions/navigation/deck.navigation.js"></script>
+<script src="../extensions/scale/deck.scale.js"></script>
+
+<!-- Initialize the deck -->
+<script>
+$(function() {
+	$.deck('.slide');
+});
+</script>
+
+</body>
+
+
+
+</html>
