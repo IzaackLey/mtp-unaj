@@ -36,11 +36,10 @@
 	<title>SyntaxHighlighter Large File Demo</title>
 	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/XRegExp.js"></script>
 	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shCore.js"></script>
-	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushPython.js"></script>
 	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushJava.js"></script>
-	<!--link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shCore.css"/-->
-	<!--link type="text/css" rel="Stylesheet" href="../SyntaxHighlighter-master/styles/shThemeDefault.css" /-->
 	<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shCoreEclipse.css"/>
+	<!--link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shThemeEclipse.css"/-->
+	
 	<script type="text/javascript">SyntaxHighlighter.all();</script>
 
 	
@@ -128,6 +127,13 @@
 		<li>
 			Es una relación duradera
 		</li>
+	</ul>
+</section>
+
+<section class="slide" id="relaciones">
+	<h2>Relaciones</h2>
+	<h3>Asociacion</h3>
+	<ul>
 		<li>
 			Normalmente la conexión entre los objetos se realiza recibiendo la referencia de uno de ellos en el constructor u otro método.
 		</li>
@@ -139,6 +145,35 @@
 		</li>
 		<li>
 			La asociación se podría definir como el momento en que dos objetos se unen para trabajar juntos y así, alcanzar una meta.
+		</li>
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			public class Customer {
+
+		    private int id;
+		    private String firstName;
+		    private String lastName;
+		    private CreditCard creditCard;
+
+		    public Customer() {
+		    }
+		    public void setCreditCard(CreditCard creditCard) {
+		        this.creditCard = creditCard;
+		    }
+		    public void creditCardPay(double amount){
+		        if (creditCard != null){
+		           creditCard.pay(amount) 
+		        }
+		        else{
+					System.out.println('no credit card available');
+		        }
+			}
+		</script>
+	
+		<li>
+			Customer es independiente de CreditCard, puesto que el cliente puede existir sin necesidad de tener asignada una tarjeta de crédito.
+		</li>
+		<li>
+			la creación de creditCard se hace afuera de la clase, puede seguir existiendo la creditCard, sin que exista el cliente.
 		</li>
 	</ul>
 </section>
@@ -160,9 +195,83 @@
 		<li>
 			La durabilidad es temporal.
 		</li>
-		<script type="syntaxhighlighter" class="brush: java;">
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 			perimetro = new Calculador().calcularPerimetro(triangulo);
 		</script>
+	</ul>
+</section>
+
+<section class="slide" id="relaciones">
+	<h2>Relaciones</h2>
+	<h3>Composición</h3>
+
+	<ul>
+		<li>
+			La composición es una relación más fuerte que en asociación, y consiste en que la composición también controla los ciclos de vida de los objetos relacionados. 
+		</li>
+		<li>
+			La Clase todo controla las clase parte, al crear el objeto se crean las partes y al finalizarlos se destruyen todas las partes.
+
+		</li>
+		<li>
+			Es una relación muy duradera.
+		</li>
+		<li>
+			No hay una implementación especial para este tipo de relaciones, se tratan como asociaciones ordinarias.
+			En java el que se encarga de la destrucción de los objetos es el garbaje collector.	
+		</li>
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			public class Humano {
+				private Cerebro cerebro;
+				private Corazón corazon;
+				public Humano(){
+					this.cerebro = new Cerebro();
+					this.corazon = new Corazon();
+				}
+			}
+
+		</script>
+		<li>
+			Relación de composición entre humano y cerebro, muy duradera mientras exista el objeto compuesto existe el otro.
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="relaciones">
+	<h2>Relaciones</h2>
+	<h3>Diferencia entre asociación y composición</h3>
+
+	<ul>
+		<li>
+			La diferencia con la asociación es que en la composición hacemos en algún momento la construcción de los objetos compuestos, la creación de cerebro y corazón se hace en el constructor.
+		</li>
+		<li>
+			Los objetos que componen a la clase contenedora, deben existir desde el principio.
+		</li>
+		<li>
+			No hay momento en que la clase contenedora pueda existir sin alguno de sus objetos componentes. Por lo que la existencia de estos objetos no debe ser abiertamente manipulada desde el exterior de la clase.
+
+		</li>
+		<li>
+			Tanto la asociación como la composición se pueden entender con la frase “tiene un”
+		</li>		
+	</ul>
+</section>
+
+<section class="slide" id="relaciones">
+	<h2>Relaciones</h2>
+	<h3>Herencia</h3>
+
+	<ul>
+		<li>
+			Los objetos heredan las propiedades y el comportamiento de todas las clases a las que pertenecen. 
+		</li>
+		<li>
+			La herencia organiza y facilita el polimorfismo y el encapsulamiento, permitiendo a los objetos ser definidos y creados como tipos especializados de objetos preexistentes. Estos pueden compartir (y extender) su comportamiento sin tener que volver a implementarlo.
+		</li>
+		<li>
+			Esto suele hacerse habitualmente agrupando los objetos en clases y estas en árboles o enrejados que reflejan un comportamiento común. Cuando un objeto hereda de más de una clase se dice que hay herencia múltiple.
+		</li>
 	</ul>
 </section>
 
