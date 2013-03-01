@@ -55,7 +55,7 @@
 	
 </section>
 
-<section class="slide" id="objects">
+<section class="slide" id="objects-clase">
 	<h2>Conceptos fundamentales</h2>
 	<ul>
 		<li>
@@ -75,7 +75,7 @@
 	</ul>
 </section>
 
-<section class="slide" id="objects">
+<section class="slide" id="objects-metodo">
 	<h2>Conceptos fundamentales</h2>
 	<ul>
 		<li>
@@ -94,7 +94,7 @@
 	</ul>
 </section>	
 
-<section class="slide" id="objects">
+<section class="slide" id="objects-comportamiento">
 	<h2>Conceptos fundamentales</h2>
 	<ul>
 		<li>
@@ -108,7 +108,7 @@
 	</ul>
 </section>
 
-<section class="slide" id="relaciones">
+<section class="slide" id="relaciones-asociacion">
 	<h2>Relaciones</h2>
 	<p>Es posible crear objetos de diferentes clases y establecer una relación entre ellos. Cuando los objetos son relacionados es posible acceder a los miembros de un objeto desde otro objeto.
 	Esto supone una ventaja cuando un objeto debe comenzar el procesamiento de información justo en donde otro objeto habría terminado el procesamiento.
@@ -130,7 +130,7 @@
 	</ul>
 </section>
 
-<section class="slide" id="relaciones">
+<section class="slide" id="relaciones-asociacion2">
 	<h2>Relaciones</h2>
 	<h3>Asociacion</h3>
 	<ul>
@@ -178,7 +178,7 @@
 	</ul>
 </section>
 
-<section class="slide" id="relaciones">
+<section class="slide" id="relaciones-uso">
 	<h2>Relaciones</h2>
 	<h3>Dependencia o Instanciación (uso)</h3>
 
@@ -201,7 +201,7 @@
 	</ul>
 </section>
 
-<section class="slide" id="relaciones">
+<section class="slide" id="relaciones-composicion">
 	<h2>Relaciones</h2>
 	<h3>Composición</h3>
 
@@ -237,7 +237,7 @@
 	</ul>
 </section>
 
-<section class="slide" id="relaciones">
+<section class="slide" id="relaciones-diferencia">
 	<h2>Relaciones</h2>
 	<h3>Diferencia entre asociación y composición</h3>
 
@@ -258,7 +258,7 @@
 	</ul>
 </section>
 
-<section class="slide" id="relaciones">
+<section class="slide" id="relaciones-herencia">
 	<h2>Relaciones</h2>
 	<h3>Herencia</h3>
 
@@ -272,6 +272,152 @@
 		<li>
 			Esto suele hacerse habitualmente agrupando los objetos en clases y estas en árboles o enrejados que reflejan un comportamiento común. Cuando un objeto hereda de más de una clase se dice que hay herencia múltiple.
 		</li>
+		<li>
+			La herencia se puede entender como es <strong>“es un”</strong>
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="relaciones-herencia2">
+	<h2>Relaciones</h2>
+	<h3>Herencia</h3>
+	<img src="herencia-figuras-geometricas.png" alt="Kitties">
+	<ul>
+		<li>
+			la clase Cuadrado es una figura geométrica.
+		</li>
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			public class Cuadrado extends FiguraGeometrica{
+				public double lado; 	
+					
+				public Cuadrado(double lado){
+					super("Cuadrado");
+					this.lado = lado;
+				}
+
+				public double getArea() {
+					return Math.sqrt(this.lado);
+				}
+			}
+		</script>
+		<li>
+			la clase Cuadrado <strong>"es una"</strong> figura geométrica.
+		</li>	
+	</ul>
+</section>
+
+
+
+<section class="slide" id="delegacion-polimorfismo">
+	<h2>Conceptos fundamentales</h2>
+	<h3>Delegación</h3>
+	<ul>
+		<li>
+			En ocasiones, para lograr flexibilidad de diseño, un objeto es implementado de forma tal que este delegue parte de su funcionalidad en otro objeto. 
+		</li>
+		<li>
+			Esto es muy común en aplicaciones que hacen uso de interfaces gráficas de usuario, en las que los controles gráficos generales delegan la acción que se ejecutará ante determinado estímulo en otro objeto.
+		</li>	
+	</ul>
+	<h3>Polimorfismo</h3>
+	<ul>
+		<li>
+			Se refiere a la habilidad de objetos de distintas clases de responder al mismo mensaje. 
+		</li>
+		<li>
+			Esto se puede conseguir a través de la herencia: un objeto de una clase derivada es al mismo tiempo un objeto de la clase padre, de forma que allí donde se requiere un objeto de la clase padre también se puede utilizar uno de la clase hija.
+		</li>	
+	</ul>
+</section>
+
+<section class="slide" id="polimorfismo2">
+	<h2>Conceptos fundamentales</h2>
+	<h3>Polimorfismo</h3>
+	<ul>
+		<li>
+			Upcasting: un atributo que es declarado como uno de una clase padre dentro de una jerarquía de clases va a responder a todos los métodos del padre aunque no se sepa que tipo concreto va a instanciar.
+		</li>
+		<li>
+			Aca si bien es una asignación polimórfica se esta decidiendo en tiempo de compilación
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				FiguraGeometrica figuraGeometrica1 = new Triangulo();
+			</script>
+		</li>
+		<li>
+			Se decide en tiempo de ejecución cual es la clase hija que va a ser instanciar.<BR>
+			No se si figura geométrica va a ser un Triángulo o un Cuadrado hasta que no ejecute el programa.
+			
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			FiguraGeometrica figuraGeometrica;
+			if (opcion==1){
+				figuraGeometrica = new Triangulo();
+			} 
+			else if (opcion==1){
+				figuraGeometrica = new Cuadrado();
+			}
+			</script>
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="polimorfismo3">
+	<h2>Conceptos fundamentales</h2>
+	<h3>Polimorfismo</h3>
+	<ul>
+		<li>
+			downcasting: un atributo está declarado como una clase padre dentro de una jerarquía pero le específico que hijo esta instanciado.<BR>
+			Nos movemos en sentido descendente en una jerarquía y en java se especifica el tipo entre paréntesis.
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				dobule lado = ((Triangulo)figuraGeometrica1).lado1;
+			</script>
+		</li>
+		<li>
+			Una vez hecho el casteo se puede acceder a los métodos o atributos propios de la clase hija.
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="polimorfismo4">
+	<h2>Conceptos fundamentales</h2>
+	<h3>Polimorfismo</h3>
+	<ul>
+		<li>
+			En ocasiones también se utiliza el término polimorfismo para referirse a la sobrecarga de métodos, término que se define como la capacidad del lenguaje de determinar qué método ejecutar de entre varios métodos con igual nombre según el tipo o número de los parámetros que se le pasa. 
+		</li>
+
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			public class Calculador {
+				public static double getPerimetro(Circulo circulo){
+					return 2*circulo.radio*Math.PI;
+				}
+				public static double getPerimetro(Cuadrado cuadrado){
+					return 4*cuadrado.lado;
+				}
+				public static double getPerimetro(Triangulo triangulo){
+					return triangulo.lado1+triangulo.lado2+triangulo.lado3;
+				}
+			}
+		</script>
+		<li>
+			Los métodos se llaman exactamente igual pero se va a ejecutar el código de acuerdo a la clase del objeto que use al momento de la invocación.
+		</li>
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			figuraGeometrica = new Triangulo(6,6,6);	
+			double perimetro =Calculador.getPerimetro((Triangulo)figuraGeometrica);
+		</script>	
+	</ul>
+</section>
+
+<section class="slide" id="polimorfismo5">
+	<h2>Conceptos fundamentales</h2>
+	<h3>Polimorfismo</h3>
+	<ul>
+		<li>
+			Aclaración: En Python no existe sobrecarga de métodos (el último método sobre escribiría la implementación de los anteriores).
+		</li>	
+		<li>
+			Python, al ser de tipado dinámico no impone restricciones a los tipos que se le pueden pasar a una función, por ejemplo, más allá de que el objeto se comporte como se espera: si se va a llamar a un método f del objeto pasado como parámetro, por ejemplo, evidentemente el objeto tendrá que contar con ese método. Por ese motivo, a diferencia de lenguajes de tipado estático como Java o C++, el polimorfismo en Python no es de gran importancia.
+		</li>		
 	</ul>
 </section>
 

@@ -19,7 +19,7 @@ public class Ventana extends QWidget{
 		   cmb = new QComboBox();
 		   cmb.addItem("ciculo");
 		   cmb.addItem("cuadrado");
-		   //cmb.addItem("triangulo");
+		   cmb.addItem("triangulo");
 		   //cmb.currentIndexChanged.connect(this, "cmbChanged(int)");
 		   
 		   textEdit = new QTextEdit();
@@ -49,10 +49,15 @@ public class Ventana extends QWidget{
 			figuraGeometrica = new Cuadrado(10);
 			perimetro = String.valueOf(Calculador.getPerimetro((Cuadrado)figuraGeometrica));;
 			break;
+		case 2:
+			figuraGeometrica = new Triangulo(6,6,6);
+			perimetro = String.valueOf(Calculador.getPerimetro((Triangulo)figuraGeometrica));;
+			break;
 		default:
 			break;
 		
 		}
-		textEdit.setText(String.valueOf(figuraGeometrica.getArea())+"/n/r"+" y el perimetro es "+perimetro);
+		textEdit.setText(String.valueOf("el area de "+figuraGeometrica.getNombre()+" "+figuraGeometrica.getArea())+" y el perimetro es "+perimetro);
+		//((Triangulo)figuraGeometrica).	
 	   }
 }
