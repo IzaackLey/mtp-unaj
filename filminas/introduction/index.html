@@ -60,17 +60,17 @@
 	<h2>Conceptos fundamentales</h2>
 	<ul>
 		<li>
-			<h3>Clase</h3>
+			<h4>Clase</h4>
 			<p>Definiciones de las propiedades y comportamiento de un tipo de objeto concreto.<BR>
 			La instanciación es la lectura de estas definiciones y la creación de un objeto a partir de ellas.</p>
 		</li>
 		<li>
-			<h3>Objeto</h3>
+			<h4>Objeto</h4>
 			<p>Entidad provista de un conjunto de propiedades o atributos (datos) y de comportamiento o funcionalidad (métodos), los mismos que consecuentemente reaccionan a eventos. <BR>
 			Se corresponden con los objetos reales del mundo que nos rodea, o con objetos internos del sistema (del programa).<BR> Es una instancia a una clase.</p>
 		</li>
 		<li>
-			<h3>Propiedad o atributo</h3>
+			<h4>Propiedad o atributo</h4>
 			<p>Contenedor de un tipo de datos asociados a un objeto (o a una clase de objetos), que hace los datos visibles desde fuera del objeto y esto se define como sus características predeterminadas, y cuyo valor puede ser alterado por la ejecución de algún método.</p>
 		</li>
 	</ul>
@@ -80,16 +80,16 @@
 	<h2>Conceptos fundamentales</h2>
 	<ul>
 		<li>
-			<h3>Método</h3>
+			<h4>Método</h4>
 			<p>Algoritmo asociado a un objeto (o a una clase de objetos), cuya ejecución se desencadena tras la recepción de un "mensaje". Desde el punto de vista del comportamiento, es lo que el objeto puede hacer. Un método puede producir un cambio en las propiedades del objeto, o la generación de un "evento" con un nuevo mensaje para otro objeto del sistema.</p>
 		</li>
 		<li>
-			<h3>Identidad</h3>
+			<h4>Identidad</h4>
 			<p>La identidad es la propiedad que permite a un objeto diferenciarse de otros. Generalmente esta propiedad es tal, que da nombre al objeto.
 			En programación la identidad de los objetos sirve para comparar si dos objetos son iguales o no. No es raro encontrar que en muchos lenguajes de programación la identidad de un objeto esté determinada por la dirección de memoria de la computadora en la que se encuentra el objeto, pero este comportamiento puede ser variado redefiniendo la identidad del objeto a otra propiedad.</p>
 		</li>
 		<li>
-			<h3>Mensaje</h3>
+			<h4>Mensaje</h4>
 			<p>Una comunicación dirigida a un objeto, que le ordena que ejecute uno de sus métodos con ciertos parámetros asociados al evento que lo generó.</p>
 		</li>
 	</ul>
@@ -99,23 +99,24 @@
 	<h2>Conceptos fundamentales</h2>
 	<ul>
 		<li>
-			<h3>Comportamiento</h3>
+			<h4>Comportamiento</h4>
 			<p>Una comunicación dirigida a un objeto, que le ordena que ejecute uno de sus métodos con ciertos parámetros asociados al evento que lo generó.</p>
 		</li>
 		<li>
-			<h3>Estado</h3>
+			<h4>Estado</h4>
 			<p>El comportamiento de un objeto está directamente relacionado con su funcionalidad y determina las operaciones que este puede realizar o a las que puede responder ante mensajes enviados por otros objetos. La funcionalidad de un objeto está determinada, primariamente, por su responsabilidad. Una de las ventajas fundamentales de la POO es la reusabilidad del código; un objeto es más fácil de reutilizarse en tanto su responsabilidad sea mejor definida y más concreta.</p>
 		</li>
 	</ul>
 </section>
 
 <section class="slide" id="relaciones-asociacion">
-	<h2>Relaciones</h2>
+	<h2>Conceptos fundamentales</h2>
+	<h3>Relaciones</h3>
 	<p>Es posible crear objetos de diferentes clases y establecer una relación entre ellos. Cuando los objetos son relacionados es posible acceder a los miembros de un objeto desde otro objeto.
 	Esto supone una ventaja cuando un objeto debe comenzar el procesamiento de información justo en donde otro objeto habría terminado el procesamiento.
 	Adicionalmente nos permite pasar información de un objeto a otro y de ahí a otro objeto de forma encadenada.<BR>
 	Formas de realizar la relación entre objetos:</p>
-	<h3>Asociacion</h3>
+	<h4>Asociacion</h4>
 	<ul>
 		<li>
 			hacer una referencia de una clase dentro de otra.
@@ -132,8 +133,9 @@
 </section>
 
 <section class="slide" id="relaciones-asociacion2">
-	<h2>Relaciones</h2>
-	<h3>Asociacion</h3>
+	<h2>Conceptos fundamentales</h2>
+	<h3>Relaciones</h3>
+	<h4>Asociacion</h4>
 	<ul>
 		<li>
 			Normalmente la conexión entre los objetos se realiza recibiendo la referencia de uno de ellos en el constructor u otro método.
@@ -180,8 +182,9 @@
 </section>
 
 <section class="slide" id="relaciones-uso">
-	<h2>Relaciones</h2>
-	<h3>Dependencia o Instanciación (uso)</h3>
+	<h2>Conceptos fundamentales</h2>
+	<h3>Relaciones</h3>
+	<h4>Dependencia o Instanciación (uso)</h4>
 
 	<ul>
 		<li>
@@ -203,8 +206,9 @@
 </section>
 
 <section class="slide" id="relaciones-composicion">
-	<h2>Relaciones</h2>
-	<h3>Composición</h3>
+	<h2>Conceptos fundamentales</h2>
+	<h3>Relaciones</h3>
+	<h4>Composición</h4>
 
 	<ul>
 		<li>
@@ -239,8 +243,9 @@
 </section>
 
 <section class="slide" id="relaciones-diferencia">
-	<h2>Relaciones</h2>
-	<h3>Diferencia entre asociación y composición</h3>
+	<h2>Conceptos fundamentales</h2>
+	<h3>Relaciones</h3>
+	<h4>Diferencia entre asociación y composición</h4>
 
 	<ul>
 		<li>
@@ -255,13 +260,30 @@
 		</li>
 		<li>
 			Tanto la asociación como la composición se pueden entender con la frase “tiene un”
-		</li>		
+		</li>
+		<img src="http://placekitten.com/600/375" alt="Kitties">
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			public class Cuadrado extends FiguraGeometrica{
+				public double lado; 	
+					
+				public Cuadrado(double lado){
+					super("Cuadrado");
+					this.lado = lado;
+				}
+
+				public double getArea() {
+					return Math.sqrt(this.lado);
+				}
+			}
+		</script>
+	</section>
 	</ul>
 </section>
 
 <section class="slide" id="relaciones-herencia">
-	<h2>Relaciones</h2>
-	<h3>Herencia</h3>
+	<h2>Conceptos fundamentales</h2>
+	<h3>Relaciones</h3>
+	<h4>Herencia</h4>
 
 	<ul>
 		<li>
@@ -278,6 +300,32 @@
 		</li>
 	</ul>
 </section>
+
+<section class="slide" id="relaciones">
+	<h2>Delegación</h2>
+	<ul>
+		<li>
+			En ocasiones, para lograr flexibilidad de diseño, un objeto es implementado de forma tal que este delegue parte de su funcionalidad en otro objeto.
+		</li>
+		<li>
+			Esto es muy común en aplicaciones que hacen uso de interfaces gráficas de usuario, en las que los controles gráficos generales delegan la acción que se ejecutará ante determinado estímulo en otro objeto.
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="relaciones">
+	<h2>Polimorfismo</h2>
+	<ul>
+		<li>
+			<h3></h3>
+			En ocasiones, para lograr flexibilidad de diseño, un objeto es implementado de forma tal que este delegue parte de su funcionalidad en otro objeto.
+		</li>
+		<li>
+			Esto es muy común en aplicaciones que hacen uso de interfaces gráficas de usuario, en las que los controles gráficos generales delegan la acción que se ejecutará ante determinado estímulo en otro objeto.
+		</li>
+	</ul>
+</section>
+
 
 <section class="slide" id="relaciones-herencia2">
 	<h2>Relaciones</h2>
