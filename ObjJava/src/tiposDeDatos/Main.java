@@ -17,10 +17,11 @@ public class Main {
         }
         
         int numero = 3;
-        int numero2 = 3;
-        
-        Integer numero3 = 4;
-        Integer numero4 = new Integer(4);
+        Integer numero2 = 3;        
+        //Integer numero3 = new Integer(4);
+
+        char char1 = 'a';
+        Character char2 = 'a';
 
 	}
 }

@@ -37,6 +37,7 @@
 	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/XRegExp.js"></script>
 	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shCore.js"></script>
 	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushJava.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushPython.js"></script>
 	<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shCoreEclipse.css"/>
 	<!--link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shThemeEclipse.css"/-->
 	
@@ -421,90 +422,186 @@
 	</ul>
 </section>
 
-<section class="slide" id="extensions">
-	<h2>Extensions</h2>
-	<p>Core gives you basic slide functionality with left and right arrow navigation, but you may want more. Here are the ones included in this&nbsp;deck:</p>
-	
+<section class="slide" id="java">
+	<h2>Características del lenguaje java</h2>
 	<ul>
-		<li class="slide" id="extensions-goto">
-			<strong>deck.goto</strong>: Adds a shortcut key to jump to any slide number.  Hit g, type in the slide number, and hit&nbsp;enter.
+		<li>
+			Fuertemente Tipado
 		</li>
-		
-		<li class="slide" id="extensions-hash">
-			<strong>deck.hash</strong>: Enables internal linking within slides, deep linking to individual slides, and updates the address bar &amp; a permalink anchor with each slide&nbsp;change.
+		<li>
+			Herencia simple
 		</li>
-
-		<li class="slide" id="extensions-menu">
-			<strong>deck.menu</strong>: Adds a menu view, letting you see all slides in a grid. Hit m to toggle to menu view, continue navigating your deck, and hit m to return to normal view. Touch devices can double-tap the deck to switch between&nbsp;views.
+		<li>
+			Recolector de basura
 		</li>
-
-		<li class="slide" id="extensions-navigation">
-			<strong>deck.navigation</strong>: Adds clickable left and right buttons for the less keyboard&nbsp;inclined.
+		<li>
+			No es puro orientado a objetos
 		</li>
-
-		<li class="slide" id="extensions-status">
-			<strong>deck.status</strong>: Adds a page number indicator. (current/total)
-		</li>
-
-		<li class="slide" id="extensions-scale">
-			<strong>deck.scale</strong>: Scales each slide to fit within the deck container using CSS Transforms for those browsers that support them.
+		<li>
+			Interpretado y compilado a la vez
 		</li>
 	</ul>
-	
-	<p class="slide" id="extension-folders">Each extension folder in the download package contains the necessary JavaScript, CSS, and HTML&nbsp;files. For a complete list of extension modules included in deck.js, check out the&nbsp;<a href="http://imakewebthings.github.com/deck.js/docs">documentation</a>.</p>
 </section>
 
-<section class="slide" id="nested">
-	<h2>Nested Slides</h2>
-	<p>That last slide had a few steps.  To create substeps in slides, just nest them:</p>
-	<pre><code>&lt;section class=&quot;slide&quot;&gt;
-  &lt;h2&gt;Extensions&lt;/h2&gt;
-  &lt;p&gt;Core gives you basic slide functionality...&lt;/p&gt;		
-  &lt;ul&gt;
-     &lt;li class=&quot;slide&quot;&gt;
-        &lt;h3&gt;deck.goto&lt;/h3&gt;
-        &lt;p&gt;Adds a shortcut key to jump to any slide number...&lt;/p&gt;
-     &lt;/li&gt;
-     &lt;li class=&quot;slide&quot;&gt;...&lt;/li&gt;	
-     &lt;li class=&quot;slide&quot;&gt;...&lt;/li&gt;
-     &lt;li class=&quot;slide&quot;&gt;...&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/section&gt;</code></pre>
+<section class="slide" id="java-tipado">
+	<h2>Tipado estático</h2>
+	<ul>
+		<li>
+			<strong>Tipado estático:</strong> Se dice de un lenguaje de programación que usa un tipado estático cuando el chequeo de tipificación se realiza durante el tiempo de compilación, opuesto al de ejecución.<BR> 
+			Ejemplos de lenguajes que usan tipado estático son C, C++, Java.<BR>
+			Comparado con el tipado dinámico, el estático permite que los errores de programación sean detectados antes, y que la ejecución del programa sea más eficiente.
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				String algo = “hola”;
+			</script>
+		</li>
+		<li>
+			<strong>Tipado dinámico:</strong> Se dice de un lenguaje de programación que usa un tipado dinámico cuando el chequeo de tipificación se realiza durante el tiempo de ejecución, opuesto al de compilación. <BR>
+			Ejemplos de lenguajes que usan tipado dinámico son Perl, Python y Lisp. <BR>
+			Comparado con el tipado estático, o sistema de enlazado temprano, el tipado dinámico es más flexible, a pesar de ejecutarse más lentamente y más propensos a contener errores de programación.
+			<script type="syntaxhighlighter" class="brush: python; toolbar: false;">
+				algo = ‘hola’
+				algo = 3
+			</script>
+		</li>	
+	</ul>
 </section>
 
-<section class="slide" id="elements-images">
-	<h2>Other Elements: Images</h2>
-	<img src="http://placekitten.com/600/375" alt="Kitties">
-	<pre><code>&lt;img src=&quot;http://placekitten.com/600/375&quot; alt=&quot;Kitties&quot;&gt;</code></pre>
+<section class="slide" id="herencia-simple">
+	<h2>Herencia simple</h2>
+	<ul>
+		<li>
+			<stromg>Herencia simple:</strong> una clase sólo puede heredar comportamientos y características de una sola superclase, es decir clase puede tener un solo padre.
+			</p>
+			<img src="herencia-figuras-geometricas.png">
+			<script type="syntaxhighlighter" class="brush: python; toolbar: false;">
+				public class Cuadrado extends FiguraGeometrica{
+					public double lado; 	
+						
+					public Cuadrado(double lado){
+						super("Cuadrado");
+						this.lado = lado;
+					}
+
+					public double getArea() {
+						return Math.sqrt(this.lado);
+					}
+				}
+			</script>
+		</li>
+	</ul>
 </section>
 
-<section class="slide" id="elements-blockquotes">
-	<h2>Other Elements: Blockquotes</h2>
-	<blockquote cite="http://example.org">
-		<p>Food is an important part of a balanced diet.</p>
-		<p><cite>Fran Lebowitz</cite></p>
-	</blockquote>
-	<pre><code>&lt;blockquote cite=&quot;http://example.org&quot;&gt;
-  &lt;p&gt;Food is an important part of a balanced diet.&lt;/p&gt;
-  &lt;p&gt;&lt;cite&gt;Fran Lebowitz&lt;/cite&gt;&lt;/p&gt;
-&lt;/blockquote&gt;</code></pre>
+<section class="slide" id="herencia-multiple">
+	<h2>Herencia simple</h2>
+	<ul>
+		<li>
+			<stromg>Herencia multiple:</strong> la herencia múltiple en contraste una clase puede heredar comportamientos y características de más de una superclase.
+			</p>
+			<img src="herencia-multiple.gif">
+		</li>
+	</ul>
 </section>
 
-
-<section class="slide" id="elements-videos">
-	<h2>Other Elements: Video Embeds</h2>
-	<p>Embed videos from your favorite online video service or with an HTML5 video&nbsp;element.</p>
-	
-	 <!-- <iframe src="http://player.vimeo.com/video/1063136?title=0&amp;byline=0&amp;portrait=0" width="400" height="225" frameborder="0"></iframe> -->
-	
-	<pre><code>&lt;iframe src=&quot;http://player.vimeo.com/video/1063136?title=0&amp;amp;byline=0&amp;amp;portrait=0&quot; width=&quot;400&quot; height=&quot;225&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;</code></pre>
+<section class="slide" id="recolector-basura">
+	<h2>Recolección de basura</h2>
+	<ul>
+		<li>
+			El espacio de memoria se va llenando con diferentes "objetos" , también pueden destruirse algunos de ellos, dejando "huecos" en el espacio de memoria. <BR>
+			Cuando ya no queda espacio disponible, o cuando lo decide la rutina de recolección de basura, la memoria es "compactada", colocando todos los "objetos" que se están usando al principio, y consolidando todos los "huecos" de memoria al final, quedando así una gran área de memoria disponible para la futura creación de objetos.
+		</li>
+		<li>
+			<strong>ventajas y desventajas</strong>
+			<ul>
+				<li>
+					El programador no puede cometer errores y queda liberado de la tediosa tarea de gestionar la memoria.
+				</li>
+				<li>
+					La memoria permanece retenida durante más tiempo del estrictamente necesario.
+				</li>
+				<li>
+					El recolector de basura tarda cierto tiempo en hacer su tarea y produce pausas que pueden hacer la técnica incompatible con sistemas de tiempo real
+				</li>
+			</ul>			
+		</li>
+	</ul>
 </section>
 
-<section class="slide" id="digging-deeper">
-	<h2>Digging Deeper</h2>
-	<p>If you want to learn about making your own themes, extending deck.js, and more, check out the&nbsp;<a href="../docs/">documentation</a>.</p>
+<section class="slide" id="oonopuro">
+	<h2>No es puro orientado a objetos</h2>
+	<p>Hay 7 características que tiene que satisfacer un lenguaje de programación para ser orientado a objetos puro, dos de las cuales java no cumple:
+	<ol>
+		<li>Encapsulation/Data Hiding</li>
+		<li>Inheritance</li>
+		<li>Polymorphism</li>
+		<li>Abstraction</li>
+		<li><strong>Todos los tipos predefinidos son objetos</strong></li>
+		<li><strong>Todas las operaciones se efectuan mandando mesaje a objetos</strong></li>
+		<li>Todos los tipos definidos por el usuario son objetos.</li>
+	</ol>
+	<p>En java no todos los tipos predefinidos son objetos ni todas las operaciones se efectuan mandando mensajes a objetos</p>
 </section>
 
+<section class="slide" id="tipos_primitivos">
+	<h2>No es puro orientado a objetos</h2>
+	<h3>Tipos Primitivos de datos</h3>
+	<ul>
+		<li>boolean: 1 bytes, true o false.</li>
+		<li>char: 2 bytes</li>
+		<li>Enteros: Difieren en las precisiones y pueden ser positivos o negativos</li>
+		<ul>
+			<li>byte: 1 byte</li>
+			<li>short: 2 bytes</li>
+			<li>int: 4 bytes</li>
+			<li>long: 8 bytes</li>
+		</ul>	
+		<li>Reales en punto flotante: igual que los enteros también difieren en las precisiones y pueden ser positivos o negativos.</li>
+
+		<ul>
+			<li>float: 4 bytes</li>
+			<li>double: 8 bytes</li>
+		</ul>
+		<li>
+			Un objeto es una cosa distinta a un tipo primitivo, aunque “porten” la misma información. <BR>Tener siempre presente que los objetos en Java tienen un tipo de tratamiento y los tipos primitivos, otro. <BR>
+			Que en un momento dado contengan la misma información no significa en ningún caso que sean lo mismo.
+
+			<script type="syntaxhighlighter" class="brush: python; toolbar: false;">
+      			int numero = 3;
+       			Integer numero2 = 4;
+
+       			char char1 = 'a';
+        		Character char2 = 'a';
+			</script>
+			<p>contienen la misma información pero uno es un objeto y no, uno responde a metodos y el otro no</p>
+		</li>	
+	</ul>
+</section>
+<section class="slide" id="primitivos_objetos2">
+	<h2>No es puro orientado a objetos</h2>
+	<h3>Tipos Primitivos de datos</h3>
+	<ul>
+		<li>
+			Los nombres de tipos primitivos y envoltorio se parecen mucho. En realidad, excepto entre int e Integer y char y Character, la diferencia se limita a que en un caso la inicial es minúscula (por ejemplo double) y en el otro es mayúscula (Double).<BR>
+			Esa similitud puede confundirnos inicialmente, pero hemos de tener muy claro qué es cada tipo y cuándo utilizar cada tipo.
+		</li>
+		<li>
+			Una cadena de caracteres es un objeto. El tipo String en Java nos permite crear objetos que contienen texto (palabras, frases, etc.). El texto debe ir siempre entre comillas. Muchas veces se cree erróneamente que el tipo String es un tipo primitivo por analogía con otros lenguajes donde String funciona como una variable elemental. En Java no es así.
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="interpretado">
+	<h2>Interpretado y compilado a la vez</h2>
+	<ul>
+		<li>
+			Java es compilado, en la medida en que su código fuente se transforma en una especie de código máquina, los bytecodes, semejantes a las instrucciones de ensamblador.
+		</li>
+		<li>
+			Por otra parte, es interpretado, ya que los bytecodes se pueden ejecutar directamente sobre cualquier máquina a la cual se hayan portado el intérprete y el sistema de ejecución en tiempo real (run-time).
+		</li>	
+	</ul>
+</section>
+
+<!----------------------------------------------------------------------------------------------->
 <!-- deck.navigation snippet -->
 <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
 <a href="#" class="deck-next-link" title="Next">&#8594;</a>
