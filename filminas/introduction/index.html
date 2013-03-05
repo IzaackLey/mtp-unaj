@@ -649,6 +649,144 @@
 	</ul>
 </section>
 
+<section class="slide" id="modifiers">
+	<h2>Modificadores de acceso en JAVA</h2>
+	<p>Los modificadores de acceso, como su nombre indica, determina desde qué clases se puede acceder a un determinado elemento</p>
+	 <ul>
+	 	<li><strong>default:</strong> Si no especificamos ningún modificador de acceso se utiliza el nivel de acceso por defecto, que consiste en que el elemento puede ser accedido sólo desde las clases que pertenezcan al mismo paquete.
+	 	</li>
+	 	<li><strong>public:</strong> El nivel de acceso public permite a acceder al elemento desde cualquier clase, independientemente de que esta pertenezca o no al paquete en que se encuentra el elemento.
+	 	</li>
+	 	<li><strong>private:</strong> Es el modificador más restrictivo y especifica que los elementos que lo utilizan sólo pueden ser accedidos desde la clase en la que se encuentran. <BR>
+	 	Este modificador sólo puede utilizarse sobre los miembros de una clase y sobre interfaces y clases internas, no sobre clases o interfaces de primer nivel, dado que esto no tendría sentido.
+	 	</li>
+	 	<li><strong>protected:</strong> El modificador de acceso protected es una combinación de los accesos que proporcionan los modificadores public y private.<BR>
+		Proporciona acceso público para las clases derivadas y acceso privado (prohibido) para el resto de clases.<BR>
+		Este modificador, como private, no tiene sentido a nivel de clases o interfaces no internas.<BR>
+		En otras palabras, si determinada clase Hijo hereda el comportamiento de una clase Padre, la clase Hijo tendrá acceso a todos aquellos campos/métodos definidos como protected en Padre, pero no aquellos declarados como private en Padre.<BR>
+	 	</li>
+	 </ul>
+</section>
+
+<section class="slide" id="modifiers2">
+	<h2>Modificadores de acceso en JAVA</h2>
+	<a href="http://www.noesispoint.com/jsp/scjp/SCJPch3.htm"><img src="java-modifiers-graph.png"/></a>
+</section>
+
+<section class="slide" id="modifiers3">
+	<h2>Otros Modificadores en JAVA</h2>
+	<p>Java tiene otros modificadores que no son de acceso para lograr otra funcionalidad.<p/>
+	 <ul>
+	 	<li><strong>static:</strong> Sirve crear miembros que pertenecen a la clase, y no a una instancia de la clase.<BR>
+		Esto es lo que se llama variables de clase.<BR>
+		Esto implica, entre otras cosas, que no es necesario crear un objeto de la clase para poder acceder a estos atributos y métodos. <BR>
+		Este es el motivo por el cual es obligatorio que main se declare como static; de esta forma no tenemos que ofrecer un constructor vacío para la clase que contiene el método, o indicar de alguna forma a la máquina virtual cómo instanciar la clase.<BR>
+		Un uso del modificador static sería, por ejemplo, crear un contador de los objetos de la clase que se han creado, incrementando la variable estática en el constructor<BR>
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			public class Usuario {
+				  static int usuarios = 0;  
+				  public Usuario() {  
+					  usuarios++;
+				  } 
+			}
+		</script>
+	 	</li>
+	 </ul>
+</section>
+<section class="slide" id="modifiers4">
+	<h2>Otros Modificadores en JAVA</h2>
+	<p>Un metodo static muy importante en java es:</p>
+ 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String args[]){
+			//codigo
+		} 
+	</script>
+	<p>Es el método principal es el método que ejecuta primero cualquier programa en java.<br>
+		El método es public porque es accesible a la JVM para ejecutar el programa.<br>
+		Es static porque esta disponible para la ejecución sin instancia de un objeto.<br>
+		Devuelve void porque no devuelve nada.<br>
+		El parámetro String args[] o String[] args es usado para agregar parámetros en la línea de comandos al ejecutarlo.
+	</p>
+
+	<p>Otro ejemplo podria ser un método para hacer algun calculo, se puede llamar sin que exista un objeto instanciado de la clase que lo contiene.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Calculador {
+			  public static double[] bascara(double a, double b, double c){
+				  double resultados[] = new double[2];
+				  double b2m4ac = Math.pow(b, 2)-4*a*c;
+				  double raiz = Math.sqrt(b2m4ac);
+				  resultados[0]=(-b+raiz)/(2*a);
+				  resultados[1]=(-b-raiz)/(2*a);
+				  return resultados;
+			  }
+		}
+	</script>
+	<p>La instanciación sería:</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Main {
+			public static void main(String[] args) {
+			    System.out.println("primer valor: " + Calculador.bascara(1, -7, 10)[0]);
+			    System.out.println("primer segundo: " + Calculador.bascara(1, -7, 10)[1]);
+			}
+		}
+	</script>
+
+</section>
+
+<section class="slide" id="modifiers5">
+	<h2>Otros Modificadores en JAVA</h2>
+	<ul>
+		<li>
+			<strong>abstarct:</strong> La palabra clave abstract indica que no se provee una implementación para un cierto método, sino que la implementación vendrá dada por las clases que extiendan la clase actual.<BR>
+			Una clase que tenga uno o más métodos abstract debe declararse como abstract a su vez.
+		</li>
+		<li>
+			<strong>final:</strong> Indica que una variable, método o clase no se va a modificar, lo cuál puede ser útil para añadir más semántica, por cuestiones de rendimiento, y para detectar errores.
+			<ul>
+				<li>Si una variable se marca como final, no se podrá asignar un nuevo valor a la variable.</li>
+				<li>Si una clase se marca como final, no se podrá extender la clase.</li>
+				<li>Si es un método el que se declara como final, no se podrá sobreescribir.</li>
+			</ul>
+		</li>
+		<li>
+			<p>Algo muy a tener en cuenta a la hora de utilizar este modificador es que si es un objeto lo que hemos marcado como final, esto <string>no</strong> nos impedirá modificar el objeto en sí, sino tan sólo usar el operador de asignación para cambiar la referencia.</p>
+			<p>Este código no funciona</p>
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				final String cadena = "hola";  
+				cadena = "que tal";
+			</script>	
+			Este código si funciona
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				final String cadena = "hola";  
+				cadena.concat("que tal");
+			</script>	 
+		</li>	
+	</ul>	
+</section>
+
+<section class="slide" id="modifiers6">
+	<h2>Modificadores en JAVA</h2>
+	<h3>Matiz de modificadores-elementos en JAVA</h3>
+	<a href="http://bmanolov.free.fr/javamodifiers.php"><img src="java-modifiers-matrix.png"/></a>
+</section>
+
+<section class="slide" id="modifiers7">
+	<h2>Modificadores en JAVA</h2>
+	<h3>Reglas</h3>
+	<ul>
+		<li>La declaración de un método puede contener solo un modificador de acceso public, protected o private</li>
+		<li>Las clases no pueden ser declaradas abstract y final simultáneamente.</li>
+		<li>Los métodos abstractos no pueden ser declarados private, static, final</li>
+		<li>Los métodos abstract y native no tienen cuerpo
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				public abstract void method();
+			</script>	
+		</li>
+		<li>Una clase que tiene métodos abstract tiene que ser declarada abstract</li>
+	</ul>	
+</section>
+
+
 <!----------------------------------------------------------------------------------------------->
 <!-- deck.navigation snippet -->
 <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
