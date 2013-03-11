@@ -910,7 +910,7 @@
 	El framework de colecciones en JAVA esta definido por un conjunto de interfaces, implementaciones de clases concretas para la mayoría de las interfaces (en el sentido general de la palabra interfaces) y un conjunto estándar de algoritmos y métodos.<BR>
 	Adicionalmente el framework implementaciones abstractas, que estan designadas para hacer facil la creacion de nuevas y diferentes implementaciones que permitan el manejo de colecciones de datos.</p>
 	<h3>Interfaces de las colecciones del núcleo</h3>
-	<p>Las interfaces del núcleo definen la funcionalidad común y permiten ser manipuladas independientemente de la implementació</p>
+	<p>Las interfaces del núcleo definen la funcionalidad común y permiten ser manipuladas independientemente de la implementación</p>
 	<ul>
 		<li>Collection</li>
 		<li>List</li>
@@ -920,6 +920,55 @@
 		<li>Map</li>
 		<li>SortedMap</li>
 		<li>NavigableMap</li>
+	</ul>	
+</section>
+
+<section class="slide" id="coleciones2">
+	<h2>Coleciones</h2>
+	<img src="java-collection.jpg"></img>
+</section>
+
+<section class="slide" id="coleciones3">
+	<h2>Coleciones</h2>
+	<p>De acuerdo a las características las listas se pueden dividir en:</p>
+	<ul>
+		<li>List: lista de Objetos (clases que implementan List).</li>
+		<li>Sets: Objetos únicos (classes that implement Set).</li>
+		<li>Maps: Objetos con un id único (classes that implement Map).</li>
+		<li>Queues: Objetos organizados en el orden en que se van a procesasr.</li>
+	</ul>	
+</section>
+
+<section class="slide" id="coleciones4">
+	<h2>Coleciones</h2>
+	<h3>List Interface</h3>
+	<p>La interface List se ocupa de índices y permite duplicados. Se usa para manejar el orden de elementos o objetos en una colección.<BR>
+	Las 3 implementaciones de List son:</p>
+	<ul>
+		<li>ArrayList: es una lista que crece dinámicamente. Da rápida iteración y rápido acceso aleatorio. Es una colección ordenada por índice. Elegir ArrayList sobre LinkedList cuando se quiere acceso rápido y no se va a hacer inserciones y supresiones constantemente.
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			public class ArrayListDemo {
+				public static void main(String[] args) {
+			        ArrayList<Persona> personas = new ArrayList<Persona>();
+			        personas.add(new Persona(1, "Mario"));
+			        personas.add(new Persona(2, "Fernando"));
+			        personas.add(new Persona(3, "Omar"));
+			        personas.add(new Persona(4, "Juana"));
+			        
+			        //usando indices
+			        for (int i=0;i<personas.size( );i++){
+			        	System.out.println(personas.get(i).getNombre()); 
+			        }
+			        
+			        //usando iterador
+					Iterator<Persona> iter = personas.iterator();
+					while(iter.hasNext()) {  
+						System.out.println(iter.next().getNombre()); 
+					}
+				}
+			}
+		</script>	
+		</li>
 	</ul>	
 </section>
 
