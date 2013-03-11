@@ -786,6 +786,142 @@
 	</ul>	
 </section>
 
+<section class="slide" id="interfaces_clases_abstractas">
+	<h2>interfaces y clases abstractas</h2>
+	<h3>Clases abstractas</h3>
+	<ul>
+		<li>Una clase abstracta es una clase que contiene uno o más métodos abstractos</li>
+		<li>Una clase concreta que extienda (extends) de esa clase tiene que implementar todos los métodos abstractos</li>
+		<li>Los métodos abstractos no tienen cuerpo.
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				public abstract class FiguraGeometrica {
+					public String nombre;
+					public String color;
+					public abstract double getArea();
+					public FiguraGeometrica(String nombre){
+						this.nombre = nombre;
+					}
+					public String getNombre(){
+						return this.nombre;
+					}
+				}
+			</script>	
+		</li>
+		<li>Una clase abstracta no puede ser instanciada
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				FiguraGeometrica figuraGeometrica = new FiguraGeometrica(“circulo”);
+			</script>	
+		</li>
+	</ul>	
+</section>
+<section class="slide" id="interfaces_clases_abstractas2">
+	<h2>interfaces y clases abstractas</h2>
+	<h3>Interfaces</h3>
+	<p>Un interface es parecido a una clase abstracta en Java , pero con las siguientes diferencias:</p>
+	<ul>
+		<li>Todo método es abstracto y público sin necesidad de declararlo. Por lo tanto un interface en Java no implementa ninguno de los métodos que declara</li>
+		<li>Las variables del interface serán las variables miembro de la clase, sólo puede definir constantes, es decir en las interfaces los atributos son implícitamente final and static</li>
+		<li>Una clase puede implementar más de un interfaz en Java, pero sólo puede extender una clase<BR>Es lo más parecido que tiene Java a la herencia múltiple, que de clases normales está prohibida</li>
+		<li>Podemos declarar variables del tipo de clase del interfaz, pero para inicializarlas tendremos que hacerlo de una clase que lo implemente.</li>
+		<li>Permite a las clases sin importar su posición dentro de la jerarquía de clases el implementar métodos comunes</li>
+		<li>Permite revelar la funcionalidad de un objeto sin revelar su implementación.</li>
+	</ul>	
+</section>
+
+<section class="slide" id="interfaces_clases_abstractas3">
+	<h2>interfaces y clases abstractas</h2>
+	<h3>Interfaces</h3>
+	<ul>
+		<li>Permite revelar la funcionalidad de un objeto sin revelar su implementación.</li>
+		<li>La implementación puede cambiar sin afectar a usuario de la interface</li>
+		<li>Ejemplo de interface
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				public interface FiguraGeometrica {
+					public String constante = "no se puede modificar, implicitamente final static";
+					public final static String constante2 = "no se puede modificar";
+
+					public double getArea();
+					public String getNombre();
+				}
+			</script>	
+		</li>
+		<li>Se puede acceder así a los atributos
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				String atrib = FiguraGeometrica.constante;
+			</script>	
+		</li>
+		<li>Como los atributos son final static implicitamente lo que implica que sean constantes, no se puede hacer esto:
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				FiguraGeometrica.constante = “hola”;
+			</script>	
+		</li>
+	</ul>	
+</section>
+
+<section class="slide" id="interfaces_clases_abstractas4">
+	<h2>interfaces y clases abstractas</h2>
+	<h3>Interfaces</h3>
+	<ul>
+		<li>Ejemplo de clase que implemente la interfaz FiguraGeometrica
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				public class Cuadrado implements FiguraGeometrica{
+					public double getArea() {
+						return Math.sqrt(this.lado);
+					}
+					public String getNombre() {
+						return "Cuadrado";
+					}
+				}
+			</script>	
+		</li>
+		<li>Tiene que implementar los dos métodos de la interface FiguraGeometrica getArea() y getNombre(), la interface no tiene métodos concretos</li>
+	</ul>	
+</section>
+
+<section class="slide" id="interfaces_clases_abstractas5">
+	<h2>interfaces y clases abstractas</h2>
+	<h3>Comparación entre clases abstractas e interfaces</h3>
+	<ul>
+		<li>Todos los metodos de una interface son abstractos mientras que en la clase abstracta puede  tener métodoss concretos (con implementacion).</li>
+		<li>Un interface se implementa (implements) no se extiende (extends) por sus subclases.</li>
+		<li>Una interfaz sólo puede definir constantes y la clase abstracta puede tener atributos, es decir en las interfaces los atributos son implícitamente final and static.</li>
+		<li>Las interfaces no tiene relación directa con la herencia.</li>
+		<li>Ni las clases abstractas ni, las interfaces pueden ser instanciadas.</li>
+		<li>Si una clase abstrata no tiene metodos concretos (sin el modificador abstract) y no tiene atributos o los atributos son final static son iguales.</li>
+	</ul>	
+</section>
+
+<section class="slide" id="interfaces_clases_abstractas5">
+	<h2>interfaces y clases abstractas</h2>
+	<h3>Comparación entre clases abstractas e interfaces</h3>
+	<ul>
+		<li>Todos los metodos de una interface son abstractos mientras que en la clase abstracta puede  tener métodoss concretos (con implementacion).</li>
+		<li>Un interface se implementa (implements) no se extiende (extends) por sus subclases.</li>
+		<li>Una interfaz sólo puede definir constantes y la clase abstracta puede tener atributos, es decir en las interfaces los atributos son implícitamente final and static.</li>
+		<li>Las interfaces no tiene relación directa con la herencia.</li>
+		<li>Ni las clases abstractas ni, las interfaces pueden ser instanciadas.</li>
+		<li>Si una clase abstrata no tiene metodos concretos (sin el modificador abstract) y no tiene atributos o los atributos son final static son iguales.</li>
+	</ul>	
+</section>
+
+<section class="slide" id="coleciones">
+	<h2>Coleciones</h2>
+	<p>Una colección se refiere a un grupo de múltiples elementos guardados juntos para una tarea específica.<BR>
+	El framework de colecciones en JAVA esta definido por un conjunto de interfaces, implementaciones de clases concretas para la mayoría de las interfaces (en el sentido general de la palabra interfaces) y un conjunto estándar de algoritmos y métodos.<BR>
+	Adicionalmente el framework implementaciones abstractas, que estan designadas para hacer facil la creacion de nuevas y diferentes implementaciones que permitan el manejo de colecciones de datos.</p>
+	<h3>Interfaces de las colecciones del núcleo</h3>
+	<p>Las interfaces del núcleo definen la funcionalidad común y permiten ser manipuladas independientemente de la implementació</p>
+	<ul>
+		<li>Collection</li>
+		<li>List</li>
+		<li>Set</li>
+		<li>QueueSortedSet</li>
+		<li>NavigableSet</li>
+		<li>Map</li>
+		<li>SortedMap</li>
+		<li>NavigableMap</li>
+	</ul>	
+</section>
 
 <!----------------------------------------------------------------------------------------------->
 <!-- deck.navigation snippet -->

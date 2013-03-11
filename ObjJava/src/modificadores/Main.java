@@ -10,7 +10,5 @@ public class Main {
 	    System.out.println("Hay " + raul.usuarios + " usuarios");  
 	    System.out.println("primer valor: " + Calculador.bascara(1, -7, 10)[0]);
 	    System.out.println("primer segundo: " + Calculador.bascara(1, -7, 10)[1]);
-	    
-	    
 	}
 }

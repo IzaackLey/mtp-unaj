@@ -46,6 +46,7 @@ public class Test {
         Collections.sort(personas2, new OrdenarPersonaPorId());
         
         System.out.println("conjunto ordenado de personas id: "+personas2);
+        System.out.println("catidad personas instanciadas "+Persona.cantidadPersonas);
 	}
 
 }
