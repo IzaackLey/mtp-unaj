@@ -944,34 +944,206 @@
 	<h3>List Interface</h3>
 	<p>La interface List se ocupa de índices y permite duplicados. Se usa para manejar el orden de elementos o objetos en una colección.<BR>
 	Las 3 implementaciones de List son:</p>
-	<ul>
-		<li>ArrayList: es una lista que crece dinámicamente. Da rápida iteración y rápido acceso aleatorio. Es una colección ordenada por índice. Elegir ArrayList sobre LinkedList cuando se quiere acceso rápido y no se va a hacer inserciones y supresiones constantemente.
-		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
-			public class ArrayListDemo {
-				public static void main(String[] args) {
-			        ArrayList<Persona> personas = new ArrayList<Persona>();
-			        personas.add(new Persona(1, "Mario"));
-			        personas.add(new Persona(2, "Fernando"));
-			        personas.add(new Persona(3, "Omar"));
-			        personas.add(new Persona(4, "Juana"));
-			        
-			        //usando indices
-			        for (int i=0;i<personas.size( );i++){
-			        	System.out.println(personas.get(i).getNombre()); 
-			        }
-			        
-			        //usando iterador
-					Iterator<Persona> iter = personas.iterator();
-					while(iter.hasNext()) {  
-						System.out.println(iter.next().getNombre()); 
-					}
-				}
+	<p><strong>ArrayList:</strong> es una lista que crece dinámicamente. Da rápida iteración y rápido acceso aleatorio. Es una colección ordenada por índice. Elegir ArrayList sobre LinkedList cuando se quiere acceso rápido y no se va a hacer inserciones y supresiones constantemente.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+	        ArrayList<Persona> personas = new ArrayList<Persona>();
+	        personas.add(new Persona(1, "Mario"));
+	        personas.add(new Persona(2, "Fernando"));
+	        personas.add(new Persona(3, "Omar"));
+	        personas.add(new Persona(4, "Juana"));
+	        
+	        //usando indices
+	        for (int i=0;i<personas.size( );i++){
+	        	System.out.println(personas.get(i).getNombre()); 
+	        }
+	        
+	        //usando iterador
+			Iterator<Persona> iter = personas.iterator();
+			while(iter.hasNext()) {  
+				System.out.println(iter.next().getNombre()); 
 			}
-		</script>	
-		</li>
-	</ul>	
+		}
+	</script>	
 </section>
 
+<section class="slide" id="coleciones5">
+	<h2>Coleciones</h2>
+	<h3>List Interface</h3>
+	<p><strong>Vector: </strong>un vector es básicamente lo mismo que un ArrayList, pero los métodos son synchronized para la seguridad de los hilios. Generalmente se usa arrayList sobre Vector porque los métodos synchronized tienen peor performance.<BR>
+	Vector puede contener objetos pero no datos primitivos</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+			Vector<Persona> personas = new Vector<Persona>();
+			personas.add(new Persona(1, "Mario"));
+			personas.add(new Persona(2, "Fernando"));
+			personas.add(new Persona(3, "Omar"));
+			personas.add(new Persona(4, "Juana"));
+			
+			//usando indices
+			for (int i=0;i<personas.size( );i++){
+				System.out.println(personas.elementAt(i).getNombre()); 
+			}
+			
+			//usando iterador
+			Iterator<Persona> iter = personas.iterator();
+			while(iter.hasNext()) {  
+				System.out.println(iter.next().getNombre()); 
+			}
+			
+			//
+			Enumeration<Persona> e=personas.elements();
+			while(e.hasMoreElements())
+			{
+				System.out.println(e.nextElement().getNombre());
+			}
+		}
+	</script>	
+</section>
+<section class="slide" id="coleciones6">
+	<h2>Coleciones</h2>
+	<h3>List Interface</h3>
+	<p><strong>LinkedList: </strong>es una lista ordenada por índice al igual que el arraylist, excepto que los elementos están doblemente enlazados entre ellos. Que estén enlazados da metodos extras a los de la interface List para agregar y remover elementos del principio o del final, lo que hace más fácil implementar una cola o una pila.<BR>
+	Hay que tener en cuenta que LinkedList itera más lento que ArrayList, pero es una buena opción cuando queremos rápida inserción y borrado.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+			LinkedList<Integer> link=new LinkedList<Integer>();
+			link.add(new Integer(12));
+	        link.add(new Integer(13));
+	        link.add(new Integer(14));
+	        link.add(2,new Integer(15));
+	        
+	        System.out.println("Primer elemento : "+link.element());
+	        System.out.println("The contents of array is " + link);
+	        
+	        for (int i=0;i<link.size( );i++){
+	            Integer elemento = link.get(i);
+	            int posicion = link.indexOf(elemento);
+	            System.out.println("posicion: "+posicion+", elemento: "+elemento);
+	        }
+	        
+	        link.addFirst(new Integer(1));
+	        link.addLast(new Integer(100));
+	        
+	        //usando iterador
+	        Iterator<Integer> iter = link.iterator();
+	        while(iter.hasNext()) {  
+
+	            Integer elemento = iter.next();
+	            int posicion = link.indexOf(elemento);
+	            System.out.println("posicion: "+posicion+", elemento: "+elemento);
+	        }
+	        
+	        link.remove(3);
+	        
+	        iter = link.iterator();
+	        while(iter.hasNext()) {  
+
+	            Integer elemento = iter.next();
+	            int posicion = link.indexOf(elemento);
+	            System.out.println("posicion: "+posicion+", elemento: "+elemento);
+	        }
+		}
+	</script>	
+</section>
+<section class="slide" id="coleciones7">
+	<h2>Coleciones</h2>
+	<h3>Set Interface</h3>
+	<p>Los Set se ocupan de que los elementos sean únicos, no permite duplicados</p>
+	<p><strong>HashSet:</strong> Un hashSet es un conjunto sin orden, sin posición. Usa el hashcode de un objeto insertado, entonces cuanto más eficiente el el hashCode mejor es la performance. Usar esta clase cuando se quiere una colección sin duplicados y no nos importa el orden cuando lo recorremos.<BR>
+	Cuando se itera un hastset el orden que se accede a los elementos es impredecible.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+			HashSet<Integer> set = new HashSet<Integer>();
+		    set.add(new Integer(6));
+		    set.add(new Integer(1));
+		    set.add(new Integer(4));
+
+		    Iterator<Integer> it=set.iterator();
+	        while(it.hasNext())
+	        {
+	            Integer value =it.next();
+	            System.out.println("Value :"+value);
+	        }
+	        // Remove element from hashSet :
+	        set.remove(new Integer(4));
+	        System.out.println(set);
+		}
+	</script>	
+</section>
+<section class="slide" id="coleciones8">
+	<h2>Coleciones</h2>
+	<h3>Set Interface</h3>
+	<p><strong>LinkedHashSet:</strong> Es una versión ordenada del HashSet que mantiene la doblemente enlazada con los elementos.<BR>
+	Usar esta clase en vez de HashSet cuando nos importa el orden de iteración.<BR>
+	Cuando se itera un LinkedHashSet los se accede a los elementos en el orden que fueron insertados</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+			LinkedHashSet<Integer> lnkHs = new LinkedHashSet<Integer>();  
+			lnkHs.add(new Integer(3));  
+			lnkHs.add(new Integer(5));  
+			lnkHs.add(new Integer(2));  
+			//este no se agrega
+			lnkHs.add(new Integer(3));  
+			
+			Iterator<Integer> iterator = lnkHs.iterator();  
+			while(iterator.hasNext())  
+			{  
+			    Integer number = iterator.next();  
+			    System.out.println(number.toString());  
+			}
+		}
+	</script>
+</section>
+<section class="slide" id="coleciones9">
+	<h2>Coleciones</h2>
+	<h3>Set Interface</h3>
+	<p><strong>TreeSet:</strong> El TreeSet es una de las dos colecciones ordenadas (la otra es el TreeMap).<BR>Garantiza que los elementos se van a acceder con el orden natural.<BR>
+	Para que un objeto sea comparable tiene que implementar la interface comparable.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+			TreeSet <Integer>tree = new TreeSet<Integer>();
+			tree.add(12);
+			tree.add(45);
+			tree.add(23);
+			tree.add(34);
+			Iterator<Integer> iterator = tree.iterator();
+			while (iterator.hasNext()){
+				System.out.print(iterator.next() + " ");
+			}
+		}
+	</script>
+</section>
+<section class="slide" id="coleciones10">
+	<h2>Coleciones</h2>
+	<h3>Interface Map</h3>
+	<p>Un Map se ocupa de los identificadores. Se mapean dos objetos uno como clave y el otro como valor, para después obtener el elemento por medio del valor clave, también permiten obtener solo la colección de claves o de valores.</p>
+	<p><strong>HashMap:</strong> El hashMap tiene elementos sin posición sin orden. Cuando se usa el Map no importa el orden cuando lo iteramos. Las claves del Map están basadas en el hashcode, entonces como el HashSet cuanto más eficiente sea la implementación del hashCode mejor será la performance. <BR>
+	Permite una clave nula y múltiples valores nulos en la colección.<BR>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+		// Create a hash map 
+		HashMap<String, Integer> hm = new HashMap<String, Integer>(); 
+		// Pongo los elementos en el HashMap
+		hm.put("Juan", new Integer(3434)); 
+		hm.put("Alberto", new Integer(123)); 
+		hm.put("Rodrigo", new Integer(1378)); 
+		hm.put("Santiago", new Integer(99)); 
+		// Tomo el conjunto de elementos
+		Set set = hm.entrySet(); 
+		Iterator i = set.iterator(); 
+		// Display elements 
+		while(i.hasNext()) { 
+			Map.Entry me = (Map.Entry)i.next(); 
+			System.out.println(me.getKey() + ": "+me.getValue()); 
+		}
+		// Deposito 1000 en la cuenta de Santiago
+		Integer balance = hm.get("Santiago"); 
+		hm.put("Santiago", new Integer(balance + 1000)); 
+		System.out.println("el nuevo balance de Santiago es: " + hm.get("Santiago")); 
+	}
+	</script>
+</section>
 <!----------------------------------------------------------------------------------------------->
 <!-- deck.navigation snippet -->
 <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>

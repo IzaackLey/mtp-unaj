@@ -5,10 +5,6 @@ import java.util.Iterator;
 import java.util.Vector;
 
 public class VectorDemo {
-
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		Vector<Persona> personas = new Vector<Persona>();
 		personas.add(new Persona(1, "Mario"));
@@ -34,5 +30,4 @@ public class VectorDemo {
 			System.out.println(e.nextElement().getNombre());
 		}
 	}
-
 }
