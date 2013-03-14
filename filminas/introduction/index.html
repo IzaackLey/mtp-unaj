@@ -1117,9 +1117,9 @@
 <section class="slide" id="coleciones10">
 	<h2>Coleciones</h2>
 	<h3>Interface Map</h3>
-	<p>Un Map se ocupa de los identificadores. Se mapean dos objetos uno como clave y el otro como valor, para después obtener el elemento por medio del valor clave, también permiten obtener solo la colección de claves o de valores.</p>
+	<p>Un Map se ocupa de los identificadores. Se mapean dos objetos, uno como clave y el otro como valor, para después obtener el elemento por medio del valor clave, también permiten obtener solo la colección de claves o de valores.</p>
 	<p><strong>HashMap:</strong> El hashMap tiene elementos sin posición sin orden. Cuando se usa el Map no importa el orden cuando lo iteramos. Las claves del Map están basadas en el hashcode, entonces como el HashSet cuanto más eficiente sea la implementación del hashCode mejor será la performance. <BR>
-	Permite una clave nula y múltiples valores nulos en la colección.<BR>
+	Permite una clave nula y múltiples valores nulos en la colección.</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		public static void main(String[] args) {
 		// Create a hash map 
@@ -1144,6 +1144,146 @@
 	}
 	</script>
 </section>
+
+<section class="slide" id="coleciones11">
+	<h2>Coleciones</h2>
+	<h3>Interface Map</h3>
+	<p><strong>Hashtable:</strong> HashTable es similar a HashMap con la diferencia que HashTable  es synchronized y tiene el costo de que un solo hilo puede accederlo además, esto hace que un HashTable sea más lento para iterar.<BR>
+	También como en HashMap se pueden agregar los mismos o diferentes valores para una clave pero se sobreescribe y solo guarda el último.<BR>
+	HashMap guarda solo objetos que sobreescriben los métodos hashcode() y equals() definidos en la clase Objets, afortunadamente muchos objetos vienen con esta implementación en el core como String, Integer, etc.<BR>
+	Es la misma relación entre Vector y ArrayList.<BR>
+	HashTable no permite claves o valores nulos.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+			Hashtable<Integer, String> edades = new Hashtable<Integer, String>();
+			edades.put(45, "Pedro");
+			edades.put(2, "Matias");
+			edades.put(18, "Javier");
+			
+			//set de claves
+			Set<Integer> set = edades.keySet();
+			
+			//recorro todo el hashTable, usando las claves para acceder a los Objetos
+			Integer edad;
+			Iterator<Integer> itr = set.iterator();
+			while (itr.hasNext()) {
+			  edad = itr.next();
+			  System.out.println(edad.toString() + ": " + edades.get(edad));
+			}
+			
+			//recorro los Objetos del hashTable
+			Enumeration e = edades.elements();
+		    while (e.hasMoreElements()) {
+		        String key = (String) e.nextElement();
+		        System.out.println("nombre: "+key.toString());
+		    }
+		    
+		    //creo un arrayList con los indices
+		    ArrayList<Integer> arr = new ArrayList<Integer>(edades.keySet());
+		    Collections.sort(arr); 
+		    //recibe list, osea segun el grafico se cual es list
+		    
+		    //los ordeno
+		    Iterator<Integer> itArr = arr.iterator();
+		    while (itArr.hasNext()){
+		    	edad = itArr.next();
+		    	System.out.println("edad: "+edad.toString()+", nombre: "+edades.get(edad));
+		    }
+		}
+	</script>
+</section>
+
+<section class="slide" id="coleciones12">
+	<h2>Coleciones</h2>
+	<h3>Interface Map</h3>
+	<p><strong>LinkedHashMap:</strong> LinkedHashMap va a iterar en el orden en que se hicieron las inserciones. Es más lento que el HashMap para agregar y remover elementos, pero las iteraciones van a ser rápidas usando LinkedHashMap.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+			// Create a hash map
+			LinkedHashMap<String, Double> lhm = new LinkedHashMap<String, Double>();
+			// Put elements to the map
+			lhm.put("Zara", new Double(3434.34));
+			lhm.put("Mahnaz", new Double(123.22));
+			lhm.put("Ayan", new Double(1378.00));
+			  
+			Set<Entry<String, Double>> set = lhm.entrySet();
+			Iterator<Entry<String, Double>> i = set.iterator();
+			while(i.hasNext()) {
+				Map.Entry<String, Double> me = (Map.Entry<String, Double>)i.next();
+				System.out.print(me.getKey() + ": ");
+				System.out.println(me.getValue());
+			}
+				
+			System.out.println("Zara's balance: " + lhm.get("Zara"));
+		}
+	</script>
+</section>
+<section class="slide" id="comparable">
+	<h2>Comparando objetos</h2>
+	<h3>Comparable</h3>
+	<p>Para que un objetos sea comprables tiene que implementar la interfaz comparable, en los ejemplos anteriores las colecciones podían ordenar los elementos porque las clases String, Integer implementan nativamente esta interfaz.<BR>
+	Pero cuando el objeto que queremos comparar es por ejemplo un objeto  persona que tiene varios atributos tenemos que definir uno por el que vamos a comparar, para esto tenemos que su clase debe implementar la interfaz java.lang.Comparable.<BR>
+	Una vez hecho esto por ejemplo podemos usar alguna de las colecciones ordenan los elementos como TreeMap, TreeSet</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface Comparable {
+			public int compareTo(Object o);
+		}
+	</script>
+
+	<p>El método compare() debe devolver lo siguiente:</p>
+	<table id ="table-comparator">
+	<thead>
+		<tr>
+			<th>Condición   </th>
+			<th>Valor que debe devolver</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td> o1 &lt; o2<br /></td>
+			<td> un número menor a cero<br /></td>
+		</tr>
+		<tr>
+			<td> o1 == o2<br /></td>
+			<td> cero</td>
+		</tr>
+		<tr>
+			<td> o1 &gt; o2<br /></td>
+			<td> un número mayor a cero<br /></td>
+		</tr>
+	</tbody>
+	</table>
+
+
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Persona implements Comparable{
+			public int idPersona;
+			public String nombre;
+			public java.util.Date fechaNacimiento;
+		    public static int cantidadPersonas=0;	
+		    
+		    public Persona(){
+		    	cantidadPersonas++;
+		    }
+
+		    public Persona(int idPersona, String nombre) {
+		        this.idPersona = idPersona;
+		        this.nombre = nombre;
+		        cantidadPersonas++;
+		    }
+
+			public int compareTo(Object o) {
+				return this.nombre.compareTo(((Persona)o).nombre);
+			}
+		    
+		    public String toString() {
+		        return String.format("persona{idPersona:%1s,nombre:%2s}", idPersona, nombre);
+		    }
+		}
+	</script>
+</section>
+
+
 <!----------------------------------------------------------------------------------------------->
 <!-- deck.navigation snippet -->
 <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>

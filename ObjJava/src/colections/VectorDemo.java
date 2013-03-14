@@ -14,20 +14,20 @@ public class VectorDemo {
 		
 		//usando indices
 		for (int i=0;i<personas.size( );i++){
-			System.out.println(personas.elementAt(i).getNombre()); 
+			System.out.println(personas.elementAt(i).nombre); 
 		}
 		
 		//usando iterador
 		Iterator<Persona> iter = personas.iterator();
 		while(iter.hasNext()) {  
-			System.out.println(iter.next().getNombre()); 
+			System.out.println(iter.next().nombre); 
 		}
 		
 		//
 		Enumeration<Persona> e=personas.elements();
 		while(e.hasMoreElements())
 		{
-			System.out.println(e.nextElement().getNombre());
+			System.out.println(e.nextElement().nombre);
 		}
 	}
 }

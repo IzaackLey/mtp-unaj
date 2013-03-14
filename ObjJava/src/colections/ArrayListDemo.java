@@ -13,13 +13,13 @@ public class ArrayListDemo {
         
         //usando indices
         for (int i=0;i<personas.size( );i++){
-        	System.out.println(personas.get(i).getNombre()); 
+        	System.out.println(personas.get(i).nombre); 
         }
         
         //usando iterador
 		Iterator<Persona> iter = personas.iterator();
 		while(iter.hasNext()) {  
-			System.out.println(iter.next().getNombre()); 
+			System.out.println(iter.next().nombre); 
 		}
 	}
 }
