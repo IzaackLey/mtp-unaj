@@ -1221,40 +1221,19 @@
 <section class="slide" id="comparable">
 	<h2>Comparando objetos</h2>
 	<h3>Comparable</h3>
-	<p>Para que un objetos sea comprables tiene que implementar la interfaz comparable, en los ejemplos anteriores las colecciones podían ordenar los elementos porque las clases String, Integer implementan nativamente esta interfaz.<BR>
-	Pero cuando el objeto que queremos comparar es por ejemplo un objeto  persona que tiene varios atributos tenemos que definir uno por el que vamos a comparar, para esto tenemos que su clase debe implementar la interfaz java.lang.Comparable.<BR>
-	Una vez hecho esto por ejemplo podemos usar alguna de las colecciones ordenan los elementos como TreeMap, TreeSet</p>
+	<ul>
+		<li>Para que un objetos sea comprables tiene que implementar la interfaz comparable</li>
+		<li>En los ejemplos anteriores las colecciones podían ordenar los elementos porque las clases String, Integer , etc, que implementan nativamente esta interfaz.</li>
+		<li>Pero cuando el objeto que queremos comparar es por ejemplo un objeto  persona que tiene varios atributos tenemos que definir uno por el que vamos a comparar, para esto tenemos que su clase debe implementar la interfaz java.lang.Comparable.</li>
+		<li>El hecho de implementar esta interfaz nos obliga a implementar el metodo compareTo().</li>
+	</ul>
+	<p>Definición de la interface</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		public interface Comparable {
 			public int compareTo(Object o);
 		}
 	</script>
-
-	<p>El método compare() debe devolver lo siguiente:</p>
-	<table id ="table-comparator">
-	<thead>
-		<tr>
-			<th>Condición   </th>
-			<th>Valor que debe devolver</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td> o1 &lt; o2<br /></td>
-			<td> un número menor a cero<br /></td>
-		</tr>
-		<tr>
-			<td> o1 == o2<br /></td>
-			<td> cero</td>
-		</tr>
-		<tr>
-			<td> o1 &gt; o2<br /></td>
-			<td> un número mayor a cero<br /></td>
-		</tr>
-	</tbody>
-	</table>
-
-
+	<p>Implementación de la interface</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		public class Persona implements Comparable{
 			public int idPersona;
@@ -1277,12 +1256,74 @@
 			}
 		    
 		    public String toString() {
-		        return String.format("persona{idPersona:%1s,nombre:%2s}", idPersona, nombre);
+		        return String.format("persona{idPersona:%1s,nombre:%2s}", 
+		        	idPersona, nombre);
 		    }
 		}
 	</script>
+	<p>El método compare() debe devolver lo siguiente:</p>
+	<!--table id ="table-comparator">
+	<thead>
+		<tr>
+			<th>Condición   </th>
+			<th>Valor que debe devolver</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td> o1 &lt; o2<br /></td>
+			<td> un número menor a cero<br /></td>
+		</tr>
+		<tr>
+			<td> o1 == o2<br /></td>
+			<td> cero</td>
+		</tr>
+		<tr>
+			<td> o1 &gt; o2<br /></td>
+			<td> un número mayor a cero<br /></td>
+		</tr>
+	</tbody>
+	</table-->
+	<img src="comprable-result.png" align="left">
 </section>
 
+<section class="slide" id="comparator">
+	<h2>Comparando objetos</h2>
+	<h3>Comparator</h3>	
+	<ul>
+		<li>Comprator a diferencia de comparator puede cambiar el ordenamiento que le da Comparable.</li>
+		<li>Coparator obliga a implementar el método compare (obj1, obj2) de forma que los dos objetos a comparar son pasados como parámetros y el objeto que implementa el método compare simplemente sirve de apoyo a la comparación.</li>
+		<li>Comparator puede hacer ayudar a ordenar un objeto con un criterio distinto al especificado en el método compareTo() de comparable.</li>
+	</ul>
+	<p>Definición de la interface</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface Comparator {
+			public int compare(Object o1, Object o2);
+		}
+	</script>
+	<p>Implementación de la interface</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class OrdenarPersonaPorId implements Comparator<Persona>{
+			public int compare(Persona o1, Persona o2) {
+		        return o1.idPersona - o2.idPersona;
+		    }
+		}
+	</script>
+
+
+</section>
+
+<section class="slide" id="comparable_comparator_use">
+	<h2>Comparando objetos</h2>
+	<h3>Uso de Comparable y Comparator</h3>
+	<p>Podemos usarlos en listas y arrays mediante los métodos Collections.sort y Arrays.sort.<BR>
+	También como claves en un mapa ordenado TreeMap o como elementos en un set ordenado TreeSet.<BR>
+	En el caso de Comparable los objetos tienen que implementar esta interfaz para que los ordene automáticamente. Para el caso del Comparator debemos especificar el Comparator.
+	</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		
+	</script>
+</section>
 
 <!----------------------------------------------------------------------------------------------->
 <!-- deck.navigation snippet -->
