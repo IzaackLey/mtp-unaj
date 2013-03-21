@@ -1318,13 +1318,120 @@
 	<h3>Uso de Comparable y Comparator</h3>
 	<p>Podemos usarlos en listas y arrays mediante los métodos Collections.sort y Arrays.sort.<BR>
 	También como claves en un mapa ordenado TreeMap o como elementos en un set ordenado TreeSet.<BR>
-	En el caso de Comparable los objetos tienen que implementar esta interfaz para que los ordene automáticamente. Para el caso del Comparator debemos especificar el Comparator.
-	</p>
+	En el caso de Comparable los objetos tienen que implementar esta interfaz para que los ordene automáticamente.<BR>
+	Para el caso del Comparator debemos especificar el Comparator.</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
-		
+		public static void main(String[] args) {
+	
+			ArrayList<String> nombres=new ArrayList<String>();
+			nombres.add("Carlos");
+			nombres.add("Martin");
+			nombres.add("Juan");
+			nombres.add("Fernado");
+			System.out.println("lista original:"+nombres);
+			
+			Collections.sort(nombres);
+			System.out.println("conjunto ordenado Strings por orden afabetico: "+nombres);
+			//String es comparable nativamente
+			
+			Persona persona1 = new Persona(1, "Mario");
+			Persona persona2 = new Persona(2, "Fernando");
+			//personas es comparable porque implementa comparable
+			if (persona1.compareTo(persona2)<0)
+				System.out.printf("%s esta antes alfabeticamente que %s \r\n", 
+					persona1.nombre, persona2.nombre);
+			else
+				System.out.printf("%s esta antes alfabeticamente que %s \r\n", 
+					persona2.nombre, persona1.nombre);
+			
+			Persona persona3 = new Persona(3, "Omar");
+			Persona persona4 = new Persona(4, "Juana");
+			
+	        ArrayList<Persona> ArrLstpersonas = new ArrayList<Persona>();
+	        ArrLstpersonas.add(persona1);
+	        ArrLstpersonas.add(persona2);
+	        ArrLstpersonas.add(persona3);
+	        ArrLstpersonas.add(persona4);
+	        Collections.sort(ArrLstpersonas);
+	        System.out.println("conjunto ordenado de personas nombre: "+ArrLstpersonas);
+			
+	        Collections.sort(ArrLstpersonas, new OrdenarPersonaPorId());
+	        System.out.println("conjunto ordenado de personas id: "+ArrLstpersonas);
+	        
+	        System.out.println("catidad personas instanciadas "+Persona.cantidadPersonas);
+	    }
 	</script>
 </section>
 
+<section class="slide" id="equals_hashCode">
+	<h2>Comparación</h2>
+	<h3>Método equals</h3>
+	<p>La comparación entre objetos Java se realiza con el operador == y el método equals().<BR>
+	La clase java.lang.Object define un método equals por defecto que utiliza la igualdad de referencia. Si queremos implementar la igualdad de contenidos en los objetos de nuestras clases, hay que sobreescribir este método.<BR>
+	Nativamente equals() compara las identidades de los objetos, osea si devuelve true es porque los dos atributos comparados referencian al mismo objeto.</p>
+
+	<h3>Método HashCode</h3>
+	<p>El método hashCode también se define en la superclase Object y devuelve un int que define la clave hash de un objeto. Debe ser compatible con equals (si equals devuelve true, hashCode debe devolver el mismo int para dos objetos).
+	También podemos sobreescribir el método</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Employee {
+		    int        employeeId;
+		    String     name;
+		    Department dept;
+		 
+		    public int hashCode() {
+		        int hash = 1;
+		        hash = hash * 17 + employeeId;
+		        hash = hash * 31 + name.hashCode();
+		        hash = hash * 13 + (dept == null ? 0 : dept.hashCode());
+		        return hash;
+		    }
+		}
+	</script>
+</section>
+
+
+<section class="slide" id="instanceOf">
+	<h2>Otros Métodos</h2>
+	<h3>El operador instanceOf</h3>
+	<p>El operador instanceOf se usa para hacer el downcast, osea un objeto en el que el atributo que lo referencia es de un supertipo pierde la funcionalidad específica del subtipo.<BR>
+	Con el operador instanceOf se puede verificar el subtipo que fue instanciado en tiempo de ejecución y hacer un casting para poder usar la funcionalidad específica del subtipo, cosa que se pierde cuando se el atributo está declarado como de una clase padre de la jerarquía.</p>
+
+	<h3>Método HashCode</h3>
+	<p>El método hashCode también se define en la superclase Object y devuelve un int que define la clave hash de un objeto. Debe ser compatible con equals (si equals devuelve true, hashCode debe devolver el mismo int para dos objetos).
+	También podemos sobreescribir el método</p>
+	<p>En resumen sirve para:</p>
+	<ul>
+		<li>Utiliza instanceof para verificar el tipo de objeto.</li>
+		<li>Restablecer la funcionalidad total de un objeto mediante una conversión</li>
+	</ul>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+			FiguraGeometrica figuraGeometrica;
+			
+			if (ClaseAbstracta.opcion==0){
+				figuraGeometrica = new Circulo(10);//downcasting
+			}else if (ClaseAbstracta.opcion==1){
+				figuraGeometrica = new Cuadrado(10);//downcasting
+			}else{
+				figuraGeometrica = new Triangulo(6,6,6);//downcasting
+			}
+			
+			Double perimetro = 0.0;
+			if (figuraGeometrica instanceof Triangulo) {
+				Triangulo triangulo  = (Triangulo) figuraGeometrica;//upcasting
+				perimetro = Calculador.getPerimetro(triangulo);
+			}else if (figuraGeometrica instanceof Cuadrado){
+				Cuadrado cuadrado = (Cuadrado) figuraGeometrica;//upcasting
+				perimetro = Calculador.getPerimetro(cuadrado);
+			}else if (figuraGeometrica instanceof Circulo){
+				Circulo circulo = (Circulo) figuraGeometrica;//upcasting
+				perimetro = Calculador.getPerimetro(circulo);
+			}
+			System.out.println("el perimetro es " + perimetro.toString());
+		}
+	</script>
+</section>
 <!----------------------------------------------------------------------------------------------->
 <!-- deck.navigation snippet -->
 <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>

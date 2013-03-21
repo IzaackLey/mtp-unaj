@@ -38,6 +38,7 @@ public class Ventana extends QWidget{
 	   
 	   private void okPressed(){
 		   String perimetro = "";
+		   
 		   switch (cmb.currentIndex()) {
 		case 0:
 			figuraGeometrica = new Circulo(10);
@@ -57,6 +58,20 @@ public class Ventana extends QWidget{
 			break;
 		
 		}
+		Double perimetroDbl=0.0;   
+		if (figuraGeometrica instanceof Triangulo) {
+			Triangulo triangulo  = (Triangulo) figuraGeometrica;
+			perimetroDbl = Calculador.getPerimetro(triangulo);
+		}else if (figuraGeometrica instanceof Cuadrado){
+			Cuadrado cuadrado = (Cuadrado) figuraGeometrica;
+			perimetroDbl = Calculador.getPerimetro(cuadrado);
+		}else if (figuraGeometrica instanceof Circulo){
+			Circulo circulo = (Circulo) figuraGeometrica;
+			perimetroDbl = Calculador.getPerimetro(circulo);
+		}
+		
+		System.out.println("el perimetro es " + perimetro);
+		System.out.println("el perimetro es " + perimetroDbl.toString());
 		textEdit.setText(String.valueOf("el area de "+figuraGeometrica.getNombre()+" "+figuraGeometrica.getArea())+" y el perimetro es "+perimetro);
 		//((Triangulo)figuraGeometrica).	
 	   }
