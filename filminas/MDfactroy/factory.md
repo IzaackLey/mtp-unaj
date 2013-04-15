@@ -4,6 +4,7 @@ Estructura de presentacion de patrones
 
 Estructura
 ------------
+
 ![factoryMethod.png](/home/pablo/workspace/filminas/MDfactroy/factoryMethod.png "")
 
 Problema

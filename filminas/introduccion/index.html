@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>Metodologías de Programacion I</title>
+	
+	<meta name="description" content="A jQuery library for modern HTML presentations">
+	<meta name="author" content="Caleb Troughton">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	
+	<!-- Core and extension CSS files -->
+	<link rel="stylesheet" href="../core/deck.core.css">
+	<link rel="stylesheet" href="../extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="../extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="../extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="../extensions/status/deck.status.css">
+	<link rel="stylesheet" href="../extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="../extensions/scale/deck.scale.css">
+	
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="../themes/style/swiss.css">
+	
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="../themes/transition/horizontal-slide.css">
+	
+	<script src="../modernizr.custom.js"></script>
+	
+
+    <!-- SintaxHighlighter -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SyntaxHighlighter Large File Demo</title>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/XRegExp.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shCore.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushJava.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushPython.js"></script>
+	<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shCoreEclipse.css"/>
+	<!--link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shThemeEclipse.css"/-->
+	
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	
+	
+</head>
+
+<body class="deck-container">
+
+<!-- Begin slides -->
+<section class="slide" id="patrones">
+	
+	<h1>Patrones de diseño</h1>
+	
+</section>
+
+<section class="slide" id="patrones2">
+	<h2>Patrones</h2>
+	<h3>Introducción</h3>
+	<ul>
+		<li>
+			“Diseñar software orientado a objetos es difícil pero diseñar software orientado a objetos reutilizable es más difícil todavía. Diseños generales y flexibles son muy difíciles de encontrar la primera vez”
+		</li>
+		<li>
+			¿Qué conoce un programador experto que desconoce uno inexperto?	<BR/>
+			Reutilizar soluciones que funcionaron en el pasado: Aprovechar la experiencia.
+
+		</li>
+	</ul>
+	<h3>Definición</h3>
+	<ul>
+		<li>
+			Definición(Alexander, arquitecto/urbanista) : Cada patrón describe un problema que ocurre una y otra vez en nuestro entorno y describe también el núcleo de la solución al problema, de forma que puede utilizarse un millón de veces sin tener que hacer dos veces lo mismo.
+		</li>
+		<li>
+			Definición (Gamma): Un patrón de diseño es una descripción de clases y objetos comunicándose entre sí adaptada para resolver un problema de diseño general en un contexto particular.
+		</li>
+	</ul>
+	
+</section>
+
+<section class="slide" id="patrones3">
+	<h2>Patrones</h2>
+	<h3>¿A qué ayudan los patrones?</h3>
+	<ul>
+		<li>
+			Los patrones permiten capturar la experiencia, tratando de aplicar alguna solución aplicada en el pasado exitosamente.
+		</li>
+		<li>
+			Busca ayudar a la comunidad de desarrolladores de software a resolver problemas comunes, creando un cuerpo literario de base, osea tener un lenguaje común para comunicar ideas y experiencia acerca de los problemas y sus soluciones.
+		</li>
+		<li>
+			El uso de patrones ayuda a obtener un software de calidad (reutilización y extensibilidad).
+		</li>
+		<li>
+			La clave para la reutilización es anticiparse a los nuevos requisitos y cambios, de modo que los sistemas evolucionen de forma adecuada.
+		</li>
+		<li>
+			Cada patrón permite que algunos aspectos de la estructura del sistema puedan cambiar de forma independiente a otros aspecto.
+		</li>
+		<li>Facilitan reuso interno, extensibilidad y mantenimiento.</li>
+
+	</ul>
+</section>
+
+
+<section class="slide" id="objetos">
+	
+	<h1>Repaso de Objetos</h1>
+	
+</section>
+
+<section class="slide" id="objects-clase">
+	<h2>Conceptos fundamentales</h2>
+	<ul>
+		<li>
+			<h4>Clase</h4>
+			<p>Definiciones de las propiedades y comportamiento de un tipo de objeto concreto.<BR/>
+			La instanciación es la lectura de estas definiciones y la creación de un objeto a partir de ellas.</p>
+		</li>
+		<li>
+			<h4>Objeto</h4>
+			<p>Entidad provista de un conjunto de propiedades o atributos (datos) y de comportamiento o funcionalidad (métodos), los mismos que consecuentemente reaccionan a eventos. <BR/>
+			Se corresponden con los objetos reales del mundo que nos rodea, o con objetos internos del sistema (del programa).<BR/> Es una instancia a una clase.</p>
+		</li>
+		<li>
+			<h4>Propiedad o atributo</h4>
+			<p>Contenedor de un tipo de datos asociados a un objeto (o a una clase de objetos), que hace los datos visibles desde fuera del objeto y esto se define como sus características predeterminadas, y cuyo valor puede ser alterado por la ejecución de algún método.</p>
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="objects-metodo">
+	<h2>Conceptos fundamentales</h2>
+	<ul>
+		<li>
+			<h4>Método</h4>
+			<p>Algoritmo asociado a un objeto (o a una clase de objetos), cuya ejecución se desencadena tras la recepción de un "mensaje". Desde el punto de vista del comportamiento, es lo que el objeto puede hacer. Un método puede producir un cambio en las propiedades del objeto, o la generación de un "evento" con un nuevo mensaje para otro objeto del sistema.</p>
+		</li>
+		<li>
+			<h4>Identidad</h4>
+			<p>La identidad es la propiedad que permite a un objeto diferenciarse de otros. Generalmente esta propiedad es tal, que da nombre al objeto.
+			En programación la identidad de los objetos sirve para comparar si dos objetos son iguales o no. No es raro encontrar que en muchos lenguajes de programación la identidad de un objeto esté determinada por la dirección de memoria de la computadora en la que se encuentra el objeto, pero este comportamiento puede ser variado redefiniendo la identidad del objeto a otra propiedad.</p>
+		</li>
+		<li>
+			<h4>Mensaje</h4>
+			<p>Una comunicación dirigida a un objeto, que le ordena que ejecute uno de sus métodos con ciertos parámetros asociados al evento que lo generó.</p>
+		</li>
+	</ul>
+</section>	
+
+<section class="slide" id="objects-comportamiento">
+	<h2>Conceptos fundamentales</h2>
+	<ul>
+		<li>
+			<h4>Comportamiento</h4>
+			<p>Una comunicación dirigida a un objeto, que le ordena que ejecute uno de sus métodos con ciertos parámetros asociados al evento que lo generó.</p>
+		</li>
+		<li>
+			<h4>Estado</h4>
+			<p>El comportamiento de un objeto está directamente relacionado con su funcionalidad y determina las operaciones que este puede realizar o a las que puede responder ante mensajes enviados por otros objetos. La funcionalidad de un objeto está determinada, primariamente, por su responsabilidad. Una de las ventajas fundamentales de la POO es la reusabilidad del código; un objeto es más fácil de reutilizarse en tanto su responsabilidad sea mejor definida y más concreta.</p>
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="relaciones-asociacion">
+	<h2>Conceptos fundamentales</h2>
+	<h3>Relaciones</h3>
+	<p>Es posible crear objetos de diferentes clases y establecer una relación entre ellos. Cuando los objetos son relacionados es posible acceder a los miembros de un objeto desde otro objeto.
+	Esto supone una ventaja cuando un objeto debe comenzar el procesamiento de información justo en donde otro objeto habría terminado el procesamiento.
+	Adicionalmente nos permite pasar información de un objeto a otro y de ahí a otro objeto de forma encadenada.<BR/>
+	Formas de realizar la relación entre objetos:</p>
+	<h4>Asociacion</h4>
+	<ul>
+		<li>
+			hacer una referencia de una clase dentro de otra.
+			Al menos un atributo de la clase B es una referencia a la clase A.
+		</li>
+		<li>
+			No es una relación fuerte, es decir, el tiempo de vida de un objeto no depende del otro, es decir La creación de B no implica la creación de A.
+				Es una relación duradera
+		</li>
+		<li>
+			Es una relación duradera
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="relaciones-asociacion2">
+	<h2>Conceptos fundamentales</h2>
+	<h3>Relaciones</h3>
+	<h4>Asociacion</h4>
+	<ul>
+		<li>
+			Normalmente la conexión entre los objetos se realiza recibiendo la referencia de uno de ellos en el constructor u otro método.
+		</li>
+		<li>
+			Si la relación tiene cardinalidad superior a uno hay que usar un array o una estructura de datos dinámica.
+		</li>
+		<li>
+			La clase B usa a la clase A.
+		</li>
+		<li>
+			La asociación se podría definir como el momento en que dos objetos se unen para trabajar juntos y así, alcanzar una meta.
+		</li>
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			public class Customer {
+
+		    private int id;
+		    private String firstName;
+		    private String lastName;
+		    private CreditCard creditCard;
+
+		    public Customer() {
+		    }
+		    public void setCreditCard(CreditCard creditCard) {
+		        this.creditCard = creditCard;
+		    }
+		    public void creditCardPay(double amount){
+		        if (creditCard != null){
+		           creditCard.pay(amount) 
+		        }
+		        else{
+					System.out.println('no credit card available');
+		        }
+			}
+		</script>
+	
+		<li>
+			Customer es independiente de CreditCard, puesto que el cliente puede existir sin necesidad de tener asignada una tarjeta de crédito.
+		</li>
+		<li>
+			la creación de creditCard se hace afuera de la clase, puede seguir existiendo la creditCard, sin que exista el cliente.
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="relaciones-uso">
+	<h2>Conceptos fundamentales</h2>
+	<h3>Relaciones</h3>
+	<h4>Dependencia o Instanciación (uso)</h4>
+
+	<ul>
+		<li>
+			Un objeto usa (conoce) a otro cuando puede enviarle mensajes, por ejemplo, para requerir de éste algún servicio. 
+		</li>
+		<li>
+			La clase B necesita de un objeto de la clase A para llevar a caba una funcionalidad.
+		</li>
+		<li>
+			En un método de b se crea un objeto auxiliar de A o en un método de B aparece A como argumento.
+		</li>
+		<li>
+			La durabilidad es temporal.
+		</li>
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			perimetro = new Calculador().calcularPerimetro(triangulo);
+		</script>
+	</ul>
+</section>
+
+<section class="slide" id="relaciones-composicion">
+	<h2>Conceptos fundamentales</h2>
+	<h3>Relaciones</h3>
+	<h4>Composición</h4>
+
+	<ul>
+		<li>
+			La composición es una relación más fuerte que en asociación, y consiste en que la composición también controla los ciclos de vida de los objetos relacionados. 
+		</li>
+		<li>
+			La Clase todo controla las clase parte, al crear el objeto se crean las partes y al finalizarlos se destruyen todas las partes.
+
+		</li>
+		<li>
+			Es una relación muy duradera.
+		</li>
+		<li>
+			No hay una implementación especial para este tipo de relaciones, se tratan como asociaciones ordinarias, exepto que el hecho de ser creadas las relaciones al momento de la creacion del objeto que contiene a los otros.
+			En java el que se encarga de la destrucción de los objetos es el garbaje collector.	
+		</li>
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			public class Humano {
+				private Cerebro cerebro;
+				private Corazón corazon;
+				public Humano(){
+					this.cerebro = new Cerebro();
+					this.corazon = new Corazon();
+				}
+			}
+
+		</script>
+		<li>
+			Relación de composición entre humano y cerebro, muy duradera mientras exista el objeto compuesto existe el otro.
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="relaciones-diferencia">
+	<h2>Conceptos fundamentales</h2>
+	<h3>Relaciones</h3>
+	<h4>Diferencia entre asociación y composición</h4>
+
+	<ul>
+		<li>
+			La diferencia con la asociación es que en la composición hacemos en algún momento la construcción de los objetos compuestos, la creación de cerebro y corazón se hace en el constructor.
+		</li>
+		<li>
+			Los objetos que componen a la clase contenedora, deben existir desde el principio.
+		</li>
+		<li>
+			No hay momento en que la clase contenedora pueda existir sin alguno de sus objetos componentes. Por lo que la existencia de estos objetos no debe ser abiertamente manipulada desde el exterior de la clase.
+
+		</li>
+		<li>
+			Tanto la asociación como la composición se pueden entender con la frase “tiene un”
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="relaciones-herencia">
+	<h2>Conceptos fundamentales</h2>
+	<h3>Relaciones</h3>
+	<h4>Herencia</h4>
+
+	<ul>
+		<li>
+			Los objetos heredan las propiedades y el comportamiento de todas las clases a las que pertenecen. 
+		</li>
+		<li>
+			La herencia organiza y facilita el polimorfismo y el encapsulamiento, permitiendo a los objetos ser definidos y creados como tipos especializados de objetos preexistentes. Estos pueden compartir (y extender) su comportamiento sin tener que volver a implementarlo.
+		</li>
+		<li>
+			Esto suele hacerse habitualmente agrupando los objetos en clases y estas en árboles o enrejados que reflejan un comportamiento común. Cuando un objeto hereda de más de una clase se dice que hay herencia múltiple.
+		</li>
+		<li>
+			La herencia se puede entender como es <strong>“es un”</strong>
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				public class Cuadrado extends FiguraGeometrica{
+					public double lado; 	
+						
+					public Cuadrado(double lado){
+						super("Cuadrado");
+						this.lado = lado;
+					}
+
+					public double getArea() {
+						return Math.sqrt(this.lado);
+					}
+				}
+			</script>
+			<img src="herencia-figuras-geometricas.png"/>
+		</li>	
+		<li>
+			la clase Cuadrado <strong>"es una"</strong> figura geométrica.
+		</li>
+	</ul>
+</section>
+
+
+<section class="slide" id="delegacion-polimorfismo">
+	<h2>Conceptos fundamentales</h2>
+	<h3>Delegación</h3>
+	<ul>
+		<li>
+			En ocasiones, para lograr flexibilidad de diseño, un objeto es implementado de forma tal que este delegue parte de su funcionalidad en otro objeto. 
+		</li>
+		<li>
+			Esto es muy común en aplicaciones que hacen uso de interfaces gráficas de usuario, en las que los controles gráficos generales delegan la acción que se ejecutará ante determinado estímulo en otro objeto.
+		</li>	
+	</ul>
+	<h3>Polimorfismo</h3>
+	<ul>
+		<li>
+			Se refiere a la habilidad de objetos de distintas clases de responder al mismo mensaje. 
+		</li>
+		<li>
+			Esto se puede conseguir a través de la herencia: un objeto de una clase derivada es al mismo tiempo un objeto de la clase padre, de forma que allí donde se requiere un objeto de la clase padre también se puede utilizar uno de la clase hija.
+		</li>	
+	</ul>
+</section>
+
+<section class="slide" id="polimorfismo2">
+	<h2>Conceptos fundamentales</h2>
+	<h3>Polimorfismo</h3>
+	<ul>
+		<li>
+			<strong>Upcasting:</strong> un atributo que es declarado como uno de una clase padre dentro de una jerarquía de clases va a responder a todos los métodos del padre aunque no se sepa que tipo concreto va a instanciar.
+		</li>
+		<li>
+			Aca si bien es una asignación polimórfica se esta decidiendo en tiempo de compilación
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				FiguraGeometrica figuraGeometrica1 = new Triangulo();
+			</script>
+		</li>
+		<li>
+			Se decide en tiempo de ejecución cual es la clase hija que va a ser instanciar.<BR/>
+			No se si figura geométrica va a ser un Triángulo o un Cuadrado hasta que no ejecute el programa.
+			
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			FiguraGeometrica figuraGeometrica;
+			if (opcion==1){
+				figuraGeometrica = new Triangulo();
+			} 
+			else if (opcion==1){
+				figuraGeometrica = new Cuadrado();
+			}
+			</script>
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="polimorfismo3">
+	<h2>Conceptos fundamentales</h2>
+	<h3>Polimorfismo</h3>
+	<ul>
+		<li>
+			<strong>Downcasting:</strong> un atributo está declarado como una clase padre dentro de una jerarquía pero le específico que hijo esta instanciado.<BR/>
+			Nos movemos en sentido descendente en una jerarquía y en java se especifica el tipo entre paréntesis.
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				dobule lado = ((Triangulo)figuraGeometrica1).lado1;
+			</script>
+		</li>
+		<li>
+			Una vez hecho el casteo se puede acceder a los métodos o atributos propios de la clase hija.
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="polimorfismo4">
+	<h2>Conceptos fundamentales</h2>
+	<h3>Polimorfismo</h3>
+	<ul>
+		<li>
+			En ocasiones también se utiliza el término polimorfismo para referirse a la sobrecarga de métodos, término que se define como la capacidad del lenguaje de determinar qué método ejecutar de entre varios métodos con igual nombre según el tipo o número de los parámetros que se le pasa. 
+		</li>
+
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			public class Calculador {
+				public static double getPerimetro(Circulo circulo){
+					return 2*circulo.radio*Math.PI;
+				}
+				public static double getPerimetro(Cuadrado cuadrado){
+					return 4*cuadrado.lado;
+				}
+				public static double getPerimetro(Triangulo triangulo){
+					return triangulo.lado1+triangulo.lado2+triangulo.lado3;
+				}
+			}
+		</script>
+		<li>
+			Los métodos se llaman exactamente igual pero se va a ejecutar el código de acuerdo a la clase del objeto que use al momento de la invocación.
+		</li>
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			figuraGeometrica = new Triangulo(6,6,6);	
+			double perimetro =Calculador.getPerimetro((Triangulo)figuraGeometrica);
+		</script>	
+	</ul>
+</section>
+
+<section class="slide" id="polimorfismo5">
+	<h2>Conceptos fundamentales</h2>
+	<h3>Polimorfismo</h3>
+	<ul>
+		<li>
+			Aclaración: En Python no existe sobrecarga de métodos (el último método sobre escribiría la implementación de los anteriores).
+		</li>	
+		<li>
+			Python, al ser de tipado dinámico no impone restricciones a los tipos que se le pueden pasar a una función, por ejemplo, más allá de que el objeto se comporte como se espera: si se va a llamar a un método f del objeto pasado como parámetro, por ejemplo, evidentemente el objeto tendrá que contar con ese método. Por ese motivo, a diferencia de lenguajes de tipado estático como Java o C++, el polimorfismo en Python no es de gran importancia.
+		</li>		
+	</ul>
+</section>
+
+<section class="slide" id="java">
+	<h2>Características del lenguaje java</h2>
+	<ul>
+		<li>
+			Fuertemente Tipado
+		</li>
+		<li>
+			Herencia simple
+		</li>
+		<li>
+			Recolector de basura
+		</li>
+		<li>
+			No es puro orientado a objetos
+		</li>
+		<li>
+			Interpretado y compilado a la vez
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="java-tipado">
+	<h2>Tipado estático</h2>
+	<ul>
+		<li>
+			<strong>Fuertemente Tipado o Tipado estático</strong> Se dice de un lenguaje de programación que usa un tipado estático cuando el chequeo de tipificación se realiza durante el tiempo de compilación, opuesto al de ejecución.<BR/> 
+			Ejemplos de lenguajes que usan tipado estático son C, C++, Java.<BR/>
+			Comparado con el tipado dinámico, el estático permite que los errores de programación sean detectados antes, y que la ejecución del programa sea más eficiente.
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				String algo = “hola”;
+			</script>
+		</li>
+		<li>
+			<strong>Tipado dinámico:</strong> Se dice de un lenguaje de programación que usa un tipado dinámico cuando el chequeo de tipificación se realiza durante el tiempo de ejecución, opuesto al de compilación. <BR/>
+			Ejemplos de lenguajes que usan tipado dinámico son Perl, Python y Lisp. <BR/>
+			Comparado con el tipado estático, o sistema de enlazado temprano, el tipado dinámico es más flexible, a pesar de ejecutarse más lentamente y más propensos a contener errores de programación.
+			<script type="syntaxhighlighter" class="brush: python; toolbar: false;">
+				algo = ‘hola’
+				algo = 3
+			</script>
+		</li>	
+	</ul>
+</section>
+
+<section class="slide" id="herencia-simple">
+	<h2>Herencia simple</h2>
+	<p><stromg>Herencia simple:</strong> una clase sólo puede heredar comportamientos y características de una sola superclase, es decir clase puede tener un solo padre.</p>
+
+	<img src="herencia-figuras-geometricas.png"/>
+	<script type="syntaxhighlighter" class="brush: python; toolbar: false;">
+		public class Cuadrado extends FiguraGeometrica{
+			public double lado; 	
+				
+			public Cuadrado(double lado){
+				super("Cuadrado");
+				this.lado = lado;
+			}
+
+			public double getArea() {
+				return Math.sqrt(this.lado);
+			}
+		}
+	</script>
+</section>
+
+<section class="slide" id="herencia-multiple">
+	<h2>Herencia simple</h2>
+	<ul>
+		<li>
+			<stromg>Herencia multiple:</strong> la herencia múltiple en contraste una clase puede heredar comportamientos y características de más de una superclase.
+			</p>
+			<img src="herencia-multiple.gif"/>
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="recolector-basura">
+	<h2>Recolección de basura</h2>
+	<ul>
+		<li>
+			El espacio de memoria se va llenando con diferentes "objetos" , también pueden destruirse algunos de ellos, dejando "huecos" en el espacio de memoria. <BR/>
+			Cuando ya no queda espacio disponible, o cuando lo decide la rutina de recolección de basura, la memoria es "compactada", colocando todos los "objetos" que se están usando al principio, y consolidando todos los "huecos" de memoria al final, quedando así una gran área de memoria disponible para la futura creación de objetos.
+		</li>
+		<li>
+			<strong>ventajas y desventajas</strong>
+			<ul>
+				<li>
+					El programador no puede cometer errores y queda liberado de la tediosa tarea de gestionar la memoria.
+				</li>
+				<li>
+					La memoria permanece retenida durante más tiempo del estrictamente necesario.
+				</li>
+				<li>
+					El recolector de basura tarda cierto tiempo en hacer su tarea y produce pausas que pueden hacer la técnica incompatible con sistemas de tiempo real
+				</li>
+			</ul>			
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="oonopuro">
+	<h2>No es puro orientado a objetos</h2>
+	<p>Hay 7 características que tiene que satisfacer un lenguaje de programación para ser orientado a objetos puro, dos de las cuales java no cumple:
+	<ol>
+		<li>Encapsulación/Ocultamiento de datos</li>
+		<li>Herencia</li>
+		<li>Polimorfismo</li>
+		<li>Abstraction</li>
+		<li><strong>Todos los tipos predefinidos son objetos</strong></li>
+		<li><strong>Todas las operaciones se efectuan mandando mesaje a objetos</strong></li>
+		<li>Todos los tipos definidos por el usuario son objetos.</li>
+	</ol>
+	<p>En java no todos los tipos predefinidos son objetos ni todas las operaciones se efectuan mandando mensajes a objetos</p>
+</section>
+
+<section class="slide" id="tipos_primitivos">
+	<h2>No es puro orientado a objetos</h2>
+	<h3>Tipos Primitivos de datos</h3>
+	<ul>
+		<li>boolean: 1 bytes, true o false.</li>
+		<li>char: 2 bytes</li>
+		<li>Enteros: Difieren en las precisiones y pueden ser positivos o negativos</li>
+		<ul>
+			<li>byte: 1 byte</li>
+			<li>short: 2 bytes</li>
+			<li>int: 4 bytes</li>
+			<li>long: 8 bytes</li>
+		</ul>	
+		<li>Reales en punto flotante: igual que los enteros también difieren en las precisiones y pueden ser positivos o negativos.</li>
+
+		<ul>
+			<li>float: 4 bytes</li>
+			<li>double: 8 bytes</li>
+		</ul>
+		<li>
+			Un objeto es una cosa distinta a un tipo primitivo, aunque “porten” la misma información. <BR/>Tener siempre presente que los objetos en Java tienen un tipo de tratamiento y los tipos primitivos, otro. <BR/>
+			Que en un momento dado contengan la misma información no significa en ningún caso que sean lo mismo.
+
+			<script type="syntaxhighlighter" class="brush: python; toolbar: false;">
+      			int numero = 3;
+       			Integer numero2 = 4;
+
+       			char char1 = 'a';
+        		Character char2 = 'a';
+			</script>
+			<p>contienen la misma información pero uno es un objeto y no, uno responde a metodos y el otro no</p>
+		</li>	
+	</ul>
+</section>
+<section class="slide" id="primitivos_objetos2">
+	<h2>No es puro orientado a objetos</h2>
+	<h3>Tipos Primitivos de datos</h3>
+	<ul>
+		<li>
+			Los nombres de tipos primitivos y envoltorio se parecen mucho. En realidad, excepto entre int e Integer y char y Character, la diferencia se limita a que en un caso la inicial es minúscula (por ejemplo double) y en el otro es mayúscula (Double).<BR/>
+			Esa similitud puede confundirnos inicialmente, pero hemos de tener muy claro qué es cada tipo y cuándo utilizar cada tipo.
+		</li>
+		<li>
+			Una cadena de caracteres es un objeto. El tipo String en Java nos permite crear objetos que contienen texto (palabras, frases, etc.). El texto debe ir siempre entre comillas. Muchas veces se cree erróneamente que el tipo String es un tipo primitivo por analogía con otros lenguajes donde String funciona como una variable elemental. En Java no es así.
+		</li>
+	</ul>
+</section>
+
+<section class="slide" id="interpretado">
+	<h2>Interpretado y compilado a la vez</h2>
+	<ul>
+		<li>
+			Java es compilado, en la medida en que su código fuente se transforma en una especie de código máquina, los bytecodes, semejantes a las instrucciones de ensamblador.
+		</li>
+		<li>
+			Por otra parte, es interpretado, ya que los bytecodes se pueden ejecutar directamente sobre cualquier máquina a la cual se hayan portado el intérprete y el sistema de ejecución en tiempo real (run-time).
+		</li>	
+	</ul>
+</section>
+
+<section class="slide" id="modifiers">
+	<h2>Modificadores de acceso en JAVA</h2>
+	<p>Los modificadores de acceso, como su nombre indica, determina desde qué clases se puede acceder a un determinado elemento</p>
+	 <ul>
+	 	<li><strong>default:</strong> Si no especificamos ningún modificador de acceso se utiliza el nivel de acceso por defecto, que consiste en que el elemento puede ser accedido sólo desde las clases que pertenezcan al mismo paquete.
+	 	</li>
+	 	<li><strong>public:</strong> El nivel de acceso public permite a acceder al elemento desde cualquier clase, independientemente de que esta pertenezca o no al paquete en que se encuentra el elemento.
+	 	</li>
+	 	<li><strong>private:</strong> Es el modificador más restrictivo y especifica que los elementos que lo utilizan sólo pueden ser accedidos desde la clase en la que se encuentran. <BR/>
+	 	Este modificador sólo puede utilizarse sobre los miembros de una clase y sobre interfaces y clases internas, no sobre clases o interfaces de primer nivel, dado que esto no tendría sentido.
+	 	</li>
+	 	<li><strong>protected:</strong> El modificador de acceso protected es una combinación de los accesos que proporcionan los modificadores public y private.<BR/>
+		Proporciona acceso público para las clases derivadas y acceso privado (prohibido) para el resto de clases.<BR/>
+		Este modificador, como private, no tiene sentido a nivel de clases o interfaces no internas.<BR/>
+		En otras palabras, si determinada clase Hijo hereda el comportamiento de una clase Padre, la clase Hijo tendrá acceso a todos aquellos campos/métodos definidos como protected en Padre, pero no aquellos declarados como private en Padre.<BR/>
+	 	</li>
+	 </ul>
+</section>
+
+<section class="slide" id="modifiers2">
+	<h2>Modificadores de acceso en JAVA</h2>
+	<a href="http://www.noesispoint.com/jsp/scjp/SCJPch3.htm"><img src="java-modifiers-graph.png"/></a>
+</section>
+
+<section class="slide" id="modifiers3">
+	<h2>Otros Modificadores en JAVA</h2>
+	<p>Java tiene otros modificadores que no son de acceso para lograr otra funcionalidad.<p/>
+	 <ul>
+	 	<li><strong>static:</strong> Sirve crear miembros que pertenecen a la clase, y no a una instancia de la clase.<BR/>
+		Esto es lo que se llama variables de clase.<BR/>
+		Esto implica, entre otras cosas, que no es necesario crear un objeto de la clase para poder acceder a estos atributos y métodos. <BR/>
+		Este es el motivo por el cual es obligatorio que main se declare como static; de esta forma no tenemos que ofrecer un constructor vacío para la clase que contiene el método, o indicar de alguna forma a la máquina virtual cómo instanciar la clase.<BR/>
+		Un uso del modificador static sería, por ejemplo, crear un contador de los objetos de la clase que se han creado, incrementando la variable estática en el constructor<BR/>
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			public class Usuario {
+				  static int usuarios = 0;  
+				  public Usuario() {  
+					  usuarios++;
+				  } 
+			}
+		</script>
+	 	</li>
+	 </ul>
+</section>
+<section class="slide" id="modifiers4">
+	<h2>Otros Modificadores en JAVA</h2>
+	<p>Un metodo static muy importante en java es:</p>
+ 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String args[]){
+			//codigo
+		} 
+	</script>
+	<p>Es el método principal es el método que ejecuta primero cualquier programa en java.<BR/>
+		El método es public porque es accesible a la JVM para ejecutar el programa.<BR/>
+		Es static porque esta disponible para la ejecución sin instancia de un objeto.<BR/>
+		Devuelve void porque no devuelve nada.<BR/>
+		El parámetro String args[] o String[] args es usado para agregar parámetros en la línea de comandos al ejecutarlo.
+	</p>
+
+	<p>Otro ejemplo podria ser un método para hacer algun calculo, se puede llamar sin que exista un objeto instanciado de la clase que lo contiene.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Calculador {
+			  public static double[] bascara(double a, double b, double c){
+				  double resultados[] = new double[2];
+				  double b2m4ac = Math.pow(b, 2)-4*a*c;
+				  double raiz = Math.sqrt(b2m4ac);
+				  resultados[0]=(-b+raiz)/(2*a);
+				  resultados[1]=(-b-raiz)/(2*a);
+				  return resultados;
+			  }
+		}
+	</script>
+	<p>La instanciación sería:</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Main {
+			public static void main(String[] args) {
+			    System.out.println("primer valor: " + Calculador.bascara(1, -7, 10)[0]);
+			    System.out.println("primer segundo: " + Calculador.bascara(1, -7, 10)[1]);
+			}
+		}
+	</script>
+
+</section>
+
+<section class="slide" id="modifiers5">
+	<h2>Otros Modificadores en JAVA</h2>
+	<ul>
+		<li>
+			<strong>abstarct:</strong> La palabra clave abstract indica que no se provee una implementación para un cierto método, sino que la implementación vendrá dada por las clases que extiendan la clase actual.<BR/>
+			Una clase que tenga uno o más métodos abstract debe declararse como abstract a su vez.
+		</li>
+		<li>
+			<strong>final:</strong> Indica que una variable, método o clase no se va a modificar, lo cuál puede ser útil para añadir más semántica, por cuestiones de rendimiento, y para detectar errores.
+			<ul>
+				<li>Si una variable se marca como final, no se podrá asignar un nuevo valor a la variable.</li>
+				<li>Si una clase se marca como final, no se podrá extender la clase.</li>
+				<li>Si es un método el que se declara como final, no se podrá sobreescribir.</li>
+			</ul>
+		</li>
+		<li>
+			<p>Algo muy a tener en cuenta a la hora de utilizar este modificador es que si es un objeto lo que hemos marcado como final, esto <string>no</strong> nos impedirá modificar el objeto en sí, sino tan sólo usar el operador de asignación para cambiar la referencia.</p>
+			<p>Este código no funciona</p>
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				final String cadena = "hola";  
+				cadena = "que tal";
+			</script>	
+			Este código si funciona
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				final String cadena = "hola";  
+				cadena.concat("que tal");
+			</script>	 
+		</li>	
+	</ul>	
+</section>
+
+<section class="slide" id="modifiers6">
+	<h2>Modificadores en JAVA</h2>
+	<h3>Matiz de modificadores-elementos en JAVA</h3>
+	<a href="http://bmanolov.free.fr/javamodifiers.php"><img src="java-modifiers-matrix.png"/></a>
+</section>
+
+<section class="slide" id="modifiers7">
+	<h2>Modificadores en JAVA</h2>
+	<h3>Reglas</h3>
+	<ul>
+		<li>La declaración de un método puede contener solo un modificador de acceso public, protected o private</li>
+		<li>Las clases no pueden ser declaradas abstract y final simultáneamente.</li>
+		<li>Los métodos abstractos no pueden ser declarados private, static, final</li>
+		<li>Los métodos abstract y native no tienen cuerpo
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				public abstract void method();
+			</script>	
+		</li>
+		<li>Una clase que tiene métodos abstract tiene que ser declarada abstract</li>
+	</ul>	
+</section>
+
+<section class="slide" id="interfaces_clases_abstractas">
+	<h2>interfaces y clases abstractas</h2>
+	<h3>Clases abstractas</h3>
+	<ul>
+		<li>Una clase abstracta es una clase que contiene uno o más métodos abstractos</li>
+		<li>Una clase concreta que extienda (extends) de esa clase tiene que implementar todos los métodos abstractos</li>
+		<li>Los métodos abstractos no tienen cuerpo.
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				public abstract class FiguraGeometrica {
+					public String nombre;
+					public String color;
+					public abstract double getArea();
+					public FiguraGeometrica(String nombre){
+						this.nombre = nombre;
+					}
+					public String getNombre(){
+						return this.nombre;
+					}
+				}
+			</script>	
+		</li>
+		<li>Una clase abstracta no puede ser instanciada
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				FiguraGeometrica figuraGeometrica = new FiguraGeometrica(“circulo”);
+			</script>	
+		</li>
+	</ul>	
+</section>
+<section class="slide" id="interfaces_clases_abstractas2">
+	<h2>interfaces y clases abstractas</h2>
+	<h3>Interfaces</h3>
+	<p>Un interface es parecido a una clase abstracta en Java , pero con las siguientes diferencias:</p>
+	<ul>
+		<li>Todo método es abstracto y público sin necesidad de declararlo. Por lo tanto un interface en Java no implementa ninguno de los métodos que declara</li>
+		<li>Las variables del interface serán las variables miembro de la clase, sólo puede definir constantes, es decir en las interfaces los atributos son implícitamente final and static</li>
+		<li>Una clase puede implementar más de un interfaz en Java, pero sólo puede extender una clase<BR/>Es lo más parecido que tiene Java a la herencia múltiple, que de clases normales está prohibida</li>
+		<li>Podemos declarar variables del tipo de clase del interfaz, pero para inicializarlas tendremos que hacerlo de una clase que lo implemente.</li>
+		<li>Permite a las clases sin importar su posición dentro de la jerarquía de clases el implementar métodos comunes</li>
+		<li>Permite revelar la funcionalidad de un objeto sin revelar su implementación.</li>
+	</ul>	
+</section>
+
+<section class="slide" id="interfaces_clases_abstractas3">
+	<h2>interfaces y clases abstractas</h2>
+	<h3>Interfaces</h3>
+	<ul>
+		<li>Permite revelar la funcionalidad de un objeto sin revelar su implementación.</li>
+		<li>La implementación puede cambiar sin afectar a usuario de la interface</li>
+		<li>Ejemplo de interface
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				public interface FiguraGeometrica {
+					public String constante = "no se puede modificar, implicitamente final static";
+					public final static String constante2 = "no se puede modificar";
+
+					public double getArea();
+					public String getNombre();
+				}
+			</script>	
+		</li>
+		<li>Se puede acceder así a los atributos
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				String atrib = FiguraGeometrica.constante;
+			</script>	
+		</li>
+		<li>Como los atributos son final static implicitamente lo que implica que sean constantes, no se puede hacer esto:
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				FiguraGeometrica.constante = “hola”;
+			</script>	
+		</li>
+	</ul>	
+</section>
+
+<section class="slide" id="interfaces_clases_abstractas4">
+	<h2>interfaces y clases abstractas</h2>
+	<h3>Interfaces</h3>
+	<ul>
+		<li>Ejemplo de clase que implemente la interfaz FiguraGeometrica
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				public class Cuadrado implements FiguraGeometrica{
+					public double getArea() {
+						return Math.sqrt(this.lado);
+					}
+					public String getNombre() {
+						return "Cuadrado";
+					}
+				}
+			</script>	
+		</li>
+		<li>Tiene que implementar los dos métodos de la interface FiguraGeometrica getArea() y getNombre(), la interface no tiene métodos concretos</li>
+	</ul>	
+</section>
+
+<section class="slide" id="interfaces_clases_abstractas5">
+	<h2>interfaces y clases abstractas</h2>
+	<h3>Comparación entre clases abstractas e interfaces</h3>
+	<ul>
+		<li>Todos los metodos de una interface son abstractos mientras que en la clase abstracta puede  tener métodoss concretos (con implementacion).</li>
+		<li>Un interface se implementa (implements) no se extiende (extends) por sus subclases.</li>
+		<li>Una interfaz sólo puede definir constantes y la clase abstracta puede tener atributos, es decir en las interfaces los atributos son implícitamente final and static.</li>
+		<li>Las interfaces no tiene relación directa con la herencia.</li>
+		<li>Ni las clases abstractas ni, las interfaces pueden ser instanciadas.</li>
+		<li>Si una clase abstrata no tiene metodos concretos (sin el modificador abstract) y no tiene atributos o los atributos son final static son iguales.</li>
+	</ul>	
+</section>
+
+<section class="slide" id="interfaces_clases_abstractas5">
+	<h2>interfaces y clases abstractas</h2>
+	<h3>Comparación entre clases abstractas e interfaces</h3>
+	<ul>
+		<li>Todos los metodos de una interface son abstractos mientras que en la clase abstracta puede  tener métodoss concretos (con implementacion).</li>
+		<li>Un interface se implementa (implements) no se extiende (extends) por sus subclases.</li>
+		<li>Una interfaz sólo puede definir constantes y la clase abstracta puede tener atributos, es decir en las interfaces los atributos son implícitamente final and static.</li>
+		<li>Las interfaces no tiene relación directa con la herencia.</li>
+		<li>Ni las clases abstractas ni, las interfaces pueden ser instanciadas.</li>
+		<li>Si una clase abstrata no tiene metodos concretos (sin el modificador abstract) y no tiene atributos o los atributos son final static son iguales.</li>
+	</ul>	
+</section>
+
+<section class="slide" id="coleciones">
+	<h2>Colecciones</h2>
+	<p>Una colección se refiere a un grupo de múltiples elementos guardados juntos para una tarea específica.<BR/>
+	El framework de colecciones en JAVA esta definido por un conjunto de interfaces, implementaciones de clases concretas para la mayoría de las interfaces (en el sentido general de la palabra interfaces) y un conjunto estándar de algoritmos y métodos.<BR/>
+	Adicionalmente el framework implementaciones abstractas, que estan designadas para hacer facil la creacion de nuevas y diferentes implementaciones que permitan el manejo de colecciones de datos.</p>
+	<h3>Interfaces de las colecciones del núcleo</h3>
+	<p>Las interfaces del núcleo definen la funcionalidad común y permiten ser manipuladas independientemente de la implementación</p>
+	<ul>
+		<li>Collection</li>
+		<li>List</li>
+		<li>Set</li>
+		<li>QueueSortedSet</li>
+		<li>NavigableSet</li>
+		<li>Map</li>
+		<li>SortedMap</li>
+		<li>NavigableMap</li>
+	</ul>	
+</section>
+
+<section class="slide" id="coleciones2">
+	<h2>Colecciones</h2>
+	<img src="java-collection.jpg"/>
+</section>
+
+<section class="slide" id="coleciones3">
+	<h2>Coleciones</h2>
+	<p>De acuerdo a las características las listas se pueden dividir en:</p>
+	<ul>
+		<li>List: lista de Objetos (clases que implementan List).</li>
+		<li>Sets: Objetos únicos (classes that implement Set).</li>
+		<li>Maps: Objetos con un id único (classes that implement Map).</li>
+		<li>Queues: Objetos organizados en el orden en que se van a procesasr.</li>
+	</ul>	
+</section>
+
+<section class="slide" id="coleciones4">
+	<h2>Colecciones</h2>
+	<h3>List Interface</h3>
+	<p>La interface List se ocupa de índices y permite duplicados. Se usa para manejar el orden de elementos o objetos en una colección.<BR/>
+	Las 3 implementaciones de List son:</p>
+	<p><strong>ArrayList:</strong> es una lista que crece dinámicamente. Da rápida iteración y rápido acceso aleatorio. Es una colección ordenada por índice. Elegir ArrayList sobre LinkedList cuando se quiere acceso rápido y no se va a hacer inserciones y supresiones constantemente.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+	        ArrayList<Persona> personas = new ArrayList<Persona>();
+	        personas.add(new Persona(1, "Mario"));
+	        personas.add(new Persona(2, "Fernando"));
+	        personas.add(new Persona(3, "Omar"));
+	        personas.add(new Persona(4, "Juana"));
+	        
+	        //usando indices
+	        for (int i=0;i<personas.size( );i++){
+	        	System.out.println(personas.get(i).getNombre()); 
+	        }
+	        
+	        //usando iterador
+			Iterator<Persona> iter = personas.iterator();
+			while(iter.hasNext()) {  
+				System.out.println(iter.next().getNombre()); 
+			}
+		}
+	</script>	
+</section>
+
+<section class="slide" id="coleciones5">
+	<h2>Colecciones</h2>
+	<h3>List Interface</h3>
+	<p><strong>Vector: </strong>un vector es básicamente lo mismo que un ArrayList, pero los métodos son synchronized para la seguridad de los hilios. Generalmente se usa arrayList sobre Vector porque los métodos synchronized tienen peor performance.<BR/>
+	Vector puede contener objetos pero no datos primitivos</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+			Vector<Persona> personas = new Vector<Persona>();
+			personas.add(new Persona(1, "Mario"));
+			personas.add(new Persona(2, "Fernando"));
+			personas.add(new Persona(3, "Omar"));
+			personas.add(new Persona(4, "Juana"));
+			
+			//usando indices
+			for (int i=0;i<personas.size( );i++){
+				System.out.println(personas.elementAt(i).getNombre()); 
+			}
+			
+			//usando iterador
+			Iterator<Persona> iter = personas.iterator();
+			while(iter.hasNext()) {  
+				System.out.println(iter.next().getNombre()); 
+			}
+			
+			//
+			Enumeration<Persona> e=personas.elements();
+			while(e.hasMoreElements())
+			{
+				System.out.println(e.nextElement().getNombre());
+			}
+		}
+	</script>	
+</section>
+<section class="slide" id="coleciones6">
+	<h2>Colecciones</h2>
+	<h3>List Interface</h3>
+	<p><strong>LinkedList: </strong>es una lista ordenada por índice al igual que el arraylist, excepto que los elementos están doblemente enlazados entre ellos. Que estén enlazados da metodos extras a los de la interface List para agregar y remover elementos del principio o del final, lo que hace más fácil implementar una cola o una pila.<BR/>
+	Hay que tener en cuenta que LinkedList itera más lento que ArrayList, pero es una buena opción cuando queremos rápida inserción y borrado.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+			LinkedList<Integer> link=new LinkedList<Integer>();
+			link.add(new Integer(12));
+	        link.add(new Integer(13));
+	        link.add(new Integer(14));
+	        link.add(2,new Integer(15));
+	        
+	        System.out.println("Primer elemento : "+link.element());
+	        System.out.println("The contents of array is " + link);
+	        
+	        for (int i=0;i<link.size( );i++){
+	            Integer elemento = link.get(i);
+	            int posicion = link.indexOf(elemento);
+	            System.out.println("posicion: "+posicion+", elemento: "+elemento);
+	        }
+	        
+	        link.addFirst(new Integer(1));
+	        link.addLast(new Integer(100));
+	        
+	        //usando iterador
+	        Iterator<Integer> iter = link.iterator();
+	        while(iter.hasNext()) {  
+
+	            Integer elemento = iter.next();
+	            int posicion = link.indexOf(elemento);
+	            System.out.println("posicion: "+posicion+", elemento: "+elemento);
+	        }
+	        
+	        link.remove(3);
+	        
+	        iter = link.iterator();
+	        while(iter.hasNext()) {  
+
+	            Integer elemento = iter.next();
+	            int posicion = link.indexOf(elemento);
+	            System.out.println("posicion: "+posicion+", elemento: "+elemento);
+	        }
+		}
+	</script>	
+</section>
+
+<section class="slide" id="coleciones7">
+	<h2>Colecciones</h2>
+	<h3>Set Interface</h3>
+	<p>Los Set se ocupan de que los elementos sean únicos, no permite duplicados</p>
+	<p><strong>HashSet:</strong> Un hashSet es un conjunto sin orden, sin posición. Usa el hashcode de un objeto insertado, entonces cuanto más eficiente el el hashCode mejor es la performance. Usar esta clase cuando se quiere una colección sin duplicados y no nos importa el orden cuando lo recorremos.<BR/>
+	Cuando se itera un hastset el orden que se accede a los elementos es impredecible.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+			HashSet<Integer> set = new HashSet<Integer>();
+		    set.add(new Integer(6));
+		    set.add(new Integer(1));
+		    set.add(new Integer(4));
+
+		    Iterator<Integer> it=set.iterator();
+	        while(it.hasNext())
+	        {
+	            Integer value =it.next();
+	            System.out.println("Value :"+value);
+	        }
+	        // Remove element from hashSet :
+	        set.remove(new Integer(4));
+	        System.out.println(set);
+		}
+	</script>	
+</section>
+<section class="slide" id="coleciones8">
+	<h2>Colecciones</h2>
+	<h3>Set Interface</h3>
+	<p><strong>LinkedHashSet:</strong> Es una versión ordenada del HashSet que mantiene la doblemente enlazada con los elementos.<BR/>
+	Usar esta clase en vez de HashSet cuando nos importa el orden de iteración.<BR/>
+	Cuando se itera un LinkedHashSet los se accede a los elementos en el orden que fueron insertados</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+			LinkedHashSet<Integer> lnkHs = new LinkedHashSet<Integer>();  
+			lnkHs.add(new Integer(3));  
+			lnkHs.add(new Integer(5));  
+			lnkHs.add(new Integer(2));  
+			//este no se agrega
+			lnkHs.add(new Integer(3));  
+			
+			Iterator<Integer> iterator = lnkHs.iterator();  
+			while(iterator.hasNext())  
+			{  
+			    Integer number = iterator.next();  
+			    System.out.println(number.toString());  
+			}
+		}
+	</script>
+</section>
+<section class="slide" id="coleciones9">
+	<h2>Colecciones</h2>
+	<h3>Set Interface</h3>
+	<p><strong>TreeSet:</strong> El TreeSet es una de las dos colecciones ordenadas (la otra es el TreeMap).<BR/>Garantiza que los elementos se van a acceder con el orden natural.<BR/>
+	Para que un objeto sea comparable tiene que implementar la interface comparable.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+			TreeSet <Integer>tree = new TreeSet<Integer>();
+			tree.add(12);
+			tree.add(45);
+			tree.add(23);
+			tree.add(34);
+			Iterator<Integer> iterator = tree.iterator();
+			while (iterator.hasNext()){
+				System.out.print(iterator.next() + " ");
+			}
+		}
+	</script>
+</section>
+<section class="slide" id="coleciones10">
+	<h2>Colecciones</h2>
+	<h3>Interface Map</h3>
+	<p>Un Map se ocupa de los identificadores. Se mapean dos objetos, uno como clave y el otro como valor, para después obtener el elemento por medio del valor clave, también permiten obtener solo la colección de claves o de valores.</p>
+	<p><strong>HashMap:</strong> El hashMap tiene elementos sin posición sin orden. Cuando se usa el Map no importa el orden cuando lo iteramos. Las claves del Map están basadas en el hashcode, entonces como el HashSet cuanto más eficiente sea la implementación del hashCode mejor será la performance. <BR/>
+	Permite una clave nula y múltiples valores nulos en la colección.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+		// Create a hash map 
+		HashMap<String, Integer> hm = new HashMap<String, Integer>(); 
+		// Pongo los elementos en el HashMap
+		hm.put("Juan", new Integer(3434)); 
+		hm.put("Alberto", new Integer(123)); 
+		hm.put("Rodrigo", new Integer(1378)); 
+		hm.put("Santiago", new Integer(99)); 
+		// Tomo el conjunto de elementos
+		Set set = hm.entrySet(); 
+		Iterator i = set.iterator(); 
+		// Display elements 
+		while(i.hasNext()) { 
+			Map.Entry me = (Map.Entry)i.next(); 
+			System.out.println(me.getKey() + ": "+me.getValue()); 
+		}
+		// Deposito 1000 en la cuenta de Santiago
+		Integer balance = hm.get("Santiago"); 
+		hm.put("Santiago", new Integer(balance + 1000)); 
+		System.out.println("el nuevo balance de Santiago es: " + hm.get("Santiago")); 
+	}
+	</script>
+</section>
+
+<section class="slide" id="coleciones11">
+	<h2>Colecciones</h2>
+	<h3>Interface Map</h3>
+	<p><strong>Hashtable:</strong> HashTable es similar a HashMap con la diferencia que HashTable  es synchronized y tiene el costo de que un solo hilo puede accederlo además, esto hace que un HashTable sea más lento para iterar.<BR/>
+	También como en HashMap se pueden agregar los mismos o diferentes valores para una clave pero se sobreescribe y solo guarda el último.<BR/>
+	HashMap guarda solo objetos que sobreescriben los métodos hashcode() y equals() definidos en la clase Objets, afortunadamente muchos objetos vienen con esta implementación en el core como String, Integer, etc.<BR/>
+	Es la misma relación entre Vector y ArrayList.<BR/>
+	HashTable no permite claves o valores nulos.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+			Hashtable<Integer, String> edades = new Hashtable<Integer, String>();
+			edades.put(45, "Pedro");
+			edades.put(2, "Matias");
+			edades.put(18, "Javier");
+			
+			//set de claves
+			Set<Integer> set = edades.keySet();
+			
+			//recorro todo el hashTable, usando las claves para acceder a los Objetos
+			Integer edad;
+			Iterator<Integer> itr = set.iterator();
+			while (itr.hasNext()) {
+			  edad = itr.next();
+			  System.out.println(edad.toString() + ": " + edades.get(edad));
+			}
+			
+			//recorro los Objetos del hashTable
+			Enumeration e = edades.elements();
+		    while (e.hasMoreElements()) {
+		        String key = (String) e.nextElement();
+		        System.out.println("nombre: "+key.toString());
+		    }
+		    
+		    //creo un arrayList con los indices
+		    ArrayList<Integer> arr = new ArrayList<Integer>(edades.keySet());
+		    Collections.sort(arr); 
+		    //recibe list, osea segun el grafico se cual es list
+		    
+		    //los ordeno
+		    Iterator<Integer> itArr = arr.iterator();
+		    while (itArr.hasNext()){
+		    	edad = itArr.next();
+		    	System.out.println("edad: "+edad.toString()+", nombre: "+edades.get(edad));
+		    }
+		}
+	</script>
+</section>
+
+<section class="slide" id="coleciones12">
+	<h2>Colecciones</h2>
+	<h3>Interface Map</h3>
+	<p><strong>LinkedHashMap:</strong> LinkedHashMap va a iterar en el orden en que se hicieron las inserciones. Es más lento que el HashMap para agregar y remover elementos, pero las iteraciones van a ser rápidas usando LinkedHashMap.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+			// Create a hash map
+			LinkedHashMap<String, Double> lhm = new LinkedHashMap<String, Double>();
+			// Put elements to the map
+			lhm.put("Zara", new Double(3434.34));
+			lhm.put("Mahnaz", new Double(123.22));
+			lhm.put("Ayan", new Double(1378.00));
+			  
+			Set<Entry<String, Double>> set = lhm.entrySet();
+			Iterator<Entry<String, Double>> i = set.iterator();
+			while(i.hasNext()) {
+				Map.Entry<String, Double> me = (Map.Entry<String, Double>)i.next();
+				System.out.print(me.getKey() + ": ");
+				System.out.println(me.getValue());
+			}
+				
+			System.out.println("Zara's balance: " + lhm.get("Zara"));
+		}
+	</script>
+</section>
+<section class="slide" id="comparable">
+	<h2>Comparando objetos</h2>
+	<h3>Comparable</h3>
+	<ul>
+		<li>Para que un objetos sea comprables tiene que implementar la interfaz comparable</li>
+		<li>En los ejemplos anteriores las colecciones podían ordenar los elementos porque las clases String, Integer , etc, que implementan nativamente esta interfaz.</li>
+		<li>Pero cuando el objeto que queremos comparar es por ejemplo un objeto  persona que tiene varios atributos tenemos que definir uno por el que vamos a comparar, para esto tenemos que su clase debe implementar la interfaz java.lang.Comparable.</li>
+		<li>El hecho de implementar esta interfaz nos obliga a implementar el metodo compareTo().</li>
+	</ul>
+	<p>Definición de la interface</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface Comparable {
+			public int compareTo(Object o);
+		}
+	</script>
+</section>
+<section class="slide" id="comparable2">
+	<h2>Comparando objetos</h2>
+	<h3>Comparable</h3>
+	<p>Implementación de la interface</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Persona implements Comparable{
+			public int idPersona;
+			public String nombre;
+			public java.util.Date fechaNacimiento;
+		    public static int cantidadPersonas=0;	
+		    
+		    public Persona(){
+		    	cantidadPersonas++;
+		    }
+
+		    public Persona(int idPersona, String nombre) {
+		        this.idPersona = idPersona;
+		        this.nombre = nombre;
+		        cantidadPersonas++;
+		    }
+
+			public int compareTo(Object o) {
+				return this.nombre.compareTo(((Persona)o).nombre);
+			}
+		    
+		    public String toString() {
+		        return String.format("persona{idPersona:%1s,nombre:%2s}", 
+		        	idPersona, nombre);
+		    }
+		}
+	</script>
+	<p>El método compare() debe devolver lo siguiente:</p>
+	<img src="comprable-result.png" align="left"/>
+</section>
+
+
+<section class="slide" id="comparator">
+	<h2>Comparando objetos</h2>
+	<h3>Comparator</h3>	
+	<ul>
+		<li>Comprator a diferencia de comparator puede cambiar el ordenamiento que le da Comparable.</li>
+		<li>Coparator obliga a implementar el método compare (obj1, obj2) de forma que los dos objetos a comparar son pasados como parámetros y el objeto que implementa el método compare simplemente sirve de apoyo a la comparación.</li>
+		<li>Comparator puede hacer ayudar a ordenar un objeto con un criterio distinto al especificado en el método compareTo() de comparable.</li>
+	</ul>
+	<p>Definición de la interface</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface Comparator {
+			public int compare(Object o1, Object o2);
+		}
+	</script>
+	<p>Implementación de la interface</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class OrdenarPersonaPorId implements Comparator<Persona>{
+			public int compare(Persona o1, Persona o2) {
+		        return o1.idPersona - o2.idPersona;
+		    }
+		}
+	</script>
+
+
+</section>
+
+<section class="slide" id="comparable_comparator_use">
+	<h2>Comparando objetos</h2>
+	<h3>Uso de Comparable y Comparator</h3>
+	<p>Podemos usarlos en listas y arrays mediante los métodos Collections.sort y Arrays.sort.<BR/>
+	También como claves en un mapa ordenado TreeMap o como elementos en un set ordenado TreeSet.<BR/>
+	En el caso de Comparable los objetos tienen que implementar esta interfaz para que los ordene automáticamente.<BR/>
+	Para el caso del Comparator debemos especificar el Comparator.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+	
+			ArrayList<String> nombres=new ArrayList<String>();
+			nombres.add("Carlos");
+			nombres.add("Martin");
+			nombres.add("Juan");
+			nombres.add("Fernado");
+			System.out.println("lista original:"+nombres);
+			
+			Collections.sort(nombres);
+			System.out.println("conjunto ordenado Strings por orden afabetico: "+nombres);
+			//String es comparable nativamente
+			
+			Persona persona1 = new Persona(1, "Mario");
+			Persona persona2 = new Persona(2, "Fernando");
+			//personas es comparable porque implementa comparable
+			if (persona1.compareTo(persona2)<0)
+				System.out.printf("%s esta antes alfabeticamente que %s \r\n", 
+					persona1.nombre, persona2.nombre);
+			else
+				System.out.printf("%s esta antes alfabeticamente que %s \r\n", 
+					persona2.nombre, persona1.nombre);
+			
+			Persona persona3 = new Persona(3, "Omar");
+			Persona persona4 = new Persona(4, "Juana");
+			
+	        ArrayList<Persona> ArrLstpersonas = new ArrayList<Persona>();
+	        ArrLstpersonas.add(persona1);
+	        ArrLstpersonas.add(persona2);
+	        ArrLstpersonas.add(persona3);
+	        ArrLstpersonas.add(persona4);
+	        Collections.sort(ArrLstpersonas);
+	        System.out.println("conjunto ordenado de personas nombre: "+ArrLstpersonas);
+			
+	        Collections.sort(ArrLstpersonas, new OrdenarPersonaPorId());
+	        System.out.println("conjunto ordenado de personas id: "+ArrLstpersonas);
+	        
+	        System.out.println("catidad personas instanciadas "+Persona.cantidadPersonas);
+	    }
+	</script>
+</section>
+
+<section class="slide" id="equals_hashCode">
+	<h2>Comparación</h2>
+	<h3>Método equals</h3>
+	<p>La comparación entre objetos Java se realiza con el operador == y el método equals().<BR/>
+	La clase java.lang.Object define un método equals por defecto que utiliza la igualdad de referencia. Si queremos implementar la igualdad de contenidos en los objetos de nuestras clases, hay que sobreescribir este método.<BR/>
+	Nativamente equals() compara las identidades de los objetos, osea si devuelve true es porque los dos atributos comparados referencian al mismo objeto.</p>
+
+	<h3>Método HashCode</h3>
+	<p>El método hashCode también se define en la superclase Object y devuelve un int que define la clave hash de un objeto. Debe ser compatible con equals (si equals devuelve true, hashCode debe devolver el mismo int para dos objetos).
+	También podemos sobreescribir el método</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Employee {
+		    int        employeeId;
+		    String     name;
+		    Department dept;
+		 
+		    public int hashCode() {
+		        int hash = 1;
+		        hash = hash * 17 + employeeId;
+		        hash = hash * 31 + name.hashCode();
+		        hash = hash * 13 + (dept == null ? 0 : dept.hashCode());
+		        return hash;
+		    }
+		}
+	</script>
+</section>
+
+
+<section class="slide" id="instanceOf">
+	<h2>Otros Métodos</h2>
+	<h3>El operador instanceOf</h3>
+	<p>El operador instanceOf se usa para hacer el downcast, osea un objeto en el que el atributo que lo referencia es de un supertipo pierde la funcionalidad específica del subtipo.<BR/>
+	Con el operador instanceOf se puede verificar el subtipo que fue instanciado en tiempo de ejecución y hacer un casting para poder usar la funcionalidad específica del subtipo, cosa que se pierde cuando se el atributo está declarado como de una clase padre de la jerarquía.</p>
+
+	<h3>Método HashCode</h3>
+	<p>El método hashCode también se define en la superclase Object y devuelve un int que define la clave hash de un objeto. Debe ser compatible con equals (si equals devuelve true, hashCode debe devolver el mismo int para dos objetos).
+	También podemos sobreescribir el método</p>
+	<p>En resumen sirve para:</p>
+	<ul>
+		<li>Utiliza instanceof para verificar el tipo de objeto.</li>
+		<li>Restablecer la funcionalidad total de un objeto mediante una conversión</li>
+	</ul>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public static void main(String[] args) {
+			FiguraGeometrica figuraGeometrica;
+			
+			if (ClaseAbstracta.opcion==0){
+				figuraGeometrica = new Circulo(10);//downcasting
+			}else if (ClaseAbstracta.opcion==1){
+				figuraGeometrica = new Cuadrado(10);//downcasting
+			}else{
+				figuraGeometrica = new Triangulo(6,6,6);//downcasting
+			}
+			
+			Double perimetro = 0.0;
+			if (figuraGeometrica instanceof Triangulo) {
+				Triangulo triangulo  = (Triangulo) figuraGeometrica;//upcasting
+				perimetro = Calculador.getPerimetro(triangulo);
+			}else if (figuraGeometrica instanceof Cuadrado){
+				Cuadrado cuadrado = (Cuadrado) figuraGeometrica;//upcasting
+				perimetro = Calculador.getPerimetro(cuadrado);
+			}else if (figuraGeometrica instanceof Circulo){
+				Circulo circulo = (Circulo) figuraGeometrica;//upcasting
+				perimetro = Calculador.getPerimetro(circulo);
+			}
+			System.out.println("el perimetro es " + perimetro.toString());
+		}
+	</script>
+</section>
+<!----------------------------------------------------------------------------------------------->
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+	/
+	<span class="deck-status-total"></span>
+</p>
+
+<!-- deck.goto snippet -->
+<form action="." method="get" class="goto-form">
+	<label for="goto-slide">Go to slide:</label>
+	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+	<datalist id="goto-datalist"></datalist>
+	<input type="submit" value="Go">
+</form>
+
+<!-- deck.hash snippet -->
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+
+<!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../jquery-1.7.2.min.js"><\/script>')</script>
+
+<!-- Deck Core and extensions -->
+<script src="../core/deck.core.js"></script>
+<script src="../extensions/hash/deck.hash.js"></script>
+<script src="../extensions/menu/deck.menu.js"></script>
+<script src="../extensions/goto/deck.goto.js"></script>
+<script src="../extensions/status/deck.status.js"></script>
+<script src="../extensions/navigation/deck.navigation.js"></script>
+<script src="../extensions/scale/deck.scale.js"></script>
+
+<!-- Initialize the deck -->
+<script>
+$(function() {
+	$.deck('.slide');
+});
+</script>
+
+</body>
+
+
+
+</html>

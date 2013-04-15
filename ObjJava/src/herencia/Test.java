@@ -15,6 +15,7 @@ public class Test{
 		if (figuraGeometrica instanceof Triangulo) {
 			Triangulo triangulo  = (Triangulo) figuraGeometrica;//upcasting
 			perimetro = Calculador.getPerimetro(triangulo);
+			triangulo.print();
 		}else if (figuraGeometrica instanceof Cuadrado){
 			Cuadrado cuadrado = (Cuadrado) figuraGeometrica;//upcasting
 			perimetro = Calculador.getPerimetro(cuadrado);
@@ -23,5 +24,6 @@ public class Test{
 			perimetro = Calculador.getPerimetro(circulo);
 		}
 		System.out.println("el perimetro es " + perimetro.toString());
+		
 	}
 }
