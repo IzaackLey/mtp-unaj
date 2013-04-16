@@ -1,14 +1,24 @@
 
 public class Test {
 	public static void main(String[] args) {
-		ElectronicDevice electronicDevice1 = new ElectronicDevice();
-		electronicDevice1.setComunicationDevice(new ParalelComunicacionDevice());
+		ComunicationDevice paraleldevice = new ParalelComunicacionDevice();
+		ComunicationDevice paraleldevice2 = new ParalelComunicacionDevice();
+		paraleldevice.setConnection(paraleldevice2);
+		paraleldevice.sendData("hola");
+		paraleldevice.sendData("como");
+		paraleldevice.sendData("va");
+		paraleldevice2.printBuffer();	
 		
-		ElectronicDevice electronicDevice2 = new ElectronicDevice();
-		electronicDevice1.setComunicationDevice(new ParalelComunicacionDevice());
-
-		electronicDevice1.comunicationDevice.setConnection(electronicDevice1.comunicationDevice);
-		electronicDevice1.comunicationDevice.sendData(new Byte8Bits("0101010101001"));
+		ComunicationDevice usbDevice1 = new UsbComunicationDevice();
+		ComunicationDevice usbDevice2 = new UsbComunicationDevice();
+		usbDevice1.setConnection(usbDevice2);
+		usbDevice1.sendData("hola");
+		usbDevice1.sendData("como");
+		usbDevice2.printBuffer();
+		String data = usbDevice2.reciveData();
+		while (data!=null){
+			System.out.println(data);
+			data = usbDevice2.reciveData();
+		}
 	}
-
 }

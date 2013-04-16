@@ -1,33 +1,39 @@
+import java.util.Iterator;
 import java.util.LinkedList;
 
 
 public abstract class ComunicationDevice {
 	ComunicationDevice otherComunicationDevice;
-	LinkedList<Byte8Bits> inputBuffer = new LinkedList<Byte8Bits>();
+	LinkedList<String> inputBuffer = new LinkedList<String>();
+	final int bufferCapacity = 1024;
 	
-	public void setConnection(ComunicationDevice otherComunicationDevice){
+	public int setConnection(ComunicationDevice otherComunicationDevice){
 		this.otherComunicationDevice = otherComunicationDevice;	
-		if (otherComunicationDevice.otherComunicationDevice != this)
-			otherComunicationDevice.setConnection(this);
+		if (otherComunicationDevice!= null)
+				otherComunicationDevice.otherComunicationDevice = this;
+		return 1;
 	}
 	
-	public int sendData(Byte8Bits bytee){
-		if (otherComunicationDevice == null){
-			System.out.println("no hay otro dispositivo de comunicacion");
-			return 0;
-		}
-		else
-		{
-			System.out.println("enviando datos "+bytee.toString());
-			otherComunicationDevice.inputBuffer.addFirst(bytee);
-			return 1;
-		}
-	}
+	public abstract int sendData(String word);
 	
-	public Byte8Bits reciveData(){
-		Byte8Bits data = this.inputBuffer.getLast();
-		System.out.println("recibiendo datos " + data.toString());
-		this.inputBuffer.removeLast();
+	public String reciveData(){
+		String data = null;
+		try {
+			data = this.inputBuffer.getLast();
+			this.inputBuffer.removeLast();
+		} catch (Exception e) {
+			
+		}
 		return data;
+	}
+	
+	public void printBuffer(){
+		String word;
+		Iterator<String> iter = inputBuffer.iterator();
+		
+		while (iter.hasNext()){
+			word = iter.next();
+			System.out.println("posicion: "+inputBuffer.indexOf(word)+" contenido: "+ word.toString());
+		}
 	}
 }
