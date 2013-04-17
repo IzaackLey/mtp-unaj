@@ -6,7 +6,7 @@ public abstract class Duck {
 	public abstract void display();
 	
 	public void performFly(){
-		flyBehavior.fly();        //delega el comportamiento a la clase concreta?
+		flyBehavior.fly();        //delega el comportamiento a la clase concreta
 	}
 	
 	public void performQuack(){
@@ -24,5 +24,4 @@ public abstract class Duck {
 	public void setQuackBehavior(QuackBehavior quackBehavior){
 		this.quackBehavior = quackBehavior;
 	}
-	
 }

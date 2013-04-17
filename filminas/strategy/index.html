@@ -37,6 +37,7 @@
 	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/XRegExp.js"></script>
 	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shCore.js"></script>
 	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushJava.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushPlain.js"></script>
 	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushPython.js"></script>
 	<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shCoreEclipse.css"/>
 	<!--link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shThemeEclipse.css"/-->
@@ -295,6 +296,139 @@
 	</script>
 
 	<p>Programar a una interface/supertipo sería:</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		Animal animal = new Dog();
+		animal.makeSound();
+	</script>
+	<p>Sabemos que es un perro pero usamos el animal como referencia polimorfica</p>
+	<p>Asignamos la implementacion concreta en tiempo de ejecuciín</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		animal = getAnimal();
+		animal.makeSound();
+	</script>
+</section>
+<section class="slide" id="strategy15">
+	<h2>Armando la aplicación</h2>
+	<p>Agregamos dos variables de instancia a la clase Duck()</p>
+	<img src="duckSuperClass.png"/>
+	<p>FlyBehavior y QuackBehavior estan delcaradas como interfaces<BR>
+	<ul>
+		<li>performQuack()  remplaza a quack()</li>
+		<li>performFly() remplaza a fly()</li>
+	</ul>	
+</section>
+<section class="slide" id="strategy16">
+	<h2>Armando la aplicación</h2>
+	<p>La superclase abstracta Duck</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public abstract class Duck {
+			FlyBehavior flyBehavior;  //declaro los atributos del tipo de las intefaces
+			QuackBehavior quackBehavior;
+			
+			public abstract void display();
+			public void performFly(){
+				flyBehavior.fly();        //delega el comportamiento a la clase concreta?
+			}
+			public void performQuack(){
+				quackBehavior.quack();    //delega el comportamiento a la clase
+			}
+			public void swim(){
+				System.out.println("All ducks float, even decoys");
+			}
+		}
+	</script>
+	<ul>
+		<li>En ves de manejar el comportamiento Quack o Fly delega el comportamiento al objeto referenciado por el parametro quackBeahavior (en tiempo de ejecucion).</li>
+		<li>Si bien quackBehavior esta declarado como interfaz en tiempo de ejecucion va a ser un objeto concreto de tipo FlyWithWings o FlyNoWay (clases concretas), que tiene la implementacion y tienen SI O SI el metodo fly()</li>
+	</ul>
+</section>
+<section class="slide" id="strategy17">
+	<h2>Armando la aplicación</h2>
+	<p>La sublcase concreta MallardDuck</p>
+	<p>Seteamos las varibles de instancia flyBehavior y quackBehavior;</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class MallardDuck extends Duck{
+			public MallardDuck(){
+				quackBehavior = new Quack();
+				flyBehavior = new FlyWithWings();
+			}
+			public void display() {
+				System.out.println("Mallad Duck");
+				
+			}
+		}
+	</script>
+	<p>Recordemos que las varibles flyBehavior y quackBehavior estan declaradas en la clase padre Duck</p>
+</section>
+<section class="slide" id="strategy18">
+	<h2>Armando la aplicación</h2>
+	<p>La interfaces QuackBehavior</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface QuackBehavior {
+			public void quack();
+		}
+	</script>
+	<p>Una de las implementaciones de QuackBehavior</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Quack implements QuackBehavior{
+			public void quack(){
+				System.out.println("Quack");
+			}
+		}
+	</script>
+	<p>Corremos un prueba del proyecto</p>
+	<script type="syntaxhighlighter" class="brush:java ; toolbar: false;">
+		public class MiniDuckSimulator {
+			public static void main(String[] args){
+				Duck mallard = new MallardDuck();
+				mallard.display();
+				mallard.performQuack();
+				mallard.performFly();
+			}
+		}
+	</script>
+	<p>Salida por cosola</p>
+	<script type="syntaxhighlighter" class="brush: text; toolbar: false;">
+		Mallad Duck
+		Quack
+		I m flying
+	</script>
+</section>
+<section class="slide" id="strategy19">
+	<h2>Seteamos el comportamiento dinámicamente</h2>
+	<p>Agregando setters de comportamiento a la clase Duck vamos a poder cambiar el comportamiento dinámicamente</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public void setFlyBehavior(FlyBehavior flyBehavior){
+			this.flyBehavior = flyBehavior;
+		}
+		public void setQuackBehavior(QuackBehavior quackBehavior){
+			this.quackBehavior = quackBehavior;
+		}
+	</script>
+	<p>Ahora vamos a poder hace esto</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		Duck model = new ModelDuck();
+		model.display();
+		model.performFly();
+		model.performQuack();
+		model.setFlyBehavior(new FlyWithRocket());
+		model.performFly();
+	</script>
+	<p>Salida por cosola</p>
+	<script type="syntaxhighlighter" class="brush: text; toolbar: false;">
+		I m a model Duck
+		I can t fly
+		Quack
+		I m flying with a Rocket
+	</script>
+</section>
+<section class="slide" id="strategy20">
+	<h2>Diagrama de clases completo</h2>
+	<img src="duckSimulatorStrategy.png"/>
+</section>
+<section class="slide" id="strategy21">
+	<h2>Principio de diseño</h2>
+	<h3>Tiene un puede ser mejor que es un</h3>
 </section>
 <!----------------------------------------------------------------------------------------------->
 <!-- deck.navigation snippet -->

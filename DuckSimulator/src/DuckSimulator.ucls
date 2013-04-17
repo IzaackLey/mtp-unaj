@@ -1,4 +1,4 @@
-<class-diagram version="1.0.10" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+<class-diagram version="1.0.11" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
   <class id="1" corner="BOTTOM_RIGHT" language="java" name="Squeak" project="DuckSimulator" 
     file="/DuckSimulator/src/Squeak.java" binary="false">    
@@ -50,7 +50,7 @@
   </class>  
   <class id="7" corner="BOTTOM_RIGHT" language="java" name="MiniDuckSimulator" project="DuckSimulator" 
     file="/DuckSimulator/src/MiniDuckSimulator.java" binary="false">    
-    <position height="-1" width="-1" x="642" y="57"/>    
+    <position height="-1" width="-1" x="456" y="65"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" visibility="false">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -80,46 +80,46 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <realization id="11">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
+  <generalization id="11">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="10"/>  
+  </generalization>  
   <realization id="12">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="4"/>  
   </realization>  
   <realization id="13">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="8"/>  
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="4"/>  
   </realization>  
-  <association id="14">    
+  <realization id="14">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <association id="15">    
     <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="15" name="flyBehavior"/>      
-      <multiplicity id="16" minimum="0" maximum="1"/>    
+      <attribute id="16" name="flyBehavior"/>      
+      <multiplicity id="17" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="17">    
+  <realization id="18">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <realization id="19">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="8"/>  
   </realization>  
-  <realization id="18">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <association id="19">    
+  <association id="20">    
     <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="20" name="quackBehavior"/>      
-      <multiplicity id="21" minimum="0" maximum="1"/>    
+      <attribute id="21" name="quackBehavior"/>      
+      <multiplicity id="22" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="22">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="10"/>  
-  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
     visibility="false">    
     <attributes public="true" package="true" protected="true" private="true"/>    
