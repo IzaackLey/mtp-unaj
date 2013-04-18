@@ -17,11 +17,11 @@ public class Triangulo extends FiguraGeometrica{
 		//formula de Heron
 		double perimetro = lado1+lado2+lado3;
 		double semiperimetro = perimetro/2;
-		return Math.sqrt(semiperimetro*(semiperimetro-lado1)*(semiperimetro-lado2)*(semiperimetro-lado3));
+		return Math.pow(semiperimetro*(semiperimetro-lado1)*(semiperimetro-lado2)*(semiperimetro-lado3),2);
 	}
 	
     public String toString() {
-        return String.format("triangulo lado1:%f, lado2:%f}", lado1, lado2);
+        return String.format("figura:%s lado1:%f, lado2:%f, lado3:%f, area:%f",nombre, lado1, lado2, lado3, getArea());
     }
     
     public void print() {

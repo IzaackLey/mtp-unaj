@@ -1,5 +1,3 @@
-package herencia;
-
 public class Triangulo extends FiguraGeometrica{
 
 	public double lado1;
@@ -21,7 +19,7 @@ public class Triangulo extends FiguraGeometrica{
 	}
 	
     public String toString() {
-        return String.format("triangulo lado1:%f, lado2:%f}", lado1, lado2);
+        return String.format("figura:%s lado1:%f, lado2:%f, lado3:%f, area:%f",nombre, lado1, lado2, lado3, getArea());
     }
     
     public void print() {

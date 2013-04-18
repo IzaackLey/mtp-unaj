@@ -1,5 +1,3 @@
-package herencia;
-
 public class Circulo extends FiguraGeometrica{
 	
 	public Circulo(double radio) {

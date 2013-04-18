@@ -1,4 +1,4 @@
-package herencia;
+
 public class TestConjuntoFiguras {
 	public static void main(String[] args) {
 		ConjutoDeFiguras conjutoDeFiguras = new ConjutoDeFiguras();

@@ -1,5 +1,3 @@
-package herencia;
-
 public class Cuadrado extends FiguraGeometrica{
 	public double lado; 	
 		
@@ -13,7 +11,6 @@ public class Cuadrado extends FiguraGeometrica{
 	}
 
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		return String.format("figura:%s lado:%f, area:%f",nombre, lado, getArea());
 	}
 }

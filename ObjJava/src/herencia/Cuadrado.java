@@ -9,6 +9,10 @@ public class Cuadrado extends FiguraGeometrica{
 	}
 
 	public double getArea() {
-		return Math.sqrt(this.lado);
+		return Math.pow(this.lado,2);
+	}
+
+	public String toString() {
+		return String.format("figura:%s lado:%f, area:%f",nombre, lado, getArea());
 	}
 }

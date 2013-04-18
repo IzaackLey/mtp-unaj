@@ -1,5 +1,3 @@
-package herencia;
-
 public abstract class FiguraGeometrica implements Comparable<FiguraGeometrica>{
 	public String nombre;
 	public String color;
