@@ -428,7 +428,90 @@
 </section>
 <section class="slide" id="strategy21">
 	<h2>Principio de diseño</h2>
-	<h3>Tiene un puede ser mejor que es un</h3>
+	<h3>"Tener un" puede ser mejor que "ser un"</h3>
+	<p><strong>Favorecer la composicion sobre la herencia</strong></p>
+	<p>En el ejemplo en ves de heredar el comportamiento, los patos obtien el comportamineto por medio del uso de la composición</p>
+	<p>El uso de la composición sobre la herencia, da mayor flexibilidad y no solo permite encapsular en familias los distintos comportamientos sino que ademas permite hacer cambios de comportamiento en tiempos de ejecución.</p>
+</section>
+<section class="slide" id="strategy22">
+	<h2>Patrón de diseño Strategy</h2>
+	<p>El patrón Strategy permite mantener un conjunto de algoritmos de los que el objeto cliente puede elegir aquel que le conviene e intercambiarlo según sus necesidades.</p>
+	<ul>
+		<li>Clasificación: Se clasifica como patrón de comportamiento porque determina como se debe realizar el intercambio de mensajes entre diferentes objetos para resolver una tarea.<BR>
+		Se usa para cambiar </li>
+		<li>Motivación:</li>
+		<ul>
+			<li>Incluir el codigo de las clases clientes hacen que sean demasiado pesados y dificiles de mantener</li>
+			<li>El ciente no va a necesitar todos los algoritmos entodos los casos.</li>
+			<li>Si hay distintos clientes que usen los mismo algoritmos se debe repetir el codigo.</li>
+			<li>Se puede cambiar de algoritmo en tiempo de ejecución.</li>
+		</ul>
+		<li>Aplicabilidad</li>
+		<ul>
+			<li>Cualquier programa que ofrezca un servicio o función determinada, que pueda ser realizada de varias maneras, es candidato a utilizar el patrón estrategia. Si muchas clases relacionadas se diferencian únicamente por su comportamiento, se crea una superclase que almacene el comportamiento común y que hará de interfaz hacia las clases concretas.</li>
+			<li>Si un algoritmo utiliza información que no deberían conocer los clientes, la utilización del patrón estrategia evita la exposición de dichas estructuras.</li>
+			<li>Si se necesita cambiar dinámicamente de comportamiento</li>
+			<li>Algoritmos que comparten la misma interface</li>
+		</ul>
+
+	</ul>
+</section>
+<section class="slide" id="strategy23">
+	<h2>Patrón de diseño Strategy</h2>
+	<ul>
+		<li>Consecuencias:</li>
+		<ul>
+			<li>Beneficio: Gerarquias de estrategias que definen una familia de algoritmos, se usa la herencia para agrupar las distintas familias de algoritmos</li>
+			<li>Beneficio: da una alternativa mas reusable y dinamica a las subclases mientras que no cambien las interfaces</li>
+			<li>Beneficio: Las estrategias pueden tener distintas implementaciones y el cliente puede optar por la mas conveninete</li>
+			<li>Desventaja: Los clientes deben conocer las distintas estrategias para poder seleccionar las mas apropiada</li>
+			<li>Desventaja: aumenta el número de objetos creados, por lo que se produce una penalización en la comunicación entre estrategia y contexto</li>
+		</ul>
+		<li>Participantes</li>
+		<ul>
+			<li>Contexto (Context) : Es el elemento que usa los algoritmos, por tanto, delega en la jerarquía de estrategias. Configura una estrategia concreta mediante una referencia a la estrategia necesaria. Puede definir una interfaz que permita a la estrategia el acceso a sus datos en caso de que fuese necesario el intercambio de información entre el contexto y la estrategia. En caso de no definir dicha interfaz, el contexto podría pasarse a sí mismo a la estrategia como parámetro.</li>
+			<li>Estrategia (Strategy): Declara una interfaz común para todos los algoritmos soportados. Esta interfaz será usada por el contexto para invocar a la estrategia concreta.</li>
+			<li>EstrategiaConcreta (ConcreteStrategy): Implementa el algoritmo utilizando la interfaz definida por la estrategia.</li>
+		</ul>
+	</ul>
+</section>
+<section class="slide" id="strategy24">
+	<h2>Patrón de diseño Strategy</h2>
+	<ul>
+		<li>Estructura:</li>
+		<img src="strategyClassDiagram.png"/>
+	</ul>
+</section>
+<section class="slide" id="strategy25">
+	<h2>Organización de los patrones</h2>
+	<ul>
+		<li>Crecionales</li>
+		<ul>
+			<li>Clase: Los patrones creacionales de Clases usan la herencia como un mecanismo para lograr la instanciación de la Clase.</li>
+			<li>Objeto: Los patrones creacionales de objetos son más escalables y dinámicos comparados de los patrones creacionales de Clases.</li>
+		</ul>
+		<li>Estructurales</li>
+		<ul>
+			<li>Clase: Los patrones estructurales de Clases usan la herencia para proporcionar interfaces más útiles combinando la funcionalidad de múltiples Clases.</li>
+			<li>Objeto:Los patrones estructurales de objetos crean objetos complejos agregando objetos individuales para construir grandes estructuras. La composición de l patrón estructural del objeto puede ser cambiado en tiempo de ejecución, el cual nos da flexibilidad adicional sobre los patrones estructurales de Clases.</li>
+		</ul>
+		<li>Comportamiento</li>
+		<ul>
+			<li>Clase: Los patrones de comportamiento de Clases usan la herencia para distribuir el comportamiento entre Clases.</li>
+			<li>Objeto:Los patrones de comportamiento de objetos nos permite analizar los patrones de comunicación entre objetos interconectados, como objetos incluidos en un objeto complejo. </li>
+		</ul>
+	</ul>
+</section>
+<section class="slide" id="strategy26">
+	<h2>Organización de los patrones</h2>
+	<img src="patternsClasificationTable.png"/>
+</section>
+<section class="slide" id="strategy27">
+	<h2>Referencias</h2>
+	<p>Head First Design Patterns</p>
+	<p>http://es.wikipedia.org/wiki/Strategy_(patr%C3%B3n_de_dise%C3%B1o)</p>
+	<p>http://www.ciberaula.com/articulo/diseno_patrones_j2ee</p>
+
 </section>
 <!----------------------------------------------------------------------------------------------->
 <!-- deck.navigation snippet -->
