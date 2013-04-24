@@ -212,14 +212,191 @@
 	<img src="whetherStationObserver.png"/> 
 
 </section>	
-
-<section class="slide" id="strategy20">
-	<h2>Principio de diseño</h2>
+<section class="slide" id="strategy12">
+	<h2>Implementación</h2>
+	<h3>Implementación de la estación metereológica usando observer</h3>
+	<p>Tomamos el diagrama de clases anterior y empezamos implementar</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface Subject {
+			public void registerObserver(Observer o);
+			public void removeObserver(Observer o);
+			public void notifyObservers();
+		}
+	</script>
+	<p>registerObserver y removeObserver son los metodo usados por los observadores para registrarse y desregistrarse</p>
+	<p>notifyObservers es el que invoca el subjet cada ves que cambia de estado para avisarles a los observadores</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface Observer {
+			public void update(float temp, float humidity, float pressure);
+		}
+	</script>
+	<p>La interfaz Observer esta implementada por todos los obsrvadores. Todos tiene que implementar el método update()</p>
+	<p>Los parametros del método son las variables que el subjet les mantiene acutalizadas</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface DisplayElement {
+			public void display();
+		}
+	</script>
+</section>
+<section class="slide" id="strategy13">
+	<h2>Implementación</h2>
+	<p>Modificamos la primera implentación de WheterData usando el patrón Observer</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class WeatherData implements Subject {
+		private ArrayList<Observer> observers;
+		private float temperature;
+		private float humidity;
+		private float pressure;
+		
+		public WeatherData() {
+			observers = new ArrayList<Observer>();
+		}
+		.
+		.
+	</script>
 	<ul>
-		<li>El poder del bajo acoplamiento: cuando dos objetos estan debilmente acoplados pueden interactuar, pero tienen poco conocimiento el uno del otro.<li/>
-		<li>El patrón Obsrever provee un dieseño donde los sujetos y observadores estan debilmente acoplados</li>
-		<li></li>
-	</ul>	
+		
+		<li>Agregamos la colección ArrayList para tener una referencia a los observardores.</li>
+		<li>En la primera implementación teniamos las relaciones a los observadores pero no era una coleccción con lo cual no podia tener la cantidad de observadores que se quisieran.</li>
+</section>
+<section class="slide" id="strategy14">
+	<h2>Implementación</h2>
+	<p>Modificamos la primera implentación de WheterData usando el patrón Observer</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		.
+		.
+		public void registerObserver(Observer o) {
+			observers.add(o);
+		}
+		
+		public void removeObserver(Observer o) {
+			int i = observers.indexOf(o);
+			if (i >= 0) {
+				observers.remove(i);
+			}
+		}
+		
+		public void notifyObservers() {
+			for (int i = 0; i < observers.size(); i++) {
+				Observer observer = (Observer)observers.get(i);
+				observer.update(temperature, humidity, pressure);
+			}
+		}
+	}
+	</script>
+	<ul>
+		<li>Ahora WhetherData implementa la interfaz Subjet. Estos son los metodos que tengo que implementar cuando implemento la interfaz</li>
+		<li>Los métodos para agregar registerObserver() y removeObserver() para agregar y quitar observadores</li>
+		<li>notifyObservers() es el que hace la magia de avisarles a todos los obsrvadores<BR>
+			Como todos implementan el método update() se les puede avisa por medio de este.</li>
+</section>
+<section class="slide" id="strategy15">
+	<h2>Implementación</h2>
+	<p>Modificamos la primera implentación de WheterData usando el patrón Observer</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		.
+		.
+		public void measurementsChanged() {
+			notifyObservers();
+		}
+		
+		public void setMeasurements(float temperature, float humidity, float pressure) {
+			this.temperature = temperature;
+			this.humidity = humidity;
+			this.pressure = pressure;
+			measurementsChanged();
+		}
+	}
+	</script>
+	<ul>
+		<li>measurementsChanged() es el metodo que se invoca cuando hay un cambio en el estado del Subject. Se podría haber llamado directamente a notifyObservers().</li>
+		<li>setMeasurements() es el método que simula la central. Si la central cambiara los valores de los atributos de WhetherStation y luego invocara a measurementsChanged() este método no seria necesario, pero para la simulacion invocamos a este método para lograr un cambio en los atributos y luego invocamos al metod que avisa a los obsevadores, en este caso los displays</li>
+</section>
+<section class="slide" id="strategy16">
+	<h2>Implementación</h2>
+	<p>Ahora los displays</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class CurrentConditionsDisplay implements Observer, DisplayElement {
+			private float temperature;
+			private float humidity;
+			private Subject weatherData;
+			
+			public CurrentConditionsDisplay(Subject weatherData) {
+				this.weatherData = weatherData;
+				weatherData.registerObserver(this);
+			}
+			
+			public void update(float temperature, float humidity, float pressure) {
+				this.temperature = temperature;
+				this.humidity = humidity;
+				display();
+			}
+			
+			public void display() {
+				System.out.println("Current conditions: " + temperature 
+					+ "F degrees and " + humidity + "% humidity");
+			}
+		}
+	</script>
+	<ul>
+		<li>Como implementa Observer el Subjet el subjet sabe que puede informarnos los cambios invocando a update() cuando sea necesario.</li>
+		<li>En el constructor le pasamos un objeto subject para registrarse en él, osea se registramos en la estación metereológica que le enviamos acá (podría haber mas de una)<BR>
+		Ademas nos guardamos una referencia a el subject en el cual se registra para el caso que queremos desregsitrarnos</li>
+</section>
+<section class="slide" id="strategy17">
+	<h2>Implementación</h2>
+	<p>Por último la clase para probar</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class WeatherStation {
+
+			public static void main(String[] args) {
+				WeatherData weatherData = new WeatherData();
+				
+				CurrentConditionsDisplay currentDisplay = new CurrentConditionsDisplay(weatherData);
+				StatisticsDisplay statisticsDisplay = new StatisticsDisplay(weatherData);
+				ForecastDisplay forecastDisplay = new ForecastDisplay(weatherData);
+
+				weatherData.setMeasurements(80, 65, 30.4f);
+				weatherData.setMeasurements(82, 70, 29.2f);
+				weatherData.setMeasurements(78, 90, 29.2f);
+				
+				weatherData.removeObserver(currentDisplay);
+				
+				weatherData.setMeasurements(80, 65, 30.4f);
+				weatherData.setMeasurements(82, 70, 29.2f);
+				weatherData.setMeasurements(78, 90, 29.2f);
+			}
+		}
+	</script>
+</section>
+<section class="slide" id="strategy18">
+	<h2>Principio de diseño</h2>
+	<h3>Esforzarse por diseños con acoplamiento débil entre los objetos que interactúan</h3>
+	<p><strong>Esto permite diseños OO (orientados a objetos) flexibles</strong><p>
+	<p>El patrón Obsever provee un diseño donde los sujetos y observadores estan debilmente acoplados.<BR>
+		Cuando dos objetos estan debilmente acoplados pueden interactuar, pero tienen poco conocimiento el uno del otro.
+	</p>
+	<p><stron>Por qué decimos que estan debimente acomplados?</strong></p>	
+	<ul>
+		<li>Lo único que sabe el Subjet del observer es que implemeta cierta interface, no necesita saber nada más. Sabe que tiene el método que le obliga a implementar la interfaz e invocandolo puede informarle sus cambios de estado a los observers</li>
+		<li>Se pueden agregar o sacar en tiempo de ejecucion obsrvers e incluso quedar sin ninguno</li>
+		<li>Se pueden agregar o sacar en tiempo de ejecucion obsrvers e incluso quedar sin ninguno</li>
+		<li>No necesitamos modificar el Subject para agregar nuevos tipos de observers, lo unico que importa que que implementen determinada interfaz (Observer).</li>
+		<li>Podemos usar subject y observers independientemente unos del otro. En este ejemplo en el constructor se le pasa un objeto subjet, que si lo usamos para otro fin no tendia sentido.</li>
+		<li>Los cambios tanto en el observer como en el subject no afectan al otro mientras sigan implementando las interfaces subject y observer respectivamente</li>
+	</ul>
+</section>
+<section class="slide" id="strategy19">
+	<h2>Observer de java</h2>
+	<p>Miremos el soporte que tiene java embevido de este patrón<p>
+	<ul>
+		<li>Lo único que sabe el Subjet del observer es que implemeta cierta interface, no necesita saber nada más. Sabe que tiene el método que le obliga a implementar la interfaz e invocandolo puede informarle sus cambios de estado a los observers</li>
+		<li>Se pueden agregar o sacar en tiempo de ejecucion obsrvers e incluso quedar sin ninguno</li>
+		<li>Se pueden agregar o sacar en tiempo de ejecucion obsrvers e incluso quedar sin ninguno</li>
+		<li>No necesitamos modificar el Subject para agregar nuevos tipos de observers, lo unico que importa que que implementen determinada interfaz (Observer).</li>
+		<li>Podemos usar subject y observers independientemente unos del otro. En este ejemplo en el constructor se le pasa un objeto subjet, que si lo usamos para otro fin no tendia sentido.</li>
+		<li>Los cambios tanto en el observer como en el subject no afectan al otro mientras sigan implementando las interfaces subject y observer respectivamente</li>
+	</ul>
 </section>
 <!----------------------------------------------------------------------------------------------->
 <!-- deck.navigation snippet -->
