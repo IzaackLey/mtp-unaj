@@ -264,7 +264,6 @@
 	<p>Modificamos la primera implentación de WheterData usando el patrón Observer</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		.
-		.
 		public void registerObserver(Observer o) {
 			observers.add(o);
 		}
@@ -282,7 +281,8 @@
 				observer.update(temperature, humidity, pressure);
 			}
 		}
-	}
+		.
+		.
 	</script>
 	<ul>
 		<li>Ahora WhetherData implementa la interfaz Subjet. Estos son los metodos que tengo que implementar cuando implemento la interfaz</li>
@@ -295,7 +295,6 @@
 	<p>Modificamos la primera implentación de WheterData usando el patrón Observer</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		.
-		.
 		public void measurementsChanged() {
 			notifyObservers();
 		}
@@ -305,6 +304,17 @@
 			this.humidity = humidity;
 			this.pressure = pressure;
 			measurementsChanged();
+		}
+		public float getTemperature() {
+			return temperature;
+		}
+		
+		public float getHumidity() {
+			return humidity;
+		}
+		
+		public float getPressure() {
+			return pressure;
 		}
 	}
 	</script>
@@ -388,15 +398,167 @@
 </section>
 <section class="slide" id="strategy19">
 	<h2>Observer de java</h2>
-	<p>Miremos el soporte que tiene java embevido de este patrón<p>
+	<p>Miremos el soporte que tiene java embebido de este patrón<p>
+	<p>Java tiene soporte para muchas API pero una de las mas generales es Observer y Observable, que se corresponden con Observer y Subject respectivamente</p>
+	<p>Inclusive tiene los modos pull y push para notificar a los obsevers</p>
+	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
 	<ul>
-		<li>Lo único que sabe el Subjet del observer es que implemeta cierta interface, no necesita saber nada más. Sabe que tiene el método que le obliga a implementar la interfaz e invocandolo puede informarle sus cambios de estado a los observers</li>
-		<li>Se pueden agregar o sacar en tiempo de ejecucion obsrvers e incluso quedar sin ninguno</li>
-		<li>Se pueden agregar o sacar en tiempo de ejecucion obsrvers e incluso quedar sin ninguno</li>
-		<li>No necesitamos modificar el Subject para agregar nuevos tipos de observers, lo unico que importa que que implementen determinada interfaz (Observer).</li>
-		<li>Podemos usar subject y observers independientemente unos del otro. En este ejemplo en el constructor se le pasa un objeto subjet, que si lo usamos para otro fin no tendia sentido.</li>
-		<li>Los cambios tanto en el observer como en el subject no afectan al otro mientras sigan implementando las interfaces subject y observer respectivamente</li>
+		<li>Subject: Para que un objeto se Subjet en nuestro ejemplo WhetherData tiene que extender de la clase java.util.Observable y por lo tanto heredar los métodos addObserver(), deleteObserver() y notifyObserver() junto con otros más</li>
+		<li>Observers: Observer tiene que implementar la interfaz java.util.Observer e llamar al método addObserver() de cualquier objeto Observable</li>
+		<li>Envio de notificaiones del Observable a los observers:
+			<ul>
+				<li>LLamamr al método setChanged() para informar que hubo un cambio de estado. Esto no existía en nuestra Obsever pero en esta implementación tenemos que setear esto antes de llamar notifyObserver().<Br>
+				Este método no tiene importancia siempre pero sirve por ejemplo en el caso de que un sensor este siempre fluctuando en milésimas y enviando información permanentemente; usando esto podemos bajar la presición para minimizar el envió de información. 
+				</li>
+				<li>LLamar al método notifyObserver() o notifyObserver(Object arg) que recibe un objeto que se le pasa a cada uno de los observadores</li>
+			</ul>		
+		</li>
 	</ul>
+		
+</section>
+
+<section class="slide" id="strategy20">
+	<h2>Observer de java</h2>
+	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
+	<ul>
+		<li>Para que un observer pueda recibir notificaciones teníamos que implementar Observer que no obligaba a implementar el método update(), este era llamado dentro de la implementación de notifyObsever()
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			public void notifyObservers() {
+		        for (int i = 0; i < observers.size(); i++) {
+		            Observer observer = (Observer)observers.get(i);
+		            observer.update(temperature, humidity, pressure);
+		        }
+		    }
+		</script>
+		<p>Ahora notifyObsever() esta implementado por java, y este es el que va a llamar al método update(Obsevable o, Object arg) del objeto Observer</p>
+		<ul>
+			<li>Observable o, es el Subject que envía las notificaciones</li>
+			<li>Object arg, el objeto de datos que va a pasar notifyObservers()</li>
+		</ul>
+		</li>
+		<li>Si queremos que el Observable (Subject) haga un push (forzar un envió de datos a los obsevers) se llama al metodo notifyObserver(Object arg) y se le envía en arg los valores de los atributos.</li>
+		<li>Si queremos desde un observer hacer un pull (traer el estado actual del Observer) hay una manera. Esta forma no fue implementada en nuestro ejemplo.</li>
+</section>
+<section class="slide" id="strategy21">
+	<h2>Observer de java</h2>
+	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
+	<p>Modificamos el código para usar el Observer embebido de java</p>
+	<p><strong>Implementación anterior</strong></P>	
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		import java.util.Observable;
+		public class WeatherData extends Observable {
+			private float temperature;
+			private float humidity;
+			private float pressure;
+			
+			public WeatherData() {
+    			observers = new ArrayList<Observer>();
+			}
+			.
+	</script>
+	<p><strong>Implementación nueva</strong><BR>
+	La estructura que usábamos antes para contener los Observes no la necesitamos más. Esto viene por herencia.
+	</P>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		import java.util.Observable;
+		public class WeatherData extends Observable {
+			private float temperature;
+			private float humidity;
+			private float pressure;
+			
+			public WeatherData() { }
+			.
+	</script>
+</section>
+<section class="slide" id="strategy22">
+	<h2>Observer de java</h2>
+	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
+	<p>Modificamos el código para usar el Observer embebido de java</p>
+	<p><strong>Implementación anterior</strong></P>		
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		.
+	    public void registerObserver(Observer o) {
+	        observers.add(o);
+	    }
+	     
+	    public void removeObserver(Observer o) {
+	        int i = observers.indexOf(o);
+	        if (i >= 0) {
+	            observers.remove(i);
+	        }
+	    }
+	     
+	    public void notifyObservers() {
+	        for (int i = 0; i < observers.size(); i++) {
+	            Observer observer = (Observer)observers.get(i);
+	            observer.update(temperature, humidity, pressure);
+	        }
+	    }
+		.
+		.	.
+	</script>
+	<p><strong>Implementación nueva</strong><BR>
+	Estos métodos no tenemos la necesidad de implementarlos, vienen por la herencia, estan implementados en la clase Observable.
+	</P>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		.
+		.
+	</script>
+</section>
+<section class="slide" id="strategy23">
+	<h2>Observer de java</h2>
+	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
+	<p>Modificamos el código para usar el Observer embebido de java</p>
+	<p><strong>Implementación anterior</strong></P>		
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	   .
+	    public void measurementsChanged() {
+	        notifyObservers();
+	    }
+	     
+	    public void setMeasurements(float temperature, float humidity, float pressure) {
+	        this.temperature = temperature;
+	        this.humidity = humidity;
+	        this.pressure = pressure;
+	        measurementsChanged();
+	    }
+	</script>
+	<p><strong>Implementación nueva</strong><BR>
+	Ahora antes de llamar a notifyObservers(), tenemos que llamar a setChanged();
+	</P>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public void measurementsChanged() {
+			setChanged();
+			notifyObservers();
+		}
+		
+		public void setMeasurements(float temperature, float humidity, float pressure) {
+			this.temperature = temperature;
+			this.humidity = humidity;
+			this.pressure = pressure;
+			measurementsChanged();
+		}
+	</script>
+</section>
+<section class="slide" id="strategy24">
+	<h2>Observer de java</h2>
+	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
+	<p>Modificamos el código para usar el Observer embebido de java</p>
+	<p><strong>Implementación anterior - Implementación nueva</strong></P>		
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public float getTemperature() {
+			return temperature;
+		}
+		
+		public float getHumidity() {
+			return humidity;
+		}
+		
+		public float getPressure() {
+			return pressure;
+		}
+	</script>
+	<p>Esta parte del código es igual en ambas implementaciones. Estos métodos son los que usan los observers para hacer un pull</p>
 </section>
 <!----------------------------------------------------------------------------------------------->
 <!-- deck.navigation snippet -->
