@@ -399,6 +399,12 @@
 <section class="slide" id="strategy19">
 	<h2>Observer de java</h2>
 	<p>Miremos el soporte que tiene java embebido de este patrón<p>
+	<img src="ObsrvableObserver.png"/>
+</section>
+
+<section class="slide" id="strategy19b">
+	<h2>Observer de java</h2>
+	<p>Miremos el soporte que tiene java embebido de este patrón<p>
 	<p>Java tiene soporte para muchas API pero una de las mas generales es Observer y Observable, que se corresponden con Observer y Subject respectivamente</p>
 	<p>Inclusive tiene los modos pull y push para notificar a los obsevers</p>
 	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
@@ -416,7 +422,6 @@
 	</ul>
 		
 </section>
-
 <section class="slide" id="strategy20">
 	<h2>Observer de java</h2>
 	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
@@ -442,22 +447,23 @@
 <section class="slide" id="strategy21">
 	<h2>Observer de java</h2>
 	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
-	<p>Modificamos el código para usar el Observer embebido de java</p>
+	<p>Modificamos el código de WeatherData para usar el Observer embebido de java</p>
 	<p><strong>Implementación anterior</strong></P>	
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		import java.util.Observable;
-		public class WeatherData extends Observable {
+		public class WeatherData implements Subject {
+			private ArrayList<Observer> observers;
 			private float temperature;
 			private float humidity;
 			private float pressure;
 			
 			public WeatherData() {
-    			observers = new ArrayList<Observer>();
+				observers = new ArrayList<Observer>();
 			}
 			.
 	</script>
 	<p><strong>Implementación nueva</strong><BR>
-	La estructura que usábamos antes para contener los Observes no la necesitamos más. Esto viene por herencia.
+	La estructura que usábamos antes para contener los Observes no la necesitamos más. Esto viene por herencia.<BR>
 	</P>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		import java.util.Observable;
@@ -469,11 +475,12 @@
 			public WeatherData() { }
 			.
 	</script>
+	<p>Como se puede ver antes implementabamos subject ahora heredamos de Observable</p>
 </section>
 <section class="slide" id="strategy22">
 	<h2>Observer de java</h2>
 	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
-	<p>Modificamos el código para usar el Observer embebido de java</p>
+	<p>Modificamos el código de WeatherData para usar el Observer embebido de java</p>
 	<p><strong>Implementación anterior</strong></P>		
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		.
@@ -508,7 +515,7 @@
 <section class="slide" id="strategy23">
 	<h2>Observer de java</h2>
 	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
-	<p>Modificamos el código para usar el Observer embebido de java</p>
+	<p>Modificamos el código de WeatherData para usar el Observer embebido de java</p>
 	<p><strong>Implementación anterior</strong></P>		
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 	   .
@@ -543,7 +550,7 @@
 <section class="slide" id="strategy24">
 	<h2>Observer de java</h2>
 	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
-	<p>Modificamos el código para usar el Observer embebido de java</p>
+	<p>Modificamos el código de WeatherData para usar el Observer embebido de java</p>
 	<p><strong>Implementación anterior - Implementación nueva</strong></P>		
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		public float getTemperature() {
@@ -559,6 +566,93 @@
 		}
 	</script>
 	<p>Esta parte del código es igual en ambas implementaciones. Estos métodos son los que usan los observers para hacer un pull</p>
+</section>
+<section class="slide" id="strategy25">
+	<h2>Observer de java</h2>
+	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
+	<p>Modificamos el código de CurrentConditionsDisplay para usar el Observer embebido de java</p>
+	<p><strong>Implementación anterior</strong></P>		
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class CurrentConditionsDisplay implements Observer, DisplayElement {
+			private float temperature;
+			private float humidity;
+			private Subject weatherData;
+			
+			public CurrentConditionsDisplay(Subject weatherData) {
+				this.weatherData = weatherData;
+				weatherData.registerObserver(this);
+			}
+	</script>
+	<p>Iimplementamos el Observer que nosotros definimos</p>
+	<p><strong>Implementación nueva</strong><BR>
+	</P>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class CurrentConditionsDisplay implements Observer, DisplayElement {
+			Observable observable;
+			private float temperature;
+			private float humidity;
+			
+			public CurrentConditionsDisplay(Observable observable) {
+				this.observable = observable;
+				observable.addObserver(this);
+			}
+	</script>
+	<p>Implementamos el Observer de java.util.Observer</p>
+	<p>Referenciamos Observable en ves de Subject</p>
+	<p>CurrentConditionsDisplay() recibe Observable en vez de Subject </p>
+</section>
+<section class="slide" id="strategy26">
+	<h2>Observer de java</h2>
+	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
+	<p>Modificamos el código de CurrentConditionsDisplay para usar el Observer embebido de java</p>
+	<p><strong>Implementación anterior</strong></P>		
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public void update(float temperature, float humidity, float pressure) {
+			this.temperature = temperature;
+			this.humidity = humidity;
+			display();
+		}
+		
+		public void display() {
+			System.out.println("Current conditions: " + temperature 
+				+ "F degrees and " + humidity + "% humidity");
+		}
+	</script>
+	<p>Iimplementamos el Observer que nosotros definimos</p>
+	<p><strong>Implementación nueva</strong><BR>
+	</P>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public void update(Observable obs, Object arg) {
+			if (obs instanceof WeatherData) {
+				WeatherData weatherData = (WeatherData)obs;
+				this.temperature = weatherData.getTemperature();
+				this.humidity = weatherData.getHumidity();
+				display();
+			}
+		}
+		
+		public void display() {
+			System.out.println("Current conditions: " + temperature 
+				+ "F degrees and " + humidity + "% humidity");
+		}
+	</script>
+	<p>cambiamos el método update() ahora recibe un objeto Observable y el Objeto de datos (WeatherData)</p>
+</section>
+<section class="slide" id="strategy27">
+	<h2>Observer de java</h2>
+	<h3>Desventajas de java.util.Observable</h3>
+	<ul>
+		<li>java.util.Observable esta violando el principio de diseño de programar a interfaces no a implementaciones ya que Observable es una clase concreta y no implementa ninguna clase
+			<ul>
+				<li>Una explicación de porque no es abstracta para permitir usar composicion en ves de herencia, lo cual es necesario cuando la clase que queremos observar ya hereda de otra.</li>
+				<li>Otra razón por la que no una interface porque mantiene la coleccion de los Obsrvers que se van agregando.<BR>
+				Si hubiera sido una interfaz esto tendria que haber sido una de las cosas que habria que haber implementado</li>
+			</ul>
+		</li>
+		<li>Observable debería haber sido una interface y ademas proveer una implementacion conveniente, como lo que pasa con ArrayList que implementa a la interface List</li>
+		<li>Observable es una clase, esto significa que no podemos agregar en el comportamiento de Observable, a otra clase que extiende otra superclase porque en java no hay herencia múltiple</li>
+		<li>Ademas como no es una interface no se puede crear una implementacion propia que funcione con el Observer embebido, por ejemplo por una implementacio que soporte multi hilos</li>
+	</ul>
 </section>
 <!----------------------------------------------------------------------------------------------->
 <!-- deck.navigation snippet -->
