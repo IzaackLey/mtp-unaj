@@ -52,32 +52,32 @@
 
 <!-- Begin slides -->
 <section class="slide" id="observer1">
-	<h2>Estación Meterológica</h2>
-	<p>Tenemos que hacer una api una estación metereológica para que pueda ser extendida y que se puedan agregar otros elementos de visualización </p>
+	<h2>Estación Meteorológica</h2>
+	<p>Tenemos que hacer una api una estación meteorológica para que pueda ser extendida y que se puedan agregar otros elementos de visualización </p>
 	<p><strong>API:</strong>(Application Programming Interface o Interfaz de programación de aplicaciones) es el conjunto de funciones y procedimientos (o métodos, en la programación orientada a objetos) que ofrece cierta biblioteca para ser utilizado por otro software como una capa de abstracción.</p>
 	<h3>Esquema de funcionamiento</h3>
 	<img src="whetherStationDraw.png">
-	<p>Tres son las partes que intervienen en la estación metereológica</p>
+	<p>Tres son las partes que intervienen en la estación meteorológica</p>
 	<ul>
-		<li>El dispositivo fisico: que toma los datos de los sensores</li>
-		<li>WhetherData object: toma los datos que viene de la estacion meterológica y actualiza los dispostivos de visualización, este sabe como comunicarse con el dispositivo físico para obtener los datos actualizados y luego actualizar los display que muestran la información</li>
+		<li>El dispositivo físico: que toma los datos de los sensores</li>
+		<li>WhetherData object: toma los datos que viene de la estación meteorológica y actualiza los dispostivos de visualización, este sabe como comunicarse con el dispositivo físico para obtener los datos actualizados y luego actualizar los display que muestran la información</li>
 		<li>El diaplay: que muestra los datos del tiempo actuales</li>
 	</ul>
-	<p>El objetivo del programa es actualizar los displays cuando alla algún cambio en los datos sensados</p>
+	<p>El objetivo del programa es actualizar los displays cuando allá algún cambio en los datos censados</p>
 </section>
 
-<section class="slide" id="strategy2">
-	<h2>Estación Meterológica</h2>
-	<p>El clase WhetherData viene con 3 metodos implementados que son los que obtienen los datos de la estación metereológica, estos son getTemperature(), getHumidity(), getPressure() y un método measurementsChanged() que es invocado por la central metereológica cada vez que hay un cambio en las mediciones</p>
+<section class="slide" id="observer2">
+	<h2>Estación Meteorológica</h2>
+	<p>El clase WhetherData viene con 3 métodos implementados que son los que obtienen los datos de la estación meteorológica, estos son getTemperature(), getHumidity(), getPressure() y un método measurementsChanged() que es invocado por la central meteorológica cada vez que hay un cambio en las mediciones</p>
 	<img src="factoryWhetherDataClass.png"/>
-	<p>Nuestra tarea es implementar 3 displays que se alimenten de los datos recolectados por la estación metereológica, y el método measurementsChanged() de tal manera que se actualicen los displays con las nuevos datos adequiridos</p>
+	<p>Nuestra tarea es implementar 3 displays que se alimenten de los datos recolectados por la estación meteorológica, y el método measurementsChanged() de tal manera que se actualicen los displays con las nuevos datos adquiridos</p>
 </section>
-<section class="slide" id="strategy3">
-	<h2>Estación Meterológica</h2>
-	<p>No tenemos idea como es la implementación de los getters, ni como hace las estación meterelógica para saber cuando invocar a el metodo measurementsChanged(), pero sabemos que cuando esto ocurre tenemos que leer los datos de la centra y actualizar la información en los displys</p>
-	<p>El sistema tiene que se expandible para que otros desarrolladores puedan crear nuevos displays personalizados y que además los usuarios puedan agregar y sacar displays de la apliación</p>
+<section class="slide" id="observer3">
+	<h2>Estación Meteorológica</h2>
+	<p>No tenemos idea como es la implementación de los getters, ni como hace las estación meterelógica para saber cuando invocar a el método measurementsChanged(), pero sabemos que cuando esto ocurre tenemos que leer los datos de la centra y actualizar la información en los displys</p>
+	<p>El sistema tiene que se expandible para que otros desarrolladores puedan crear nuevos displays personalizados y que además los usuarios puedan agregar y sacar displays de la aplicación</p>
 </section>
-<section class="slide" id="strategy4">
+<section class="slide" id="observer4">
 	<h2>Primera implementación</h2>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 	public class WeatherData {
@@ -96,7 +96,7 @@
 	<p><strong>Qué afirmaciones son ciertas con respecto al código anterior</strong></p>
 	<ul>
 		<li>Estamos referenciando implementaciones concretas, no interfaces.</li>
-		En realidad no sabemos si estan declarados a un supertipo o a un tipo concreto.
+		En realidad no sabemos si están declarados a un supertipo o a un tipo concreto.
 		Podría haber estado declarado asi:
 		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 			CurrentConditionsDisplays currentConditionsDisplays;
@@ -106,7 +106,7 @@
 			Display currentConditionsDisplays;
 		</script>
 		<p>en cuyo caso no estaría referenciado a una interfaz, o estar así.</p>
-		<p>El hecho de que el nombre del atributo sea específico y no generico, nos da la idea de que en realidad, si se esta referenciando implementaciones concretas, si se hubieran declarado referenciando a un supertipo se hubiera puesto algo asi:</p>
+		<p>El hecho de que el nombre del atributo sea específico y no genérico, nos da la idea de que en realidad, si se esta referenciando implementaciones concretas, si se hubieran declarado referenciando a un supertipo se hubiera puesto algo asi:</p>
 		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 			display1.update(temp, humidity, pressure);
 			display2.update(temp, humidity, pressure);
@@ -115,12 +115,12 @@
 		</li>
 	</ul>
 </section>
-<section class="slide" id="strategy5">
+<section class="slide" id="observer5">
 	<h2>Primera implementación</h2>
 	<p><strong>Qué afirmaciones son ciertas con respecto al código anterior</strong></p>
 	<ul>
 		<li>Para cada display nuevo tenemos que modificar el código.
-		Si en la afirmación anterior dijimos que estabamos referenciando a un tipo concreto entonces, esta es si, ya que una ves que declaramos un atributo de un tipo concreto no podemos cambiarlo en tiempo de ejecución.
+		Si en la afirmación anterior dijimos que estábamos referenciando a un tipo concreto entonces, esta es si, ya que una ves que declaramos un atributo de un tipo concreto no podemos cambiarlo en tiempo de ejecución.
 		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 			CurrentConditionsDisplays currentConditionsDisplays;
 		</script>
@@ -130,18 +130,18 @@
 		</script>
 		<p>Ya que estamos atados a un tipo concreto determinado</p>
 		</li>
-		<li>No tenemos forma de agragar elementos en tiempo de ejecución.
-		<p>Para podes cambiar la cantidad de elementos en tiempo de ejecución necesitariamos una interfaz que referencia a una interface</p>
+		<li>No tenemos forma de agregar elementos en tiempo de ejecución.
+		<p>Para podes cambiar la cantidad de elementos en tiempo de ejecución necesitaríamos una interfaz que referencia a una interface</p>
 		</li>
-		<li>Los elementos Display no implementan una interfaz comun.</li>
+		<li>Los elementos Display no implementan una interfaz común.</li>
 		<li>No encapsulamos la parte que cambia.
-		Por ahora para agregar un display los programadores tiene que tocar el código de la clase WhetherDataObjet	
+		Por ahora para agregar un Display los programadores tiene que tocar el código de la clase WhetherDataObjet	
 		</li>
 		<li>Estamos violando el encapsulamiento de la clase WeatherData.</li>
 	</ul>
 </section>
-<section class="slide" id="strategy6">
-	<h2>Patrón Obsrver</h2>
+<section class="slide" id="observer6">
+	<h2>Patrón Observer</h2>
 	<h3>Suscripción una a revista</h3>
 	<ul>
 		<li>Hay distintas revistas que hacen sus publicaciones.</li>
@@ -149,10 +149,10 @@
 		<li>El editor de la revista envía cada publicación nueva a todos los que estén suscritos.</li>
 		<li>Nos podemos des subscribir cuando no queramos seguir recibiendo las revistas</li>
 	</ul>
-	<p>Si entendemos esto entonces entendemos como trabaja el patrón observer, con la pequeña diferencia que en el patrón llamamos <strong>Subject</strong> al editor y <strong>observers</strong> los subcriptores</p>
+	<p>Si entendemos esto entonces entendemos como trabaja el patrón observer, con la pequeña diferencia que en el patrón llamamos <strong>Subject</strong> al editor y <strong>observers</strong> los subscriptores</p>
 </section>
-<section class="slide" id="strategy7">
-	<h2>Patrón Obsrver</h2>
+<section class="slide" id="observer7">
+	<h2>Patrón Observer</h2>
 	<p>Define una dependencia de uno-a-muchos entre objetos de forma que, cuando un objeto cambia de estado, se notifica a los objetos dependientes para que se actualicen automáticamente.<p/>
 	<ul>
 		<li>Clasificación:</li>
@@ -170,8 +170,8 @@
 	</ul>
 	<p>Si entendemos esto entonces entendemos como trabaja el patrón observer, con la pequeña diferencia que en el patrón llamamos <strong>Subject</strong> al editor y <strong>observers</strong> los subcriptores</p>
 </section>
-<section class="slide" id="strategy8">
-	<h2>Patrón Obsrver</h2>
+<section class="slide" id="observer8">
+	<h2>Patrón Observer</h2>
 	<ul>
 		<li>Consecuencias: </li>
 		<ul>
@@ -191,15 +191,15 @@
 		</ul>
 	</ul>
 </section>
-<section class="slide" id="strategy9">
-	<h2>Patrón Obsrver</h2>
+<section class="slide" id="observer9">
+	<h2>Patrón Observer</h2>
 	<ul>
 		<li>Estructura:
 		<img src="observerClassDiagram.png"/></li>
 	</ul>	
 </section>
-<section class="slide" id="strategy10">
-	<h2>Patrón Obsrver</h2>
+<section class="slide" id="observer10">
+	<h2>Patrón Observer</h2>
 	<ul>
 		<li>Por que decimos que la relación es de uno a muchos?<br>
 			Con el patrón observer el Sujeto es el contiene el estado y lo controla. Osea hay un solo objeto con estado</li>
@@ -207,14 +207,14 @@
 		<li>La relación es un sujeto, muchos obsrvadores</li>
 	</ul>
 </section>
-<section class="slide" id="strategy11">
+<section class="slide" id="observer11">
 	<h2>Implementación</h2>
 	<img src="whetherStationObserver.png"/> 
 
 </section>	
-<section class="slide" id="strategy12">
+<section class="slide" id="observer12">
 	<h2>Implementación</h2>
-	<h3>Implementación de la estación metereológica usando observer</h3>
+	<h3>Implementación de la estación meteorológica usando observer</h3>
 	<p>Tomamos el diagrama de clases anterior y empezamos implementar</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		public interface Subject {
@@ -223,7 +223,7 @@
 			public void notifyObservers();
 		}
 	</script>
-	<p>registerObserver y removeObserver son los metodo usados por los observadores para registrarse y desregistrarse</p>
+	<p>registerObserver y removeObserver son los método usados por los observadores para registrarse y desregistrarse</p>
 	<p>notifyObservers es el que invoca el subjet cada ves que cambia de estado para avisarles a los observadores</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		public interface Observer {
@@ -231,16 +231,16 @@
 		}
 	</script>
 	<p>La interfaz Observer esta implementada por todos los obsrvadores. Todos tiene que implementar el método update()</p>
-	<p>Los parametros del método son las variables que el subjet les mantiene acutalizadas</p>
+	<p>Los parametros del método son las variables que el subjet les mantiene actualizadas</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		public interface DisplayElement {
 			public void display();
 		}
 	</script>
 </section>
-<section class="slide" id="strategy13">
+<section class="slide" id="observer13">
 	<h2>Implementación</h2>
-	<p>Modificamos la primera implentación de WheterData usando el patrón Observer</p>
+	<p>Modificamos la primera implementación de WheterData usando el patrón Observer</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 	public class WeatherData implements Subject {
 		private ArrayList<Observer> observers;
@@ -257,9 +257,9 @@
 	<ul>
 		
 		<li>Agregamos la colección ArrayList para tener una referencia a los observardores.</li>
-		<li>En la primera implementación teniamos las relaciones a los observadores pero no era una coleccción con lo cual no podia tener la cantidad de observadores que se quisieran.</li>
+		<li>En la primera implementación teníamos las relaciones a los observadores pero no era una colección con lo cual no podía tener la cantidad de observadores que se quisieran.</li>
 </section>
-<section class="slide" id="strategy14">
+<section class="slide" id="observer14">
 	<h2>Implementación</h2>
 	<p>Modificamos la primera implentación de WheterData usando el patrón Observer</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
@@ -285,12 +285,12 @@
 		.
 	</script>
 	<ul>
-		<li>Ahora WhetherData implementa la interfaz Subjet. Estos son los metodos que tengo que implementar cuando implemento la interfaz</li>
+		<li>Ahora WhetherData implementa la interfaz Subjet. Estos son los métodos que tengo que implementar cuando implemento la interfaz</li>
 		<li>Los métodos para agregar registerObserver() y removeObserver() para agregar y quitar observadores</li>
-		<li>notifyObservers() es el que hace la magia de avisarles a todos los obsrvadores<BR>
+		<li>notifyObservers() es el que hace la magia de avisarles a todos los observadores<BR>
 			Como todos implementan el método update() se les puede avisa por medio de este.</li>
 </section>
-<section class="slide" id="strategy15">
+<section class="slide" id="observer15">
 	<h2>Implementación</h2>
 	<p>Modificamos la primera implentación de WheterData usando el patrón Observer</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
@@ -319,10 +319,10 @@
 	}
 	</script>
 	<ul>
-		<li>measurementsChanged() es el metodo que se invoca cuando hay un cambio en el estado del Subject. Se podría haber llamado directamente a notifyObservers().</li>
+		<li>measurementsChanged() es el método que se invoca cuando hay un cambio en el estado del Subject. Se podría haber llamado directamente a notifyObservers().</li>
 		<li>setMeasurements() es el método que simula la central. Si la central cambiara los valores de los atributos de WhetherStation y luego invocara a measurementsChanged() este método no seria necesario, pero para la simulacion invocamos a este método para lograr un cambio en los atributos y luego invocamos al metod que avisa a los obsevadores, en este caso los displays</li>
 </section>
-<section class="slide" id="strategy16">
+<section class="slide" id="observer16">
 	<h2>Implementación</h2>
 	<p>Ahora los displays</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
@@ -353,7 +353,7 @@
 		<li>En el constructor le pasamos un objeto subject para registrarse en él, osea se registramos en la estación metereológica que le enviamos acá (podría haber mas de una)<BR>
 		Ademas nos guardamos una referencia a el subject en el cual se registra para el caso que queremos desregsitrarnos</li>
 </section>
-<section class="slide" id="strategy17">
+<section class="slide" id="observer17">
 	<h2>Implementación</h2>
 	<p>Por último la clase para probar</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
@@ -379,30 +379,30 @@
 		}
 	</script>
 </section>
-<section class="slide" id="strategy18">
+<section class="slide" id="observer18">
 	<h2>Principio de diseño</h2>
 	<h3>Esforzarse por diseños con acoplamiento débil entre los objetos que interactúan</h3>
 	<p><strong>Esto permite diseños OO (orientados a objetos) flexibles</strong><p>
-	<p>El patrón Obsever provee un diseño donde los sujetos y observadores estan debilmente acoplados.<BR>
-		Cuando dos objetos estan debilmente acoplados pueden interactuar, pero tienen poco conocimiento el uno del otro.
+	<p>El patrón Obsever provee un diseño donde los sujetos y observadores están débilmente acoplados.<BR>
+		Cuando dos objetos están débilmente acoplados pueden interactuar, pero tienen poco conocimiento el uno del otro.
 	</p>
 	<p><stron>Por qué decimos que estan debimente acomplados?</strong></p>	
 	<ul>
 		<li>Lo único que sabe el Subjet del observer es que implemeta cierta interface, no necesita saber nada más. Sabe que tiene el método que le obliga a implementar la interfaz e invocandolo puede informarle sus cambios de estado a los observers</li>
-		<li>Se pueden agregar o sacar en tiempo de ejecucion obsrvers e incluso quedar sin ninguno</li>
-		<li>Se pueden agregar o sacar en tiempo de ejecucion obsrvers e incluso quedar sin ninguno</li>
-		<li>No necesitamos modificar el Subject para agregar nuevos tipos de observers, lo unico que importa que que implementen determinada interfaz (Observer).</li>
-		<li>Podemos usar subject y observers independientemente unos del otro. En este ejemplo en el constructor se le pasa un objeto subjet, que si lo usamos para otro fin no tendia sentido.</li>
+		<li>Se pueden agregar o sacar en tiempo de ejecución observers e incluso quedar sin ninguno</li>
+		<li>Se pueden agregar o sacar en tiempo de ejecución observers e incluso quedar sin ninguno</li>
+		<li>No necesitamos modificar el Subject para agregar nuevos tipos de observers, lo único que importa que que implementen determinada interfaz (Observer).</li>
+		<li>Podemos usar subject y observers independientemente unos del otro. En este ejemplo en el constructor se le pasa un objeto subjet, que si lo usamos para otro fin no tendría sentido.</li>
 		<li>Los cambios tanto en el observer como en el subject no afectan al otro mientras sigan implementando las interfaces subject y observer respectivamente</li>
 	</ul>
 </section>
-<section class="slide" id="strategy19">
+<section class="slide" id="observer19">
 	<h2>Observer de java</h2>
 	<p>Miremos el soporte que tiene java embebido de este patrón<p>
 	<img src="ObsrvableObserver.png"/>
 </section>
 
-<section class="slide" id="strategy19b">
+<section class="slide" id="observer19b">
 	<h2>Observer de java</h2>
 	<p>Miremos el soporte que tiene java embebido de este patrón<p>
 	<p>Java tiene soporte para muchas API pero una de las mas generales es Observer y Observable, que se corresponden con Observer y Subject respectivamente</p>
@@ -422,7 +422,7 @@
 	</ul>
 		
 </section>
-<section class="slide" id="strategy20">
+<section class="slide" id="observer20">
 	<h2>Observer de java</h2>
 	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
 	<ul>
@@ -444,7 +444,7 @@
 		<li>Si queremos que el Observable (Subject) haga un push (forzar un envió de datos a los obsevers) se llama al metodo notifyObserver(Object arg) y se le envía en arg los valores de los atributos.</li>
 		<li>Si queremos desde un observer hacer un pull (traer el estado actual del Observer) hay una manera. Esta forma no fue implementada en nuestro ejemplo.</li>
 </section>
-<section class="slide" id="strategy21">
+<section class="slide" id="observer21">
 	<h2>Observer de java</h2>
 	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
 	<p>Modificamos el código de WeatherData para usar el Observer embebido de java</p>
@@ -477,7 +477,7 @@
 	</script>
 	<p>Como se puede ver antes implementabamos subject ahora heredamos de Observable</p>
 </section>
-<section class="slide" id="strategy22">
+<section class="slide" id="observer22">
 	<h2>Observer de java</h2>
 	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
 	<p>Modificamos el código de WeatherData para usar el Observer embebido de java</p>
@@ -512,7 +512,7 @@
 		.
 	</script>
 </section>
-<section class="slide" id="strategy23">
+<section class="slide" id="observer23">
 	<h2>Observer de java</h2>
 	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
 	<p>Modificamos el código de WeatherData para usar el Observer embebido de java</p>
@@ -547,7 +547,7 @@
 		}
 	</script>
 </section>
-<section class="slide" id="strategy24">
+<section class="slide" id="observer24">
 	<h2>Observer de java</h2>
 	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
 	<p>Modificamos el código de WeatherData para usar el Observer embebido de java</p>
@@ -567,7 +567,7 @@
 	</script>
 	<p>Esta parte del código es igual en ambas implementaciones. Estos métodos son los que usan los observers para hacer un pull</p>
 </section>
-<section class="slide" id="strategy25">
+<section class="slide" id="observer25">
 	<h2>Observer de java</h2>
 	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
 	<p>Modificamos el código de CurrentConditionsDisplay para usar el Observer embebido de java</p>
@@ -601,7 +601,7 @@
 	<p>Referenciamos Observable en ves de Subject</p>
 	<p>CurrentConditionsDisplay() recibe Observable en vez de Subject </p>
 </section>
-<section class="slide" id="strategy26">
+<section class="slide" id="observer26">
 	<h2>Observer de java</h2>
 	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
 	<p>Modificamos el código de CurrentConditionsDisplay para usar el Observer embebido de java</p>
@@ -638,22 +638,27 @@
 	</script>
 	<p>cambiamos el método update() ahora recibe un objeto Observable y el Objeto de datos (WeatherData)</p>
 </section>
-<section class="slide" id="strategy27">
+<section class="slide" id="observer27">
 	<h2>Observer de java</h2>
 	<h3>Desventajas de java.util.Observable</h3>
 	<ul>
 		<li>java.util.Observable esta violando el principio de diseño de programar a interfaces no a implementaciones ya que Observable es una clase concreta y no implementa ninguna clase
 			<ul>
 				<li>Una explicación de porque no es abstracta para permitir usar composicion en ves de herencia, lo cual es necesario cuando la clase que queremos observar ya hereda de otra.</li>
-				<li>Otra razón por la que no una interface porque mantiene la coleccion de los Obsrvers que se van agregando.<BR>
+				<li>Otra razón por la que no una interface porque mantiene la colección de los Observers que se van agregando.<BR>
 				Si hubiera sido una interfaz esto tendria que haber sido una de las cosas que habria que haber implementado</li>
 			</ul>
 		</li>
-		<li>Observable debería haber sido una interface y ademas proveer una implementacion conveniente, como lo que pasa con ArrayList que implementa a la interface List</li>
+		<li>Observable debería haber sido una interface y ademas proveer una implementación conveniente, como lo que pasa con ArrayList que implementa a la interface List</li>
 		<li>Observable es una clase, esto significa que no podemos agregar en el comportamiento de Observable, a otra clase que extiende otra superclase porque en java no hay herencia múltiple</li>
-		<li>Ademas como no es una interface no se puede crear una implementacion propia que funcione con el Observer embebido, por ejemplo por una implementacio que soporte multi hilos</li>
+		<li>Ademas como no es una interface no se puede crear una implementación propia que funcione con el Observer embebido, por ejemplo por una implementacion que soporte multi hilos</li>
 	</ul>
 </section>
+<section class="slide" id="observer28">
+	<h2>Referencias</h2>
+	<p>Head First Design Patterns</p>
+</section>
+
 <!----------------------------------------------------------------------------------------------->
 <!-- deck.navigation snippet -->
 <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
