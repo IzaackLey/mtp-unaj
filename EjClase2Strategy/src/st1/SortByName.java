@@ -4,8 +4,7 @@ import java.util.Collections;
 
 
 public class SortByName implements SortStrategy{
-	public ArrayList<FiguraGeometrica> sort(
-		ArrayList<FiguraGeometrica> figurasGeometricas) {
+	public ArrayList<FiguraGeometrica> sort(ArrayList<FiguraGeometrica> figurasGeometricas) {
 		Collections.sort(figurasGeometricas, new OrdenarFiguraPorNombre());
 		return figurasGeometricas;
 	}
