@@ -142,26 +142,79 @@
 		public static void main(String[] args) {
 			Beverage beverage = new DarkRoast();
 			
-			System.out.println(beverage.getDescription() 
-					+ " $" + beverage.cost());
+			System.out.println(beverage.getDescription() + " $" + beverage.cost());
 			
 			beverage.setMocha(true);
 			beverage.setMilk(true);
 			
-			System.out.println(beverage.getDescription() 
-					+ " $" + beverage.cost());
+			System.out.println(beverage.getDescription() + " $" + beverage.cost());
 		}
-
 	}
 	</script>
 </section>
+
 <section class="slide" id="decorator6">
-	<h2>Cafetería</h2>
+	<h2>Problemas de la implementación</h2>
+	<p><strong>Qué requerimientos o factores pueden cambiar que puedan impactar en el diseño?</strong></p>
+	<ul>
+		<li>La implementación de hardcodear los valores en la superclase hacer que haya que modificar el código cada cambio de precio.<BR/>
+		Esto se podría haber solucionado haciendo variables de clase en ves de instancia y cargándolos en el programa cuando corre.</li>
+		<li>Condimentos nuevos hacen que haya que cambiar el método cost() de la suerclase.</li>
+		<li>Todos los brebajes nuevos van a tener los métodos de todos los condimentos aunque no se posible por regla de negocio.</li>
+		<li>Que pasa si uno quiere doble ración de condimento? (no podemos calcular el precio)</li>
+	</ul>		
+</section>
+<section class="slide" id="decorator7">
+	<h2>Problemas de la implementación</h2>
+	<p><strong>Qué principios de diseño de los que vinos, no respetamos en esta implementación?</strong></p>
+	<ol>
+		<li>Identificar los aspectos de la aplicación que varían y separarlos de los que permanecen.</li>
+		<li>Programar a interfaces, no a implementaciones</li>
+		<li>Favorecer la composición sobre la herencia. "Tener un" puede ser mejor que "ser un".</li>
+		<li>Esforzarse por diseños con acoplamiento débil entre los objetos que interactúan.</li>
+	</ol>
+</section>
+<section class="slide" id="decorator8">
+	<h2>Problemas de la implementación</h2>
+	<p><strong>Qué principios de diseño de los que vinos, no respetamos en esta implementación?</strong></p>
+	<ol>
+		<li><strong>Identificar los aspectos de la aplicación que varían y separarlos de los que permanecen.</strong></li>
+		<li>Programar a interfaces, no a implementaciones</li>
+		<li><strong>Favorecer la composición sobre la herencia. "Tener un" puede ser mejor que "ser un".</strong></li>
+		<li>Esforzarse por diseños con acoplamiento débil entre los objetos que interactúan.</li>
+	</ol>
+</section>
+<section class="slide" id="decorator9">
+	<h2>Repaso de conceptos</h2>
+	<p>Como se hace entonces para tener re uso sin usar herencia?</p>
+	<p>Hay maneras de hacer heredar comportamiento en tiempo de ejecución a través de la composición y delegación.</p>
+	<p>Cuando se hereda comportamiento por subclases ese comportamiento esta seteado en tiempo de compilado, y además todas las subclases heredar el mismo comportamiento, quedando como alternativa la sobreescritura de los métodos heredados como alternativa para cambiar el comportamiento heredado.</p>
+	<p>Sin embargo si puedo extender el comportamiento de un objeto a través de composición, puedo adquirirlo o cambiarlo en tiempo de ejecución.</p>
+</section>
+<section class="slide" id="decorator10">
+	<h2>Repaso de conceptos</h2>
+	<p>Podemos agregar nuevas responsabilidades a los objetos a través de la composición, Inclusive se pueden agregar responsabilidades que no fueron pensadas por el diseñador de la superclase y sin tocar el código.<BR/>
+	En el strategy a un pato se le asignaba una estrategia de vuelo o de quak en tiempo de ejecución.</p>
+	<p>Usando composición se puede agregar de manera dinámica nuevas funcionalidades a los objetos escribiendo nuevo código, evitando cambiar el código ya existente, y con esto disminuyendo las chances de introducir bugs o causar efectos no deseados en el código.</p>
+</section>
+<section class="slide" id="decorator11">
+	<h2>Principio de diseño.</h2>
+	<h3>Las clases tiene que estar abiertas para la extensión pero cerradas para la modificación.</h3>
+	<p>El objetivo es extender clases incorporar nuevos comportamientos si modificar el código existente. (heredar sin modificar el código).</p>
+	<p>Se logran diseños que son resistentes al cambio y flexibles para incorporar nuevas funcionalidades y alcanzar los requerimientos de cambio.</p>
+	<p>Suena raro abierto para heredar cerrado para modificar pero hay técnicas en la programación orientada a objetos que permiten extender funcionalidad sin cambiar el código, por ejemplo el Observer, agregando nuevos observers al Subject sin sin agregar ningún código. Decorator es un buen ejemplos de este principio.</p>
+</section>
+<section class="slide" id="decorator12">
+	<h2>Principio de diseño.</h2>
+	<p>No se puede hacer que todo el código siga este principio.</p>
+	<p>Hacer los diseños flexibles y abiertos lleva tiempo y esfuerzo además de agregarle nuevos niveles de abstracción y complejidad al código.</p>
+	<p>Nos vamos a concentrar en las áreas que suelen cambiar.</p>
+	<p>Para saber cuales áreas cambian mas hay que conocer bien las reglas de negocio.</p>
 </section>
 
 <section class="slide" id="decorator88">
 	<h2>Referencias</h2>
-	<p>Head First Design Patterns</p>
+	<p><strong>Head First Design Patterns</strong></p>
 </section>
 
 <!----------------------------------------------------------------------------------------------->
