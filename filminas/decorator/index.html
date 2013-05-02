@@ -347,6 +347,7 @@
 	<p>CondimentDecorator es la interface <strong>Decorator</strong></p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 	public abstract class CondimentDecorator extends Beverage {
+		Beverage beverage;
 		public abstract String getDescription();
 	}
 	</script>
@@ -380,9 +381,7 @@
 	<h2>Implementación</h2>
 	<p>Y los condimentos que son los <strong>ConcreteDecorator</strong></p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
-		public class Mocha extends CondimentDecorator {
-			Beverage beverage;
-		 
+		public class Mocha extends CondimentDecorator {		 
 			public Mocha(Beverage beverage) {
 				this.beverage = beverage;
 			}

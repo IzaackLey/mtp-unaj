@@ -257,7 +257,8 @@ Si la aplicación siempre usa la instacia de singleton o la creación y costo de
     	private static Singleton uniqueInstance = new Singleton();
      
     	private Singleton() {}
-     
+     file:///home/pablo/workspace/filminas/MDSingleton/sincleton.md
+
     	public static syncronized Singleton getInstance(){
     		return uniqueInstance;
     	}

@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+   <style type="text/css">
+   /*CSS stylesheet is based on killwing's flavored markdown style:https://gist.github.com/2937864*/body{    margin: 0 auto;    font: 13px/1.231 Helvetica, Arial, sans-serif;    color: #444444;    line-height: 1;    max-width: 960px;    padding: 5px;}h1, h2, h3, h4 {    color: #111111;    font-weight: 400;}h1, h2, h3, h4, h5, p {    margin-bottom: 16px;    padding: 0;}h1 {    font-size: 28px;}h2 {    font-size: 22px;    margin: 20px 0 6px;}h3 {    font-size: 21px;}h4 {    font-size: 18px;}h5 {    font-size: 16px;}a {    color: #0099ff;    margin: 0;    padding: 0;    vertical-align: baseline;}a:hover {    text-decoration: none;    color: #ff6600;}a:visited {    color: purple;}ul, ol {    padding: 0;    margin: 0;}li {    line-height: 24px;    margin-left: 44px;}li ul, li ul {    margin-left: 24px;}ul, ol {    font-size: 14px;    line-height: 20px;    max-width: 540px;}p {    font-size: 14px;    line-height: 20px;    max-width: 540px;    margin-top: 3px;}pre {    padding: 0px 4px;    max-width: 800px;    white-space: pre-wrap;    font-family: Consolas, Monaco, Andale Mono, monospace;    line-height: 1.5;    font-size: 13px;    border: 1px solid #ddd;    background-color: #f7f7f7;    border-radius: 3px;}code {    font-family: Consolas, Monaco, Andale Mono, monospace;    line-height: 1.5;    font-size: 13px;    border: 1px solid #ddd;    background-color: #f7f7f7;    border-radius: 3px;}pre code {    border: 0px;}aside {    display: block;    float: right;    width: 390px;}blockquote {    border-left:.5em solid #40AA53;    padding: 0 2em;    margin-left:0;    max-width: 476px;}blockquote  cite {    font-size:14px;    line-height:20px;    color:#bfbfbf;}blockquote cite:before {    content: '\2014 \00A0';}blockquote p {      color: #666;    max-width: 460px;}hr {    height: 1px;    border: none;    border-top: 1px dashed #0066CC}button,input,select,textarea {  font-size: 100%;  margin: 0;  vertical-align: baseline;  *vertical-align: middle;}button, input {  line-height: normal;  *overflow: visible;}button::-moz-focus-inner, input::-moz-focus-inner {  border: 0;  padding: 0;}button,input[type="button"],input[type="reset"],input[type="submit"] {  cursor: pointer;  -webkit-appearance: button;}input[type=checkbox], input[type=radio] {  cursor: pointer;}/* override default chrome & firefox settings */input:not([type="image"]), textarea {  -webkit-box-sizing: content-box;  -moz-box-sizing: content-box;  box-sizing: content-box;}input[type="search"] {  -webkit-appearance: textfield;  -webkit-box-sizing: content-box;  -moz-box-sizing: content-box;  box-sizing: content-box;}input[type="search"]::-webkit-search-decoration {  -webkit-appearance: none;}label,input,select,textarea {  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;  font-size: 13px;  font-weight: normal;  line-height: normal;  margin-bottom: 18px;}input[type=checkbox], input[type=radio] {  cursor: pointer;  margin-bottom: 0;}input[type=text],input[type=password],textarea,select {  display: inline-block;  width: 210px;  padding: 4px;  font-size: 13px;  font-weight: normal;  line-height: 18px;  height: 18px;  color: #808080;  border: 1px solid #ccc;  -webkit-border-radius: 3px;  -moz-border-radius: 3px;  border-radius: 3px;}select, input[type=file] {  height: 27px;  line-height: 27px;}textarea {  height: auto;}/* grey out placeholders */:-moz-placeholder {  color: #bfbfbf;}::-webkit-input-placeholder {  color: #bfbfbf;}input[type=text],input[type=password],select,textarea {  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;  transition: border linear 0.2s, box-shadow linear 0.2s;  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);}input[type=text]:focus, input[type=password]:focus, textarea:focus {  outline: none;  border-color: rgba(82, 168, 236, 0.8);  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);}/* buttons */button {  display: inline-block;  padding: 4px 14px;  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;  font-size: 13px;  line-height: 18px;  -webkit-border-radius: 4px;  -moz-border-radius: 4px;  border-radius: 4px;  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);  background-color: #0064cd;  background-repeat: repeat-x;  background-image: -khtml-gradient(linear, left top, left bottom, from(#049cdb), to(#0064cd));  background-image: -moz-linear-gradient(top, #049cdb, #0064cd);  background-image: -ms-linear-gradient(top, #049cdb, #0064cd);  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #049cdb), color-stop(100%, #0064cd));  background-image: -webkit-linear-gradient(top, #049cdb, #0064cd);  background-image: -o-linear-gradient(top, #049cdb, #0064cd);  background-image: linear-gradient(top, #049cdb, #0064cd);  color: #fff;  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);  border: 1px solid #004b9a;  border-bottom-color: #003f81;  -webkit-transition: 0.1s linear all;  -moz-transition: 0.1s linear all;  transition: 0.1s linear all;  border-color: #0064cd #0064cd #003f81;  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);}button:hover {  color: #fff;  background-position: 0 -15px;  text-decoration: none;}button:active {  -webkit-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);  -moz-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);  box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);}button::-moz-focus-inner {  padding: 0;  border: 0;}/* table  */table {    border-spacing: 0;    border: 1px solid #ccc;}td, th{    border: 1px solid #ccc;    padding: 5px;}/* code syntax highlight.Documentation: http://www.mdcharm.com/documentation/code_syntax_highlighting.html#custom_your_own */pre .literal,pre .comment,pre .template_comment,pre .diff .header,pre .javadoc {    color: #008000;}pre .keyword,pre .css .rule .keyword,pre .winutils,pre .javascript .title,pre .nginx .title,pre .subst,pre .request,pre .status {    color: #0000FF;    font-weight: bold}pre .number,pre .hexcolor,pre .python .decorator,pre .ruby .constant {    color: #0000FF;}pre .string,pre .tag .value,pre .phpdoc,pre .tex .formula {    color: #D14}pre .title,pre .id {    color: #900;    font-weight: bold}pre .javascript .title,pre .lisp .title,pre .clojure .title,pre .subst {    font-weight: normal}pre .class .title,pre .haskell .type,pre .vhdl .literal,pre .tex .command {    color: #458;    font-weight: bold}pre .tag,pre .tag .title,pre .rules .property,pre .django .tag .keyword {    color: #000080;    font-weight: normal}pre .attribute,pre .variable,pre .lisp .body {    color: #008080}pre .regexp {    color: #009926}pre .class {    color: #458;    font-weight: bold}pre .symbol,pre .ruby .symbol .string,pre .lisp .keyword,pre .tex .special,pre .prompt {    color: #990073}pre .built_in,pre .lisp .title,pre .clojure .built_in {    color: #0086b3}pre .preprocessor,pre .pi,pre .doctype,pre .shebang,pre .cdata {    color: #999;    font-weight: bold}pre .deletion {    background: #fdd}pre .addition {    background: #dfd}pre .diff .change {    background: #0086b3}pre .chunk {    color: #aaa}pre .markdown .header {    color: #800;    font-weight: bold;}pre .markdown .blockquote {    color: #888;}pre .markdown .link_label {    color: #88F;}pre .markdown .strong {    font-weight: bold;}pre .markdown .emphasis {    font-style: italic;}
+   </style>
+   
+   
+</head>
+<body>
+    <h1>Singleton</h1>
+
+<p>Permite la creacción de una sola instacia de una clase.
+Hay muchos objetos de los cuales necesitamos que exista tan solo uno, por ejemplo, objetos para loguear, objetos que manejan preferencias, drivers, etc. En estos casos el echo de que haya mas de un objeto nos puede llevar a compartamientos incorrectos.
+Una manera facil de lograr esto podria ser usando una variable estatica para referenciar el objeto. 
+Si bien esto es cierto en java el patron el singleton nos da un punto de acceso global sin los problemas de una varible global como por ejemplo que hay que iniciarla a iniciar la aplicacion, ademas de que no todos los lenguajes de programación soportan varibles estaticas.</p>
+
+<p>Entonces como hacemos para que haya un solo objetos de una clase.</p>
+
+<ul>
+<li><p>Como creamos un objeto: </p>
+
+<pre><code class="java"> <span class="keyword">new</span> MyObjet();
+</code></pre></li>
+<li><p>Se puede crear otro objeto de la clase MyObject?</p></li>
+<li><p>Y si no la declaramos publica y la dejamos protected?</p></li>
+<li><p>Y si hacemos esto?</p>
+
+<pre><code class="java"> <span class="keyword">public</span> MyClass(){
+     <span class="keyword">private</span> MyClass(){}
+ }
+</code></pre></li>
+<li><p>Se puede instanciar una clase asi?</p>
+
+<p>Se podría llamar desde la misma clase pero para esto necesitaria una instancia, y no puedo tener una instancia porque no la puedo instanciar.
+Sería como que esta primero el huevo o la gallina.</p></li>
+<li><p>Y si le agregamos un metodo asi se puede llamar?</p>
+
+<pre><code class="java"> <span class="keyword">public</span> MyClass(){
+     <span class="keyword">private</span> MyClass(){}
+     <span class="keyword">public</span> <span class="keyword">static</span> MyClass getInstance(){}
+ }
+</code></pre>
+
+<p>Se puede porque es un método de clase para lo cual no necesitamos una instancia de la clase para llamarlo.
+Asi sería la invocación:</p>
+
+<pre><code class="java"> MyClass.getInstance();
+</code></pre>
+
+<p>Con esto ya casi tenemos la forma de instanciar el objeto con un constructor privado.</p></li>
+</ul>
+
+<h2>Escribamoslo</h2>
+
+<h2>singleton clasico</h2>
+
+<pre><code class="java">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> {</span>
+        <span class="keyword">private</span> <span class="keyword">static</span> Singleton uniqueInstance;
+
+        <span class="keyword">private</span> Singleton() {}
+
+        <span class="keyword">public</span> <span class="keyword">static</span> Singleton getInstance(){
+            <span class="keyword">if</span> (uniqueInstance == <span class="keyword">null</span>) {
+                uniqueInstance = <span class="keyword">new</span> Singleton();
+            }
+            <span class="keyword">return</span> uniqueInstance;
+        }
+        <span class="comment">//resto del codigo</span>
+    }
+</code></pre>
+
+<h2>Explicación</h2>
+
+<pre><code class="java">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton uniqueInstance;
+</code></pre>
+
+<p>Varible estática que guarda una instancia de la clase Singleton.</p>
+
+<pre><code class="java">    <span class="keyword">private</span> Singleton() {}
+</code></pre>
+
+<p>El constructor se declara privado, solo puede ser accedido por Singleton.</p>
+
+<pre><code class="java">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton getInstance(){
+        <span class="keyword">if</span> (uniqueInstance == <span class="keyword">null</span>) {
+            uniqueInstance = <span class="keyword">new</span> Singleton();
+        }
+        <span class="keyword">return</span> uniqueInstance;
+    }
+</code></pre>
+
+<p>getInstance() nos da una forma de instanciar la clase y devuelve la unica instncia de Singleton. Solo crea una instancia en el caso de que no haya una guardada en la varible estática y la devulve.</p>
+
+<h2>La fabrica de chocolate</h2>
+
+<p>Vamos a hacer un controlador de una parte del proceso de una fabrica de chocolate. Vamos a controlar un hervidor cuya tarea es llenarse con una mezcla de leche y chocolate y llevarlos a puto de evullicion para recien ahi poder seguir con otra parte del proceso.</p>
+
+<p>El codigo previene de que se pueda vaciar cuando la mezcla todavía no esta hervida o que se pueda llenar cuando esta lleno.</p>
+
+<pre><code class="java">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChocolateBoiler</span> {</span>
+        <span class="keyword">private</span> <span class="keyword">boolean</span> empty;
+        <span class="keyword">private</span> <span class="keyword">boolean</span> boiled;
+
+        <span class="keyword">public</span> ChocolateBoiler() {
+            empty = <span class="keyword">true</span>;
+            boiled = <span class="keyword">false</span>;
+        }
+
+
+        <span class="keyword">public</span> <span class="keyword">void</span> fill() {
+            <span class="keyword">if</span> (isEmpty()) {
+                empty = <span class="keyword">false</span>;
+                boiled = <span class="keyword">false</span>;
+                <span class="comment">// fill the boiler with a milk/chocolate mixture</span>
+            }
+        }
+
+        <span class="keyword">public</span> <span class="keyword">void</span> drain() {
+            <span class="keyword">if</span> (!isEmpty() &amp;&amp; isBoiled()) {
+                <span class="comment">// drain the boiled milk and chocolate</span>
+                empty = <span class="keyword">true</span>;
+            }
+        }
+
+        <span class="keyword">public</span> <span class="keyword">void</span> boil() {
+            <span class="keyword">if</span> (!isEmpty() &amp;&amp; !isBoiled()) {
+                <span class="comment">// bring the contents to a boil</span>
+                boiled = <span class="keyword">true</span>;
+            }
+        }
+
+        <span class="keyword">public</span> <span class="keyword">boolean</span> isEmpty() {
+            <span class="keyword">return</span> empty;
+        }
+
+        <span class="keyword">public</span> <span class="keyword">boolean</span> isBoiled() {
+            <span class="keyword">return</span> boiled;
+        }
+    }
+</code></pre>
+
+<p>El diseño parace bueno pero nada impida que haya mas de una instacia de la clase ChocoloteBoiler.</p>
+
+<p>Que pasaría se instanciara mas de una instancia de la clase ?
+Si lo que tratamos de simular es la existencia de un solo ChocolateBoiler entonces deberíamos tener uno solo controladors.
+Si tenemos mas de uno, cada uno tendría su estado aparte y esto no etaria representado la realidad.
+Así uno podria estar lleno y el otro no y el metodo fill haría que se vuelva a llenar.</p>
+
+<p>Hagamos ChocolateBoiler única usando singleton</p>
+
+<p><strong>ChocolateBoiler</strong></p>
+
+<pre><code class="java">  <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChocolateBoiler</span> {</span>
+    <span class="keyword">private</span> <span class="keyword">boolean</span> empty;
+    <span class="keyword">private</span> <span class="keyword">boolean</span> boiled;
+    <span class="keyword">private</span> <span class="keyword">static</span> ChocolateBoiler uniqueInstance;
+
+    <span class="keyword">private</span> ChocolateBoiler() {
+        empty = <span class="keyword">true</span>;
+        boiled = <span class="keyword">false</span>;
+    }
+
+    <span class="keyword">public</span> <span class="keyword">static</span> ChocolateBoiler getInstance() {
+        <span class="keyword">if</span> (uniqueInstance == <span class="keyword">null</span>) {
+            System.out.println(<span class="string">"Creating unique instance of Chocolate Boiler"</span>);
+            uniqueInstance = <span class="keyword">new</span> ChocolateBoiler();
+        }
+        System.out.println(<span class="string">"Returning instance of Chocolate Boiler"</span>);
+        <span class="keyword">return</span> uniqueInstance;
+    }
+    <span class="comment">//el resto de los método</span>s
+}
+</code></pre>
+
+<h2>Patrón Singleton</h2>
+
+<p>Asegura que una clase tenga una sola instacia de ella y da un punto de acceso global a ella.</p>
+
+<ul>
+<li><p>Motivación: </p>
+
+<ul>
+<li>Es importante que algunas clases tengan exactamente una instancia.</li>
+<li>Para asegurar que la instacia se deja que sea la propia clase la responsable de la cración de su única instancia, quien debe garantizar que no se pueda crear ninguna otra (interceptando las peticiones para crear nuevos objetos) y proporcione un modo de acceder a ella. </li>
+</ul></li>
+<li><p>Aplicabilidad: Cuando deba haber exactamente una instancia de una clase y ésta debe ser accesible a los clientes desde un punto de acceso conocido.</p></li>
+<li><p>Participantes: </p>
+
+<ul>
+<li>Singleton: Define una operación Instancia que permite que los clientes accedan a su única instancia. 
+Instancia es una operación de clase. Puede ser responsable de crear su única instancia.</li>
+</ul></li>
+<li><p>Consecuencias:</p>
+
+<ul>
+<li>Acceso controlado a la única instancia: Encapsula su única instancia, puede tener un control estricto sobre como y cuando acceden a ella los clientes.</li>
+<li>Espacio de nombres reducido: Es una mejora sobre las variables globales. Evita contaminar el espacio de nombres con variables globales que almacenan las instancias.</li>
+<li>Permite el refinamiento de operaciones y la representación: Se puede crear una subclase de la clase Singleton, y es fácil configurar una aplicación con una instancia de esta clase extendida, incluso en tiempo de ejecución.</li>
+<li>Permite un número variable de instancias: Hace que sea fácil permitir mas de una instancia de la clase. Solo se necesitaría cambiar la operación que otorga acceso a la instancia del Singleton.</li>
+</ul></li>
+<li><p>Esctructura:</p></li>
+<li><p><img src="singletonClassDiagram.png" alt=""></p></li>
+</ul>
+
+<h2>Trabajando con aplicaciones multi hilos</h2>
+
+<p><strong>Hilos</strong></p>
+
+<p>Los hilos o procesos ligeros son una parte de código o miniprograma que puede ser ejecutada independientemente, de forma que una aplicación o un applet puede tener varios hilos ejecutándose simultáneamente y efectuando distintas tareas; estos hilos se encuentran dentro de un programa y son parte de él.</p>
+
+<p>Los hilos, a veces también llamados contextos de ejecución, pueden ser utilizados para la implementación de algoritmos paralelos o procesos concurrentes, sin ser necesario disponer de equipos con estructura de multiprocesador. En el caso de un solo procesador, los procesos ligeros incorporan mecanismos para compartirlo, estableciéndose prioridades 
+entre ellos y también facilidades de sincronización, cuando es necesario.</p>
+
+<p><strong>Dos hilos ejecutando el codigo</strong> </p>
+
+<pre><code class="java">
+    <span class="keyword">public</span> <span class="keyword">static</span> ChocolateBoiler getInstance() { <span class="comment">//hilo1</span>
+    <span class="keyword">public</span> <span class="keyword">static</span> ChocolateBoiler getInstance() { <span class="comment">//hilo2</span>
+
+        <span class="keyword">if</span> (uniqueInstance == <span class="keyword">null</span>) {<span class="comment">//hilo1</span>
+        <span class="keyword">if</span> (uniqueInstance == <span class="keyword">null</span>) {<span class="comment">//hilo2</span>
+
+            uniqueInstance = <span class="keyword">new</span> ChocolateBoiler();<span class="comment">//hilo1</span>
+            uniqueInstance = <span class="keyword">new</span> ChocolateBoiler();<span class="comment">//hilo2</span>
+        }
+        <span class="keyword">return</span> uniqueInstance;<span class="comment">//hilo1</span>
+        <span class="keyword">return</span> uniqueInstance;<span class="comment">//hilo2</span>
+    }
+    <span class="comment">//el resto de los método</span>s
+}
+</code></pre>
+
+<p>Lo que ocurre es que antes de que haya una instacia de la clase cuando tengo que crear el objeto único, puede ocurrir el caso de que distintos hilos creen distintas instancias, una sola de las cuales va a quedar guardada en la variables estática, pero de acuerdo como se ejecuten los hilos pueda devolver distintos objetos.</p>
+
+<p>Si bien parece poco probable esto puedo ocurrir y debemos buscar la forma de evitar esto.</p>
+
+<p><strong>Hacer getInstace() un método syncronized</strong></p>
+
+<pre><code class="java">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> {</span>
+        <span class="keyword">private</span> <span class="keyword">static</span> Singleton uniqueInstance;
+
+        <span class="keyword">private</span> Singleton() {}
+
+        <span class="keyword">public</span> <span class="keyword">static</span> syncronized Singleton getInstance(){
+            <span class="keyword">if</span> (uniqueInstance == <span class="keyword">null</span>) {
+                uniqueInstance = <span class="keyword">new</span> Singleton();
+            }
+            <span class="keyword">return</span> uniqueInstance;
+        }
+        <span class="comment">//resto del codigo</span>
+    }
+</code></pre>
+
+<p>Agregando el modificador syncronyzed a getInstance(), forzamos a cada hilo a esperar su turno antes de entrar al método.</p>
+
+<p>Esto significa que si un hilo entra al método los demás deben esperar a que termine para poder invocarlo.</p>
+
+<p>El problema de esta implementación es que el uso de syncronized es caro en lo que a performace se refiere.</p>
+
+<p>El problema de que se instacie mas de un objeto de esta clase es la primera vez, pero este método se ejecuta todas las veces que quiero usar el objeto.</p>
+
+<p>Así que una vez que esta instaciado no necesitamos mas que el método sea syncronyzed.</p>
+
+<h2>Alternativas para mejorar la performace</h2>
+
+<p><strong>No hacer nada si no es importante el tema de la performance</strong>
+Tener en cuenta que hacer un método <em>syncronyzed</em> puede decrementar la performance en un factor de 100 si hay muchas instanciaciones de getInstance() </p>
+
+<p><strong>Crear tempranamente la instacia en ves de la primera ves que la necesito</strong>
+Si la aplicación siempre usa la instacia de singleton o la creación y costo de tener un objeto que no se usa instanciado no es grande, entoces esta es una alternativa viable.</p>
+
+<pre><code class="java">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> {</span>
+        <span class="keyword">private</span> <span class="keyword">static</span> Singleton uniqueInstance = <span class="keyword">new</span> Singleton();
+
+        <span class="keyword">private</span> Singleton() {}
+     file:<span class="comment">///home/pablo/workspace/filminas/MDSingleton/sincleton.md</span>
+
+        <span class="keyword">public</span> <span class="keyword">static</span> syncronized Singleton getInstance(){
+            <span class="keyword">return</span> uniqueInstance;
+        }
+    }
+</code></pre>
+
+<p>Usando esta opción le delegamos a la JVM la creacion de la instacia del objeto.
+La JVM nos garantiza que cuando la tengamos que usar va a estar disponible.
+Inclusive la JVM puede que no la cree hasta que la necesitemos, con lo cual termina siendo lo mismo.</p>
+
+<p><strong>Sincronizo despues de chequear que no haya una instancia</strong>
+Primer chequeamos para ver si hay una instacia creada y si no hay (aca es donde se puede compĺicar), recien ahí sincronizo. </p>
+
+<pre><code class="java">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> {</span>
+        <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton uniqueInstance;
+
+        <span class="keyword">public</span> <span class="keyword">static</span> Singleton getInstance() {
+            <span class="keyword">if</span> (uniqueInstance == <span class="keyword">null</span>) {
+                <span class="keyword">synchronized</span> (Singleton.class) {
+                    <span class="keyword">if</span> (uniqueInstance == <span class="keyword">null</span>) {
+                        uniqueInstance = <span class="keyword">new</span> Singleton();
+                    }
+                }
+            }
+            <span class="keyword">return</span> uniqueInstance;
+        }
+    }
+</code></pre>
+
+<p>Esta opcion esta disponible en las versiones de java a partir de 1.5</p>
+
+<h2>Referencias</h2>
+
+<p>Head First Design Patterns
+<a href="http://www.ecured.cu/index.php/Patr%C3%B3n_Singleton">http://www.ecured.cu/index.php/Patr%C3%B3n_Singleton</a></p>
+
+</body>
+</html>

@@ -1,7 +1,7 @@
 package Starbuzz;
 
 public class Mocha extends CondimentDecorator {
-	Beverage beverage;
+	//Beverage beverage;
  
 	public Mocha(Beverage beverage) {
 		this.beverage = beverage;
