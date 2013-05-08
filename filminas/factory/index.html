@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>Factory</title>
+	
+	<meta name="description" content="A jQuery library for modern HTML presentations">
+	<meta name="author" content="Caleb Troughton">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	
+	<!-- Core and extension CSS files -->
+	<link rel="stylesheet" href="../core/deck.core.css">
+	<link rel="stylesheet" href="../extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="../extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="../extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="../extensions/status/deck.status.css">
+	<link rel="stylesheet" href="../extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="../extensions/scale/deck.scale.css">
+	
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="../themes/style/swiss.css">
+	
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="../themes/transition/horizontal-slide.css">
+	
+	<script src="../modernizr.custom.js"></script>
+	
+
+    <!-- SintaxHighlighter -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SyntaxHighlighter Large File Demo</title>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/XRegExp.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shCore.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushJava.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushPlain.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushPython.js"></script>
+	<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shCoreEclipse.css"/>
+	<!--link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shThemeEclipse.css"/-->
+	
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	
+	
+</head>
+
+<body class="deck-container">
+
+<!-- Begin slides -->
+<section class="slide" id="factory1">
+	<h2>Factory</h2>
+	<p>A veces requiere más código instanciar los objetos que usarlos, vamos a ver como hacer que la instaciación no sea pública y evitar los problemas de acoplamiento que ocaciona la instanciación.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		Duck duck = new MallardDuck();
+	</script>
+	<p>Queremos usar interfaces para que quede flexible, pero en algún momento tenemos que crear una instancia de una clase concreta.</p>
+	<p>Cuando tenemos un conjunto de clases concretas relacionadas, nos vemos forzados de hacer el codigo asi:</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		Duck duck;
+			if (picnic){
+			duck = new MallardDuck();
+		}
+			else if (hunting){
+			duck = new DecoyDuck();
+		}
+	</script>
+</section>
+<section class="slide" id="factory2">
+	<h2>Factory</h2>
+	<p>Acá hay varias clases concretas que están siendo instanciadas y la desicion de cual instanciar se esta haciendo en tiempo de ejecución, dependiendo de ciertas condiciones.</p>
+	<p>Cuando vemos un código como este cuando viene un cambio o extenision de funcionalidad tenemos que tocar el codigo para soportar los cambios. Este tipo de código suele terminar en varias partes de la aplicación haciendo el mantenimiento y los cambios mas difíciles y propensos a fallas.</p>
+	<p>Declarando los atributos a interfaces podemos aislarnos muchos cambio que vayan surgiedo. Por que?. Porque escribiendo el código a una interface el código va a andar a través del polimorfismo para cualquier clase que implemente esa interface.</p>
+	<p>Sin embargo si el código tiene que usar muchas clases concretas, estamos en problemas porque ese código tiene que ser cambiado cuando queremos agregar nuevas clases concretas.</p>
+	<p>En definitiva el código no esta <strong>“cerrado para modificación”</strong> ya que para extender el código con nuevas clases concretas tenemos que hacer cambios en el código.</p>
+</section>
+<section class="slide" id="factory3">
+	<h2>Factory</h2>
+	<p>Que se puede hacer? recordemos uno de los principios de OOP, decía <strong>“identifiquemos los objetos que varían y separemoslo de lo que no”.</strong></p>
+
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	static Pizza orderPizza(String type){
+		Pizza pizza=null;
+		//codigo que varia
+		if (type.equals("Cheese")){
+			pizza=new CheesePizza();
+		}
+		if (type.equals("Onnion")){
+			pizza=new OnionPizza();
+		}
+		//hasta acá
+		pizza.prepare();
+		pizza.bake();
+		pizza.cut();
+		pizza.box();
+		return pizza;
+	}
+	</script>
+	<p>Si se quiere agregar alguna pizza al menú hay que modificar este código.</p>
+	<p>Como se ve, lidiar con la instanciación de clases concretas molesta al método orderPizza() y evita que se pueda mantener el principio cerrado para modificación.<BR>
+	Ahora que identificamos lo que varía, es momento de encapsularlo.</p>
+</section>
+<section class="slide" id="factory4">
+	<h2>Simple Factory</h2>
+	<h3>Encapsulado la creación del objeto</h3>
+	<p>Entonces sabemos que tenemos que mover la creación de los objetos afuera del método</p>
+	<p>Creamos otro objeto que se va a dedicar a crear las pizzas.</p>
+	<h3>Factory</h3>
+	<p>Los objetos Factory se ocupan de los detalles de la creación de objetos. Una vez que tenemos el SimplePizzaFactory, nuestro método orderPizza() se vuelve cliente de este objeto.</p>
+	<p>Cada vez que necesitamos una pizza le pedimos a la factory de pizza que genere uno.
+	Ahora el orderPizza() solo sabe que recibe una pizza que implementa la interfaz Pizza y que responde a los metodos prepare(), bake(), cut(), box()</p>
+</section>
+<section class="slide" id="factory5">
+	<h2>Simple Factory</h2>
+	<h3>Construimos una factory simple de pizza</h3>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class SimplePizzaFactory {
+			public Pizza createPizza(String type) {
+				Pizza pizza = null;
+				if (type.equals("cheese")) {
+					pizza = new CheesePizza();
+				} else if (type.equals("pepperoni")) {
+					pizza = new PepperoniPizza();
+				} else if (type.equals("clam")) {
+					pizza = new ClamPizza();
+				} else if (type.equals("veggie")) {
+					pizza = new VeggiePizza();
+				}
+				return pizza;
+			}
+		}
+	</script>
+</section>
+<section class="slide" id="factory6">
+	<h2>Simple Factory</h2>
+	<p>Cual es la ventaja de esto, parece que lo único que hicimos es pasar el problema a otro objeto?<p/>
+	<p>Recordemos que SimplePizzaFactory va a tener muchos clientes, hasta hora solo vimos el método orderPizza(), sin embargo puede haber una clase PizzaMenuClass() que usa la factory obtener pizzas para la descripción y precio. También puede haber una clase HomeDelivery que maneja las pizzas en una forma distinta a la nuestro PizzaShop pero es también cliente de la factory.</p>
+	<p>Encapsulando la creación de las pizzas en una clase, tenemos un solo lugar para hacer las modificaciones cuando la implementación cambie.</p>
+
+	<p>Otra manera de implentar esto es definir la factory como un método estático. Esto es una técnica común y es llamada <strong>“static factory”</strong>.Usando un método static no necesitamos instanciar un objeto para hacer uso del método create().<BR/>
+	Pero recordemos que también tiene la desventaja que no podemos hacer subclases y cambiar el comportamiento del método create().</p>
+</section>
+<section class="slide" id="factory7">
+	<h2>Simple Factory</h2>
+	<h3>Retocamos la clase PizzaStore</h3>
+	<p>Vamos a arreglar el codigo cliente.<BR/>
+	<p>Lo que queremos es delegar a factory, para que cree las pizzas por nosotros.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class PizzaStore {
+		SimplePizzaFactory factory;
+		public PizzaStore(SimplePizzaFactory factory) { 
+			this.factory = factory;
+		}
+		//PizzaStore se le pasa una factory en la creación 
+		//y ademas se deja una referencia para poder usarla
+	 
+		public Pizza orderPizza(String type) {
+			Pizza pizza;
+			pizza = factory.createPizza(type);
+		 	//usa la factory simplemente pasando el tipo, 
+		 	//ahora no hay mas instanciaciones concretas aca
+			pizza.prepare();
+			pizza.bake();
+			pizza.cut();
+			pizza.box();
+			return pizza;
+		}
+	}
+	</script>
+	<p>Sabemos que las composición (tener la factory referenciada) nos permite cambiar el comportamiento dinámicamente (además de otras cosas), porque podemos cambiar de factory.</p>
+</section>
+<section class="slide" id="factory8">
+	<h2>Simple Factory</h2>
+	<p>Si bien Simple Factory no es realmente un patron de diseño vamos a definirlo ya que es algo comúnmente usado</p>
+	<p>Clase con responsabilidad de crear objetos de otras clases. No delega en subclases y sus métodos pueden ser estáticos.</p>
+	<p>Diagrama de la pizzeria incorporando <strong>simple factory</strong></p>
+	<img src="simplePizzaFactory.png"/>
+</section>
+<section class="slide" id="factory9">
+	<h2>Simple Factory</h2>
+	<ul>
+		<li><strong>PizzaStore:</strong> es el cliente de la factory. PizzaFactory ahora usa a SimplePizzaFacrory para obtener instacias de Pizza.</li>
+		<li><strong>SimplePizzaFactory:</strong> es la fabrica de Pizzas, este debería ser el único lugar donde la aplicacion hace referecia a las clases concretas. El método create suele ser declarado estatico.</li>
+		<li><strong>Pizza:</strong> es el producto de la factory de Pizza.<BR/>
+		Definimos Pizza como una clase abstracta con algunas implementación útiles que pueden ser sobreescritas.</li>
+		<li><strong>Los productos concretos:</strong> (ChesePizza, VeggiePizza) cada uno tiene que implementar la interfaz Pizza, que en este contexto significa extender de la clase abstracta pizza y ser concreta. Mientras este sea el caso puede ser creada por la factory y pasada al cliente.</li>
+	</ul>
+	<p></p>
+</section>
+<section class="slide" id="factory10">
+	<h2>Factory method</h2>
+	<h3>Haciendo un fanquicia de la tienda de Pizza</h3>
+	<p>Tenemos varias franquicias, Chicago, New York y California</p>
+	<p>El objetivo es que todas las franquicias usen el código de PizzaStore así las pizzas son preparadas de la misma manera.</p>
+	<p>Hay una manera de poner todas las actividades de creación de pizza en la tienda y darle a los franquiciantes la libertad de tener su propio estilo de pizza regional.
+	Lo que vamos a hacer es poner el método createPizza() de nuevo en pizzaStore pero esta vez lo vamos declarar como abstracto (sin implementación), y una subclase para cada estilo regional.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public abstract class PizzaStore {
+		public Pizza orderPizza(String type) {
+			Pizza pizza = createPizza(type);
+			//ahora createPizza() esta siendo un metodo que se llama 
+			//desde la clase PizzaStore en vez de un objeto factory
+
+			System.out.println("--- Making a " + pizza.getName() + " ---");
+			pizza.prepare();
+			pizza.bake();
+			pizza.cut();
+			pizza.box();
+			return pizza;
+		}
+		public abstract Pizza createPizza(String item);
+	}
+	</script>
+
+</section>
+<section class="slide" id="factory88">
+	<h2>Referencias</h2>
+	<p><strong>Head First Design Patterns</strong></p>
+</section>
+
+<!----------------------------------------------------------------------------------------------->
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+	/
+	<span class="deck-status-total"></span>
+</p>
+
+<!-- deck.goto snippet -->
+<form action="." method="get" class="goto-form">
+	<label for="goto-slide">Go to slide:</label>
+	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+	<datalist id="goto-datalist"></datalist>
+	<input type="submit" value="Go">
+</form>
+
+<!-- deck.hash snippet -->
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+
+<!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../jquery-1.7.2.min.js"><\/script>')</script>
+
+<!-- Deck Core and extensions -->
+<script src="../core/deck.core.js"></script>
+<script src="../extensions/hash/deck.hash.js"></script>
+<script src="../extensions/menu/deck.menu.js"></script>
+<script src="../extensions/goto/deck.goto.js"></script>
+<script src="../extensions/status/deck.status.js"></script>
+<script src="../extensions/navigation/deck.navigation.js"></script>
+<script src="../extensions/scale/deck.scale.js"></script>
+
+<!-- Initialize the deck -->
+<script>
+$(function() {
+	$.deck('.slide');
+});
+</script>
+
+</body>
+
+
+
+</html>

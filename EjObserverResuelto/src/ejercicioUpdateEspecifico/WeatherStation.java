@@ -12,7 +12,8 @@ public class WeatherStation {
 		//StatisticsDisplay statisticsDisplay = new StatisticsDisplay(weatherData);
 		//ForecastDisplay forecastDisplay = new ForecastDisplay(weatherData);
 		GenericDataDisplay genericDataDisplay = new GenericDataDisplay(weatherData, tankData);
-				
+		
+		
 		weatherData.setMeasurements(80, 65, 30.4f);
 		tankData.setMeasurements(67,true,false);
 	}

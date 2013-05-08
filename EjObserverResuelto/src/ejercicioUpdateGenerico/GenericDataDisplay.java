@@ -39,5 +39,7 @@ public class GenericDataDisplay  implements Observer, DisplayElement {
 		}
 		display();
 	}
-	
+	public void removeSubject(Subject s){
+		s.registerObserver(this);
+	}
 }

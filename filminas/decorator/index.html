@@ -282,6 +282,8 @@
 			<li>Para añadir responsabilidades a objetos concretos de manera dinámica y transparente, esto es, sin afectar a otros objetos</li>
 			<li>Para responsabilidades que se pueden añadir y quitar</li>
 			<li>Cuando la herencia sea impracticable, porque implique crear múltiples subclases para todas las combinaciones posibles</li>
+			<li>Hay una necesidad de extender la funcionalidad de una clase, pero no hay razones para extenderlo a través de la herencia.</li>
+			<li>Existe la necesidad de extender dinámicamente la funcionalidad de un objeto y quizás quitar la funcionalidad extendida.</li>
 		</ul>
 	</ul>
 </section>
@@ -348,7 +350,12 @@
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 	public abstract class CondimentDecorator extends Beverage {
 		Beverage beverage;
-		public abstract String getDescription();
+		public CondimentDecorator(Beverage beverage){
+			this.beverage = beverage;
+		}
+		public String getDescription(){
+			return beverage.getDescription();
+		}
 	}
 	</script>
 </section>
@@ -381,9 +388,10 @@
 	<h2>Implementación</h2>
 	<p>Y los condimentos que son los <strong>ConcreteDecorator</strong></p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
-		public class Mocha extends CondimentDecorator {		 
+		public class Mocha extends CondimentDecorator {
+		 
 			public Mocha(Beverage beverage) {
-				this.beverage = beverage;
+				super(beverage);
 			}
 		 
 			public String getDescription() {

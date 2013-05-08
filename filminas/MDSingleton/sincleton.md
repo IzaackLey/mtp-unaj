@@ -1,5 +1,5 @@
 Singleton
-============
+=========
 Permite la creacción de una sola instacia de una clase.
 Hay muchos objetos de los cuales necesitamos que exista tan solo uno, por ejemplo, objetos para loguear, objetos que manejan preferencias, drivers, etc. En estos casos el echo de que haya mas de un objeto nos puede llevar a compartamientos incorrectos.
 Una manera facil de lograr esto podria ser usando una variable estatica para referenciar el objeto. 
