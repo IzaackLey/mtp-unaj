@@ -51,6 +51,13 @@
 <body class="deck-container">
 
 <!-- Begin slides -->
+<section class="slide" id="factory0">
+	<h2>Factory</h2>
+	<p>Factory es un patron creacional.</p>
+	<p>Los patrones creacionales abstraen el proceso de instanciación</p>
+	<p>Ocultan los detalles de como se crean los objetos y ayudan a que el sistema sea independiente de la creación y composición e los mismos.</p>
+	<p>Todos los lenguajes orientados a objetos tienen una manera de crear objetos. En java esto se hace con el operador new. Los patrones creacionales nos permiten crear objetos sin usar el operador new. Esto nos permite escribir métodos que pueden instanciar diferentes objetos y puede ser extendido a otros objetos que queremos sin modificar el código de los métodos.</p>
+</section>
 <section class="slide" id="factory1">
 	<h2>Factory</h2>
 	<p>A veces requiere más código instanciar los objetos que usarlos, vamos a ver como hacer que la instaciación no sea pública y evitar los problemas de acoplamiento que ocaciona la instanciación.</p>
@@ -495,6 +502,325 @@
 	</ul>
 	<p>Tengamos en cuenta que es una guía y que siempre voy a estar rompiendo estas reglas, pero la idea es saber que lo estamos haciendo y por qué</p>
 </section>
+<section class="slide" id="factory25">
+	<h2>Abstract Factory</h2>
+	<h3>Familia de ingredientes</h3>
+	<p>Todas las pizzas estan hechas a base de los mismos componentes pero con distintas implementaciones de esos componentes. Lo que es salsa roja en New York no es salsa roja en chicago (tienen diferentes ingredientes), cada una de las sucursales tienen una familia de ingredientes.</p>
+	<p>Tenemos que ver como vamos a manejar las familias de ingredientes.</p>
+	<p><strong>Haciendo la ingredient factory</strong></p>
+	<p>La factory va a ser responsable de la creación de cada ingrediente en la familia de ingredientes.</BR>
+	En otras palabras la fábrica va a necesitar crear dough, sauce, cheese, etc.</p>
+	<p>Definimos la interfaz de la factory que va a crear los ingredientes.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public interface PizzaIngredientFactory {
+		public Dough createDough();
+		public Sauce createSauce();
+		public Cheese createCheese();
+		public Veggies[] createVeggies();
+		public Pepperoni createPepperoni();
+		public Clams createClam();
+	}
+	</script>
+	<p>Para cada ingrediente definimos un create method en nuestra interface.</p>
+</section>
+<section class="slide" id="factory26">
+	<h2>Abstract Factory</h2>
+	<h3>Ingredient Factory</h3>
+	<p><strong>Esto es lo que vamos a hacer</strong></p>
+	<ul>
+		<li>Construir una fábrica para cada región. Para hacer esto vamos a crear una subclase de PizzaIngredientFactory que implementa cada create method.</li>
+		<li>Implementar un conjunto de clases de ingredientes para ser usados con la factory, como ReggianoChesse, RedPeppers and ThickCrustDought. Estas clases pueden ser compartidas entre regiones.</li>
+		<li>Despues tenemos que hacer andar nuestra fabrica de ingredientes en el codigo de el codigo viejo de PizzaStore.</li>
+	</ul>
+</section>
+<section class="slide" id="factory27">
+	<h2>Abstract Factory</h2>
+	<h3>Ingredient Factory</h3>
+	<p><strong>Construyendo la fábrica de ingredientes de New York.</strong></p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class NYPizzaIngredientFactory implements PizzaIngredientFactory {
+		public Dough createDough() {
+			return new ThinCrustDough();
+		}
+		public Sauce createSauce() {
+			return new MarinaraSauce();
+		}
+		public Cheese createCheese() {
+			return new ReggianoCheese();
+		}
+		public Veggies[] createVeggies() {
+			Veggies veggies[] = { new Garlic(), new Onion(), new Mushroom(), new RedPepper() };
+			return veggies;
+		}
+		public Pepperoni createPepperoni() {
+			return new SlicedPepperoni();
+		}
+		public Clams createClam() {
+			return new FreshClams();
+		}
+	}
+	</script>
+	<p>La factory de New York implementa la interface para todas las factories de ingredientes.<BR/> 
+		Para los vegetales retornamos un array de vegetales
+	</p>
+</section>
+<section class="slide" id="factory28">
+	<h2>Abstract Factory</h2>
+	<h3>Ingredient Factory</h3>
+	<img src="IngredientFactory.png"/>
+</section>
+<section class="slide" id="factory28b">
+	<h2>Abstract Factory</h2>
+	<h3>Ingredient Factory</h3>
+	<p><strong>Ahora los ingredientes</strong></p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public interface Cheese {
+		public String toString();
+	}
+	</script>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class ReggianoCheese implements Cheese {
+		public String toString() {
+			return "Reggiano Cheese";
+		}
+	}
+	</script>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class MozzarellaCheese implements Cheese {
+			public String toString() {
+				return "Shredded Mozzarella";
+			}
+		}
+	}	
+	</script>
+</section>
+<section class="slide" id="factory29">
+	<h2>Abstract Factory</h2>
+	<h3>Ingredient Factory</h3>
+	<p>Ya está la fábrica lista para producir los ingredientes , tenemos que arreglar Pizza para usarla.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public abstract class Pizza {
+		String name;
+		Dough dough;
+		Sauce sauce;
+		Veggies veggies[];
+		Cheese cheese;
+		Pepperoni pepperoni;
+		Clams clam;
+		abstract void prepare();
+
+		void bake() {
+			System.out.println("Bake for 25 minutes at 350");
+		}
+		void cut() {
+			System.out.println("Cutting the pizza into diagonal slices");
+		}
+		void box() {
+			System.out.println("Place pizza in official PizzaStore box");
+		}
+		void setName(String name) {
+			this.name = name;
+		}
+		String getName() {
+			return name;
+		}
+		public String toString() {
+			//code to print pizza
+		}
+	}
+	</script>
+</section>
+<section class="slide" id="factory30">
+	<h2>Abstract Factory</h2>
+	<h3>Ingredient Factory</h3>
+	<img src="PizzaIngredientFactory.png"/>
+	<p>Ahora que tenemos un abstract Pizza es hora de crear los estilos de Pizza de New York y Chicago, solo que esta vez van a obtener los ingredientes directamente de la fábrica.</p>
+</section>
+<section class="slide" id="factory31">
+	<h2>Abstract Factory</h2>
+	<h3>Ingredient Factory</h3>
+	<p>Cuando escribimos el código de factory method teníamos las clases NYChessePizza y ChicagoChessePizza.</p>
+	<p>Si miramos las dos clases lo único en lo que difieren es en los ingredientes, las pizzas están hechas igual dough (masa), sauce, cheese, y lo mismo pasa con las otras pizzas Veggie, Clam, todas tienen los mismos pasos de preparación y lo que cambia son los ingredientes.</p>
+	<p>Ya no vamos a necesitar 2 clases para cada estilo de pizza (pizza de queso tienen NYChessePizza y ChicagoChessePizza)</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class CheesePizza extends Pizza {
+		PizzaIngredientFactory ingredientFactory;
+	 
+		public CheesePizza(PizzaIngredientFactory ingredientFactory) {
+			this.ingredientFactory = ingredientFactory;
+		}
+	 
+		void prepare() {
+			System.out.println("Preparing " + name);
+			dough = ingredientFactory.createDough();
+			sauce = ingredientFactory.createSauce();
+			cheese = ingredientFactory.createCheese();
+		}
+	}
+	</script>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class PepperoniPizza extends Pizza {
+		PizzaIngredientFactory ingredientFactory;
+		public PepperoniPizza(PizzaIngredientFactory ingredientFactory) {
+			this.ingredientFactory = ingredientFactory;
+		}
+		void prepare() {
+			System.out.println("Preparing " + name);
+			dough = ingredientFactory.createDough();
+			sauce = ingredientFactory.createSauce();
+			cheese = ingredientFactory.createCheese();
+			veggies = ingredientFactory.createVeggies();
+			pepperoni = ingredientFactory.createPepperoni();
+		}
+	}
+	</script>
+	<p>Para hacer una Pizza ahora necesitamos un ingredientFactory, entonces a cada clase Pizza se le pasa una factory en el constructor y guarda una instancia de la factory en una variable.</p>
+</section>
+<section class="slide" id="factory32">
+	<h2>Abstract Factory</h2>
+	<img src="PizzaIngredientFactory-Pizza.png"/>
+	<p><strong>Código cerrado</strong></p>
+	<p>El codigo Pizza usa la factory que fue compuesta (relación de composición) para producir los ingredientes usados en la pizza. <BR/>
+Los ingredientes producidos dependen de qué factory estamos usando. A la clase Pizza no le importa, sabe como hacer Pizzas. </p>
+</section>
+<section class="slide" id="factory33">
+	<h2>Abstract Factory</h2>
+	<p>Ahora está desacoplado de las diferencias en los ingredientes regionales y puede ser fácilmente re usado por otras regionales.</p>
+	<p>Si queremos agregar otros ingredientes regionales hacemos otra factory de ingredientes, o podemos usar una de las existentes.</p>
+	<p>ingredientFactory es nuestra factory a la clase Pizza no le interesa que factory se usa mientras se una ingredientFactory.</p>
+	<h3>Veamos como quedan NYPizzaStore y ChicagoPizzaStore</h3>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class NYPizzaStore extends PizzaStore {
+		protected Pizza createPizza(String item) {
+			Pizza pizza = null;
+			PizzaIngredientFactory ingredientFactory = 
+				new NYPizzaIngredientFactory();
+			if (item.equals("cheese")) {
+				pizza = new CheesePizza(ingredientFactory);
+				pizza.setName("New York Style Cheese Pizza");
+			} else if (item.equals("veggie")) {
+	 
+				pizza = new VeggiePizza(ingredientFactory);
+				pizza.setName("New York Style Veggie Pizza");
+			} else if (item.equals("clam")) {
+				pizza = new ClamPizza(ingredientFactory);
+				pizza.setName("New York Style Clam Pizza");
+			} else if (item.equals("pepperoni")) {
+				pizza = new PepperoniPizza(ingredientFactory);
+				pizza.setName("New York Style Pepperoni Pizza");
+			}
+			return pizza;
+		}
+	}
+	</script>
+</section>
+<section class="slide" id="factory34">
+	<h2>Abstract Factory</h2>
+	<p><strong>Qué fue lo que hicimos</strong></p>
+	<p>Creamos una manera de crear ingredientes para pizzas introduciendo un nuevo tipo de fábrica llamada abstract factory</p>
+	<p>Una abstract Factory nos da una interface para crear una familia de productos.</p>
+	<p>Escribiendo código que use esta interface, desacoplamos el código de la fábrica actual que crea productos.</p>
+	<p>Eso nos permite implementar una variedad de factories que producen productos pensados para distintos contextos (diferentes regiones, sistemas operativos o aspectos visuales)<BR/>
+	Como nuestro código está desacoplado de los productos actuales, podemos sustituir distintas factories y obtener diferentes comportamientos (como obtener salsa mariana en vez de salsa de tomate)</p>
+	<p>En nuestro casa la familia de productos, son las cosas que necesitamos para hacer pizzas: dough, sauce, cheese, meats y verggies.<BR/>
+	Pasando distintas factories al cliente (PizzaStore) obtenemos una variedad de implementaciones de esos productos, pero el código cliente sigue igual.</p>
+</section>
+<section class="slide" id="factory35">
+	<h2>Abstract Factory</h2>
+	<p><strong>Como ordenamos una pizza ahora?</strong></p>
+	<ol>
+		<li>Necesitamos un PizzaStore
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				PizzaStore nyPizzaStore = new NYPizzaStore();
+			</script>
+		</li>
+		<li>Ahora que tenemos una tienda, podemos tomar las ordenes
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				nyPizzaStore.orderPizza(“chesse”);
+			</script>
+		</li>
+		<li>El metodo orderPizza() primero llama al metodo createPizza()
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				Pizza pizza = createPizza(“cheese”);
+			</script>
+		</li>
+		<li>Cuando el metodo cretePizza() es llamado, ahi es cuando la fábrica de ingredientes es invocada.
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				Pizza pizza = new CheesePizza(nyIngredientFactory);
+			</script>
+			La fábrica de ingredientes es elegida e instanciada en NYPizzaStore y luedo es pasada en el constructor de cada pizza.<BR/>
+			Crea una nueva instacia de ChessePizza que esta compueta con NYIngredientFactory
+		</li>
+	</ol>
+</section>
+<section class="slide" id="factory36">
+	<h2>Abstract Factory</h2>
+	<p><strong>Como ordenamos una pizza ahora?</strong></p>
+	<ol start="5">
+		<li>Lo proximo que necesitamos es preparar la pizza. Una vez que el metodo prepare() es llamado, la factory prepara los ingredientes.
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				void prepare(){
+					dough = factory.createDogh();   //masa fina
+					sauce = factory.createSauce();  //Mariana
+					cheese = factory.createCheese(); //Raggiano
+				} 
+			</script>
+		</li>
+		<li>Finalmente tenemos la Pizza en la mano y el método orderPizza() bakes, cuts y boxes.</li>
+	</ol>
+</section>
+<section class="slide" id="factory37">
+	<h2>Patrón Abstract Factory</h2>
+	<p>Abstrac factory pattern provee una interface para crear una familia de objetos relacionados o dependientes sin especificar sus clases concretas.</p>
+	<ul>
+		<li>Motivación: Se necesita instanciar familias de objetos.</li>	
+		<li>Aplicabilidad: 
+			<ul>
+				<li>Un sistema debe ser independiente de cómo se crean, componen y representan sus productos.</li>
+				<li>Un sistema debe ser configurado con una familia de productos entre varias.</li>
+				<li>Una familia de objetos producto relacionados está diseñada para ser usada conjuntamente y es necesario hacer cumplir esa restricción.</li>
+				<li>Se quiere proporcionar una biblioteca de clases de productos y sólo se quiere revelar sus interfaces, no sus implementaciones.</li>
+			</ul>
+		</li>
+		<li>Consecuencias: 
+			<ul>
+				<li>Aísla las clases concretas.</li>
+				<li>Facilita el intercambio de familias de productos.</li>
+				<li>Promueve la consistencia entre productos.</li>
+				<li>Una desventaja que tiene es que es difícil dar cabida a nuevos tipos de productos.</li>
+			</ul>	
+		</li>
+	</ul>	
+</section>
+<section class="slide" id="factory38">
+	<h2>Patrón Abstract Factory</h2>
+	<ul>
+		<li>Participantes: 
+			<ul>
+				<li><strong>Abstract Factory:</strong> Declara una interfaz para operaciones que crean objetos producto abstractos.</li>
+				<li><strong>Concrete Factory:</strong> Implementa las operaciones para crear objetos producto concretos.</li>
+				<li><strong>Abstract Product:</strong> Declara una interfaz para un tipo de objeto producto.</li>
+				<li><strong>Concrete Product:</strong> Define un objeto producto para que sea creado por la fábrica correspondiente. Implementa la interfase ProductoAbstracto.</li>
+				<li><strong>Client:</strong> Sólo usa interfaces declaradas por las clases FabricaAbstracta y ProductoAbstracto.</li>
+			</ul>
+			<li><strong>Estructura: </strong>
+				<img src="abstractFactoryClassDiagram.png"/>
+			</li>
+	</ul>
+</section>
+<section class="slide" id="factory39">
+	<h2>Resumen Factories</h2>
+	<ul>
+		<li><strong>Simple Factory: </strong>
+		Clase con responsabilidad de crear objetos de otras clases. No delega en subclases y sus métodos pueden ser estáticos. Puede evolucionar a un abstact factory o a un factory method.</li>
+		<li><strong>Factory Method:</strong> Define una interfaz para crear objetos pero deja que sean las subclases las que deciden qué clases instanciar.<BR/> Permite que una clase delegue a sus subclases la creación de objetos.<BR/>
+		Usa herencia para crear productos</li>	
+		<li><strong>Abstract Factory:</strong> Proporciona una interfaz para crear familias de objetos relacionados o que dependen entre sí, sin especificar sus clases concretas.<BR/>
+		Usa composición para crear objetos<BR/>
+		Usa factory methods</li>
+	</ul>
+</section>
+
 <section class="slide" id="factory88">
 	<h2>Referencias</h2>
 	<p><strong>Head First Design Patterns</strong></p>
