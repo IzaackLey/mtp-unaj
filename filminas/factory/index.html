@@ -171,6 +171,17 @@
 	}
 	</script>
 	<p>Sabemos que las composición (tener la factory referenciada) nos permite cambiar el comportamiento dinámicamente (además de otras cosas), porque podemos cambiar de factory.</p>
+	<p>usamos la simpleFactory</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class TestSimplePizza {
+			public static void main(String[] args) {
+				SimplePizzaFactory factory = new SimplePizzaFactory();
+				PizzaStore store = new PizzaStore(factory);
+				Pizza pizza = store.orderPizza("cheese");
+				pizza = store.orderPizza("veggie");
+			}
+		}
+	</script>
 </section>
 <section class="slide" id="factory8">
 	<h2>Simple Factory</h2>
@@ -215,6 +226,274 @@
 	}
 	</script>
 
+</section>
+<section class="slide" id="factory11">
+	<h2>Factory method</h2>
+	<p>Ahora hacemos una subclase para cada regional</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class ChicagoPizzaStore extends PizzaStore {
+
+		Pizza createPizza(String item) {
+	        	if (item.equals("cheese")) {
+	            		return new ChicagoStyleCheesePizza();
+	        	} else if (item.equals("veggie")) {
+	        	    	return new ChicagoStyleVeggiePizza();
+	        	} else if (item.equals("clam")) {
+	        	    	return new ChicagoStyleClamPizza();
+	        	} else if (item.equals("pepperoni")) {
+	            		return new ChicagoStylePepperoniPizza();
+	        	} else return null;
+		}
+	}
+	</script>
+</section>
+<section class="slide" id="factory12">
+	<h2>Factory method</h2>
+	<p><strong>Permitiendo a la subclase decidir</strong></p>
+	<p>Recordemos que PizzaStore, ya tiene todo solucionado en el método orderPizza() y queremos asegurarnos que sea consistente con todas las franquicias.<BR/>
+	Lo que varía entre las distintas regionales es es estilo de pizza, mas gruesa, mas fina, con más salsa o con más queso.</p>
+	<p>Vamos a meter todas estas variaciones en el métodos createPizza() (que cada subclase  tiene que implementar) y hacerlo responsable de crear el tipo correcto de pizza.</p>
+	<p>La forma que hacemos esto es dejando a cada subclase de PizzaStore definir el método createPizza(). Entonces vamos a tener un numero de subclases clases concretas de PizzaStore, cada una con sus variaciones de Pizza, y así completando el framework y se sigue usando el método orderPizza() para todos.</p>
+
+</section>
+<section class="slide" id="factory13">
+	<h2>Factory method</h2>
+	<img src="fatoryMethodPizzaStore.png"/>
+	<p>Cada subclase sobreescribe el método createPizza() mientras todas las clases hacen uso de orderPizza() definido en la clase PizzaStore.</p>
+	<p>Podemos hacer el método orderPizza() final si realmente queremos esto. Con esto nadie lo puede sobreescribir</p>
+	<p>Recordemos createPizza() es abstracto en PizzaStore, con lo cual todas las subclases de pizza deben implementarlo</p>
+</section>
+
+<section class="slide" id="factory14">
+	<h2>Factory method</h2>
+	<ul>
+		<li>Se está realmente tomando una desicion ?<BR/>
+			Desde el punto de vista del método <strong>orderPizza()</strong> de PizzaStore, como esta definido en la clase abstracta PizzaStore, no tiene idea que subclase esta corriendo el código y haciendo las pizzas.<BR/>
+			En otras palabras esta desacoplado.
+		</li>
+		<li><strong>orderPizza()</strong> llama a <strong>createPizza()</strong> para obtener un objeto Pizza, pero que tipo 	de Pizza va a obtener?<BR/> 
+			El método <strong>orderPizza()</strong> no puede decidir, no sabe como, entonces quien decide?
+			Esto esta decidido de acuerdo a el pizza store desde que se hizo la llamada NYPizzaStore o ChicagoPizzaStore.
+		</li>
+		<li>Entonces hay una decicion en tiempo de ejecucion?</BR>
+			NO, pero desde las perspectiva de orderPizza() si elegimos NYStyePizzaStore, esa clase determina que tipo de pizza se va a hacer. Entonces las subclases no están decidiendo, sino uno mismo cuando decide que tipo de tienda se quiere (tiempo de compilación) y de acuerdo a esto es la clase que se instancia la que sabe qué tipo de pizza se va a hacer.
+		</li>
+	</ul>	
+</section>
+<section class="slide" id="factory15">
+	<h2>Factory method</h2>
+	<h3>Pasos para crear una pizza</h3>
+	<ul>
+		<li>primero necesitamos un PizzaStore, por ejemplo NYPizzaStore
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		PizzaStore nyPizzaStore = new NYPIzzaStore();
+		</script>
+		Creamos una instancia de PizzaStore
+		</li>
+		<li>
+			Ahora que tenemos la tienda podemos hacer la orden
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			nyPizzaStore.orderPizza(“chesse”);
+			</script>
+			el método orderPizza es llamado en las instacia de PizzaStore (el metodo definido en PizzaStore se ejecuta)
+		</li>
+		<li>
+			el método orderPizza() llama al método createPizza()
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			Pizza pizza = createPizza(“chesse”);
+			</script>
+			recordemos que createPizza(), el metodo factory esta implementado en la subclase. En este caso retorno a NYChessePizza
+		</li>
+	</ul>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class TestPizza { 
+			public static void main(String[] args) {
+				PizzaStore nyStore = new NYPizzaStore();
+				Pizza pizza = nyStore.orderPizza("cheese");
+				System.out.println("Ethan ordered a " + pizza.getName() + "\n");
+			}
+		}
+	</script>
+</section>
+<section class="slide" id="factory16">
+	<h2>Factory method</h2>
+	<h3>Pasos para crear una pizza</h3>
+	<ul>
+		<li>
+			Finalmente tenemos la pizza sin preparar y el metodo orderPizza() la termina de preparar la pizza.
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				pizza.prepare();
+				pizza.bake();
+				pizza.cut();
+				pizza.box();
+				</script>
+			recordemos que createPizza(), el metodo factory esta implementado en la subclase. En este caso retorno a NYChessePizza
+		</li>
+	</ul>
+	<p>todos estos métodos están definidos en la pizza especifica devuelta por el método fabrica createPizza() definido en NYPizzaStore.</p>
+	<p>El método  orderPizza() obtiene una pizza, sin saber exactamente que clase concreta es.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public abstract class Pizza {
+		String name;
+		String dough;
+		String sauce;
+		ArrayList toppings = new ArrayList();
+	 
+		void prepare() {
+			System.out.println("Preparing " + name);
+			System.out.println("Tossing dough...");
+			System.out.println("Adding sauce...");
+			System.out.println("Adding toppings: ");
+			for (int i = 0; i < toppings.size(); i++) {
+				System.out.println("   " + toppings.get(i));
+			}
+		}
+		void bake() {
+			System.out.println("Bake for 25 minutes at 350");
+		}
+		void cut() {
+			System.out.println("Cutting the pizza into diagonal slices");
+		}
+		void box() {
+			System.out.println("Place pizza in official PizzaStore box");
+		}
+	}
+	</script>
+</section>
+<section class="slide" id="factory17">
+	<h2>Factory method</h2>
+	<h3>Definicion del Metodo Factory</h3>
+	<p>Define herencia para la creación de un objeto, pero deja a las subclases decidir qué clase instanciar. El método factory deja a una clase definir las instanciación de las subclases.<BR/>
+	Como cualquier factory, el patrón factory method nos da una manera de encapsular la creación de tipos concretos.<BR/>
+	También conocido como Virtual Constructor</p>
+	<ul>
+		<li>Motivación: Una clase necesita instanciar otra clase derivada de una tercera clase, pero no sabe cuál. Factory Method permite a la clase derivada tomar esta decisión.</li>
+		<li>Aplicabilidad:</li>
+		<ul>
+			<li>Una clase no puede prever la clase de objetos que debe crear.</li>
+			<li>Una clase quiere que sean sus subclases quienes especifiquen los objetos que ésta crea.</li>
+			<li>Las clases delegan la responsabilidad en una de entre varias clases auxiliares, y queremos localizar concretamente en qué subclase de auxiliar se delega.</li>
+		</ul>
+		<li>Consecuencias:</li>
+		<ul>
+			<li>Crear objetos dentro de una clase con un método de fabricación es siempre más flexible que hacerlo directamente.</li>
+			<li>Encapsula la creación de objetos</li>
+			<li>Conecta jerarquías de clases paralelas.</li>
+			<li>Promueve el bajo acoplamiento reduciendo la dependencia de la aplicación a clases concretas</li>
+			<li>Una poderosa técnica para programar a una abstracción no a una clase concreta</li>
+		</ul>
+	</ul>	
+</section>
+<section class="slide" id="factory18">
+	<h2>Factory method</h2>
+	<h3>Definicion del Metodo Factory</h3>
+	<p>Participantes:</p>
+	<ul>
+		<li><strong>Product:</strong> Define la interfaz de los objetos que crea el método de fabricación.</li>
+		<li><strong>Concrete Product:</strong> Implementa la interfaz Producto.</li>
+		<li><strong>Creator: </strong>
+		<ul>
+			<li>Declara el método de fabricación, el cual devuelve un objeto del tipo Producto.</li> 
+			<li>También puede definir una implementación predeterminada del método de fabricación que devuelve un objeto.</li>
+			<li>Puede llamar al método de fabricación para crear un objeto Producto. Esto es usa el método que tiene definido como abstracto</li>
+			<li>Frecuentemente el creator contiene código que depende en productos abstractos, que es producido por una subclase.<BR/>
+			El creator nunca sabe en realidad que producto concreto fue producido.</li>
+		</ul>	
+		<li><strong>Concrete Creators:</strong> Redefine el método de fabricación para devolver una instancia de Producto Concreto.</li>
+	</ul>	
+</section>
+<section class="slide" id="factory18b">
+	<h2>Factory method</h2>
+	<img src="factoryMethodClassDiagram.png">
+</section>
+<section class="slide" id="factory19">
+	<h2>Factory method</h2>
+	<h3>Participantes en el Pizza Store</h3>
+	<p><strong>Creator:</strong> PizzaStore es la clase abtract creator. Define el método factory abstracto que las subclases implementan para producir productos.</p>
+	<img src="fatoryMethodPizzaStore.png"/>	
+	<p>"Frecuentemente el creator contiene código que depende en productos abstractos, que es producido por una subclase".<BR/>
+	Esto se refiere a la parte del el método orderPizza() que usa pizza sin saber que pizza es, lo que si sabe es que es una pizza y por lo tanto entiende repare(), bake(), cut() y box()</p>
+	<p>	"Puede llamar al método de fabricación para crear un objeto Producto.<BR/>
+	Esto es usa el método que tiene definido como abstracto createPizza()"</p>
+
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public abstract class PizzaStore {
+		public Pizza orderPizza(String type) {
+			Pizza pizza = createPizza(type);
+
+			System.out.println("--- Making a " + pizza.getName() + " ---");
+			pizza.prepare();
+			pizza.bake();
+			pizza.cut();
+			pizza.box();
+			return pizza;
+		}
+		public abstract Pizza createPizza(String item);
+	}
+	</script>
+	</p>
+</section>
+<section class="slide" id="factory20">
+	<h2>Factory method</h2>
+	<h3>Participantes en el Pizza Store</h3>
+	<p><strong>Concrete creators:</strong>  NyPizzaStore y ChicagoPizzaStore son las clases llamadas concrete creators.<BR/>
+	El método createPizza() es nuestro método factory, el que produce los productos concretos.<BR/>
+	Dado que cada franquicia tiene su propia subclase es libre de crear su propio estilo de pizza implementando createPizza()</p>
+	<p><strong>Product:</strong> Pizza es la clase prodcut</p>
+	<p><strong>Concrete Product:</strong> son los distintos tipos de pizzas producidos por las tiendas de NewYork y de Chicago</p>
+	<img src="fatoryMethodProducts.png"/>
+</section>
+<section class="slide" id="factory21">
+	<h2>Factory method</h2>
+	<h3>Otra Perspectiva: geraquias de clases paralelas</h3>
+	<p> Otra manera de mirar este patrón además de como un framework, es en la manera que encapsula el conocimiento de los productos en cada creador.<br/>
+	Miremos las dos jerarquías de clases y miremos cómo se relacionan.</p>
+	<img src="parallelHierarchies.png"/>
+	<p>Ambas jerarquías de clases son paralelas: ambas tienen clases abstractas que son extendidas por clases concretas, que saben sobre las implementaciones específicas de de New York y Chicago.</p>
+	<p>NYPizzaStore encapsula el conocimiento sobre como hacer NYStylePizzas<BR/>
+	ChicagoPizzaStore encapsula el conocimiento sobre como hacer ChicagoStylePizzas
+	<p>El factory method es la clave para encapsular este conocimiento.</p>
+</section>
+<section class="slide" id="factory22">
+	<h2>Principio de diseño</h2>
+	<h3>Principio de la inversión de dependencias</h3>
+	<p>dependa de abstracciones, no dependa de clases concretas.</p>
+	<ul>
+		<li>Debería ser claro que la reducción de las dependencias para crear clases en nuestro código es una cosa buena.</li>
+		<li>Al principio suena como <strong>“programa a una interface no a una implementación”</strong>.<BR/>
+		Es similar sin embargo el principio de inversión de dependencia hace una declaración más fuerte en cuanto abstracción.<BR/>
+		Sugiere que los componentes de alto nivel, no deben depender en los de bajo nivel, ya que ambos deben depender de abstracciones.
+	</li>
+	<li>Un componente de alto nivel es una clase con comportamiento definido en términos de otra “la de bajo nivel”.<BR/>
+		Por ejemplo PizzaStore es un componente de alto nivel porque su comportamiento está definido en de pizzas, crea todos los objetos pizzas, los prepara, los cocina, etc mientras las pizzas que usan son de bajo nivel.
+	</li>
+	</ul>	
+</section>
+<section class="slide" id="factory23">
+	<h2>Principio de diseño</h2>
+	<h3>Principio de la inversión de dependencias</h3>
+	<img src="inversionPrinciple.png"/>
+	<p>PizzaStore ahora solo depende de la clase abstracta Pizza</p>
+	<p>Las clases Pizza concretas dependen de abstract Pizza porque implementan la interfaz Pizza (recordemos que estamos usando el término interface en el sentido general).</p>
+	<p>nuestro componente de alto nivel PizzaStore, y los componentes de bajo nivel las pizzas ambos dependen de Pizza, la abstraccion.</p>
+	<p>Factory method no es la única manera de aplicar el principio de inversion de dependencias, pero es uno de los poderosos.</p>
+</section>
+<section class="slide" id="factory24">
+	<h2>Principio de diseño</h2>
+	<h3>Guías para seguir el principio de inversión de dependencias</h3>
+	<ul>
+		<li>Ninguna variable debe referenciar a una clase concreta<BR/>
+			Si se usa <strong>new</strong> estamos referenciando a una clase concreta. Usar factory para hacer esto.
+		</li>
+		<li>Ninguna clase debe derivar de una clase concreta<BR/>
+			Si uno deriva de una clase concreta, estas dependiendo de una clase concreta.<BR/>
+			Derivar de una abstracción, como una interfaz o una clase abstracta.
+		</li>
+		<li>Ningún método debería sobre escribir un método implementado de ninguna de sus clases bases.<BR/>
+			Si uno sobre escribe un método implementado entonces la clase base no fue realmente una abstracción 
+		</li>	
+	</ul>
+	<p>Tengamos en cuenta que es una guía y que siempre voy a estar rompiendo estas reglas, pero la idea es saber que lo estamos haciendo y por qué</p>
 </section>
 <section class="slide" id="factory88">
 	<h2>Referencias</h2>
