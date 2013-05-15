@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>Command</title>
+	
+	<meta name="description" content="A jQuery library for modern HTML presentations">
+	<meta name="author" content="Caleb Troughton">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	
+	<!-- Core and extension CSS files -->
+	<link rel="stylesheet" href="../core/deck.core.css">
+	<link rel="stylesheet" href="../extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="../extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="../extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="../extensions/status/deck.status.css">
+	<link rel="stylesheet" href="../extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="../extensions/scale/deck.scale.css">
+	
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="../themes/style/swiss.css">
+	
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="../themes/transition/horizontal-slide.css">
+	
+	<script src="../modernizr.custom.js"></script>
+	
+
+    <!-- SintaxHighlighter -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SyntaxHighlighter Large File Demo</title>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/XRegExp.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shCore.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushJava.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushPlain.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushPython.js"></script>
+	<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shCoreEclipse.css"/>
+	<!--link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shThemeEclipse.css"/-->
+	
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	
+	
+</head>
+
+<body class="deck-container">
+
+<!-- Begin slides -->
+<section class="slide" id="command1">
+	<h2>Command</h2>
+	<p>Tenemos que diseñar un control remoto con slots programables (cada uno puede ser asignado a dispositivos) para prender y apagar los diferentes dispositivos, además el control remoto tiene un botón de deshacer (UNDO).</p>
+	<p>Hay que poder controlar los dispositivos existentes y poder agregar futuros dispositivos.</p>
+	<p>Miramos el conjunto de clases nos damos cuenta que las clases no implementan un interfaz común, y es probable que los dispositivos que se agreguen sigan con esta característica. Tenemos un control remoto simple con botones de on-off pero el conjunto de clases son muy diversos.</p>
+	<p>Esperatamos encontrar clases con on-off pero en lugar de eso encontramos métodos como dim(), setTemperature(), setVolumen(), setDirection().</p>
+</section>
+<section class="slide" id="command2">
+	<h2>Command</h2>
+	<p>lo que no queremos es que el diseño termine</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		if (slot1 == "Light") 
+			light.on()
+		else if (slot1 == "Hottub") 
+			hottub.jetsOn()
+	</script>
+	<p>y que cuando agreguemos algo nuevo no haya que hacer cambios.</p>
+	<p><strong>Command Pattern</strong> nos permite desacoplar los requerimientos del objeto que realmente realiza la acción, en este caso el que hace el requerimiento es el control remoto y el objeto que efectúa la acción es alguna de las clases que nos pasaron.</p>
+	<h3>Introducimos los objetos commando en el diseño.</h3>}
+	<p>Un objeto command encapsula los requerimientos para hacer algo (prender la luz del living, abrir el portón, etc) en un objeto comando específico que esta asociado a la acción que queremos efectuar (LightOnCommand, GarageDoorOpenCommand).<BR/>
+	Entonces guardamos un objeto comando en cada botón del control remoto, y cuando se aprieta el botón este le dice al objeto command que haga la tarea o tareas que tiene asociada. 
+	El control remoto no tiene idea que es lo que se va a hacer, sólo el objeto command es que sabe a quién hay que invocar para hacer la tarea.</p>
+	<p>El control remoto y el objeto que realmente efectúa la tarea están desacoplados.</p>
+
+</section>
+<section class="slide" id="command3">
+	<h2>Command</h2>
+	<h3>Implementando la interface command</h3>
+	<p>Primero de todo, todos los objetos command implementan la misma interface que consiste en un método.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface Command(){
+			public void execute();
+		}
+	</script>
+	<h3>Implementando un objeto command</h3>
+	<p>Miramos el conjunto de clases para prender una luz. La clase Light() tiene 2 métodos on() y off()</p>
+	<img src="lightClass.png"/>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class LightOnCommand implements Command {
+			Light light;
+			public LightOnCommand(Light light) {
+				this.light = light;
+			}
+			public void execute() {
+				light.on();
+			}
+		}
+	</script>
+	<p>Este es un objeto Command así que tiene que implementar la interface Command, lo que lo obliga a implementar el método execute()</p>
+	<p>El constructor recibe el elemento específico que va a controlar. Este es el elemento que va a recibir el requerimiento.</p>
+	<p>El método execute() es el que llama al método del objeto receptor, que en este caso el la luz que controlamos.</p>
+</section>
+
+<section class="slide" id="command4">
+	<h2>Command</h2>
+	<h3>Usando el Objeto Command</h3>
+	<p>Si tenemos un control remoto con un sólo boton y un slot correspondiente para tener asociado un dispositivo.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class SimpleRemoteControl {
+			Command slot;
+			public SimpleRemoteControl() {}
+			public void setCommand(Command command) {
+				slot = command;
+			}
+			public void buttonWasPressed() {
+				slot.execute();
+			}
+		}
+	</script>
+	<p>Tenemos un sólo slot para guardar el comando</p>
+	<p>Tenemos un método para guardar el comando en el slot. Esto puede ser llamado múltiples veces si el cliente de este código quiere cambiar el comportamiento de botón del control remoto.</p>
+</section>
+
+<section class="slide" id="command5">
+	<h2>Command</h2>
+	<h3>Testeamos el control remoto</h3>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class RemoteControlTest {
+		public static void main(String[] args) {
+			SimpleRemoteControl remote = new SimpleRemoteControl();
+			Light light = new Light();
+			GarageDoor garageDoor = new GarageDoor();
+			LightOnCommand lightOn = new LightOnCommand(light);
+			GarageDoorOpenCommand garageOpen = 
+			    new GarageDoorOpenCommand(garageDoor);
+	 
+			remote.setCommand(lightOn);
+			remote.buttonWasPressed();
+			remote.setCommand(garageOpen);
+			remote.buttonWasPressed();
+	    }
+	}
+	</script>
+	<p>La clase esta, que tiene el main RemoteControlTest es nuestra clase cliente.</p>
+</section>
+
+<section class="slide" id="command6">
+	<h2>Command</h2>
+	<h3>Testeamos el control remoto</h3>
+	<p>El objeto remote() es el <strong>invocador</strong>, esta va a contener un objeto command que va a ser usado para efectuar la tarea necearia al momento de ser invocado.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		SimpleRemoteControl remote = new SimpleRemoteControl();
+	</script>
+	<p>light va a ser el <strong>receptor</strong> del requerimiento.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		Light light = new Light();
+	</script>
+	<p>creamos el objeto <strong>command</strong> light le pasamos en el constructor el objeto receptor.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		LightOnCommand lightOn = new LightOnCommand(light);
+	</script>
+	<p>le pasamos el comando al invocador</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		remote.setCommand(lightOn);
+	</script>
+	<p>Apretamos el botón</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		remote.buttonWasPressed();
+	</script>
+</section>
+<section class="slide" id="command7">
+	<h2>Patrón Command</h2>
+	<p>Este patrón permite solicitar una operación a un objeto sin conocer realmente el contenido de esta operación, ni el receptor real de la misma. Para ello se encapsula la petición como un objeto, con lo que además se facilita la parametrización de los métodos.</p>
+	<ul>
+		<li>Motivación:
+			<ul>
+				<li>Encapsula un mensaje como un objeto, con lo que permite gestionar colas o registro de mensaje y deshacer operaciones.</li>
+				<li>Soportar restaurar el estado a partir de un momento dado.</li>
+				<li>Ofrecer una interfaz común que permita invocar las acciones de forma uniforme y extender el sistema con nuevas acciones de forma más sencilla.</li>
+			</ul>
+		</li>
+		<li>Aplicabilidad:
+			<ul>
+				<li>Facilitar la parametrización de las acciones a realizar.</li>
+				<li>Independizar el momento de petición del de ejecución.</li>
+				<li>Soportar el "deshacer".</li>
+				<li>Acciones de recuperación del sistema (métodos adicionales salvar y recuperar en command)</li>
+				<li>Interfaz común que permita invocar las acciones de modo uniforme, y extender el sistema con nuevas acciones de forma sencilla.</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+<section class="slide" id="command8">
+	<h2>Patrón Command</h2>
+	<ul>
+		<li>Participantes
+			<ul>
+				<li><strong>Command:</strong> define la interfaz de ejecución de operaciones</li>
+				<li><strong>ConcreteCommand (PasteCommand, OpenCommand):</strong> Implementa la interfaz de ejecución invocando operaciones del receptor. De este modo relaciona una acción con un receptor.</li>
+				<li><strong>Client (Application):</strong> crea un comando concreto e indica a quién va dirigido (receptor)</li>
+			</ul>
+		</li>
+	</ul>		
+</section>
+<section class="slide" id="command78">
+	<h2>Command</h2>
+	<p>Este es el invoker</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class RemoteControl {
+		Command[] onCommands;
+		Command[] offCommands;
+		public RemoteControl() {
+			onCommands = new Command[7];
+			offCommands = new Command[7];
+	 
+			Command noCommand = new NoCommand();
+			for (int i = 0; i < 7; i++) {
+				onCommands[i] = noCommand;
+				offCommands[i] = noCommand;
+			}
+		}
+		public void setCommand(int slot, Command onCommand, Command offCommand) {
+			onCommands[slot] = onCommand;
+			offCommands[slot] = offCommand;
+		}
+		public void onButtonWasPushed(int slot) {
+			onCommands[slot].execute();
+		}
+		public void offButtonWasPushed(int slot) {
+			offCommands[slot].execute();
+		}
+		public String toString() {
+			StringBuffer stringBuff = new StringBuffer();
+			stringBuff.append("\n------ Remote Control -------\n");
+			for (int i = 0; i < onCommands.length; i++) {
+				stringBuff.append("[slot " + i + "] " + onCommands[i].getClass().getName()
+					+ "    " + offCommands[i].getClass().getName() + "\n");
+			}
+			return stringBuff.toString();
+		}
+	}
+	</script>
+</section>
+<section class="slide" id="command99">
+	<h2>Referencias</h2>
+	<p><strong>Head First Design Patterns</strong></p>
+</section>
+
+<!----------------------------------------------------------------------------------------------->
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+	/
+	<span class="deck-status-total"></span>
+</p>
+
+<!-- deck.goto snippet -->
+<form action="." method="get" class="goto-form">
+	<label for="goto-slide">Go to slide:</label>
+	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+	<datalist id="goto-datalist"></datalist>
+	<input type="submit" value="Go">
+</form>
+
+<!-- deck.hash snippet -->
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+
+<!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../jquery-1.7.2.min.js"><\/script>')</script>
+
+<!-- Deck Core and extensions -->
+<script src="../core/deck.core.js"></script>
+<script src="../extensions/hash/deck.hash.js"></script>
+<script src="../extensions/menu/deck.menu.js"></script>
+<script src="../extensions/goto/deck.goto.js"></script>
+<script src="../extensions/status/deck.status.js"></script>
+<script src="../extensions/navigation/deck.navigation.js"></script>
+<script src="../extensions/scale/deck.scale.js"></script>
+
+<!-- Initialize the deck -->
+<script>
+$(function() {
+	$.deck('.slide');
+});
+</script>
+
+</body>
+
+
+
+</html>

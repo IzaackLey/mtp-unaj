@@ -55,7 +55,7 @@
 	<h2>Factory</h2>
 	<p>Factory es un patron creacional.</p>
 	<p>Los patrones creacionales abstraen el proceso de instanciación</p>
-	<p>Ocultan los detalles de como se crean los objetos y ayudan a que el sistema sea independiente de la creación y composición de los mismos.</p>
+	<p>Ocultan los detalles de como se crean los objetos y ayudan a que el sistema sea independiente de la creación y composición e los mismos.</p>
 	<p>Todos los lenguajes orientados a objetos tienen una manera de crear objetos. En java esto se hace con el operador new. Los patrones creacionales nos permiten crear objetos sin usar el operador new. Esto nos permite escribir métodos que pueden instanciar diferentes objetos y puede ser extendido a otros objetos que queremos sin modificar el código de los métodos.</p>
 </section>
 <section class="slide" id="factory1">
@@ -68,10 +68,10 @@
 	<p>Cuando tenemos un conjunto de clases concretas relacionadas, nos vemos forzados de hacer el codigo asi:</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		Duck duck;
-		if (picnic){
+			if (picnic){
 			duck = new MallardDuck();
 		}
-		else if (hunting){
+			else if (hunting){
 			duck = new DecoyDuck();
 		}
 	</script>

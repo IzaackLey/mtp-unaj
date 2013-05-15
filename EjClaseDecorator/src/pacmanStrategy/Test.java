@@ -6,5 +6,7 @@ public class Test {
 		System.out.println(per1.getNombre() + ", avanzo de a "+ per1.getAvance()+" pasos");
 		per1.setSpeedBehavior(new Speed2());
 		System.out.println(per1.getNombre() + ", avanzo de a "+ per1.getAvance()+" pasos");
+		per1.setSEatBehavior(new CanEat());
+		System.out.println(per1.getNombre() + ", avanzo de a "+ per1.getAvance()+" pasos");
 	}
 }

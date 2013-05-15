@@ -2,11 +2,7 @@ package pacmanStrategy;
 
 public class RedGhost extends Personaje{
 	public RedGhost(){
-		this.speedBehavior = new Speed1();
+		super(new Speed1(), new CanEat());
+		this.nombre = "fantasma rojo";
 	}
-	
-	public String getNombre() {
-		return "Soy un fantasma rojo";
-	}
-
 }

@@ -7,7 +7,7 @@ public class DecreaseSpeed extends PersonajeDecorator{
 	
 	public int getAvance() {
 		if (this.getAvance()>1)
-			return -1 * getAvance();
+			return -1 + getAvance();
 		else
 			return getAvance();
 	}
