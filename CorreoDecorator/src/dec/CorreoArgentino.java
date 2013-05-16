@@ -1,12 +1,11 @@
 package dec;
 
-public class CorreoArgentino extends Empresa{
-
-	public double getCostoEnvio() {
-		return 100;
-	}
-	
+public class CorreoArgentino extends Correo{
 	public CorreoArgentino() {
-		descripcion = "producto2";
+		this.descripcion = "Correo Argentino";
+	}
+
+	public double costo() {
+		return 20;
 	}
 }

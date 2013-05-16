@@ -1,12 +1,13 @@
 package dec;
 
-public class UPS extends Empresa{
+public class UPS extends Correo{
 
-	public double getCostoEnvio() {
-		return 200;
+	public UPS() {
+		this.descripcion ="UPS";
+	}
+
+	public double costo() {
+		return 35;
 	}
 	
-	public UPS() {
-		descripcion = "producto1";
-	}
 }
