@@ -146,7 +146,6 @@
 	</script>
 	<p>La clase esta, que tiene el main RemoteControlTest es nuestra clase cliente.</p>
 </section>
-
 <section class="slide" id="command6">
 	<h2>Command</h2>
 	<h3>Testeamos el control remoto</h3>
@@ -175,6 +174,7 @@
 	<h2>Patrón Command</h2>
 	<p>Este patrón permite solicitar una operación a un objeto sin conocer realmente el contenido de esta operación, ni el receptor real de la misma. Para ello se encapsula la petición como un objeto, con lo que además se facilita la parametrización de los métodos.</p>
 	<ul>
+		<li>Clasificación: Es un patrón de diseño de comportamiento de objetos.</li>
 		<li>Motivación:
 			<ul>
 				<li>Encapsula un mensaje como un objeto, con lo que permite gestionar colas o registro de mensaje y deshacer operaciones.</li>
@@ -196,18 +196,37 @@
 <section class="slide" id="command8">
 	<h2>Patrón Command</h2>
 	<ul>
-		<li>Participantes
+		<li>Participantes:
 			<ul>
 				<li><strong>Command:</strong> define la interfaz de ejecución de operaciones</li>
-				<li><strong>ConcreteCommand (PasteCommand, OpenCommand):</strong> Implementa la interfaz de ejecución invocando operaciones del receptor. De este modo relaciona una acción con un receptor.</li>
-				<li><strong>Client (Application):</strong> crea un comando concreto e indica a quién va dirigido (receptor)</li>
+				<li><strong>ConcreteCommand:</strong> Implementa la interfaz de ejecución invocando operaciones del receptor. De este modo relaciona una acción con un receptor. El invocador al pide concreteCommannd que se ejecute la acción llamando al método execute() y este lo hace invocando al receiver una o varias veces.</li>
+				<li><strong>Client:</strong> crea un comando concreto e indica a quién va dirigido (receiver)</li>
+				<li><strong>Invoker:</strong> contiene el comando asociado a la petición</li>
+				<li><strong>Receiver:</strong> sabe cómo realizar las operaciones asociadas a una petición. Cualquier clase puede actuar como receptor.</li>
+
+			</ul>
+		</li>
+		<li>Consecuencias:
+			<ul>
+				<li>Desacopla el objeto que invoca la operación del que sabe cómo llevarla a cabo </li>
+				<li>Los comandos son entidades de “primer orden”: se pueden manipular y extender como cualquier otro objeto</li>
+				<li>Es fácil añadir nuevos comandos ya que no es necesario cambiar las clases existentes</li>
 			</ul>
 		</li>
 	</ul>		
 </section>
-<section class="slide" id="command78">
-	<h2>Command</h2>
-	<p>Este es el invoker</p>
+<section class="slide" id="command9">
+	<h2>Patrón Command</h2>
+	<ul>	
+		<li>Estructura 
+			<img src="commandClassDiagram.png"></li>
+	</ul>
+</section>
+<section class="slide" id="command10">
+	<h2>Patrón Command</h2>
+	<h3>Asignado los comandos a los slots</h3>
+	<p>Vamos a asignar cada slot a un <strong>command</strong> en el control remoto, esto hace nuestro control remoto nuestro <strong>invoker</strong>, cuando el boton es apretado el metodo execute() va a ser llamado en el commando correspondiente (el que fue asignado), lo que resulta en una serie de acciones de acciones o accion.</p>
+	<p>Vamos a asignar cada slot a un comando en el control remoto. Esto hace que el control remoto sea el invoker. Cuando un boton es apretado execute() va a llamar al comando correspondiente, que resulta en acciones que son invocadas en el receiver (lights, ceiling fans, stereos)</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 	public class RemoteControl {
 		Command[] onCommands;
@@ -233,17 +252,320 @@
 			offCommands[slot].execute();
 		}
 		public String toString() {
-			StringBuffer stringBuff = new StringBuffer();
-			stringBuff.append("\n------ Remote Control -------\n");
-			for (int i = 0; i < onCommands.length; i++) {
-				stringBuff.append("[slot " + i + "] " + onCommands[i].getClass().getName()
-					+ "    " + offCommands[i].getClass().getName() + "\n");
-			}
-			return stringBuff.toString();
+			//to string code
 		}
 	}
 	</script>
 </section>
+<section class="slide" id="command10b">
+	<h2>Patrón Command</h2>
+	<h3>Asignado los comandos a los slots</h3>
+	<p>El objeto <strong>NoCommand</strong> con el que llenamos los slots inicialmente es un objeto null.<BR/>
+	Este tipo de objetos nos libera de la responsabilidad de manejar los null en el cliente.<BR/>
+	En este caso se usa para que cuando un slot este vacio si apretamos el botón no pase nada.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class NoCommand implements Command {
+		public void execute() { }
+	}
+	</script>
+</section>
+<section class="slide" id="command11">
+	<h2>Patrón Command</h2>
+	<h3>Implementado los commands</h3>
+	<p>Ya implementamos el command LightOnCommand para el control remoto simple (de un sólo botón), con lo cual lo podemos dejarlo tal cual estaba e implementamos el LightOffCommand.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class LightOffCommand implements Command {
+		Light light;
+	 
+		public LightOffCommand(Light light) {
+			this.light = light;
+		}
+		public void execute() {
+			light.off();
+		}
+	}
+	</script>
+	<p>Tratemos como un stereo que tiene mas funciones</p>
+	<img src="StereoClass.png"/>
+	<p>Supongamos que queremos que prenda el CD que esta en la bandeja. Esto requiere una serie de acciones</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class StereoOnWithCDCommand implements Command {
+		Stereo stereo;
+		public StereoOnWithCDCommand(Stereo stereo) {
+			this.stereo = stereo;
+		}
+		public void execute() {
+			stereo.on();
+			stereo.setCD();
+			stereo.setVolume(11);
+		}
+	}
+	</script>
+</section>
+<section class="slide" id="command12">
+	<h2>Patrón Command</h2>
+	<h3>Programemos el control remoto</h3>
+	<p>Creamos los dispositivos que reciben de pararámetro la ubicación</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class RemoteLoader {
+		public static void main(String[] args) {
+			RemoteControl remoteControl = new RemoteControl();
+	 
+			Light livingRoomLight = new Light("Living Room");
+			Light kitchenLight = new Light("Kitchen");
+			CeilingFan ceilingFan= new CeilingFan("Living Room");
+			GarageDoor garageDoor = new GarageDoor("");
+			Stereo stereo = new Stereo("Living Room");
+			.
+	</script>
+	<p>Creamos los commands pasandoles el dispositivo correspondiente a cada uno</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	.
+			LightOnCommand livingRoomLightOn = new LightOnCommand(livingRoomLight);
+			LightOffCommand livingRoomLightOff = new LightOffCommand(livingRoomLight);
+			LightOnCommand kitchenLightOn = new LightOnCommand(kitchenLight);
+			LightOffCommand kitchenLightOff = new LightOffCommand(kitchenLight);
+			
+			CeilingFanOnCommand ceilingFanOn = new CeilingFanOnCommand(ceilingFan);
+			CeilingFanOffCommand ceilingFanOff = new CeilingFanOffCommand(ceilingFan);
+
+					CeilingFanOnCommand ceilingFanOn = new CeilingFanOnCommand(ceilingFan);
+			CeilingFanOffCommand ceilingFanOff = new CeilingFanOffCommand(ceilingFan);
+	 
+			GarageDoorUpCommand garageDoorUp = new GarageDoorUpCommand(garageDoor);
+			GarageDoorDownCommand garageDoorDown = new GarageDoorDownCommand(garageDoor);
+	 
+			StereoOnWithCDCommand stereoOnWithCD = new StereoOnWithCDCommand(stereo);
+			StereoOffCommand  stereoOff = new StereoOffCommand(stereo);
+	</script>
+</section>
+<section class="slide" id="command13">
+	<h2>Patrón Command</h2>
+	<h3>Programemos el control remoto</h3>
+	<p>ya tenemos todos los commands, ahora los cargamos en los diferentes slots del control remoto</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	.
+			remoteControl.setCommand(0, livingRoomLightOn, livingRoomLightOff);
+			remoteControl.setCommand(1, kitchenLightOn, kitchenLightOff);
+			remoteControl.setCommand(2, ceilingFanOn, ceilingFanOff);
+			remoteControl.setCommand(3, stereoOnWithCD, stereoOff);
+	  
+			System.out.println(remoteControl);
+			//con esto vemos que tiene asignado cada slot del control
+	</script>
+		<p>Tocamos todos los botones, prendemos y apagamos para ver como anda</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			remoteControl.onButtonWasPushed(0);
+			remoteControl.offButtonWasPushed(0);
+			remoteControl.onButtonWasPushed(1);
+			remoteControl.offButtonWasPushed(1);
+			remoteControl.onButtonWasPushed(2);
+			remoteControl.offButtonWasPushed(2);
+			remoteControl.onButtonWasPushed(3);
+			remoteControl.offButtonWasPushed(3);
+		}
+	}
+	</script>
+</section>
+<section class="slide" id="command13">
+	<h2>Patrón Command</h2>
+	<h3>UNDO</h3>
+	<p>Vamos a agregar la funcionalidad deshacer al control remoto. Con esto vamos a poder deshacer la ultima accion.</p>
+	<p>Si tocamos el boton de prender la luz de la cocina si tocamos el undo se debería apagar</p>
+	<p>Si los commands soportan undo, tienen un metodo undo() que deshacer lo que haga el boton execute()</p>
+	<p>Agregamos el undo() a la interfaz</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface Command {
+			public void execute();
+			public void undo();
+		}
+	</script>
+	<p>Le tenemos que agregar el undo a todos los commands</p>
+	<p>Por ejemplo en LightOnCommand, si el metodo execute() fue llamado, entonces el metodo on() fue el ultimo llamado, entonces undo() necesita ser el opuesto de on(), osea llamar al metodo off()</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class LightOnCommand implements Command {
+			Light light;
+			int level;
+			public LightOnCommand(Light light) {
+				this.light = light;
+			}
+			public void execute() {
+				light.on();
+			}
+			public void undo() {
+				light.off();
+			}
+		}
+	</script>
+	<p>LightOffCommand es igual pero al reves, el undo en vez de off() hace on()</p>
+	<p>Lo que nos falta es que le control remoto guarde el último botón apretado y tenga el boton undo</p>
+</section>
+<section class="slide" id="command14">
+	<h2>Patrón Command</h2>
+	<h3>UNDO</h3>
+	<p>Creamos una variable de instancia para guardar el ultiomo commando invocado, luego cuando alguien aprieta el boton undo, tomamos el commando guardado en la variable y invocamos al método undo()</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class RemoteControlWithUndo {
+		Command[] onCommands;
+		Command[] offCommands;
+		Command undoCommand;
+		//aca se guarda el utlimo command ejecutado
+		public RemoteControlWithUndo() {
+			onCommands = new Command[7];
+			offCommands = new Command[7];
+			Command noCommand = new NoCommand();
+			for(int i=0;i<7;i++) {
+				onCommands[i] = noCommand;
+				offCommands[i] = noCommand;
+			}
+			undoCommand = noCommand;
+			//lo inicializamos con un noCommand
+		}
+		public void setCommand(int slot, Command onCommand, Command offCommand) {
+			onCommands[slot] = onCommand;
+			offCommands[slot] = offCommand;
+		}
+		public void onButtonWasPushed(int slot) {
+			onCommands[slot].execute();
+			undoCommand = onCommands[slot];
+		}
+		public void offButtonWasPushed(int slot) {
+			offCommands[slot].execute();
+			undoCommand = offCommands[slot];
+		}
+		public void undoButtonWasPushed() {
+			undoCommand.undo();
+		}
+		public String toString() {
+			//to string code
+		}
+	}
+	</script>
+	<p>Cada vez que apretamos un boton guardamos la referencia en la varible de instacia undoCommand</p>
+	<p>Cuando apretamos el boton undo llamamos al undo() del command guardado en la varible de instancia undoCommand</p>
+</section>
+<section class="slide" id="command15">
+	<h2>Patrón Command</h2>
+	<h3>UNDO</h3>
+	<p>Probamos el undo</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class RemoteLoader {
+		public static void main(String[] args) {
+			RemoteControlWithUndo remoteControl = new RemoteControlWithUndo();
+	 
+			Light livingRoomLight = new Light("Living Room");
+	 
+			LightOnCommand livingRoomLightOn = new LightOnCommand(livingRoomLight);
+			LightOffCommand livingRoomLightOff = new LightOffCommand(livingRoomLight);
+	 
+			remoteControl.setCommand(0, livingRoomLightOn, livingRoomLightOff);
+	 
+			remoteControl.onButtonWasPushed(0);
+			remoteControl.offButtonWasPushed(0);
+			System.out.println(remoteControl);
+			remoteControl.undoButtonWasPushed();
+			remoteControl.offButtonWasPushed(0);
+			remoteControl.onButtonWasPushed(0);
+			System.out.println(remoteControl);
+			remoteControl.undoButtonWasPushed();
+		}
+	}
+	</script>
+</section>
+<section class="slide" id="command16">
+	<h2>Patrón Command</h2>
+	<h3>Macros</h3>
+	<p>Si queremos apretar un botón y setear las luces, que se prenda el stereo, y la tele, todo apretando un boton.</p>
+	<p>Lo que vamos a hacer es un command que ejecute otros command</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class MacroCommand implements Command {
+		Command[] commands;
+		public MacroCommand(Command[] commands) {
+			this.commands = commands;
+		}
+		public void execute() {
+			for (int i = 0; i < commands.length; i++) {
+				commands[i].execute();
+			}
+		}
+		public void undo() {
+			for (int i = commands.length -1; i >= 0; i--) {
+				commands[i].undo();
+			}
+		}
+	}
+	</script>
+	<p>El execute ejecuta todos los comando guardados en el vector</p>
+</section>
+<section class="slide" id="command17">
+	<h2>Patrón Command</h2>
+	<h3>Macros</h3>
+	<p>Probamos el macro</p>
+	<p>Creamos los dispositivos, junto con los commands para prender y apagar los dispositivos</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class RemoteLoader {
+		public static void main(String[] args) {
+			RemoteControl remoteControl = new RemoteControl();
+
+			Light light = new Light("Living Room");
+			TV tv = new TV("Living Room");
+			Stereo stereo = new Stereo("Living Room");
+			Hottub hottub = new Hottub();
+	 
+			LightOnCommand lightOn = new LightOnCommand(light);
+			StereoOnCommand stereoOn = new StereoOnCommand(stereo);
+			TVOnCommand tvOn = new TVOnCommand(tv);
+			HottubOnCommand hottubOn = new HottubOnCommand(hottub);
+
+			LightOffCommand lightOff = new LightOffCommand(light);
+			StereoOffCommand stereoOff = new StereoOffCommand(stereo);
+			TVOffCommand tvOff = new TVOffCommand(tv);
+			HottubOffCommand hottubOff = new HottubOffCommand(hottub);
+	</script>
+	<p>El execute() ejecuta todos los comando guardados en el vector</p>
+</section>
+<section class="slide" id="command18">
+	<h2>Patrón Command</h2>
+	<h3>Macros</h3>
+	<p>Probamos el macro</p>
+	<p>Creamos dos arrays de Commmnds, uno para el onMacro y otro para el OffMacro y luego creamos los macros pasandole la lista de acciones (comands) que hay que hacer para prender y apagar el macro</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		Command[] partyOn = { lightOn, stereoOn, tvOn, hottubOn};
+		Command[] partyOff = { lightOff, stereoOff, tvOff, hottubOff};
+  
+		MacroCommand partyOnMacro = new MacroCommand(partyOn);
+		MacroCommand partyOffMacro = new MacroCommand(partyOff);
+	</script>
+	<p>asignamos el macro a un boton</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		remoteControl.setCommand(0, partyOnMacro, partyOffMacro);
+	</script>
+	<p>Apretamos algunos botones para probar</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		System.out.println(remoteControl);
+		System.out.println("--- Pushing Macro On---");
+		remoteControl.onButtonWasPushed(0);
+		System.out.println("--- Pushing Macro Off---");
+		remoteControl.offButtonWasPushed(0);
+	</script>
+</section>
+<section class="slide" id="command19">
+	<h2>Patrón Command</h2>
+	<h3>Macros</h3>
+	<p>Creamos dos arrays de Commmnds, uno para el onMacro y otro para el OffMacro y luego creamos los macros pasandole la lista de acciones (comands) que hay que hacer para prender y apagar el macro</p>
+	<p>En general usamos objetos command bobos que sólo invocan la accion en en el receiver, pero se puede hacer que esto no sea así, y que el command sea el que haga todo y no necesite un receiver.
+	Esto se puede hacer pero acoplamos y el invoker y el receiver, ya no vamos a poder parametrizar los comandos con receivers.</p>
+	<p>Se podría implementar que el undo funcione no sólo para la última acción. Para soportar esto habria que tener una pila con los comands y cada vez que se aprieta undo, el invocador saca de la pila el command y llama a undo().</p>
+</section>
+<section class="slide" id="command20">
+	<h2>Patrón Command</h2>
+	<h3>Colas</h3>
+	<p>Command nos da una forma de empaquetar acciones (un receiver y un conjunto de acciones) y pasarlos como un objeto. Una vez que el command fue creado puede pasar bastante tiempo hasta que un cliente lo invoque. Inclusive puede ser invocado por un proceso distinto. Este esenario se puede ver en schedulers (planificaciones), job queues (tareas programadas)</p>
+	<p>Si tenemos una cola de trabajos y agreagamos commando a la cola, el proceso que toma los trabajos de la cola, toma un command de la cola, lo ejecuta, espera que termine, lo remuve, y luego toma el siguiente.</p>
+	<p>Notemos que el trabajo de la cola estan totalmente desacoplados de otros objetos que hacen el trabajo. Al trabajo de la cola no le importa que se hace sólo toma los commands e invoca execute().<BR/>
+	Mientras lo que pongamos en la cola sea un Command, el proceso va a poder tomar los comandos y ejecutarlos. </p>
+</section>
+
 <section class="slide" id="command99">
 	<h2>Referencias</h2>
 	<p><strong>Head First Design Patterns</strong></p>
