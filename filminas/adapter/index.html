@@ -7,7 +7,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>Strategy</title>
+	<title>Adapter</title>
 	
 	<meta name="description" content="A jQuery library for modern HTML presentations">
 	<meta name="author" content="Caleb Troughton">
@@ -63,13 +63,161 @@
 
 <section class="slide" id="adapter2">
 	<h2>Adapter</h2>
-	<>
+	<p>Acemos una version distinta de la implementacion de los patos para ver el adapter y agregamos pavos que implementan una interfaz distinta.</p>
+	<p>La interfaz de los patos</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		public interface Duck {
 			public void quack();
 			public void fly();
 		}
 	</script>
+	<p>Vemos como queda un pato cuando implemneta la interfaz Duck</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class MallardDuck implements Duck {
+			public void quack() {
+				System.out.println("Quack");
+			}
+		 
+			public void fly() {
+				System.out.println("I'm flying");
+			}
+		}
+	</script>
+</section>
+
+<section class="slide" id="adapter3">
+	<h2>Adapter</h2>
+	<p>Ahora la interfaz de los pavos</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface Turkey {
+			public void gobble();
+			public void fly();
+		}
+	</script>
+	<p>Vemos como queda un pavo cuando implemneta la interfaz Duck</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class WildTurkey implements Turkey {
+			public void gobble() {
+				System.out.println("Gobble gobble");
+			}
+		 
+			public void fly() {
+				System.out.println("I'm flying a short distance");
+			}
+		}
+	</script>
+</section>
+
+<section class="slide" id="adapter4">
+	<h2>Adapter</h2>
+	<p>Si queresmos usar <strong>pavos</strong> en donde esperamos <strong>patos</strong>, como guardar en un variable Duck un Turkey, o pasar un Turkey por parámetro como si fuera un Duck, necesitamos el adaptador que haga que el Turkey parezca un Duck.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class TurkeyAdapter implements Duck {
+			Turkey turkey;
+			public TurkeyAdapter(Turkey turkey) {
+				this.turkey = turkey;
+			}
+			public void quack() {
+				turkey.gobble();
+			}
+			public void fly() {
+				for(int i=0; i < 5; i++) {
+					turkey.fly();
+				}
+			}
+		}
+	</script>
+	<ol>
+		<li>Implementamos la interfaz del tipo que esperamos.<BR/>
+			Por ejemplo esperamos un parametro tipo Duck, pero queremos que contenga un objeto tipo Turkey.<BR/>
+			O en el caso de un método espera un tipo de parametro Duck y queremos pasarle uno tipo Turkey</p>
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			static void testDuck(Duck duck) {
+				duck.quack();
+				duck.fly();
+			}
+		</script>
+		</li>
+	</ol>	
+</section>
+<section class="slide" id="adapter4b">
+	<h2>Adapter</h2>
+	<ol start=2>
+		<li>En el contructor le pasamos el tipo incompatible al que queremos adaptarlo, lo disfrasamos para que parezca de otra interface. En este caso Turkey
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			public TurkeyAdapter(Turkey turkey) {
+				this.turkey = turkey;
+			}
+		</script>
+		</li>
+		<li>Como implementamos Duck tenemos que implemnetar quack() y fly() y aca es donde hacemos la traduccion. Cuando llamemos a quack() en realidad el pavo a a ejecutar gobble()
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			public void quack() {
+				turkey.gobble();
+			}
+			public void fly() {
+				for(int i=0; i < 5; i++) {
+					turkey.fly();
+				}
+			}
+		</script>
+		</li>
+	</ol>	
+</section>
+<section class="slide" id="adapter5">
+	<h2>Adapter</h2>
+	<h3>Testeamos el adapter</h3>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class DuckTestDrive {
+			public static void main(String[] args) {
+				MallardDuck duck = new MallardDuck();
+		 		//creamos un pato
+
+				WildTurkey turkey = new WildTurkey();
+				//creamos un pavo
+
+				Duck turkeyAdapter = new TurkeyAdapter(turkey);
+		   		//envolvemos al pavo con el adapter y nos queda un pato
+
+				System.out.println("The Turkey says...");
+				turkey.gobble();
+				turkey.fly();
+		 
+				System.out.println("\nThe Duck says...");
+				testDuck(duck);
+		  
+				System.out.println("\nThe TurkeyAdapter says...");
+				testDuck(turkeyAdapter);
+				//llamamos al metodo pasandole un pavo adaptado
+			}
+		 
+			static void testDuck(Duck duck) {
+				duck.quack();
+				duck.fly();
+			}
+		}
+	</script>
+</section>
+
+<section class="slide" id="adapter6">
+	<h2>Adapter</h2>
+	<h3>Paso a paso lo que hicimos</h3>
+	<ol>
+		<li>El cliente hace la llamada al adaptador llamando a algun método de la interfaz destino.<BR/>
+		En este caso la interfaz destino es Duck.
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			new TurkeyAdapter(new WildTurkey()).quack();
+		</script>
+		</li>
+		<li>El adaptador traduce las llamadas en uno o muchas llamadas al objeto envuelto o contenido por el adapter. En este caso Turkey
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			public void quack() {
+				turkey.gobble();
+			}
+		</script>
+		</li>
+		<li>El cliente recibie los resultados sin saber que hubo un adapter en el medio haciendo la traduccion.</li>
+	</ol>	
 </section>
 <section class="slide" id="strategy27">
 	<h2>Referencias</h2>
