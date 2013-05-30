@@ -277,7 +277,7 @@
 	<ul>
 		<li>			
 			<p>Obeject Adapter</p>
-			<img src="objectAdapterClassDiagram.png"/>
+			<img src="adapterClassDiagram.png"/>
 		</li>
 		<li>
 			<p>Class Adapter</p>
@@ -321,8 +321,282 @@
 			
 	</ul>	
 </section>
+<section class="slide" id="adapter16">
+	<h2>Facade</h2>
+	<h3>Nos armamos un cine en casa completo</h3>
+	<p>Vemos el diagrama de clases de todos los dispositivos con las conexiones</p>
+	<img src="ht.png"/>
+</section>
+<section class="slide" id="adapter17">
+	<h2>Facade</h2>
+	<p>El problema es hacer que ande. El procedimieto sería el siguiente: </p>
+	<ol>
+		<li>prender la maquina de pochoclo en on</li>
+		<li>poner iniciar para que arranque</li>
+		<li>bajar las luces</li>
+		<li>bajar la pantalla</li>
+		<li>prender el proyector</li>
+		<li>setear la entrada del proyector en dvd</li>
+		<li>poner el proyectro en modo winde screen</li>
+		<li>setear el amplificador en DVD input</li>
+		<li>poner el amplificador en modo surround</li>
+		<li>poner el volumen del amplificador en 5</li>
+		<li>prender el dvd player</li>
+		<li>poner play en el dvd</li>
+	</ol>
+	<p>En código sería</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		popper.on();
+		popper.pop();
+		lights.dim(10);
+		screen.down();
+		projector.on();
+		projector.wideScreenMode();
+		amp.on();
+		amp.setDvd(dvd);
+		amp.setSurroundSound();
+		amp.setVolume(5);
+		dvd.on();
+		dvd.play(movie);
+	</script>
+</section>
+<section class="slide" id="adapter18">
+	<h2>Facade</h2>
+	<p>Con facade podemos tratar un subsistema complejo y hacerlo fácil de usar implementando la clase facade que provee una interface más razonable</p>
+	<img src="facadeHt.png"/>
+</section>
+<section class="slide" id="adapter19">
+	<h2>Facade</h2>
+	<h3>Procedimiento</h3>
+	<ol>
+		<li> Para hacer el facade creamos una clase nueva HomeTheaterFacade, lo que expone unos pocos y simples métodos como wathMovie().</li>
+		<li>La clase Facade toma al home theater como un subsistema, y hace llamadas en el subsistema para implementar watchMovie().</li>
+		<li>El código de cliente llama a los métodos del home theater Facade, no hace llamadas a los subsistemas. Ahora cuando queremos ver una película llamamos a un sólo método watchMovie() y este se comunica con las luces, DVD player, proyector, amplificador, pantalla, y pochoclera.</BR>
+		Esto hace que quede desacoplada la implementacion del cliente de cualquier sistema.</BR>
+		Supongamos que queremos actualizar el hometheater cambiando todos los componentes. Si codeamos el cliente para que use el facade, en ves de el subsistema, no hay que cambiar nada en el cliente, pero si hay que cambiar el facade.
+		</li>
+		<li>Facade deja al subsistema accesible para ser usado directamente. Si necesitamos una funcionalidad especial igual tenemos acceso al subsistema. En realidad no encapsula al subsistema de bajo nivel, simplemente provee una interface simplificada.</li>
+	</ol>
+</section>
+<section class="slide" id="adapter20">
+	<h2>Facade</h2>
+	<h3>Facade y adapter</h3>
+	<p>La diferencia entre adapter y facade es que adapter envuelve ona clase y facade representa muchas clases?</p>
+	<p>No, adapter cambia la interface de una o más clases, en uno interface que el cliente esta esperando. Mientras la mayoríaa de los ejemplos de adapter son adaptando una sola clase puede que haya que implementar varias interfaces para proveer la interface que el cliente esta esperando.</p>
+	<p>En cambio facade puede proveer una interfaz simplificada a una sola que tenga una interfaz compleja.</BR>
+	La principal diferencia no es cuantas clases envuelve uno o el otro sino su intencion, la intencion del adapter es alterar una interface para hacer coincidir con la que el cliente espera y la intension de facade es proveer una interface simplificada a un subsistema.</p>
+</section>
+<section class="slide" id="adapter20b">
+	<h2>Facade</h2>
+	<h3>Implementando el facade</h3>
+	<p>Usamos composición para acceder para que el facade pueda acceder a todos los componetes del subsistema</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class HomeTheaterFacade {
+		Amplifier amp;
+		Tuner tuner;
+		DvdPlayer dvd;
+		CdPlayer cd;
+		Projector projector;
+		TheaterLights lights;
+		Screen screen;
+		PopcornPopper popper;
+	 
+		public HomeTheaterFacade(Amplifier amp, 
+					 Tuner tuner, 
+					 DvdPlayer dvd, 
+					 CdPlayer cd, 
+					 Projector projector, 
+					 Screen screen,
+					 TheaterLights lights,
+					 PopcornPopper popper) {
+	 
+			this.amp = amp;
+			this.tuner = tuner;
+			this.dvd = dvd;
+			this.cd = cd;
+			this.projector = projector;
+			this.screen = screen;
+			this.lights = lights;
+			this.popper = popper;
+		}
 
+	</script>
+</section>
+<section class="slide" id="adapter20c">
+	<h2>Facade</h2>
+	<h3>Implementando el facade</h3>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	.
+		public void watchMovie(String movie) {
+			System.out.println("Get ready to watch a movie...");
+			popper.on();
+			popper.pop();
+			lights.dim(10);
+			screen.down();
+			projector.on();
+			projector.wideScreenMode();
+			amp.on();
+			amp.setDvd(dvd);
+			amp.setSurroundSound();
+			amp.setVolume(5);
+			dvd.on();
+			dvd.play(movie);
+		}
+	 
+	 
+		public void endMovie() {
+			System.out.println("Shutting movie theater down...");
+			popper.off();
+			lights.on();
+			screen.up();
+			projector.off();
+			amp.off();
+			dvd.stop();
+			dvd.eject();
+			dvd.off();
+		}
+		//resto de los métodos
+	}
+	
+	</script>
+</section>
+<section class="slide" id="adapter20d">
+	<h2>Facade</h2>
+	<h3>Usando el facade</h3>
 
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class HomeTheaterTestDrive {
+			public static void main(String[] args) {
+				//cramos los componentes
+				Amplifier amp = new Amplifier("Top-O-Line Amplifier");
+				Tuner tuner = new Tuner("Top-O-Line AM/FM Tuner", amp);
+				DvdPlayer dvd = new DvdPlayer("Top-O-Line DVD Player", amp);
+				CdPlayer cd = new CdPlayer("Top-O-Line CD Player", amp);
+				Projector projector = new Projector("Top-O-Line Projector", dvd);
+				TheaterLights lights = new TheaterLights("Theater Ceiling Lights");
+				Screen screen = new Screen("Theater Screen");
+				PopcornPopper popper = new PopcornPopper("Popcorn Popper");
+		 		
+				//se los pasamos al facade en el contructor	
+				HomeTheaterFacade homeTheater = 
+						new HomeTheaterFacade(amp, tuner, dvd, cd, 
+								projector, screen, lights, popper);
+		 
+				homeTheater.watchMovie("Raiders of the Lost Ark");
+				homeTheater.endMovie();
+			}
+		}
+	</script>
+</section>
+<section class="slide" id="adapter20z">
+	<h2>Facade</h2>
+	<h3>Facade y Command</h3>
+	<p>Ambos ocultan la complejidad de los subsistemas y proveen una forma facil usar la interface del clientes</p>
+	<p>Facade se usa para ocultar la estructura interna y provee una interfaz simplificada, al mismo tiempos uqe daja las interfaces de bajo nivel disponibles en el caso que se necesite alguna funcionalidad extra</p>
+	<p>Command se usa para encapsular acciones que permiten usar la funcionalidad, ademas de undo, tareas y colas</p>
+</section>
+<section class="slide" id="adapter21">
+	<h2>Patrón Facade</h2>
+	<p>Provee una interfaz unificada a un conjunto de interfaces en un subsistema. Define una interfaz de alto nivel que facilita el uso del subsistema.</p>
+	<ul>
+		<li>Clasificación: Es un patrón estructural.</li>
+		<li>Motivación: Reducir su complejidad con la división en subsistemas, minimizando las comunicaciones y dependencias entre éstos.
+		</li>
+		<li>Aplicabilidad:
+			<ul>
+				<li>Se quiera proporcionar una interfaz sencilla para un subsistema complejo</li>
+				<li>Se quiera desacoplar un subsistema de sus clientes y de otros subsistemas, haciéndolo mas independiente y portable</li>
+				<li>Se quiera dividir los sistemas en niveles: las fachadas serían el punto de entrada a cada nivel</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+<section class="slide" id="adapter22">
+	<h2>Patrón Facade</h2>
+	<ul>
+		<li>Participantes:
+			<ul>
+				<li><strong>Fachada:</strong> : delegar las peticiones de los clientes en los objetos del subsistema</li>
+				<li><strong>Clases del subsistema:</strong> implementar la funcionalidad del subsistema.</li>
+			</ul>
+		</li>
+		<li>Consecuencias:
+			<ul>
+				<li>Oculta a los clientes de la complejidad del subsistema y lo hace más fácil de usar</li>
+				<li>Favorece un acoplamiento débil entre el subsistema y sus clientes, consiguiendo que los cambios de las clases del sistema sean transparentes a los clientes</li>
+				<li>Facilita la división en capas y reduce dependencias de compilación</li>
+				<li>No se impide el acceso a las clases del sistema</li>
+			</ul>
+		</li>
+	</ul>		
+</section>
+<section class="slide" id="adapter23">
+	<h2>Patrón Facade</h2>
+	<ul>
+		<li>Estructura
+			<img src="facadeClassDiagram.png"/>	
+		</li>
+	</ul>	
+</section>
+<section class="slide" id="adapter24">
+	<h2>Principio de diseño</h2>
+	<h3>Menor conocimiento</h3>
+	<p>Hablar solo con amigos inmediatos.</p>
+	<p>Esto significa que cuando estamos diseñando un sistema, seamos cuidadosos en la cantidad de clases que interactuan, y tambien como interactuan.</p>
+	<p>Este principio nos previene de crear diseños que tienen gran número de clases acopladas lo que ocasiona que los cambios impacten en cascada en otras partes, esto hace que un sistema sea frágil, difícil de mantener, y complejo de entender.</p>
+	<p><strong>Guias de como seguir el principio</strong><p>
+	<p>Tomamos un objeto, desde cualquier método del objeto, el principio nos dice que debemos invocar métodos que sólo pertenezcan a:</p>
+	<ul>
+		<li>El objeto mismo</li>
+		<li>Objetos pasados como parámetro en el método</li>
+		<li>Cualquier objeto que el método crea o instancia</li>
+		<li>Cualquier componente del objeto</li>
+	</ul>
+</section>
+<section class="slide" id="adapter25">
+	<h2>Principio de diseño</h2>
+	<h3>Menor conocimiento</h3>
+	<p>Cual es el daño de llamar el método de un objeto, que obtenemos de otro?<p>
+	<p>Bueno si hacemo eso, le estamos haciendo un requerimiento a otro objeto  e incrementando el numero de objetos que conocemos directamente. En este caso el principio nos fuerza a que el objeto que invocamos haga la invocacion al siguiente objeto por nosotros. De esa manera no tenemos que saber detalles del objeto componente y mantenemos el circulo de amigos pequeño.</p>
+	<p><strong>Sin el principio</strong><p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public float getTemp(){
+			return station.getThermometer().getTemperature();
+		}
+	</script>	
+	<p><strong>Con el principio</strong><p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public float getTemp(){
+			retrun station.getTemperature();
+		}
+	</script>		
+</section>
+<section class="slide" id="adapter26">
+	<h2>Principio de diseño</h2>
+	<h3>Menor conocimiento</h3>
+	<p><strong>Mantener  las llamadas dentro de los límites</strong><p>
+	<p>Esta clase auto demuestra todas las formas que se pueden llamar métodos sin violar el principio Menor Conocimiento</p>
+
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	Public class Car{
+		Engine engine; //este es el componente de la clase
+		public void start(Key key){
+			Doors doors = new Doors(); //crear un objeto nuevo, en el metodo es legal
+			boolean authorized = key.turns(); //se puede llamar a un metodo de un objeto llamado como parámetro
+			if (authorized){
+					engine.start(); //se pueden llamar metodos del compoente
+					updateDashboardDisplay(); // se puede llamar a un metodo local del la clase
+					doors.lock(); //se puede llamar metodos de objetos creados en el metodo
+			}
+		}
+		public void updateDashboardDisplay(){
+		//update display
+		}
+	}
+	</script>	
+	<p>La desventaja qeu tiene es que si bien el principio reduce las dependencias entre objetos y estudios demuestran que con esto se reduce el mantenimiento, tambien es cierto que produce mas clases que son envueltas para manejar las llamadas a otros componentes, lo que puede ocacionar mas complejidad, tiempo de desarrollo y performance.</p>
+	
+</section>
 <section class="slide" id="strategy27">
 	<h2>Referencias</h2>
 	<p>Head First Design Patterns</p>
