@@ -1,7 +1,6 @@
 
-public class RuedaBMX extends Rueda{
-	String crearRueda() {
-		return null;
+public class RuedaBMX implements Rueda{
+	public String toString() {
+		return "Rueda BMX";
 	}
-
 }

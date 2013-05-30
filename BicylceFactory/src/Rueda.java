@@ -1,4 +1,4 @@
 
-public abstract class Rueda {
-	abstract String crearRueda();
+public interface Rueda {
+	public String toString();
 }

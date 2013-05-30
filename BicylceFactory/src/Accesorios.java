@@ -1,4 +1,4 @@
 
-public abstract class Accesorios {
-	abstract String crearAccesorios();
+public interface Accesorios {
+	public String toString();
 }

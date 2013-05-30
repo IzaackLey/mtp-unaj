@@ -1,7 +1,6 @@
 
-public class CuadroBMX extends Cuadro{
-	String crearCuadro() {
-		return null;
+public class CuadroBMX implements Cuadro{
+	public String toString() {
+		return "Cuadro BMX";
 	}
-
 }

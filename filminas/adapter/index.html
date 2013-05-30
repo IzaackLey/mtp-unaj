@@ -219,6 +219,110 @@
 		<li>El cliente recibie los resultados sin saber que hubo un adapter en el medio haciendo la traduccion.</li>
 	</ol>	
 </section>
+<section class="slide" id="adapter6a">
+	<h2>Adapter</h2>
+	<h3>Principios de OO en el adapter</h3>
+	<ol>
+		<li>Usamos la composición para envolver adaptee con una interfaz alterada. Esto tiene la ventaja que podemos usar un adapter con cualquier sublcase del adapter.</li>
+		<li>También vemos como el patron enlaza al cliente a una interface no a una implementación, esto significa que podemos usar varios adapters, cada uno adaptando un grupo diferente de clases, o le podemos agregar nuevas implementaciones mientras se implemente la interfaz target.</li>
+	</ol>	
+</section>
+
+<section class="slide" id="adapter9">
+	<h2>Patron Adapter</h2>
+	<p>Convierte la interfaz de una clase en otra interfaz que el cliente espera. Adapter deja comunicarse a clases que de otra forma no podrían hacerlo por incompatibilidades de interface.</p>
+	<ul>
+		<li>Motivación: Cuando tenemos una clase, parametro o varible de instancia que espera una interfaz, y tenemos una que ofrese la misma funcionalidad pero con una interface diferente, y queremos que se puedan comunicar si tener que hacer cambios en el codigo de las clases intervinientes</li>
+		<li>Aplicabilidad: 
+		<ul>
+			<li>Queremos utilizar una clase ya existente, pero cuya interfaz no coincide con la que necesitas</li>
+			<li>Queremos crear una clase reutilizable que coopere con otras no relacionadas, es decir, con clases que puedan no tener una interfaz compatible</li>
+			<li>Necesites usar varias subclases existentes pero no sea práctico adaptar sus interfaces. Un object adapter puede adaptar la interfaz de la clase padre.</li>
+		</ul>	
+		</li>
+	</ul>	
+</section>
+<section class="slide" id="adapter10">
+	<h2>Patron Adapter</h2>
+	<ul>
+		<li>Participantes: 
+		<ul>
+			<li><strong>Target:</strong> define la interfaz específica de dominio que el cliente usa</li>
+			<li><strong>Client:</strong> colabora con los objetos que implementan la interfaz definida por el target</li>
+			<li><strong>Adaptee:</strong> define una interfaz existente que necesita adaptarse</li>
+			<li><strong>Adapter:</strong> adapta la interfaz del objeto adaptado a la definida por el target</li>
+		</ul>	
+		</li>
+		<li>Consecuencias:
+		<ul>
+			<li>Object adapter: 
+			<ul>
+				<li>Un adapter funciona con varios adaptees (el mismo adaptee y todas sus subclases)</li>
+				<li>Dificulta sobrescribir el comportamiento del adaptee</li>
+			</ul>	
+			</li>
+			<li>Class adapter: 
+			<ul>
+				<li>El adapter hereda el comportamiento del adaptee, y puede sobrescribirlo</li>
+				<li>No sirve para adaptar una clase y todas sus subclases</li>
+				<li>Introduce un único objeto, no hace falta un nivel de indirección para obtener el adaptee</li>
+			</ul>
+			</li>
+		</ul>	
+		</li>	
+	</ul>	
+</section>
+<section class="slide" id="adapter10">
+	<h2>Patron Adapter</h2>
+	<ul>
+		<li>			
+			<p>Obeject Adapter</p>
+			<img src="objectAdapterClassDiagram.png"/>
+		</li>
+		<li>
+			<p>Class Adapter</p>
+			<img src="classAdapterClassDiagram.png"/>
+		</li>
+	</ul>	
+</section>
+
+<section class="slide" id="adapter11">
+	<h2>Adapter</h2>
+	<h3>Object Adapter y Class Adapter</h3>
+	<p>Hay dos implementaciones del patrón Adapter, Object Adapter y Class Adapter</p>
+	<ul>
+		<li>
+			<p>Object Adapter</p>
+			<p>Pros:</p>
+			<ul>
+				<li>Más flexible que class Adapter</li>
+				<li>No requiere usar herencia</li>
+				<li>Adapter funciona con Adaptee y todas sus subclases</li>
+			</ul>
+			<p>Contras:</p>
+			<ul>
+				<li>Más difícil sobreescribir el comportamiento de Adaptee</li>
+				<li>Requiere más código en la implementación</li>
+			</ul>
+		</li>
+		<li>
+			<p>Class Adapter</p>
+			<p>Pros:</p>
+			<ul>
+				<li>menos codigo que object adapter</li>
+				<li>puede sobreescribir el comportamiento de Adaptee si se requiere</li>
+			</ul>
+			<p>Contras:</p>
+			<ul>
+				<li>Requiere hacer uso de herencia (herencia simple)</li>
+				<li>Menos felxible que object Adapter</li>
+			</ul>
+		</li>
+			
+	</ul>	
+</section>
+
+
 <section class="slide" id="strategy27">
 	<h2>Referencias</h2>
 	<p>Head First Design Patterns</p>

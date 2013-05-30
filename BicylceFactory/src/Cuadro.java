@@ -1,4 +1,4 @@
 
-public abstract class Cuadro {
-	abstract String crearCuadro();
+public interface Cuadro {
+	public String toString();
 }

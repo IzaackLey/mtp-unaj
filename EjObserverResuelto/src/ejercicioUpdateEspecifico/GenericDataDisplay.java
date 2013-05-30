@@ -33,7 +33,7 @@ public class GenericDataDisplay  implements WeatherDataObserver, TankDataObserve
 
 	public void update(float temp, float humidity, float pressure) {
 		this.temperature = temp;
-		this.humidity =humidity;
+		this.humidity = humidity;
 		this.pressure = pressure;
 		display();
 		

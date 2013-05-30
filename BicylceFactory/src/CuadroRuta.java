@@ -1,10 +1,8 @@
 
-public class CuadroRuta extends Cuadro{
+public class CuadroRuta implements Cuadro{
 
-	@Override
-	String crearCuadro() {
-		// TODO Auto-generated method stub
-		return null;
+	public String toString() {
+		return "Cuadro bicicleta de ruta";
 	}
 
 }

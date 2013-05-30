@@ -1,7 +1,7 @@
 
-public class CuadroMtb extends Cuadro{
-	String crearCuadro() {
-		return null;
+public class CuadroMtb implements Cuadro{
+	public String toString() {
+		return "Cuadro Mountain Bike";
 	}
 
 }
