@@ -1,0 +1,18 @@
+
+public class Computer {
+    private CPU cpu;
+    private Memory memory;
+    private HardDrive hardDrive;
+ 
+    public Computer() {
+        this.cpu = new CPU();
+        this.memory = new Memory();
+        this.hardDrive = new HardDrive();
+    }
+ 
+    public void run() {
+        memory.load();
+        hardDrive.readdata();
+        cpu.processData();
+    }
+}
