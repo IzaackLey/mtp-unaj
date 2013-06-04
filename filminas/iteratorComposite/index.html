@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>Decorator</title>
+	
+	<meta name="description" content="A jQuery library for modern HTML presentations">
+	<meta name="author" content="Caleb Troughton">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	
+	<!-- Core and extension CSS files -->
+	<link rel="stylesheet" href="../core/deck.core.css">
+	<link rel="stylesheet" href="../extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="../extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="../extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="../extensions/status/deck.status.css">
+	<link rel="stylesheet" href="../extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="../extensions/scale/deck.scale.css">
+	
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="../themes/style/swiss.css">
+	
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="../themes/transition/horizontal-slide.css">
+	
+	<script src="../modernizr.custom.js"></script>
+	
+
+    <!-- SintaxHighlighter -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SyntaxHighlighter Large File Demo</title>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/XRegExp.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shCore.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushJava.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushPlain.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushPython.js"></script>
+	<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shCoreEclipse.css"/>
+	<!--link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shThemeEclipse.css"/-->
+	
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	
+	
+</head>
+
+<body class="deck-container">
+
+<!-- Begin slides -->
+<section class="slide" id="iterator1">
+	<h2>Iterator</h2>
+	<p>Hay muchas maneras de guardar cosas en una coleccioón, podemos guardar en Stacks, Array, ArrayList, HashTable, cada una tiene sus ventajas y desventajas, pero en algun punto hay que iterar los objetos, y cuando lo hacemos es bueno no mostrarle la implemnetacion al cliente.</p>
+	<p>Vamos a juntar 2 implementaciones de restaurant. Uno hace panques y el otro desayunos, y tienen la misma implementacion para los item de menu pero usan distintas colecciones, uno usa ArrayList y el otro Array</p>
+</section>
+<section class="slide" id="iterator2">
+	<h2>Iterator</h2>
+	<h4>Veamos una de las implementaciones de los menu</h4>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class PancakeHouseMenu implements Menu {
+			ArrayList menuItems;
+			public PancakeHouseMenu() {
+				menuItems = new ArrayList();
+		    
+				addItem("K&B's Pancake Breakfast", 
+					"Pancakes with scrambled eggs, and toast", true, 2.99);
+				addItem("Regular Pancake Breakfast", 
+					"Pancakes with fried eggs, sausage", false, 2.99);
+				addItem("Blueberry Pancakes",
+					"Pancakes made with fresh blueberries", true, 3.49);
+				addItem("Waffles",
+					"Waffles, with your choice of blueberries or strawberries", true, 3.59);
+			}
+			public void addItem(String name, String description,
+			                    boolean vegetarian, double price)
+			{
+				MenuItem menuItem = new MenuItem(name, description, vegetarian, price);
+				menuItems.add(menuItem);
+			}
+			public ArrayList getMenuItems() {
+				return menuItems;
+			}
+			public Iterator createIterator() {
+				return new PancakeHouseMenuIterator(menuItems);
+			}
+			public String toString() {
+				return "Objectville Pancake House Menu";
+			}
+			// other menu methods here
+		}
+	</script>
+</section>
+<section class="slide" id="iterator3">
+	<h2>Iterator</h2>
+	<ul>
+		<li>Esta la implementación que usa ArrayList</li>
+		<li>Cada item de menu se agrega en el contructor llamando al método addItem()</li>
+		<li>addItem() crea un nuevo menuitem, y lo agrega al ArrayList</li>
+		<li><p>getMenuItems() retorna el ArrayList con los items.</p>
+			<p>Acá le estamos mostrando la implementación al cliente porque le pasamos el ArrayList.<p/>
+			<p>Si cambiamos el tipo de colección todos los que usan este método tienen que cambiar sus implementaciones.</p>
+		</li>
+	</ul>
+</section>
+<section class="slide" id="iterator4">
+	<h2>Iterator</h2>
+	<h4>Veamos la otra implementacion de los menu</h4>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class DinerMenu implements Menu {
+			static final int MAX_ITEMS = 6;
+			int numberOfItems = 0;
+			MenuItem[] menuItems;
+		  
+			public DinerMenu() {
+				menuItems = new MenuItem[MAX_ITEMS];
+		 
+				addItem("Vegetarian BLT",
+					"(Fakin') Bacon with lettuce & tomato on whole wheat", true, 2.99);
+				addItem("BLT",
+					"Bacon with lettuce & tomato on whole wheat", false, 2.99);
+				addItem("Soup of the day",
+					"Soup of the day, with a side of potato salad", false, 3.29);
+				addItem("Hotdog",
+					"A hot dog, with saurkraut, relish, onions, topped with cheese",
+					false, 3.05);
+				addItem("Steamed Veggies and Brown Rice",
+					"Steamed vegetables over brown rice", true, 3.99);
+				addItem("Pasta",
+					"Spaghetti with Marinara Sauce, and a slice of sourdough bread",
+					true, 3.89);
+			}
+		  
+			public void addItem(String name, String description, 
+			                     boolean vegetarian, double price) 
+			{
+				MenuItem menuItem = new MenuItem(name, description, vegetarian, price);
+				if (numberOfItems >= MAX_ITEMS) {
+					System.err.println("Sorry, menu is full!  Can't add item to menu");
+				} else {
+					menuItems[numberOfItems] = menuItem;
+					numberOfItems = numberOfItems + 1;
+				}
+			}
+			public MenuItem[] getMenuItems() {
+				return menuItems;
+			}
+			public Iterator createIterator() {
+				return new DinerMenuIterator(menuItems);
+			}
+			// other menu methods here
+		}
+	</script>
+</section>
+<section class="slide" id="iterator5">
+	<h2>Iterator</h2>
+	<ul>
+		<li>Esta la implementación que usa Array en vez de ArrayList</li>
+		<li>addItem() crea un nuevo menuitem, y lo agrega al Array pero esta ves tiene que controlar cual es la posición libre, ademas de no pasarse del tamaño</li>
+		<li><p>getMenuItems() retorna el Array con los items.</p>
+			<p>Al igual que en PancakeHouseMenu los clientes de este método tiene que cambiar las implementaciones en el caso de un cambio de colección</p> 
+		</li>
+	</ul>
+</section>
+<section class="slide" id="iterator6">
+	<h2>Iterator</h2>
+	<h4>Tenemos que hacer un cliente que use los dos menus. Vamos a implementar los siguientes métodos</h4>
+	<p>Implementemos printMenu(), que imprime todos los items del menu</p>
+	<ul>
+		<li>Para imprimir todos los los items tenemos que llamar al método getMenuItem() en las clases DinerMenu y PancakeHouseMenu y obtener las colecciones
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				PancakeHouseMenu pancakeHouseMenu = new PancakeHouseMenu();
+				ArrayList breakfastItems = pancakeHouseMenu.getMenuItems();
+
+				DinerMenu dinerMenu = new DinerMenu();
+				MenuItem[] lunchItems = dinerMenu.getMenuItems();
+			</script>
+		</li>
+		<li>Luego iteramos para imprimir los items del ArrayList y luego para los del Array
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			for (int i = 0; i < breakfastItems.size(); i++) {
+				MenuItem menuItem = breakfastItems.get(i);
+				System.out.print(menuItem.getName());
+				System.out.println("\t\t" + menuItem.getPrice());
+				System.out.println("\t" + menuItem.getDescription());
+			}
+			
+			for (int i = 0; i < lunchItems.length; i++) {
+				MenuItem menuItem = lunchItems[i];
+				System.out.print(menuItem.getName());
+				System.out.println("\t\t" + menuItem.getPrice());
+				System.out.println("\t" + menuItem.getDescription());
+			}
+		</script>
+		</li>
+	</ul>
+	<p>Esto nos va a pasar para cada uno de los métodos que tenga que leer los items de los Menús</p>
+</section>
+<section class="slide" id="iterator7">
+	<h2>Iterator</h2>
+	<p>Sería bueno encontrar una interface que permitiera implementar la misma interface a los menús.
+		Si no fuera por la diferencia del tipo que devuelve getMenuItem(), de esta manera podríamos minimizar las referencias concreatas y evitar las iteraciones múltiples
+	</p>
+	<p></p>
+</section>
+<section class="slide" id="iterator188">
+	<h2>Referencias</h2>
+	<p><strong>Head First Design Patterns</strong></p>
+</section>
+
+<!----------------------------------------------------------------------------------------------->
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+	/
+	<span class="deck-status-total"></span>
+</p>
+
+<!-- deck.goto snippet -->
+<form action="." method="get" class="goto-form">
+	<label for="goto-slide">Go to slide:</label>
+	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+	<datalist id="goto-datalist"></datalist>
+	<input type="submit" value="Go">
+</form>
+
+<!-- deck.hash snippet -->
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+
+<!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../jquery-1.7.2.min.js"><\/script>')</script>
+
+<!-- Deck Core and extensions -->
+<script src="../core/deck.core.js"></script>
+<script src="../extensions/hash/deck.hash.js"></script>
+<script src="../extensions/menu/deck.menu.js"></script>
+<script src="../extensions/goto/deck.goto.js"></script>
+<script src="../extensions/status/deck.status.js"></script>
+<script src="../extensions/navigation/deck.navigation.js"></script>
+<script src="../extensions/scale/deck.scale.js"></script>
+
+<!-- Initialize the deck -->
+<script>
+$(function() {
+	$.deck('.slide');
+});
+</script>
+
+</body>
+
+
+
+</html>
