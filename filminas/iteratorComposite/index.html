@@ -543,7 +543,7 @@
 	</ul>
 </section>
 <section class="slide" id="iterator23">
-	<h2>Patron Iterator</h2>
+	<h2>Patrón Compostite</h2>
 	<ul>
 		<li>Participantes: 
 		<ul>
@@ -575,7 +575,7 @@
 </section>
 </section>
 <section class="slide" id="iterator24">
-	<h2>Patron Iterator</h2>
+	<h2>Patrón Compostite</h2>
 	<ul>
 		<li>Consecuencias:
 			<ul>
@@ -591,12 +591,283 @@
 </section>
 
 <section class="slide" id="iterator25">
-	<h2>Patron Iterator</h2>
+	<h2>Patrón Compostite</h2>
 	<ul>
 		<li>Estructura: 
 			<img src="compositeClassDiagram.png"/>
 		</li>
 	</ul>	
+</section>
+<section class="slide" id="iterator26">
+	<h2>Compostite</h2>
+	<h4>Aplicando Composite a los menus</h4>
+	<p>Creamos una interface común que va a ser interface de Menus y MenuItems y nos permite tratarlos de manera uniforme. Osea van a tener los mismo mentodos los Menu y MenuItems</p>
+	<img src="CompositeRestarurantClassDiagram.png"/>
+</section>
+<section class="slide" id="iterator27">
+	<h2>Compostite</h2>
+	<h4>Aplicando Composite a los menus</h4>
+	<ul>
+		<li>Waitress: va a usar MenuComponet como interface de acceso a Menu y MenuItems</li>
+		<li>MenuComponent: la interface de Menu y MenuItem. En la implemnetacion usamos una clase abstracta para poder proveer implmenteciones por default. Tenemos una combiancions de los métodos de las implementaciones anteriores de Menu y MenuItem, y ademas agregamos print(), add(), remove(), getChild()</li>
+		<li>MenuItem: sobreescribe los que le interesan y los deja los que no (add(), remove(), etc), ya que solo podemos agregar componetes al Menu.
+		</li>
+		<li>Menu: sobreescribe los metodos que necesita y los que no deja la implementacion por defecto.</li>
+	</ul>
+</section>
+<section class="slide" id="iterator28">
+	<h2>Compostite</h2>
+	<h4>Implmentamos MenuComponent</h4>
+	<p>Esta es la clase <strong>Component</strong> en el diagra Composite</p>
+	<p>Parecería que MenuComponent tiene 2 funciones y por eso la implementacion por defecto no va a hacer nada, así que los hijos van a a tener una única función relacionado con los métodos que sobre escriban.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public abstract class MenuComponent {
+		//estos son los metodos que usa MenuComponent
+		public void add(MenuComponent menuComponent) {
+			throw new UnsupportedOperationException();
+		}
+		public void remove(MenuComponent menuComponent) {
+			throw new UnsupportedOperationException();
+		}
+		public MenuComponent getChild(int i) {
+			throw new UnsupportedOperationException();
+		}
+	  
+	  	//estos son los métodos usados tanto por MenuComponent como por Menu
+		public String getName() {
+			throw new UnsupportedOperationException();
+		}
+		public String getDescription() {
+			throw new UnsupportedOperationException();
+		}
+		public double getPrice() {
+			throw new UnsupportedOperationException();
+		}
+		public boolean isVegetarian() {
+			throw new UnsupportedOperationException();
+		}
+	  
+		public void print() {
+			throw new UnsupportedOperationException();
+		}
+	}
+	</script>
+</section>
+<section class="slide" id="iterator29">
+	<h2>Compostite</h2>
+	<h4>Implementamos MenuItem</h4>
+	<p>Esta es una de las clases <strong>leaf</strong> en el diagra Composite, implementa el comportamiento de elementos en el composite</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class MenuItem extends MenuComponent {
+			String name;
+			String description;
+			boolean vegetarian;
+			double price;
+		    
+			public MenuItem(String name, String description, 
+			                boolean vegetarian, double price) 
+			{ 
+				this.name = name;
+				this.description = description;
+				this.vegetarian = vegetarian;
+				this.price = price;
+			}
+			public String getName() {
+				return name;
+			}
+			public String getDescription() {
+				return description;
+			}
+			public double getPrice() {
+				return price;
+			}
+			public boolean isVegetarian() {
+				return vegetarian;
+			}
+			public void print() {
+				System.out.print("  " + getName());
+				if (isVegetarian()) {
+					System.out.print("(v)");
+				}
+				System.out.println(", " + getPrice());
+				System.out.println("     -- " + getDescription());
+			}
+		}
+	</script>
+	<ul>
+		<li>Extiende de MenuComponent</li>
+		<li>implementamos los getName(), getDescription(), getPrice(), isVegetarian() para que no tiren exepcion y print() para que imprima todos los datos del item.</li>
+	</ul>	
+</section>
+<section class="slide" id="iterator30">
+	<h2>Compostite</h2>
+	<h4>Implementamos Menu</h4>
+	<p>Esta es la clase <strong>composite</strong> que puede guardar MenuItems o Menus</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Menu extends MenuComponent {
+			ArrayList menuComponents = new ArrayList();
+			String name;
+			String description;
+		  
+			public Menu(String name, String description) {
+				this.name = name;
+				this.description = description;
+			}
+			public void add(MenuComponent menuComponent) {
+				menuComponents.add(menuComponent);
+			}
+			public void remove(MenuComponent menuComponent) {
+				menuComponents.remove(menuComponent);
+			}
+			public MenuComponent getChild(int i) {
+				return (MenuComponent)menuComponents.get(i);
+			}
+			public String getName() {
+				return name;
+			}
+			public String getDescription() {
+				return description;
+			}
+			public void print() {
+				System.out.print("\n" + getName());
+				System.out.println(", " + getDescription());
+				System.out.println("---------------------");
+		  
+				Iterator iterator = menuComponents.iterator();
+				while (iterator.hasNext()) {
+					MenuComponent menuComponent =  (MenuComponent)iterator.next();
+					menuComponent.print();
+				}
+			}
+		}
+	</script>
+	<ul>
+		<li>Usamos un ArrayList para guardar los MenuItems o Menus</li>
+		<li>Guardamos en nombre para saber que menu es, esto era distinto cuando teníamos distintas atributos para cada menu.</li>
+		<li>add(), remove() y getChild() funcionan tanto para Menu como para MenuItems ya que ambos son menuComent</li>
+		<li>print() itera en todos los elementos de la coleccion y a cada uno (Menu o MenuItem) le delega la impresión ya que ambos cuentan con la implementación. De esta manera se van a ir llamando recursivamente a los MenuComponente hasta que uno sea una hoja osea un MenuItem y e imprima y ahi se corta la llamada recursiva.</li>
+	</ul>	
+</section>
+<section class="slide" id="iterator31">
+	<h2>Compostite</h2>
+	<h4>Implementamos Waitress</h4>
+	<p>Esta era la clase que <strong>cliente</strong></p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Waitress {
+			MenuComponent allMenus;
+			public Waitress(MenuComponent allMenus) {
+				this.allMenus = allMenus;
+			}
+			public void printMenu() {
+				allMenus.print();
+			}
+		}
+	</script>
+</section>
+
+<section class="slide" id="iterator31">
+	<h2>Compostite</h2>
+	<h4>Testeamso el composite</h4>
+	<p>En esta clase creamos los Menu y MenuItem y armamos el árbol</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class MenuTestDrive {
+			public static void main(String args[]) {
+				//creo los primeros Menus
+				MenuComponent pancakeHouseMenu = new Menu("PANCAKE HOUSE MENU", "Breakfast");
+				MenuComponent dinerMenu = new Menu("DINER MENU", "Lunch");
+				MenuComponent cafeMenu = new Menu("CAFE MENU", "Dinner");
+				MenuComponent dessertMenu = new Menu("DESSERT MENU", "Dessert of course!");
+		  
+				MenuComponent allMenus = new Menu("ALL MENUS", "All menus combined");
+				//agrego Menus al elementos Menu que contine el resto
+				allMenus.add(pancakeHouseMenu);
+				allMenus.add(dinerMenu);
+				allMenus.add(cafeMenu);
+				
+				//agrego items al pancakeHouseMenu
+				pancakeHouseMenu.add(new MenuItem("K&B's Pancake Breakfast", "Pancakes with scrambled eggs, and toast", true, 2.99));
+				pancakeHouseMenu.add(new MenuItem("Regular Pancake Breakfast", "Pancakes with fried eggs, sausage", false, 	2.99));
+				pancakeHouseMenu.add(new MenuItem("Blueberry Pancakes", "Pancakes made with fresh blueberries, and blueberry syrup", true, 3.49));
+				pancakeHouseMenu.add(new MenuItem("Waffles", "Waffles, with your choice of blueberries or strawberries", true, 3.59));
+
+				//agrego items al dimerMenu	
+				dinerMenu.add(new MenuItem("Vegetarian BLT", "(Fakin') Bacon with lettuce & tomato on whole wheat", true, 2.99));
+				dinerMenu.add(new MenuItem("BLT", "Bacon with lettuce & tomato on whole wheat", false, 2.99));
+				dinerMenu.add(new MenuItem("Soup of the day", "A bowl of the soup of the day, with a side of potato salad", false, 3.29));
+				
+				//aca le estoy agregando un Menu al dinerMenu
+				dinerMenu.add(dessertMenu);
+				
+				//agrego items al desertMenu
+				dessertMenu.add(new MenuItem("Apple Pie","Apple pie with a flakey crust, topped with vanilla icecream", true, 1.59));
+				dessertMenu.add(new MenuItem("Cheesecake", "Creamy New York cheesecake, with a chocolate graham crust", true, 1.99));
+				
+				//rest of the code
+				Waitress waitress = new Waitress(allMenus);
+		  
+				waitress.printVegetarianMenu();
+			}
+		}
+	</script>
+</section>
+
+<section class="slide" id="iterator31">
+	<h2>Compostite</h2>
+	<h4>Testeamso el composite</h4>
+	<p>En esta clase creamos los Menu y MenuItem y armamos el árbol</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class MenuTestDrive {
+			public static void main(String args[]) {
+				//creo los primeros Menus
+				MenuComponent pancakeHouseMenu = new Menu("PANCAKE HOUSE MENU", "Breakfast");
+				MenuComponent dinerMenu = new Menu("DINER MENU", "Lunch");
+				MenuComponent cafeMenu = new Menu("CAFE MENU", "Dinner");
+				MenuComponent dessertMenu = new Menu("DESSERT MENU", "Dessert of course!");
+		  
+				MenuComponent allMenus = new Menu("ALL MENUS", "All menus combined");
+				//agrego Menus al elementos Menu que contine el resto
+				allMenus.add(pancakeHouseMenu);
+				allMenus.add(dinerMenu);
+				allMenus.add(cafeMenu);
+				
+				//agrego items al pancakeHouseMenu
+				pancakeHouseMenu.add(new MenuItem("K&B's Pancake Breakfast", "Pancakes with scrambled eggs, and toast", true, 2.99));
+				pancakeHouseMenu.add(new MenuItem("Regular Pancake Breakfast", "Pancakes with fried eggs, sausage", false, 	2.99));
+				pancakeHouseMenu.add(new MenuItem("Blueberry Pancakes", "Pancakes made with fresh blueberries, and blueberry syrup", true, 3.49));
+				pancakeHouseMenu.add(new MenuItem("Waffles", "Waffles, with your choice of blueberries or strawberries", true, 3.59));
+
+				//agrego items al dimerMenu	
+				dinerMenu.add(new MenuItem("Vegetarian BLT", "(Fakin') Bacon with lettuce & tomato on whole wheat", true, 2.99));
+				dinerMenu.add(new MenuItem("BLT", "Bacon with lettuce & tomato on whole wheat", false, 2.99));
+				dinerMenu.add(new MenuItem("Soup of the day", "A bowl of the soup of the day, with a side of potato salad", false, 3.29));
+				
+				//aca le estoy agregando un Menu al dinerMenu
+				dinerMenu.add(dessertMenu);
+				
+				//agrego items al desertMenu
+				dessertMenu.add(new MenuItem("Apple Pie","Apple pie with a flakey crust, topped with vanilla icecream", true, 1.59));
+				dessertMenu.add(new MenuItem("Cheesecake", "Creamy New York cheesecake, with a chocolate graham crust", true, 1.99));
+				
+				//rest of the code
+				Waitress waitress = new Waitress(allMenus);
+		  
+				waitress.printMenu();
+			}
+		}
+	</script>
+</section>
+<section class="slide" id="iterator31">
+	<h2>Compostite</h2>
+	<h4>Estructura de menus y submenus</h4>
+	<p>Todos los elementos del árbol son <strong>MenuComponent</strong> pero las hojas son <strong>Menu</strong> y los que tienen "hijos" son <strong>MenuItem</strong></p>
+	<img src="dinerTree.png"/>
+</section>
+
+
+
+<section class="slide" id="iterator32">
+	<h2>Compostite</h2>
+	<h4>Iterar todo el composite</h4>
 </section>
 
 <section class="slide" id="iterator188">

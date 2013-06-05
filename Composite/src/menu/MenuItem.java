@@ -1,16 +1,19 @@
-package iterator.dinermergercafe;
+package menu;
 
-public class MenuItem {
+import java.util.Iterator;
+import java.util.ArrayList;
+
+public class MenuItem extends MenuComponent {
 	String name;
 	String description;
 	boolean vegetarian;
 	double price;
- 
+    
 	public MenuItem(String name, 
 	                String description, 
 	                boolean vegetarian, 
 	                double price) 
-	{
+	{ 
 		this.name = name;
 		this.description = description;
 		this.vegetarian = vegetarian;
@@ -31,5 +34,14 @@ public class MenuItem {
   
 	public boolean isVegetarian() {
 		return vegetarian;
+	}
+  
+	public void print() {
+		System.out.print("  " + getName());
+		if (isVegetarian()) {
+			System.out.print("(v)");
+		}
+		System.out.println(", " + getPrice());
+		System.out.println("     -- " + getDescription());
 	}
 }
