@@ -7,7 +7,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>Decorator</title>
+	<title>Iterator</title>
 	
 	<meta name="description" content="A jQuery library for modern HTML presentations">
 	<meta name="author" content="Caleb Troughton">
@@ -83,12 +83,6 @@
 			public ArrayList getMenuItems() {
 				return menuItems;
 			}
-			public Iterator createIterator() {
-				return new PancakeHouseMenuIterator(menuItems);
-			}
-			public String toString() {
-				return "Objectville Pancake House Menu";
-			}
 			// other menu methods here
 		}
 	</script>
@@ -147,9 +141,6 @@
 			public MenuItem[] getMenuItems() {
 				return menuItems;
 			}
-			public Iterator createIterator() {
-				return new DinerMenuIterator(menuItems);
-			}
 			// other menu methods here
 		}
 	</script>
@@ -203,11 +194,415 @@
 	<p>Sería bueno encontrar una interface que permitiera implementar la misma interface a los menús.
 		Si no fuera por la diferencia del tipo que devuelve getMenuItem(), de esta manera podríamos minimizar las referencias concreatas y evitar las iteraciones múltiples
 	</p>
-	<p></p>
+	<p>El patron Itrator nos va a ayudar a encapsular iteración.</p>
+	<img src="arrayListIterator.png"/></li>
 </section>
+<section class="slide" id="iterator6c">
+	<h2>Iterator</h2>
+	<img src="arrayIterator.png"/>
+	<p>Con iterator el cliente obtien un iterator en ves de la coleccion y con este puede acceder a los elementos de una forma única</p>
+</section>
+<section class="slide" id="iterator7">
+	<h2>Iterator</h2>
+	<p>El patrón Iterator depende de una interfaz llamada Iterator</p>
+	<p>Para agregar un iterador a DinerMenu primero definimos la interfaz iterator</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface Iterator {
+			boolean hasNext();
+			Object next();
+		}
+	</script>
+	<p>Como estamos usando java vamos a usar la intefaz <strong>java.util.iterator</strong>, en vez de usar la definida por nosotros.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface Iterator<E> {
+			boolean hasNext();
+			E next();
+			void remove();
+		}
+	</script>	
+</section>
+<section class="slide" id="iterator7b">
+	<h2>Iterator</h2>
+	<p>Y ahora necesitamos implementar el iterador concreto para DinerMenu</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		import java.util.Iterator;
+		public class DinerMenuIterator implements Iterator {
+			MenuItem[] items;
+			int position = 0; //posicion actual
+			public DinerMenuIterator(MenuItem[] items) {
+				//recibe en el contructor el Array
+				this.items = items;
+			}
+			public Object next() {
+				MenuItem menuItem = items[position];
+				position = position + 1;
+				return menuItem;
+			}
+			public boolean hasNext() {
+				if (position >= items.length || items[position] == null) {	
+					return false;
+				} else {
+					return true;
+				}
+			}
+			public void remove() {
+				if (position <= 0) {
+					throw new IllegalStateException
+						("You can't remove an item until you've done at least one next()");
+				}
+				if (list[position-1] != null) {
+					for (int i = position-1; i < (list.length-1); i++) {
+						list[i] = list[i+1];
+					}
+					list[list.length-1] = null;
+				}
+			}
+		}
+	</script>
+	<p>Cuandi hasNext() devuelve false, quiere decir se acabaron las posiciones o la siguiente posición  es null. Cuando esto se da, tengo que terminar con las iteraciones</p>
+</section>
+<section class="slide" id="iterator8">
+	<h2>Iterator</h2>
+	<h4>Retocamos DinerMenu para usar DinerMenuIterator</h4>
+	<p>Le vamos a agregar el método create iterator y vamos a sacar el método getMenuItems() ya que no lo vamos a usar mas y expone la implementación interna</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public Iterator createIterator() {
+			return new DinerMenuIterator(menuItems);
+		}
+	</script>
+	<p>El método createIterator() devuelve un objeto DinerMenuIterator usando el Array y se lo devuelve al cliente</p>
+	<p>El cliente va a recibir un iterator y no tiene porque saber como esta implementado el iterator. Lo unico que tiene que saber es como se usa un iterator, e ir recorriendo los elementos.</p></bR>
+	<p>Para la clase PancakeHouseMenu tenemos que implementar tambien el metodo createIterator(), pero como usa ArrayList que ya tiene Iterator implementado, asi que simplemente lo devolvemos</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public Iterator createIterator() {
+			return menuItems.iterator();
+		}
+	</script>
+</section>
+<section class="slide" id="iterator9">
+	<h2>Iterator</h2>
+	<h4>Retocamos el cliente.</h4> 
+	<p>El método printMenu() era uno de los que iteraba las colecciones que le devolvian las clases PancakeHouseMenu y DinerMenu cuando invocabamos el método getMenuItems(). Este era el que tenía los dos bucles.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		import java.util.Iterator;
+		public class Waitress {
+			PancakeHouseMenu pancakeHouseMenu;
+			DinerMenu dinerMenu;
+		 
+			public Waitress(PancakeHouseMenu pancakeHouseMenu, DinerMenu dinerMenu) {
+				this.pancakeHouseMenu = pancakeHouseMenu;
+				this.dinerMenu = dinerMenu;
+			}
+		 
+			public void printMenu() {
+				Iterator pancakeIterator = pancakeHouseMenu.createIterator();
+				Iterator dinerIterator = dinerMenu.createIterator();
+
+				System.out.println("MENU\n----\nBREAKFAST");
+				printMenu(pancakeIterator);
+				System.out.println("\nLUNCH");
+				printMenu(dinerIterator);
+			}
+		 
+			private void printMenu(Iterator iterator) {
+				while (iterator.hasNext()) {
+					MenuItem menuItem = (MenuItem)iterator.next();
+					System.out.print(menuItem.getName() + ", ");
+					System.out.print(menuItem.getPrice() + " -- ");
+					System.out.println(menuItem.getDescription());
+				}
+			}
+		 	//other methods here
+		}
+	</script>
+	<p>Ahora el metodo <strong>printMenu(Iterator iterator)</strong> que recibe un Iterator imprime sin saber que implementacion interna tiene la coleccion. En esta implementacion usamos el mismo método para iterar los elementos de los dos menús,  PancakeHouseMenu y DinerMenu</p>
+</section>
+<section class="slide" id="iterator10">
+	<h2>Iterator</h2>
+	<h4>Mejoras en el diseño</h4> 
+	<ul>
+		<li>Ahora la implementacion del menu esta encapsulada. Antes cuando queriamos los items del menú obteniamos un ArrayList o un Array con lo que no se respetaba la encapsulación.</li>
+		<li>Iteramos colecciones que polimorficamente soportan cualquier coleccion que implemente la interfaz java.util.Iterator.</li>
+		<li>Lo otro que logramos es que los menus tengan exactamente los mismos métodos.</li>
+	</ul>
+	<p>Lo que nos falta es que implementen una iterfaz común.</p>
+</section>
+<section class="slide" id="iterator11">
+	<h2>Iterator</h2>
+	<h4>Implementamos una iterfaz común</h4> 
+	<p>Lo que nos falta es que implementen una iterfaz común en para los menús.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface Menu {
+			public Iterator createIterator();
+		}
+	</script>
+	<p>Hacemos que <strong>PancakeHouseMenu</strong> y <strong>DinerMenu</strong> implementen Menu en las definiciones de clase</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class PancakeHouseMenu implements Menu {}
+		public class DinerMenu implements Menu {}
+	</script>
+	<p>y cambiamos el código de Waitress para que no referencia a las implementaciones concretas sino a la interfaz</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	 	public class Waitress {
+	  		PancakeHouseMenu pancakeHouseMenu;
+	    	DinerMenu dinerMenu;
+	  
+	 		public Waitress(PancakeHouseMenu pancakeHouseMenu, DinerMenu dinerMenu) {
+	    	    this.pancakeHouseMenu = pancakeHouseMenu;
+	        	this.dinerMenu = dinerMenu;
+	    	}
+	    // rest of the code
+	    }	
+	</script>
+	<p>Por este que referencia la interface Menu</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		import java.util.Iterator;
+		public class Waitress {
+			Menu pancakeHouseMenu;
+			Menu dinerMenu;
+		 
+			public Waitress(Menu pancakeHouseMenu, Menu dinerMenu) {
+				this.pancakeHouseMenu = pancakeHouseMenu;
+				this.dinerMenu = dinerMenu;
+			}
+		// rest of the code	
+	    }
+	</script>
+</section>
+<section class="slide" id="iterator12">
+	<h2>Iterator</h2>
+	<h4>Como quedo el diseño</h4> 
+	<ul>
+		<li>PancakeHouseMenu y DinerMenu implementan la interface Mwnu.</li>
+		<li>Waitress refiere a los menu usando la interface <strong>Menu</strong> en ves de una clase concreta. Esto reduce la dependencia enter Waitress y las clases concretas. Recordemos <strong>"Programar a interfaces no a implementaciones"</strong></li>
+		<li>Desacoplamos a Waitress de las implementaciones de los menus, y podemos iterar sobre cualquier lista de items sin saber la implementación.
+		<li>Estructura:</li>
+	</ul>	
+	<img src="restaurantClassDiagram.png"/>
+</section>
+
+<section class="slide" id="iterator13">
+	<h2>Patron Iterator</h2>
+	<p>Proporcionar acceso secuencial a los elementos de un agregado, sin exponer su representación interna.</p>
+	<ul>
+		<li>Motivación:
+			<ul>
+				<li>Una lista debe proporcionar un medio de navegar por sus datos sin exponer su estructura interna</li>
+				<li>Se debe poder atravesar la lista de varias maneras, pero no añadir operaciones a la lista por cada tipo de recorrido</li>
+				<li>Se debe poder realizar varios recorridos simultáneamente</li>
+				<li>La solución que propone el patrón es dar la responsabilidad del recorrido a un objeto iterador.</li>
+				</ul>
+			</ul>
+		</li>
+		<li>Aplicabilidad: 
+			<ul>
+				<li>Cuando se quiere acceder al contenido de un agregado sin exponer su representación interna</li>
+				<li>Cuando se quieren permitir varios recorridos sobre un agregado</li>
+				<li>Para proporcionar una interfaz uniforme para recorrer distintos tipos de agregados (esto es, permitir iteración polimórfica)</li>
+			</ul>	
+		</li>
+	</ul>	
+</section>
+<section class="slide" id="iterator14">
+	<h2>Patron Iterator</h2>
+	<ul>
+		<li>Participantes: 
+		<ul>
+			<li><strong>Iterator:</strong> define interfaz para acceder y recorrer elementos</li>
+			<li><strong>ConcreteIterator:</strong>
+				<ul>
+					<li>Implementa la interfaz Iterator</li>
+					<li>Mantiene la posición actual en el recorrido del agregado</li>
+				</ul>
+			</li>
+			<li><strong>Aggregate:</strong> define interfaz para crear un objeto Iterator</li>
+			<li><strong>ConcreteAggregate:</strong> implementa una interfaz de creación del Iterator para devolver la instancia de ConcreteIterator apropiada</li>
+		</ul>	
+		</li>
+		<li>Consecuencias: Permite variaciones en el recorrido de un agregado
+			<ul>
+				<li>Para cambiar el algoritmo de recorrido basta cambiar la instancia de Iterator concreta</li>
+				<li>Nuevos recorridos mediante nuevas subclases de Iterator</li>
+			</ul>
+		</li>
+		<li>Los iteradores simplifican la interfaz del agregado</li>
+		<li>Puede hacerse más de un recorrido a la vez sobre un mismo agregado</li>
+	</ul>	
+</section>
+<section class="slide" id="iterator15">
+	<h2>Patron Iterator</h2>
+	<ul>
+		<li>Estructura: 
+			<img src="IteratorClassDiagram.png"/>
+		</li>
+	</ul>	
+</section>
+<section class="slide" id="iterator16">
+	<h2>Iterator en java</h2>
+	<ul>
+		<li><strong>Iterator:</strong>interfaz java.util.Iterator</li>
+		<li><strong>ConcreteIterator:</strong>implementaciones concretas de Iterator</li>
+		<li><strong>Aggregate:</strong>Las interfaces Collection, Set, SortedSet, List, Queue de java.util. Incluyen el método iterator(), que devuelve un iterador genérico</li>
+		<li><strong>ConcreteAggregate:</strong> implementaciones de esas interfaces.<BR/>
+			Set es implementada por las clases HashTree, TreeSet, LinkedHashSet.<BR/>
+			List es implementada por las clases ArrayList, LinkedList.
+		</li>
+	</ul>
+	<img src="javaCollectionsClassDiagram.png"/>
+</section>
+<section class="slide" id="iterator17">
+	<h2>Principio de diseño</h2>
+	<h3>Única responsabilidad</h3>
+	<h4>Una clase debe tener solo una razón para cambiar</h4>
+	<p>Qué tiene de malo si nuestro agregados implementan sus colecciones y operaciones relacionadas?</p>
+	<p>Cuando se toman mas responsabilidades (como la iteración) le estamos dando a la clase 2 razones para cambiar
+		<ul>
+			<li>Si la colección cambia tiene que cambiar</li>
+			<li>Si queremos cambiar la forma de iterar</li>
+		</ul>
+	</p>
+	<p>Sabemos que siempre tratamos de evitar el cambio a toda costa, porque sabemos todas las oportunidades de generar problemas que esto tiene. Tener 2 razones para cambiar incrementa las posibilidades de cambio.</p>
+	<p>La solución es asignar solo una responsabilidad a una clase. Si bien esto no es una tarea facil, hay observar cuando una clase esta cambiando en mas de una manera.</p>
+</section>
+<section class="slide" id="iterator18">
+	<h2>Iterator</h2>
+	<p>Si bien el diseño quedo bastante bien, cada vez que queremos agregar un menu nuevo tenemos que tocar el código de la clase Waitress, para agregar la referencia al menu</p>
+	<p>Estamos violando el principio de <strong>"Las clases tiene que estar abiertas para la extensión pero cerradas para la modificación."</strong></p>
+	<p>Ponemos los menús y luego iteramos cada menú</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Waitress {
+			ArrayList menus;
+			public Waitress(ArrayList menus) {
+				this.menus = menus;
+			}
+			public void printMenu() {
+				Iterator menuIterator = menus.iterator();
+				while(menuIterator.hasNext()) {
+					Menu menu = (Menu)menuIterator.next();
+					printMenu(menu.createIterator());
+				}
+			}
+			//Iteramos la coleccion menus y pasamos el iterador
+			//de cada menu a printMenu(Iterator iterator)
+
+			void printMenu(Iterator iterator) {
+				while (iterator.hasNext()) {
+					MenuItem menuItem = (MenuItem)iterator.next();
+					System.out.print(menuItem.getName() + ", ");
+					System.out.print(menuItem.getPrice() + " -- ");
+					System.out.println(menuItem.getDescription());
+				}
+			}
+		}  
+	</script>
+	<p>Como perdimos los nombres de los menús, le agregamos nombres a cada menú</p>
+	</script>
+</section>
+<section class="slide" id="iterator19">
+	<h2>Iterator</h2>
+	<h4>Ahora si queremos agregar un submenu postre</h4>
+	<p>Tendríamos no solo que soportar múltiple menús, sino que menús submenús</p>
+	<p>Seria deseable que el menu dessert sea un elemento de la colección DinnerMenu</p>
+	<img src="subMenu.png"/>
+	<p>Necesitamos guardar un subMenu en DinerMenu, pero no podemos Asignar un Menu a un Array de MenuItem porque son tipos diferentes.</p>
+</section>
+<section class="slide" id="iterator20">
+	<h2>Iterator</h2>
+	<h4>Refactoring</h4>
+	<p>Con el nivel de complejidad que alcanzamos si no hacemos un refactoring no vamos a poder soportar la funcionalidad de submenus.</p>
+	<ul>
+		<li>Necesitamos una estructura de árbol para guardar los menus y submenus
+			<img src="treeMenuStructure.png"/>
+		</li>
+	</ul>	
+</section>
+<section class="slide" id="iterator21">
+	<h2>Iterator</h2>
+	<h4>Refactoring</h4>
+	<ul>
+		<li>Necesitamso asegurarnos que hay una manera de recorrer los item de cada menu
+			<img src="treeMenuStructureTransverse.png"/>
+		</li>
+		<li>Podríamos necesitar recorrer los items de una manera mas flexible que la actual, como por ejemplo recorrer todos los items de los postres o el menu de la Cena inclusive con los postres
+			<img src="treeMenuStructureTransverseSubMenu.png"/>	
+		</li>
+	</ul>	
+</section>
+<section class="slide" id="iterator22">
+	<h2>Patrón Compostite</h2>
+	<p>Componer objetos en estructuras arbóreas para representar jerarquías todo-parte. Manipular todos los objetos del árbol de manera uniforme</p>
+	<ul>
+		<li>Motivación: Poniendo objetos simples (menuItems) y contenedores (menus) en la misma estructura creamos una estructura de todo-parte que los clientes los tratan de la misma manera.
+		</li>
+		<li>Aplicabilidad: 
+			<ul>
+				<li>Cuando queremos representar jerarquías de objetos todo-parte</li>
+				<li>Cuando queremos ser capaz de ignorar la diferencia entre objetos individuales y composiciones de objetos. Los clientes tratarán a todos los objetos de la estructura compuesta uniformemente.</li>
+			</ul>	
+		</li>
+	</ul>
+</section>
+<section class="slide" id="iterator23">
+	<h2>Patron Iterator</h2>
+	<ul>
+		<li>Participantes: 
+		<ul>
+			<li><strong>Component:</strong>
+				<ul>
+					<li>define la interfaz común para los objetos de la composición</li>
+					<li>define la interfaz para acceder y gestionar los hijos</li>
+					<li>puede definir un comportamiento por defecto común a las subclases</li>
+					<li>(opcional) define la interfaz para acceder al padre de un componente en la estructura recursiva, y la implementa si es apropiado</li>
+				</ul>
+			</li>
+			<li><strong>Leaf:</strong>
+				<ul>
+					<li>representa los objetos hoja (sin hijos) de la composición</li>
+					<li>define comportamiento para los objetos primitivos</li>
+				</ul>
+			</li>
+			<li><strong>Composite:</strong>
+				<ul>
+					<li>define comportamiento para los componentes que tienen hijos</li>
+					<li>almacena componentes hijo</li>
+					<li>implementa las operaciones de Component para la gestión de hijos</li>
+				</ul>
+			</li>
+			<li><strong>Client:</strong> manipula los objetos de la composición a través de la interfaz Component</li>
+		</ul>	
+		</li>
+	</ul>	
+</section>
+</section>
+<section class="slide" id="iterator24">
+	<h2>Patron Iterator</h2>
+	<ul>
+		<li>Consecuencias:
+			<ul>
+				<li>Define jerarquías de clases hechas de objetos primitivos y compuestos. Si el código cliente espera un objeto simple, puede recibir también uno compuesto</li>
+				<li>Simplifica el cliente. Objetos simples y compuestos se tratan homogéneamente</li>
+				<li>Facilita la incorporación de nuevos tipos de componentes</li>
+				<li>Puede hacer el diseño demasiado general. Es complicado restringir el tipo de componentes de un composite.</li>
+			</ul>
+		</li>
+		<li>Los iteradores simplifican la interfaz del agregado</li>
+		<li>Puede hacerse más de un recorrido a la vez sobre un mismo agregado</li>
+	</ul>	
+</section>
+
+<section class="slide" id="iterator25">
+	<h2>Patron Iterator</h2>
+	<ul>
+		<li>Estructura: 
+			<img src="compositeClassDiagram.png"/>
+		</li>
+	</ul>	
+</section>
+
 <section class="slide" id="iterator188">
 	<h2>Referencias</h2>
 	<p><strong>Head First Design Patterns</strong></p>
+	<a href="http://www.ntu.edu.sg/home/ehchua/programming/java/J5c_Collection.html">JAVA Collection Framework</a>
 </section>
 
 <!----------------------------------------------------------------------------------------------->
