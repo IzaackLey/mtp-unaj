@@ -856,18 +856,202 @@
 		}
 	</script>
 </section>
-<section class="slide" id="iterator31">
+<section class="slide" id="iterator32">
 	<h2>Compostite</h2>
 	<h4>Estructura de menus y submenus</h4>
 	<p>Todos los elementos del árbol son <strong>MenuComponent</strong> pero las hojas son <strong>Menu</strong> y los que tienen "hijos" son <strong>MenuItem</strong></p>
 	<img src="dinerTree.png"/>
 </section>
-
-
-
-<section class="slide" id="iterator32">
+<section class="slide" id="iterator33">
 	<h2>Compostite</h2>
-	<h4>Iterar todo el composite</h4>
+	<h4>Composite Iterator</h4>
+	<p>Ya estamos usando Iterator en la implementacion interna print() de los Menus, pero si queremos que la mesera (waitress) itere el composite entero por ejemplo si quiere recorrer todo y sacar los items vegetarianos, tenemos que cambiar la implementación.</p>
+	<p>Para implementar el Composite Iterator vamos a agregar createIterator() en cada component</p>
+	<p>Arrancamos con la clase abstracta MenuComponet</p>
+	<p>Esto significa que cada Menu y MenuItem van a tener que implementar este método.<BR/>
+	Esto significa también que llamando a createIterator() en el composite deberia aplicar a todos los hijos del composite.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Menu extends MenuComponent {	
+			//other code here doesn't change
+			public Iterator createIterator() {
+				return new CompositeIterator(menuComponents.iterator());
+			}
+		}	
+	</script>
+	<p>Vamos usar el CompositeIterator, que sabe como iterar sobre un composite. Recibe como parámetro el iterator del menu</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class MenuItem extends MenuComponent {
+			//other code here doesn't change
+			public Iterator createIterator() {
+				return new NullIterator();
+			}
+		}	
+	</script>
+	<p>Los MenuItems no tienen tienen items para iterar, devuelve un null iterator</p>
+	<p>Siempre retorna false cuando invocamos hasNext()
+		El código es el siguiente
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	import java.util.Iterator;
+		public class NullIterator implements Iterator {
+			public Object next() {
+				return null;
+			}
+			public boolean hasNext() {
+				return false;
+			}
+			public void remove() {
+				throw new UnsupportedOperationException();
+			}
+		}
+	</script>
+	</p>
+</section>
+
+
+<section class="slide" id="iterator34">
+	<h2>Compostite</h2>
+	<h4>Composite Iterator</h4>
+	<p>El composite iterator tiene que iterar sobre los menuItems y asegurarse de que los Menu hijos, junto con sus hijos que tambien puede ser alguno Menu y así hasta que no queden mas menu hijos y se hayan iterados todos las menuItems (hojas) de todos los Menus</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class CompositeIterator implements Iterator {
+			Stack stack = new Stack();
+		   	
+			public CompositeIterator(Iterator iterator) {
+				stack.push(iterator);
+			}
+		   
+			public Object next() {
+				if (hasNext()) {
+					Iterator iterator = (Iterator) stack.peek();
+					//devuelve el objeto de mas arriba de la pila sin eliminarlo
+					MenuComponent component = (MenuComponent) iterator.next();
+					if (component instanceof Menu) {
+						stack.push(component.createIterator());
+					} 
+					return component;
+				} else {
+					return null;
+				}
+			}
+		  
+			public boolean hasNext() {
+				if (stack.empty()) {
+					return false;
+				} else {
+					Iterator iterator = (Iterator) stack.peek();
+					if (!iterator.hasNext()) {
+						stack.pop();
+						return hasNext();
+					} else {
+						return true;
+					}
+				}
+			}
+		  
+			public void remove() {
+				throw new UnsupportedOperationException();
+			}
+			//no vamos a remover elementos asi que tiramos exception
+		}
+	</script>
+</section>
+<section class="slide" id="iterator35">
+	<h2>Compostite</h2>
+	<h4>Composite Iterator</h4>
+
+	<ul>
+		<li>Como todo iterador implementa la interfaz java.util.iterator</li>
+		<li>
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				public CompositeIterator(Iterator iterator) {
+					stack.push(iterator);
+				}
+			</script>
+			En el contructor le pasamos el iterador del nivel mas alto del composite que vamos a recorrer. Lo ponemos en un estrutura de pila (stack)</li>
+		<li>
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				public Object next() {
+					if (hasNext()) {
+						Iterator iterator = (Iterator) stack.peek();
+						//Si hay proximo elemento, tomamos el iterador de la pila
+						MenuComponent component = (MenuComponent) iterator.next();
+						//del iterador devuelto tomamos el proximo elemento
+						if (component instanceof Menu) {
+							//Si el elemento que nos devuelve el iterador es un Menu, 
+							//tenemos otro composite que necesitamos 
+							//incluir en la iteración asi que lo ponemos en la pila
+							stack.push(component.createIterator());
+						} 
+						return component;
+					} 
+					else {
+						return null;
+					}
+				}
+			</script>	
+		</li>
+		<li>
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				public boolean hasNext() {
+					if (stack.empty()) {
+						//miramos si la pila esta vacia
+						return false;
+					} 
+					else {
+						Iterator iterator = (Iterator) stack.peek();
+						//si no esta vacia tomamos el iterador 
+						if (!iterator.hasNext()) {
+							//si no tiene mas elementos
+							//lo eliminamos de la pila
+							stack.pop();
+							return hasNext();
+							//llamamos a la funcion recursivamente
+						} 
+						else {
+							return true;
+						}
+					}
+				}
+			</script>
+		</li>
+	</ul>
+</section>
+<section class="slide" id="iterator35">
+	<h2>Compostite</h2>
+	<h4>Composite Iterator</h4>
+	<p>Cuando implementamos el print() en la clase MenuComponet usamos un iterador para recorrer los nodos en el componente si el nodo era un Menu en ves de un MenuItem entonces llamabamos recursivamente al metodo print(). MenuComponent manejaba la iteracion internamente.</p>
+	<p>Con este código estamos implementando un iterador externo que debe mantener su posicion en la iteracion para que el cliente externo pueda menejar la interacion llmando a next() y hasNext(). Pero en este caso necesitamos la posicion sobre la estructura recursiva del composite.</p>
+	<p>La pila es la que mantiene nuestra posicion mientras vamos para arriba y para abajo en la estrutura de arbol del composite</p>
+</section>
+<section class="slide" id="iterator35">
+	<h2>Compostite</h2>
+	<h4>Usemos el Composite Iterator</h4>
+	<p>Ya tenémos la manera de iterar desde el cliente todos los elementos del menu (MenuItems y Menu). Asi que busquemos un menú vegetariano.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Waitress {
+			MenuComponent allMenus;
+			public Waitress(MenuComponent allMenus) {
+				this.allMenus = allMenus;
+			}
+			public void printMenu() {
+				allMenus.print();
+			}
+			public void printVegetarianMenu() {
+				Iterator iterator = allMenus.createIterator();
+				System.out.println("\nVEGETARIAN MENU\n----");
+				while (iterator.hasNext()) {
+					MenuComponent menuComponent = 
+							(MenuComponent)iterator.next();
+					try {
+						if (menuComponent.isVegetarian()) {
+							menuComponent.print();
+						}
+					} catch (UnsupportedOperationException e) {}
+				}
+			}
+		}
+	</script>
+	<p>Cacheamos la excepacion porque en la clase abstract MenuComponent implmentamos isVegetarian() que tirar excepcion y como en los Menu no esta implementado porque no soporta la operacion, nos va a tirar excepcion. Por eso la cacheamos y seguimos recorriendo </p>
 </section>
 
 <section class="slide" id="iterator188">
