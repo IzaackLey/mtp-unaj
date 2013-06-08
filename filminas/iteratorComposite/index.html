@@ -764,54 +764,7 @@
 		}
 	</script>
 </section>
-
-<section class="slide" id="iterator31">
-	<h2>Compostite</h2>
-	<h4>Testeamso el composite</h4>
-	<p>En esta clase creamos los Menu y MenuItem y armamos el árbol</p>
-	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
-		public class MenuTestDrive {
-			public static void main(String args[]) {
-				//creo los primeros Menus
-				MenuComponent pancakeHouseMenu = new Menu("PANCAKE HOUSE MENU", "Breakfast");
-				MenuComponent dinerMenu = new Menu("DINER MENU", "Lunch");
-				MenuComponent cafeMenu = new Menu("CAFE MENU", "Dinner");
-				MenuComponent dessertMenu = new Menu("DESSERT MENU", "Dessert of course!");
-		  
-				MenuComponent allMenus = new Menu("ALL MENUS", "All menus combined");
-				//agrego Menus al elementos Menu que contine el resto
-				allMenus.add(pancakeHouseMenu);
-				allMenus.add(dinerMenu);
-				allMenus.add(cafeMenu);
-				
-				//agrego items al pancakeHouseMenu
-				pancakeHouseMenu.add(new MenuItem("K&B's Pancake Breakfast", "Pancakes with scrambled eggs, and toast", true, 2.99));
-				pancakeHouseMenu.add(new MenuItem("Regular Pancake Breakfast", "Pancakes with fried eggs, sausage", false, 	2.99));
-				pancakeHouseMenu.add(new MenuItem("Blueberry Pancakes", "Pancakes made with fresh blueberries, and blueberry syrup", true, 3.49));
-				pancakeHouseMenu.add(new MenuItem("Waffles", "Waffles, with your choice of blueberries or strawberries", true, 3.59));
-
-				//agrego items al dimerMenu	
-				dinerMenu.add(new MenuItem("Vegetarian BLT", "(Fakin') Bacon with lettuce & tomato on whole wheat", true, 2.99));
-				dinerMenu.add(new MenuItem("BLT", "Bacon with lettuce & tomato on whole wheat", false, 2.99));
-				dinerMenu.add(new MenuItem("Soup of the day", "A bowl of the soup of the day, with a side of potato salad", false, 3.29));
-				
-				//aca le estoy agregando un Menu al dinerMenu
-				dinerMenu.add(dessertMenu);
-				
-				//agrego items al desertMenu
-				dessertMenu.add(new MenuItem("Apple Pie","Apple pie with a flakey crust, topped with vanilla icecream", true, 1.59));
-				dessertMenu.add(new MenuItem("Cheesecake", "Creamy New York cheesecake, with a chocolate graham crust", true, 1.99));
-				
-				//rest of the code
-				Waitress waitress = new Waitress(allMenus);
-		  
-				waitress.printVegetarianMenu();
-			}
-		}
-	</script>
-</section>
-
-<section class="slide" id="iterator31">
+<section class="slide" id="iterator31b">
 	<h2>Compostite</h2>
 	<h4>Testeamso el composite</h4>
 	<p>En esta clase creamos los Menu y MenuItem y armamos el árbol</p>

@@ -34,13 +34,8 @@ public class MenuTestDrive {
 		dinerMenu.add(dessertMenu);
 		
 		//agrego items al desertMenu
-		dessertMenu.add(new MenuItem(
-			"Apple Pie",
-			"Apple pie with a flakey crust, topped with vanilla icecream",
-			true,
-			1.59));
-		dessertMenu.add(new MenuItem(
-			"Cheesecake",
+		dessertMenu.add(new MenuItem("Apple Pie","Apple pie with a flakey crust, topped with vanilla icecream", true, 1.59));
+		dessertMenu.add(new MenuItem("Cheesecake",
 			"Creamy New York cheesecake, with a chocolate graham crust",
 			true,
 			1.99));
