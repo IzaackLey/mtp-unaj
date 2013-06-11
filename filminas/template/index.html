@@ -7,7 +7,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>template</title>
+	<title>template method</title>
 	
 	<meta name="description" content="A jQuery library for modern HTML presentations">
 	<meta name="author" content="Caleb Troughton">
@@ -51,30 +51,181 @@
 <body class="deck-container">
 
 <!-- Begin slides -->
-<section class="slide" id="iterator1">
-	<h2>template</h2>
-	<p>Vamos a </p>
-</section>
-<section class="slide" id="iterator2">
-	<h2>Iterator</h2>
-	<h4>Veamos las recetas para hacer cafe y te</h4>
+<section class="slide" id="template1">
+	<h2>Template Method</h2>
+	<h4>Vamos a encapsular pedasos de algortimos en una clase para que sus subclases puedan hacer uso de estas</h4>
+	<p><strong>Receta de café</strong></p>
 	<ol>
 		<li>Hervimos el agua</li>
-		<li>Tiramos cafe en el aguar hirviendo</li>
-		<li>Tiramos cafe en el aguar hirviendo</li>
-		<li>Pnemos el cafe en la taza</li>
+		<li>Tiramos café en el aguar hirviendo y la filtamos</li>
+		<li>Ponemos la infusion en una taza</li>
 		<li>Agregamos azucar y leche</li>
 	</ol>
+	<p><strong>Receta de té</strong></p>
 	<ol>
 		<li>Hervimos el agua</li>
-		<li>Tiramos cafe en el aguar hirviendo</li>
-		<li>Tiramos té en el aguar hirviendo</li>
-		<li>Pnemos el cafe en la taza</li>
-		<li>Agregamos limón</li>
+		<li>Ponemos el saquito de té en el agua hirviendo</li>
+		<li>Ponemos la infusion en una taza</li>
+		<li>Agregamos limón y azucar</li>
 	</ol>
+</section>
+<section class="slide" id="template2">
+	<h2>Template Method</h2>
+	<h4>Unificamos las recetas</h4>
+	<p>Si bien las recetas no son exactamente iguales podemos encotrar la corelacion de los pasos</p>
+	<ul>
+		<li>Tiramos cafe en el aguar hirviendo, o lo pasamos por el filtro</li>
+		<li>Ponemos el saquito de té en el aguar hirviendo</li>
+	</ul>
+	<p>se puede generalizar como: Agregamos el ingrediente de la infusion en el agua hirviendo</p><BR/>
+	<p>Si bien las recetas no son exactamente iguales podemos encotrar la corelacion de los pasos</p>
+	<ul>
+		<li>Agregamos azucar y leche</li>
+		<li>Agregamos limón y azucar</li>
+	</ul>
+	<p>se puede generalizar como:  Agregamos los condimentos</p><BR/>
+
+	<p><strong>Los pasos para hacer té o café quedarian:</strong></p>
+	<ol>
+		<li>Hervimos el agua</li>
+		<li>Agregamos el ingrediente de la infusion en el agua hirviendo</li>
+		<li>Ponemos la infusion en una taza</li>
+		<li>Agregamos los condimentos</li>
+	</ol>
+</section>
+<section class="slide" id="template3">
+	<h2>Template Method</h2>
+	<p><strong>Los pasos para hacer té o café en código:</strong></p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	void prepareRecipe() {
+		boilWater();
+		brew();
+		pourInCup();
+		addCondiments();
+	}
+	</script>
+	<p>Como los pasos brew() y addCondiments() son una generalización, vamos a implementarlos en las sublcases Tea y Coffee</p>
+	<p><strong>Así quedaría el diagrama de clases</strong></p>
+	<img src="teaCaffeeClassDiagram.png"/>
+</section>
+
+<section class="slide" id="template4">
+	<h2>Template Method</h2>
+	<h4>Implementación</h4>
+	<p>Implementamos la clase padre</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public abstract class CaffeineBeverage {
+		  
+			final void prepareRecipe() {
+				boilWater();
+				brew();
+				pourInCup();
+				addCondiments();
+			}
+		 
+			abstract void brew();
+		  
+			abstract void addCondiments();
+		 
+			void boilWater() {
+				System.out.println("Boiling water");
+			}
+		  
+			void pourInCup() {
+				System.out.println("Pouring into cup");
+			}
+		}
+	</script>
+	<li>El método prepareRecipe() va a ser usado por las 2 subclases Tea y Coffee. Esta declarado final para que las subclases no lo puedan sobreescribirlo, y cambiar los pasos de la receta.</li>
+	<li>brew() y addCondiments() como los generalizamos los declaramos abstractos y dejamos que las sublclases se encarguen de ellos.</li>
+	<li>boilWater() y pourInCup() los implementamos aca porque son iguales en infusiones</li>
+</section>
+<section class="slide" id="template5">
+	<h2>Template Method</h2>
+	<h4>Implementación</h4>
+	<p>Implementamos los métodos que faltan de las clases Coffee y Tea</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Coffee extends CaffeineBeverage {
+			public void brew() {
+				System.out.println("Dripping Coffee through filter");
+			}
+			public void addCondiments() {
+				System.out.println("Adding Sugar and Milk");
+			}
+		}
+	</script>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Tea extends CaffeineBeverage {
+			public void brew() {
+				System.out.println("Steeping the tea");
+			}
+			public void addCondiments() {
+				System.out.println("Adding Lemon");
+			}
+		}
 	</script>
 </section>
+<section class="slide" id="template6">
+	<h2>Template Method</h2>
+	<h4>La clase prepareRecipe() es el template method</h4>
+	<ul>
+		<li>Sirve de plantilla o estructura para un algoritmo</li>
+		<li>En el template cada paso del algoritmo esta representado por un método</li>
+		<li>Algunos están implementados y otros serán implementados por las subclases</li>
+	</ul>
+</section>
+
+
+
+<section class="slide" id="template7">
+	<h2>Patron Template Method</h2>
+	<p>Define un esqueleto de un algoritmo en un método definiendo pasos y permitiendo algunos de estos ser delegados a las subclases.</p>
+	<ul>
+		<li>Clasificación: Es un patrón de comportamiento</li>
+		<li>Aplicabilidad: 
+			<ul>
+				<li>Cuando contamos con un algoritmo con varios pasos que no cambian, de modo que dichos pasos invariantes serían implementados en una superclase, dejando la implementación de los pasos que cambian para las subclases.</li>
+				<li>Para evitar la replicación de código mediante generalización: se factoriza el comportamiento común de varias subclases en una única superclase.</li>
+				<li></li>
+			</ul>	
+		</li>
+	</ul>	
+</section>
+<section class="slide" id="iterator14">
+	<h2>Patron Iterator</h2>
+	<ul>
+		<li>Participantes: 
+		<ul>
+			<li><strong>Iterator:</strong> define interfaz para acceder y recorrer elementos</li>
+			<li><strong>ConcreteIterator:</strong>
+				<ul>
+					<li>Implementa la interfaz Iterator</li>
+					<li>Mantiene la posición actual en el recorrido del agregado</li>
+				</ul>
+			</li>
+			<li><strong>Aggregate:</strong> define interfaz para crear un objeto Iterator</li>
+			<li><strong>ConcreteAggregate:</strong> implementa una interfaz de creación del Iterator para devolver la instancia de ConcreteIterator apropiada</li>
+		</ul>	
+		</li>
+		<li>Consecuencias: Permite variaciones en el recorrido de un agregado
+			<ul>
+				<li>Para cambiar el algoritmo de recorrido basta cambiar la instancia de Iterator concreta</li>
+				<li>Nuevos recorridos mediante nuevas subclases de Iterator</li>
+			</ul>
+		</li>
+		<li>Los iteradores simplifican la interfaz del agregado</li>
+		<li>Puede hacerse más de un recorrido a la vez sobre un mismo agregado</li>
+	</ul>	
+</section>
+<section class="slide" id="iterator15">
+	<h2>Patron Iterator</h2>
+	<ul>
+		<li>Estructura: 
+			<img src="IteratorClassDiagram.png"/>
+		</li>
+	</ul>	
+</section>
+
 <section class="slide" id="iterator188">
 	<h2>Referencias</h2>
 	<p><strong>Head First Design Patterns</strong></p>
