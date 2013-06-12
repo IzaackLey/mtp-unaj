@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>state</title>
+	
+	<meta name="description" content="A jQuery library for modern HTML presentations">
+	<meta name="author" content="Caleb Troughton">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	
+	<!-- Core and extension CSS files -->
+	<link rel="stylesheet" href="../core/deck.core.css">
+	<link rel="stylesheet" href="../extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="../extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="../extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="../extensions/status/deck.status.css">
+	<link rel="stylesheet" href="../extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="../extensions/scale/deck.scale.css">
+	
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="../themes/style/swiss.css">
+	
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="../themes/transition/horizontal-slide.css">
+	
+	<script src="../modernizr.custom.js"></script>
+	
+
+    <!-- SintaxHighlighter -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SyntaxHighlighter Large File Demo</title>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/XRegExp.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shCore.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushJava.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushPlain.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushPython.js"></script>
+	<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shCoreEclipse.css"/>
+	<!--link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shThemeEclipse.css"/-->
+	
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	
+	
+</head>
+
+<body class="deck-container">
+
+<!-- Begin slides -->
+<section class="slide" id="state1">
+	<h2>State</h2>
+	<h3>Diagrama de estados de Maquina de Dulces</h3>
+	<img src="gumballState.png"/>
+	<ul>
+		<li>Cada circulo es un estado. Cada estado es un configuracion diferente de la máquina donde la máquina se comporta de manera diferente, y necesita alguna accion para pasar a otro estado.</li>
+		<li>Cada linea es una transicion de un estado a otro, osea la acción que ocaciona el cambio de estado </li>
+	</ul>
+</section>
+<section class="slide" id="state2">
+	<h2>State</h2>
+	<h3>Pasamos el diagrama de estados a código</h3>
+	<p>Definimos una variable de instancia para mantener el estado, y a cada estado le asignamos un valor</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		final static int SOLD_OUT = 0;
+		final static int NO_QUARTER = 1;
+		final static int HAS_QUARTER = 2;
+		final static int SOLD = 3;
+ 
+ 		int state = SOLD_OUT;
+	</script>
+	<h4>Luego mapeamos todas las acciones a métodos</h4>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public void insertQuarter() {
+			if (state == HAS_QUARTER) {
+				System.out.println("You can't insert another quarter");
+			} else if (state == NO_QUARTER) {
+				state = HAS_QUARTER;
+				System.out.println("You inserted a quarter");
+			} else if (state == SOLD_OUT) {
+				System.out.println("You can't insert a quarter, the machine is sold out");
+			} else if (state == SOLD) {
+	        	System.out.println("Please wait, we're already giving you a gumball");
+			}
+		}
+	</script>
+	<p>Lo mismo habria que hacer con el resto de las acciones o transiciones, de un estado a otro</p>
+	<p>ejectQuarter(), turnCrank(), dispense() </p>
+</section>
+<section class="slide" id="state3">
+	<h2>State</h2>
+	<h3>Implementacion</h3>
+	<p>Veamos como queda la implementacion de la clase</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class GumballMachine {
+		 
+			final static int SOLD_OUT = 0;
+			final static int NO_QUARTER = 1;
+			final static int HAS_QUARTER = 2;
+			final static int SOLD = 3;
+		 
+			int state = SOLD_OUT;
+			int count = 0;  
+			//agregamos esta varible de instancia para mantener la cantidad de bolas
+		  
+			public GumballMachine(int count) {
+				this.count = count;
+				if (count > 0) {
+					state = NO_QUARTER;
+				}
+			}
+		  	//el constructor toma la cantidad de bolas
+		  	//si es 0 la cantidad pones la maquina es estado NO_QUARTER
+
+			public void insertQuarter() {
+				if (state == HAS_QUARTER) {
+					System.out.println("You can't insert another quarter");
+				} else if (state == NO_QUARTER) {
+					state = HAS_QUARTER;
+					System.out.println("You inserted a quarter");
+				} else if (state == SOLD_OUT) {
+					System.out.println("You can't insert a quarter, the machine is sold out");
+				} else if (state == SOLD) {
+		        	System.out.println("Please wait, we're already giving you a gumball");
+				}
+			}
+
+			public void ejectQuarter() {
+				if (state == HAS_QUARTER) {
+					System.out.println("Quarter returned");
+					state = NO_QUARTER;
+				} else if (state == NO_QUARTER) {
+					System.out.println("You haven't inserted a quarter");
+				} else if (state == SOLD) {
+					System.out.println("Sorry, you already turned the crank");
+				} else if (state == SOLD_OUT) {
+		        	System.out.println("You can't eject, you haven't inserted a quarter yet");
+				}
+			}
+			public void turnCrank() {/* rest of the code here */}
+			public void dispense() {/* rest of the code here */}
+			//ohter methods
+			public String toString() {/* rest of the code here */}
+	 	}
+	</script>
+</section>
+
+<section class="slide" id="state5">
+	<h2>State</h2>
+	<h3>Implementacion</h3>
+	<p>Finalmente una clase test</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class GumballMachineTestDrive {
+
+			public static void main(String[] args) {
+				GumballMachine gumballMachine = new GumballMachine(5);
+
+				System.out.println(gumballMachine);
+
+				gumballMachine.insertQuarter();
+				gumballMachine.turnCrank();
+
+				System.out.println(gumballMachine);
+
+				gumballMachine.insertQuarter();
+				gumballMachine.ejectQuarter();
+				gumballMachine.turnCrank();
+
+				System.out.println(gumballMachine);
+			}
+		}
+	</script>
+</section>
+<section class="slide" id="state6">
+	<h2>State</h2>
+	<h3>Nuevos requerimientos</h3>
+	<p>Ahora cada vez que giramos la rueda tenemos 10% de posibilidades de sacar 2 bolas</p>
+	<p>Esto hace que tengamos que agregar un nuevo estado <strong>WINNER</strong>ademas de tocar el código de todas las transiciones para que tengan en cuenta el nuevo estado</p>
+	<p>Recordemos que cada método era una serie de condicionales que se fijaba el estado y de acuerdo a eso hacia algo</p>
+	<h4>Características del diseño</h4>
+	<ul>
+		<li>No esta adhiriendo al principio que dice: las clases tiene que estar abiertas para la extensión pero cerradas para la modificación.</li>
+		<li>No encapsulamos lo que varia</li>
+	</ul>
+</section>
+<section class="slide" id="state6b">
+	<h2>State</h2>
+	<h3>Diagrama de estado para los nuevos requerimientos</h3>
+	<img src="gumballWinnerState.png"/>
+</section>
+<section class="slide" id="state7">
+	<h2>State</h2>
+	<h3>Nuevo Diseño</h3>
+	<p>Vamos a refactorizar el código porque el actual es difícil de extender y mantener.</p>
+	<p>Vamos a encapsular los objetos estado en su propia clase y se va a delegar al estado actual cuando una acción ocurra.</p>
+	<ol>
+		<li>Definimos una interface State que contiene un método por cada accion en la maquina de bolas de dulce.</li>
+		<li>Después vamos a implementar una clase State para cada estado de la máquina. Estas clases van a ser responsables del comportamiento de la maquina cuando este en uno de esos estados.</li>
+		<li>Finalmente vamos a sacar todo el código condicional y delegar a la clase estado hacer el trabajo por nosotros.</li>
+	</ol>
+</section>
+<section class="slide" id="state8">
+	<h2>State</h2>
+	<h3>Nuevo Diseño</h3>
+	<p>El diagrama de clases quedaría asi</p>
+	<img src="gumballClassDiagram.png"/>
+	<p>No aparece el estado WinnerState porque primero refactorizamos y después se lo agregamos</p>
+</section>
+</section>
+<section class="slide" id="state9">
+	<h2>State</h2>
+	<h3>Implementación</h3>
+	<p>La interfaz State quedaria así:</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface State {
+			public void insertQuarter();
+			public void ejectQuarter();
+			public void turnCrank();
+			public void dispense();
+		}
+	</script>
+	<h4>Implementamos una de las clases concretas state</h4>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class NoQuarterState implements State {
+		    GumballMachine gumballMachine;
+		 
+		    public NoQuarterState(GumballMachine gumballMachine) {
+		        this.gumballMachine = gumballMachine;
+		    }
+			public void insertQuarter() {
+				System.out.println("You inserted a quarter");
+				gumballMachine.setState(gumballMachine.getHasQuarterState());
+			}
+			public void ejectQuarter() {
+				System.out.println("You haven't inserted a quarter");
+			}
+			public void turnCrank() {
+				System.out.println("You turned, but there's no quarter");
+			}
+			public void dispense() {
+				System.out.println("You need to pay first");
+			} 
+			public String toString() {
+				return "waiting for quarter";
+			}
+		}
+	</script>
+</section>
+<section class="slide" id="state10">
+	<h2>State</h2>
+	<h3>Implementación</h3>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class NoQuarterState implements State {
+		    GumballMachine gumballMachine;
+		 
+		    public NoQuarterState(GumballMachine gumballMachine) {
+		        this.gumballMachine = gumballMachine;
+		    }
+		.
+	</script>
+	<p>En el constructor recibimos la referencia de GumballMachine, y la guardamos en una variable de instancia</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public void insertQuarter() {
+			System.out.println("You inserted a quarter");
+			gumballMachine.setState(gumballMachine.getHasQuarterState());
+		}
+	</script>
+	<p>Cuando alquilen inserta un moneda, imprimimos que la moneda fue aceptada y cambiamos el estado de la máquina a HasQuarterState</p>
+	<p>Estamos implementado los comportamientos en el estado que estamos. En algunos casos la acción hace que la maquina vaya a otro estado.</p>
+</section>
+
+<section class="slide" id="state11">
+	<h2>State</h2>
+	<h3>Implementación</h3>
+	<h4>Refactorizamos la clase GumbBallMachine</h4>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class GumballMachine {
+			State soldOutState;
+			State noQuarterState;
+			State hasQuarterState;
+			State soldState;
+		 
+			State state = soldOutState;
+			int count = 0;
+		 
+			public GumballMachine(int numberGumballs) {
+				soldOutState = new SoldOutState(this);
+				noQuarterState = new NoQuarterState(this);
+				hasQuarterState = new HasQuarterState(this);
+				soldState = new SoldState(this);
+
+				this.count = numberGumballs;
+		 		if (numberGumballs > 0) {
+					state = noQuarterState;
+				} 
+			}
+			public void insertQuarter() {
+				state.insertQuarter();
+			}
+			public void ejectQuarter() {
+				state.ejectQuarter();
+			}
+			public void turnCrank() {
+				state.turnCrank();
+				state.dispense();
+			}
+			void setState(State state) {
+				this.state = state;
+			}
+			void releaseBall() {
+				System.out.println("A gumball comes rolling out the slot...");
+				if (count != 0) {
+					count = count - 1;
+				}
+			}
+		// mas metodos inclutendo los getters para cada estado
+	</script>
+</section>
+<section class="slide" id="state12">
+	<h2>State</h2>
+	<h3>Implementación</h3>
+	<h4>Refactorizamos la clase GumbBallMachine</h4>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class GumballMachine {
+			State soldOutState;
+			State noQuarterState;
+			State hasQuarterState;
+			State soldState;
+		 
+			State state = soldOutState;
+	</script>
+	<p>Una variable de instancia para cada estado y una para contener el estado actual</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public GumballMachine(int numberGumballs) {
+			soldOutState = new SoldOutState(this);
+			noQuarterState = new NoQuarterState(this);
+			hasQuarterState = new HasQuarterState(this);
+			soldState = new SoldState(this);
+
+			this.count = numberGumballs;
+	 		if (numberGumballs > 0) {
+				state = noQuarterState;
+			} 
+		}
+	</script>
+	<p>El constructor toma la cantidad inicial de bolas y le asigna a las variables de instancia de los estados una instancia de la clase correspondiente.</p>
+</section>
+<section class="slide" id="state13">
+	<h2>State</h2>
+	<h3>Implementación</h3>
+	<h4>Refactorizamos la clase GumbBallMachine</h4>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public void ejectQuarter() {
+			state.ejectQuarter();
+		}
+	 
+		public void turnCrank() {
+			state.turnCrank();
+			state.dispense();
+		}
+		void setState(State state) {
+			this.state = state;
+		}
+	</script>
+	<p>Ahora las acciones son muy fáciles de implementar, simplemente se la delegamos al estado actual </p>
+	<p>No necesitamos un método dispense() en la maquina porque es una accion interna, no es algo que el usuario pueda requerir directamente</p>
+	<p>setState() permite a otros objetos (objetos State) hacer la trasición de un estado a otro.</p>
+</section>
+<section class="slide" id="state14">
+	<h2>Patrón State</h2>
+	<p>Permitir a un objeto alterar el comportamiento cuando sus estados cambian</p>
+	<ul>
+		<li>Clasificación: es un patrón de comportamiento</li>
+		<li>Motivación: El patrón State está motivado por aquellos objetos en que, según su estado actual, varía su comportamiento ante los diferentes mensajes.</li>
+		<li>Aplicabilidad: 
+			<ul>
+				<li>El comportamiento de un objeto depende de su estado y el  estado será cambiado en tiempo de ejecución</li>
+				<li>Desacoplar lógicas largas, donde parte del condicionamiento es el estado. El patrón de estado pone cada lógica condidional separada por estado</li>
+			</ul>	
+		</li>
+	</ul>	
+</section>
+<section class="slide" id="state15">
+	<h2>Patrón State</h2>
+	<ul>
+		<li>Participantes: 
+		<ul>
+			<li><strong>Context:</strong> Este integrante define la interfaz con el cliente. Mantiene una instancia de ConcreteState (Estado Concreto) que define su estado actual.</li>
+			<li><strong>State:</strong>Define una interfaz para el encapsulamiento de la responsabilidades asociadas con un estado particular de Context.</li>
+			<li><strong>ConcreteState:</strong>Cada una de estas subclases implementa el comportamiento o responsabilidad de Context.</li>
+		</ul>	
+		</li>
+		<li>Consecuencias:
+			<ul>
+				<li>Pone todos los comportamientos asociados a un estado dentro de un objeto</li>
+				<li>Permite la transición de estados incorporada dentro del objeto de estado( no uso de monolítico switch o if)</li>
+				<li>Ayuda a prevenir la existencia de estados inexistentes</li>
+			</ul>
+		</li>
+	</ul>	
+</section>
+<section class="slide" id="state16">
+	<h2>Patrón State</h2>
+	<ul>
+		<li>Estructura: 
+			<img src="stateClassDiagram.png"/>
+		</li>
+	</ul>	
+</section>
+<section class="slide" id="state16b">
+	<h2>Patrón State</h2>
+	<h3>State y Strategy</h3>
+	<p>Si bien la estructura es básicamente la misma, los dos patrónes difieren en la inteción.</p>
+	<h4>State</h4>
+	<ul>
+		<li>Con State tenemos una serie de comportamientos encapsulados en objetos state, y en un memento dado el contexto esta delegando el comportamiento a uno de esos objetos. Con el paso del tiempo el estado paso de un estado a otro lo que refleja el estado interno del sistema.</li>
+		<li>Pensemos a state como una alternativa a poner muchos condicionles en un contexto, encapsulando el comportamiento en objetos estado.</li>
+	</ul>
+	<h4>Strategy</h4>
+	<ul>
+		<li>Con Strategy el cliente especifica el objeto estrategia que se va a componer con el contexto. Si bien el patrón da la posibilidad de cambiar de estrategia en tiempo de ejecución, en general hay una estragia que es las mas apropiada y es la que va a usar el contexto</li>
+		<li>Pensemos en el strategy como una alternativa mas felxible para a adquirir comportamiento que el uso de herencia. Por medio de la composición podemos cambiar de comportamiento componiendo con un objeto distinto.</li>
+	</ul>
+</section>
+<section class="slide" id="iterator188">
+	<h2>Referencias</h2>
+	<p><strong>Head First Design Patterns</strong></p>
+	<a href="http://es.wikipedia.org/wiki/State_(patr%C3%B3n_de_dise%C3%B1o)">Patrón State</a>
+</section>
+
+<!----------------------------------------------------------------------------------------------->
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+	/
+	<span class="deck-status-total"></span>
+</p>
+
+<!-- deck.goto snippet -->
+<form action="." method="get" class="goto-form">
+	<label for="goto-slide">Go to slide:</label>
+	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+	<datalist id="goto-datalist"></datalist>
+	<input type="submit" value="Go">
+</form>
+
+<!-- deck.hash snippet -->
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+
+<!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../jquery-1.7.2.min.js"><\/script>')</script>
+
+<!-- Deck Core and extensions -->
+<script src="../core/deck.core.js"></script>
+<script src="../extensions/hash/deck.hash.js"></script>
+<script src="../extensions/menu/deck.menu.js"></script>
+<script src="../extensions/goto/deck.goto.js"></script>
+<script src="../extensions/status/deck.status.js"></script>
+<script src="../extensions/navigation/deck.navigation.js"></script>
+<script src="../extensions/scale/deck.scale.js"></script>
+
+<!-- Initialize the deck -->
+<script>
+$(function() {
+	$.deck('.slide');
+});
+</script>
+
+</body>
+
+
+
+</html>
