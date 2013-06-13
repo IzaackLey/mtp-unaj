@@ -340,7 +340,7 @@
 		<li>Recorremos los elementos y hacemos quack, recordemos que Flock es también Quackable. Si el elemento es Flock iteramos los elementos del ArrayList y llamamos quack() en cada uno, y así hasta que uno sea un elementos simple y se haga realmente el quack.</li>
 	</ul>
 </section>
-<section class="slide" id="combining9">
+<section class="slide" id="combining10">
 	<h2>Combinado patrones</h2>
 	<h4>12) Modificamos el simulador para que arme rebaños</h4>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
@@ -399,12 +399,154 @@
 	<p>Vemos que hay muchos métodos simulate(), es decir hay sobrecarga. El interprete decide cual se va a ejecutar por el tipo que recibe</p>
 	<p>Cuando llamamos al método simulate(Quackable duck) se puede invocar tanto como con un pato o con un rebaño ya que ambos son Quackable</p>
 </section>
-<section class="slide" id="combining9">
+<section class="slide" id="combining11">
 	<h2>Combinado patrones</h2>
 	<h4>13) Ahora queremos poder observar a un pato en particular</h4>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface QuackObservable {
+			public void registerObserver(Observer observer);
+			public void notifyObservers();
+		}
+	</script>
+	<p>Esta es la interfaz que tienen que implementar los Quackables si quieren poder ser observados</p>
+	<h4>Nos aseguramos que Quackables implementen esta interface</h4>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface Quackable extends QuackObservable {
+			public void quack();
+		}
+	</script>
+</section>
+<section class="slide" id="combining12">
+	<h2>Combinado patrones</h2>
+	<p>Podemos implementar registración y notificación en cada clase como hicimos antes. Pero esta vez vamos a encapsular la notificación y registracion en otra clase, la vamos a llamar Ovservable y la vamos a componer con QuackObservable. De esa manera solo escribimos el código una vez y QuackObservable solo necesita el código suficiente para delegar a la clase Observable.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Observable implements QuackObservable {
+			ArrayList observers = new ArrayList();
+			QuackObservable duck;
+		 
+			public Observable(QuackObservable duck) {
+				this.duck = duck;
+			}
+		  
+			public void registerObserver(Observer observer) {
+				observers.add(observer);
+			}
+		  
+			public void notifyObservers() {
+				Iterator iterator = observers.iterator();
+				while (iterator.hasNext()) {
+					Observer observer = (Observer)iterator.next();
+					observer.update(duck);
+				}
+			}
+		 
+			public Iterator getObservers() {
+				return observers.iterator();
+			}
+		}
+	</script>
+	<ul>
+		<li>Observable implementa toda la funcionalidad que Quackable necesita para ser un observable.</li>
+		<li>Observable tiene que implementar QuackObsrvable porque estos son los métodos que vamos a delegarle.</li>
+		<li>En el constructor le pasamos el QuackObservable que va a usar este objeto para manejar el comportamiento observable</li>
+	</ul>
+</section>
+<section class="slide" id="combining13">
+	<h2>Combinado patrones</h2>
+	<h4>Integramos la clase Observable con las clases Quackables</h4>
+	<p>Todo lo que necesitamos hacer es asegurarnos de las clase Quackables estan compuestas con un Observable. Luego de esto estan listas para ser observadas.</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class MallardDuck implements Quackable {
+			Observable observable;
+			public MallardDuck() {
+				observable = new Observable(this);
+			}
+			public void quack() {
+				System.out.println("Quack");
+				notifyObservers();
+			}
+			public void registerObserver(Observer observer) {
+				observable.registerObserver(observer);
+			}
+			public void notifyObservers() {
+				observable.notifyObservers();
+			}
+			public String toString() {
+				return "Mallard Duck";
+			}
+		}
+	</script>
+	<ul>
+		<li>Cada Quackable tiene su instancia de Observable.</li>
+		<li>En el constructor creamos una instancia de Observable</li>
+		<li>Como se puede ver en registerObserver() y notifyObservers(), simplemente delegan al la clase Observable</li>
+	</ul>
+</section>
+<section class="slide" id="combining14">
+	<h2>Combinado patrones</h2>
+	<h4>Obsrvable ya esta terminado, ahora tenemos que implmentar el lado Observer, es decir los que van a seguir el estado del lso patos.</h4>
+	<p>La interface que van a implemtar los que tiene que ser notificados</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface Observer {
+			public void update(QuackObservable duck);
+		}
+	</script>
+	<h4>Una clase concreta que va a ser notificada de los cambio de estado de los patos</h4>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Quackologist implements Observer {
+			public void update(QuackObservable duck) {
+				System.out.println("Quackologist: " + duck + " just quacked.");
+			}
+		 
+			public String toString() {
+				return "Quackologist";
+			}
+		}
+	</script>
+</section>
+
+<section class="slide" id="combining15">
+	<h2>Combinado patrones</h2>
+	<h4>Actualizamos el simulador y lo probamos</h4>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class DuckSimulator {
+			public static void main(String[] args) {
+				DuckSimulator simulator = new DuckSimulator();
+				AbstractDuckFactory duckFactory = new CountingDuckFactory();
+		 
+				simulator.simulate(duckFactory);
+			}
+		  
+			void simulate(AbstractDuckFactory duckFactory) {
+		  
+				//creamos las fabricas de patos
+				//creamos los rebaños
+
+				System.out.println("\nDuck Simulator: With Observer");
+
+				Quackologist quackologist = new Quackologist();
+				flockOfDucks.registerObserver(quackologist);
+				//creamos un  Quackologist y registramos 
+				//y le asignamos el rebaño que va a obsrvar
+
+				simulate(flockOfDucks);
+
+				System.out.println("\nThe ducks quacked " + 
+				                   QuackCounter.getQuacks() + 
+				                   " times");
+			}
+		 
+			void simulate(Quackable duck) {
+				duck.quack();
+			}
+		}
+
 
 	</script>
+</section>
+<section class="slide" id="combining15">
+	<h2>Diagrama de clases</h2>
+	<img src="duckSimClassDiagram.png"/>
 </section>
 <section class="slide" id="factory88">
 	<h2>Referencias</h2>
