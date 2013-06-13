@@ -52,6 +52,133 @@
 
 <!-- Begin slides -->
 <section class="slide" id="combining1">
+	<h2>Combinado patrones</h2>
+	<p>Vamos a volver a tomar el ejemplo de simulador de patos, y vamos a hacer que los patrones coexisten y colaboren en la misma solución.</p>
+	<h4>1) Primero creamos una interface quackable.</h4>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface Quackable {
+			public void quack();
+		}
+	</script>
+	<h4>2) Ahora unos patos que implementan Quackable.</h4>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class MallardDuck implements Quackable {
+		public void quack() {
+			System.out.println("Quack");
+		}
+	}
+
+	public class RubberDuck implements Quackable {
+		public void quack() {
+			System.out.println("Squeak");
+		}
+	}
+	</script>
+</section>
+<section class="slide" id="combining2">
+	<h2>Combinado patrones</h2>
+	<h4>3)Hacemos el simuladors.</h4>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class DuckSimulator {
+			public static void main(String[] args) {
+				DuckSimulator simulator = new DuckSimulator();
+				simulator.simulate();
+			}
+		  
+			void simulate() {
+				Quackable mallardDuck = new MallardDuck();
+				Quackable redheadDuck = new RedheadDuck();
+				Quackable duckCall = new DuckCall();
+				Quackable rubberDuck = new RubberDuck();
+		 
+				System.out.println("\nDuck Simulator");
+		 
+				simulate(mallardDuck);
+				simulate(redheadDuck);
+				simulate(duckCall);
+				simulate(rubberDuck);
+			}
+		   
+			void simulate(Quackable duck) {
+				duck.quack();
+			}
+		}
+	</script>
+	<p>El método simulate usa el polimorfismo, y le dice que hagan quack sin importar que es lo que hace quack</p>
+</section>
+<section class="slide" id="combining3">
+	<h2>Combinado patrones</h2>
+	<h4>4)Si queremos agregar ganzos al simulador.</h4>
+	<p>Los gansos hacen honk en ves de quack</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Goose {
+			public void honk() {
+				System.out.println("Honk");
+			}
+		}
+	</script>
+	<h4>5)Necesitamos un goose adapter.</h4>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class GooseAdapter implements Quackable {
+			Goose goose;
+		 
+			public GooseAdapter(Goose goose) {
+				this.goose = goose;
+			}
+			public void quack() {
+				goose.honk();
+			}
+			public String toString() {
+				return "Goose pretending to be a Duck";
+			}
+		}
+	</script>
+</section>
+<section class="slide" id="combining4">
+	<h2>Combinado patrones</h2>
+	<h4>6)Ahora los gansos deberían andar en el simulador de patos también.</h4>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class DuckSimulator {
+			public static void main(String[] args) {
+				DuckSimulator simulator = new DuckSimulator();
+				simulator.simulate();
+			}
+
+			void simulate() {
+				Quackable mallardDuck = new MallardDuck();
+				Quackable redheadDuck = new RedheadDuck();
+				Quackable duckCall = new DuckCall();
+				Quackable rubberDuck = new RubberDuck();
+				Quackable gooseDuck = new GooseAdapter(new Goose());
+		 
+				System.out.println("\nDuck Simulator: With Goose Adapter");
+		 
+				simulate(mallardDuck);
+				simulate(redheadDuck);
+				simulate(duckCall);
+				simulate(rubberDuck);
+				simulate(gooseDuck);
+				//goose esta envuelto con el adapter
+				//se comporta como cualquier pato
+			}
+		 
+			void simulate(Quackable duck) {
+				duck.quack();
+			}
+		}
+	</script>
+</section>
+<section class="slide" id="combining5">
+	<h2>Combinado patrones</h2>
+
+	<h4>6)Ahora los gansos deberían andar en el simulador de patos también.</h4>
+
+</section>
+
+
+
+
+<section class="slide" id="combining100">
 	<h2>Factory</h2>
 	<ol start="10"> 
 		<li>Necesitamos una factory que produzca patos y que todos tengan agregado el contador de quacks.<BR>
@@ -73,7 +200,6 @@
 		</li>
 	</ol>
 </section>
-
 <section class="slide" id="factory88">
 	<h2>Referencias</h2>
 	<p><strong>Head First Design Patterns</strong></p>
