@@ -77,7 +77,7 @@
 </section>
 <section class="slide" id="combining2">
 	<h2>Combinado patrones</h2>
-	<h4>3)Hacemos el simuladors.</h4>
+	<h4>3) Hacemos el simuladors.</h4>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		public class DuckSimulator {
 			public static void main(String[] args) {
@@ -108,7 +108,7 @@
 </section>
 <section class="slide" id="combining3">
 	<h2>Combinado patrones</h2>
-	<h4>4)Si queremos agregar ganzos al simulador.</h4>
+	<h4>4) Si queremos agregar ganzos al simulador.</h4>
 	<p>Los gansos hacen honk en ves de quack</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		public class Goose {
@@ -117,7 +117,7 @@
 			}
 		}
 	</script>
-	<h4>5)Necesitamos un goose adapter.</h4>
+	<h4>5) Necesitamos un goose adapter.</h4>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		public class GooseAdapter implements Quackable {
 			Goose goose;
@@ -136,7 +136,7 @@
 </section>
 <section class="slide" id="combining4">
 	<h2>Combinado patrones</h2>
-	<h4>6)Ahora los gansos deberían andar en el simulador de patos también.</h4>
+	<h4>6) Ahora los gansos deberían andar en el simulador de patos también.</h4>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		public class DuckSimulator {
 			public static void main(String[] args) {
@@ -170,35 +170,241 @@
 </section>
 <section class="slide" id="combining5">
 	<h2>Combinado patrones</h2>
-
-	<h4>6)Ahora los gansos deberían andar en el simulador de patos también.</h4>
-
+	<h4>7) Queremos contar los quacks pero sin tener que modificar las clases Duck.</h4>
+	<p>Vamos a usar decorator, con esto le vamos a dar agregar a los patos un nuevo comportamiento, el de contar los quaks</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class QuackCounter implements Quackable {
+		Quackable duck;
+		static int numberOfQuacks;
+	  
+		public QuackCounter (Quackable duck) {
+			this.duck = duck;
+		}
+	  
+		public void quack() {
+			duck.quack();
+			numberOfQuacks++;
+		}
+	 
+		public static int getQuacks() {
+			return numberOfQuacks;
+		}
+		public String toString() {
+			return duck.toString();
+		}
+	}
+	</script>
+	<ul>
+		<li>Implementamos la clase del objeto que vamos a decorar</li>
+		<li>Declaramos la variable del mismo tipo que implementamos para guardar el objeto que vamos a decorar</li>
+		<li>En variable estática vamos sumando los quacks. Recordemos que todas las instancias van a sumar a esta variable ya que es una variable de clase</li>
+		<li>Y agregamos getQuacks() static también que devuelve la cantidad de quaks</li>
+	</ul>	
 </section>
 
+<section class="slide" id="combining6">
+	<h2>Combinado patrones</h2>
+	<h4>8) Arreglamos el simulador para que los patos estén decorados</h4>
+	<p>Tenemos que decorar todos los objetos Quackable que instanciemos porque sino no se ven a sumar sus quacks</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class DuckSimulator {
+			public static void main(String[] args) {
+				DuckSimulator simulator = new DuckSimulator();
+				simulator.simulate();
+			}
 
+			void simulate() {
+				Quackable mallardDuck = new QuackCounter(new MallardDuck());
+				Quackable redheadDuck = new QuackCounter(new RedheadDuck());
+				Quackable duckCall = new QuackCounter(new DuckCall());
+				Quackable rubberDuck = new QuackCounter(new RubberDuck());
+				Quackable gooseDuck = new GooseAdapter(new Goose());
 
+				System.out.println("\nDuck Simulator: With Decorator");
 
-<section class="slide" id="combining100">
-	<h2>Factory</h2>
-	<ol start="10"> 
-		<li>Necesitamos una factory que produzca patos y que todos tengan agregado el contador de quacks.<BR>
-			La factory deberia construir una familia de prodcutos que consisten en diferentes tipos de patos, entonces vamos a usar abstract factory.
-			<ul>
-				<li>
-					Empecemos con la definicion de la Abtract Factory
-					<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
-						public abstract class AbstractDuckFactory {
-							public abstract Quackable createMallardDuck();
-							public abstract Quackable createRedheadDuck();
-							public abstract Quackable createDuckCall();
-							public abstract Quackable createRubberDuck();
-						}
-					</script>
-				</li>	
-			</ul>		
+				simulate(mallardDuck);
+				simulate(redheadDuck);
+				simulate(duckCall);
+				simulate(rubberDuck);
+				simulate(gooseDuck);
 
-		</li>
-	</ol>
+				System.out.println("The ducks quacked " + 
+				                   QuackCounter.getQuacks() + " times");
+			}
+
+			void simulate(Quackable duck) {
+				duck.quack();
+			}
+		}
+	</script>
+	<p>El problema que tenemos que si nos olvidamos de envolver un Duck cuando lo instanciamos en este no se van a contar los quacks</p>
+</section>
+
+<section class="slide" id="combining6">
+	<h2>Combinado patrones</h2>
+	<h4>9) Para que no queden pastos sin decorar vamos a implementar una fabrica que produzca los patos</h4>
+	<p>La fabrica debe producir una familia de productos que consiste en diferentes tipos de patos, asi que vamos con <storng>Abstract Factory</storng></p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public abstract class AbstractDuckFactory {
+		public abstract Quackable createMallardDuck();
+		public abstract Quackable createRedheadDuck();
+		public abstract Quackable createDuckCall();
+		public abstract Quackable createRubberDuck();
+	}
+	</script>
+</section>
+<section class="slide" id="combining7">
+	<h2>Combinado patrones</h2>
+	<p>Implementamos la Fabrica Concreta</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class CountingDuckFactory extends AbstractDuckFactory { 
+		public Quackable createMallardDuck() {
+			return new QuackCounter(new MallardDuck());
+		}
+		public Quackable createRedheadDuck() {
+			return new QuackCounter(new RedheadDuck());
+		}
+		public Quackable createDuckCall() {
+			return new QuackCounter(new DuckCall());
+		}
+		public Quackable createRubberDuck() {
+			return new QuackCounter(new RubberDuck());
+		}
+	}
+	</script>
+	<p>Cada método crea un producto en particular de Quackable.</p>
+	<p>Pero ahora todos los patos de la fabricas cuentan los quacks</p>
+</section>
+<section class="slide" id="combining8">
+	<h2>Combinado patrones</h2>
+	<h4>10) Modificamos el simulador para que use la factory para crear los patos</h4>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class DuckSimulator {
+		public static void main(String[] args) {
+			DuckSimulator simulator = new DuckSimulator();
+			AbstractDuckFactory duckFactory = new CountingDuckFactory();
+	 		//creamos la factory
+			simulator.simulate(duckFactory);
+		}
+		void simulate(AbstractDuckFactory duckFactory) {
+
+			Quackable mallardDuck = duckFactory.createMallardDuck();
+			Quackable redheadDuck = duckFactory.createRedheadDuck();
+			Quackable duckCall = duckFactory.createDuckCall();
+			Quackable rubberDuck = duckFactory.createRubberDuck();
+			Quackable gooseDuck = new GooseAdapter(new Goose());
+	 
+			System.out.println("\nDuck Simulator: With Abstract Factory");
+	 
+			simulate(mallardDuck);
+			simulate(redheadDuck);
+			simulate(duckCall);
+			simulate(rubberDuck);
+			simulate(gooseDuck);
+	 
+			System.out.println("The ducks quacked " + 
+			                   QuackCounter.getQuacks() + 
+			                   " times");
+		}
+		void simulate(Quackable duck) {
+			duck.quack();
+		}
+	}
+	</script>
+</section>
+<section class="slide" id="combining9">
+	<h2>Combinado patrones</h2>
+	<h4>11) Vamos a crear rebaños de patos, mejor dicho Quackables</h4>
+	<p>Recordemos que Composite nos permite manejar colecciones de objetos de la misma manera que objetos individuales</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Flock implements Quackable {
+			ArrayList quackers = new ArrayList();
+		 
+			public void add(Quackable quacker) {
+				quackers.add(quacker);
+			}
+			public void quack() {
+				Iterator iterator = quackers.iterator();
+				while (iterator.hasNext()) {
+					Quackable quacker = (Quackable)iterator.next();
+					quacker.quack();
+				}
+			}
+			public String toString() {
+				return "Flock of Quackers";
+			}
+		}
+	</script>
+	<ul>
+		<li>Recordemos que Composite necesita implementar la misma interface que los elementos hojas</li>
+		<li>Recorremos los elementos y hacemos quack, recordemos que Flock es también Quackable. Si el elemento es Flock iteramos los elementos del ArrayList y llamamos quack() en cada uno, y así hasta que uno sea un elementos simple y se haga realmente el quack.</li>
+	</ul>
+</section>
+<section class="slide" id="combining9">
+	<h2>Combinado patrones</h2>
+	<h4>12) Modificamos el simulador para que arme rebaños</h4>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+	public class DuckSimulator {
+		public static void main(String[] args) {
+			DuckSimulator simulator = new DuckSimulator();
+			AbstractDuckFactory duckFactory = new CountingDuckFactory();
+	 
+			simulator.simulate(duckFactory);
+		}
+	 
+		void simulate(AbstractDuckFactory duckFactory) {
+			Quackable redheadDuck = duckFactory.createRedheadDuck();
+			Quackable duckCall = duckFactory.createDuckCall();
+			Quackable rubberDuck = duckFactory.createRubberDuck();
+			Quackable gooseDuck = new GooseAdapter(new Goose());
+
+			System.out.println("\nDuck Simulator: With Composite - Flocks");
+
+			Flock flockOfDucks = new Flock();
+
+			flockOfDucks.add(redheadDuck);
+			flockOfDucks.add(duckCall);
+			flockOfDucks.add(rubberDuck);
+			flockOfDucks.add(gooseDuck);
+
+			Flock flockOfMallards = new Flock();
+
+			Quackable mallardOne = duckFactory.createMallardDuck();
+			Quackable mallardTwo = duckFactory.createMallardDuck();
+			Quackable mallardThree = duckFactory.createMallardDuck();
+			Quackable mallardFour = duckFactory.createMallardDuck();
+
+			flockOfMallards.add(mallardOne);
+			flockOfMallards.add(mallardTwo);
+			flockOfMallards.add(mallardThree);
+			flockOfMallards.add(mallardFour);
+
+			flockOfDucks.add(flockOfMallards);
+
+			System.out.println("\nDuck Simulator: Whole Flock Simulation");
+			simulate(flockOfDucks);
+
+			System.out.println("\nDuck Simulator: Mallard Flock Simulation");
+			simulate(flockOfMallards);
+
+			System.out.println("\nThe ducks quacked " + 
+			                   QuackCounter.getQuacks() + 
+			                   " times");
+		}
+		void simulate(Quackable duck) {
+			duck.quack();
+		}
+	}
+	</script>
+	<p>Vemos que hay muchos métodos simulate(), es decir hay sobrecarga. El interprete decide cual se va a ejecutar por el tipo que recibe</p>
+	<p>Cuando llamamos al método simulate(Quackable duck) se puede invocar tanto como con un pato o con un rebaño ya que ambos son Quackable</p>
+</section>
+<section class="slide" id="combining9">
+	<h2>Combinado patrones</h2>
+	<h4>13) Ahora queremos poder observar a un pato en particular</h4>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+
+	</script>
 </section>
 <section class="slide" id="factory88">
 	<h2>Referencias</h2>
