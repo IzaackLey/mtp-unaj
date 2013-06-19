@@ -22,10 +22,9 @@ public class TestDrive {
 
 		System.out.println("Busco a Carlos");
 		while (iterator.hasNext()) {
-			JefeComponent jefeComponent = (JefeComponent)iterator.next();
+			JefeComponent jefeComponent = iterator.next();
 			if (jefeComponent.getNombre()=="Carlos")
 				jefeComponent.print();
-
 		}
 	}
 }
