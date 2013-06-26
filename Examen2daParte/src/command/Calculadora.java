@@ -3,12 +3,16 @@ package command;
 import java.util.ArrayList;
 
 public class Calculadora {
-	ArrayList<BinaryOperatorCommand> calculos = new ArrayList<BinaryOperatorCommand>();
-	int posicion = -1;
-	int valor;
-	
-	public void calcular(BinaryOperatorCommand command){
-		calculos.add(command);
-		command.execute();
+	ArrayList<Command> commands;
+	public Calculadora() {
+		commands = new ArrayList<Command>();
+	}
+
+	public void setCommand(Command command) {
+		commands.add(command);
+	}
+
+	public void invoke(int arg1, int arg2, int botnumber) {
+		commands.get(botnumber).execute(arg1, arg2);
 	}
 }

@@ -1,16 +1,17 @@
 package command;
 
-public class AddOperationCommand implements BinaryOperatorCommand{
-	int prevResult;
-	int nuevo;
+public class AddOperationCommand implements Command{
+	Add add;
+	public void setCommand(Add add){
+		this.add = add;
+	}
 	
-	public AddOperationCommand(int prevResult, int nuevo){
-		this.prevResult = prevResult;
-		this.nuevo = nuevo;
+	public AddOperationCommand(Add add) {
+		this.add = add;
 	}
 
-	public int execute() {
-		System.out.println("El Resultaod es: "+ Integer.toString(prevResult + nuevo));
-		return prevResult + nuevo;
+	public int execute(int arg1, int arg2) {
+		add.setArguments(arg1, arg2);
+		return add.getResult();
 	}
 }
