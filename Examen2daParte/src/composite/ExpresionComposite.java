@@ -23,4 +23,13 @@ public class ExpresionComposite extends ComponentExpresion{
 		}
 		return resultado;
 	}
+
+	public String expresion() {
+		String signo="";
+		if (tipo == 1) 
+			signo = "+";
+		else if (tipo == 2) 
+			signo = "-";
+		return "(" + componentExpresion.expresion() + signo + componentExpresion2.expresion() + ")";
+	}
 }

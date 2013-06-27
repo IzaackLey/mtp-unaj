@@ -9,4 +9,8 @@ public class NumeroLeaf extends ComponentExpresion{
 	public int calcular() {
 		return valor;
 	}
+
+	public String expresion() {
+		return String.valueOf(valor);
+	}
 }
