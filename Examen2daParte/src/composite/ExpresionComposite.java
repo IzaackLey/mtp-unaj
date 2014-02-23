@@ -1,7 +1,7 @@
 package composite;
 
 public class ExpresionComposite extends ComponentExpresion{
-	int tipo;
+	int tipo;//suma 1, resta 2
 	ComponentExpresion componentExpresion;
 	ComponentExpresion componentExpresion2;
 	
