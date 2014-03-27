@@ -890,19 +890,6 @@
 	</ul>	
 </section>
 
-<section class="slide" id="interfaces_clases_abstractas5">
-	<h2>interfaces y clases abstractas</h2>
-	<h3>Comparación entre clases abstractas e interfaces</h3>
-	<ul>
-		<li>Todos los metodos de una interface son abstractos mientras que en la clase abstracta puede  tener métodoss concretos (con implementacion).</li>
-		<li>Un interface se implementa (implements) no se extiende (extends) por sus subclases.</li>
-		<li>Una interfaz sólo puede definir constantes y la clase abstracta puede tener atributos, es decir en las interfaces los atributos son implícitamente final and static.</li>
-		<li>Las interfaces no tiene relación directa con la herencia.</li>
-		<li>Ni las clases abstractas ni, las interfaces pueden ser instanciadas.</li>
-		<li>Si una clase abstrata no tiene metodos concretos (sin el modificador abstract) y no tiene atributos o los atributos son final static son iguales.</li>
-	</ul>	
-</section>
-
 <section class="slide" id="coleciones">
 	<h2>Colecciones</h2>
 	<p>Una colección se refiere a un grupo de múltiples elementos guardados juntos para una tarea específica.<BR/>
@@ -1414,6 +1401,129 @@
 			System.out.println("el perimetro es " + perimetro.toString());
 		}
 	</script>
+</section>
+<section class="slide" id="eventHandling1">
+	<h2>Manejo de eventos</h2>
+	<h3>Que es un evento</h3>
+	<p>El cambio de el estado de un objeto es un evento y son generados como resultado de la acción de un usuarios con una interfaz gráfica. Por ejemplo hacer clic en un botón, mover el mouse, tocar el teclado, seleccionar un item de una lista, pasar por arriba de un botón con el mouse, etc.</p>
+	<p>Cada vez que se produce un evento se crea un objeto</p>
+	<p>La clase padre de los eventos es -java.awt.Event</p>
+	
+	<h3>Manejo de eventos (Event handiling)</h3>
+	<p>Es el mecanismos que decide qué pasa si un evento ocurre. Java usa el modelo de delegación de eventos para manejar los eventos. Este modelo define un mecanismo estándar para generar y manejar eventos.</p>
+	<h3>El modelo de delegación de eventos usa los siguientes participantes.</h3>
+	<ul>
+		<li>Source (orgien): es el objeto en el que ocurre el evento. Es el responsable de proveer la información del evento ocurrido. Java nos provee de clases para marcar a un objeto como source (origen).</li>
+		<li>Listener (escucha): también conocido como eventHandler. Es el responsable de generar la respuesta a un evento.</li>
+	</ul>
+	
+	<p>El beneficio de este modelo es que la interfaz de usuario está completamente separada de la lógica que genera el evento. </p>
+</section>
+<section class="slide" id="eventHandling11">
+	<h2>Manejo de eventos</h2>
+	<h3>Tipo de eventos</h3>
+	<ul>
+		<li>ComponentEvent:  Se producirá este tipo de evento cuando el usuario mueva o redimensione un componente.</li>
+		<li>FocusEvent:  Se producirá este tipo de evento cuando se cambie el foco de un componente.</li>
+		<li>KeyEvent:  se producirá cuando el usuario pulse una tecla.</li>
+		<li>MouseEvent:  Se producirá cuando el usuario efectúe un movimiento con el ratón o haga un click.</li>
+		<li>ContainerEvent:  se producirá cuando se añadan o eliminen componentes en el contenedor.</li>
+		<li>WindowEvent:  se producirá cuando se realice algún tipo de operación con la ventana como abrirla y cerrarla.</li>
+		<li>ActionEvent:  Se producirá cuando se efectúe alguna acción sobre un componente, como por ejemplo:  la pulsación de un botón.</li>
+		<li>AdjustmentEvent:  Se ajusta algún valor de un componente.</li>
+		<li>ItemEvent:  Se ha modificado el estado de algún elemento que pertenece al componente.</li>
+		<li>TextEvent:  El contenido de texto de algún componente ha cambiado.</li>
+	</ul>
+	<h3>Para cada tipo de evento existe una interfase de escucha.</h3>
+	<ul>
+		<li>Para los eventos de tipo <strong>ActionEvent</strong> existe la interfase escucha <strong>ActionListener</strong>.</li>
+		<li>Para los eventos de tipo <strong>MouseEvent</strong> existe la interfase escucha <strong>MouseListener</strong>.</li>
+	</ul>
+</section>
+<section class="slide" id="eventHandling2b">
+	<h2>Manejo de eventos</h2>
+
+	<h3>Cases de escucha (Listeners)</h3>
+	<p><strong>Clase ActionListener</strong></p>
+	<p>Métdos</p>
+	<ul>
+		<li>actionPerformed(ActionEvent e): Una accion ocurre, ej presionar un botón</li>
+	</ul>
+	<p><strong>Clase ComponentListener</strong></p>
+	<p>Métdos</p>
+	<ul>
+		<li>componentHidden(ComponentEvent e): El componente se oculta</li>
+		<li>componentMoved(ComponentEvent e): El componente se mueve</li>
+		<li>componentResized(ComponentEvent e): El componente se redimensiona</li>
+		<li>componentShown(ComponentEvent e): El componente se visualiza</li>
+	</ul>
+	<p><strong>Clase KeyListener</strong></p>
+	<p>Métdos</p>
+	<ul>
+		<li>keyPressed(KeyEvent e): Se ha pulsado una tecla</li>
+		<li>keyReleased(KeyEvent e): Se ha soltado la tecla</li>
+		<li>keyTyped(KeyEvent e): Se ha tecleado un carácter</li>
+	</ul>
+	<p>Y las clases ContainerListener, AdjustmentListener, FocusListener, ItemListener, KeyListener, MouseListener, MouseMotionListener, TextListener, WindowListener</p>
+</section>
+<section class="slide" id="eventHandling3">
+	<h2>Manejo de eventos</h2>	
+	<p>Una que vez creados los componentes (por ejemplo un botón), debemos indicar  qué clase de escucha vamos a implementar a cada componente. Para ello, debemos utilizar la siguiente línea de código: </p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		nombreDelComponente.addClaseDeEscucha(clase que implementa ClaseDeEscucha); 
+	</script>
+	<h3>Ejemplo de implementacion</h3>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		//creo el componente
+		Button okButton = new Button("OK");
+		Button submitButton = new Button("Submit");
+
+		//le doy un nombre al objeto origen para diferenciarlo
+		okButton.setActionCommand("OK");
+		submitButton.setActionCommand("Submit");
+		
+		//le asignamos la clase de escucha que va a procesar 
+		//el evento
+		okButton.addActionListener(new ButtonClickListener()); 
+		submitButton.addActionListener(new ButtonClickListener()); 
+
+		//la clase ActionListner que implementa el método actionPerformed	
+		private class ButtonClickListener implements ActionListener{
+
+		      public void actionPerformed(ActionEvent e) {
+			         String command = e.getActionCommand();  
+			         if( command.equals( "OK" ))  {
+			            statusLabel.setText("Ok Button clicked.");
+			         }
+			         else if( command.equals( "Submit" ) )  {
+			            statusLabel.setText("Submit Button clicked."); 
+			         }
+			         else  {
+			            statusLabel.setText("Cancel Button clicked.");
+			         }  	
+			      }	
+	
+	   }
+
+	</script>
+</section>
+<section class="slide" id="eventHandling4">
+	<h2>Manejo de eventos</h2>	
+	<h3>Adaptadores</h3>
+	<p>Pero uno de los problemas que tienen las interfaces es que debemos definir todos sus métodos abstractos en las clases que las implementan. Así, si una de nuestras clases implementa la interfaz ComponentListener, deberá implementar todos los métodos asociados, aún cuando sólo utilicemos uno de ellos. (El resto de los métodos tendrán una implementación vacía). Por esta razón surgen las clases adaptadoras. Estas clases adaptadoras se encargan de implementar todos los métodos del la clase de escucha. Así sólo necesitaremos redefinir aquellos métodos que nos van a ser útiles para gestionar eventos , sin preocuparnos del resto. 
+	Para ello dedemos indicar que nuestra clase es una subclase del adaptador: </p>
+	<p>Por ejemplo, el adaptador de la clase escucha MouseListener es MouseAdapter y la implementación de este adaptador es la siguiente:</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public abstract class MouseAdapter implements MouseListener {
+			public void mouseClicked (MouseEvent e){}
+			public void mousePressed (MouseEvent e){}
+			public void mouseReleased (MouseEvent e){}
+			public void mouseEntered (MouseEvent e){}
+			public void mouseExited (MouseEvent e){}
+		}
+	</script>
+	<p>De esta forma cuando creemos una clase que hereda de MouseAdapter sólo implementaremos los métodos necesarios y que más nos interesen para gestionar los eventos.</p>
+
 </section>
 <!----------------------------------------------------------------------------------------------->
 <!-- deck.navigation snippet -->
