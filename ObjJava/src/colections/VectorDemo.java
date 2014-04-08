@@ -29,5 +29,9 @@ public class VectorDemo {
 		{
 			System.out.println(e.nextElement().nombre);
 		}
+		
+		for (Persona per : personas){
+			System.out.println(per.nombre);
+		}
 	}
 }

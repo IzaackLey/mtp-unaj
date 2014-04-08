@@ -19,5 +19,9 @@ public class HashSetDemo {
         // Remove element from hashSet :
         set.remove(new Integer(4));
         System.out.println(set);
+        
+		for (Integer entero : set){
+			System.out.println(entero);
+		}
 	}
 }

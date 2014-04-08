@@ -21,5 +21,10 @@ public class ArrayListDemo {
 		while(iter.hasNext()) {  
 			System.out.println(iter.next().nombre); 
 		}
+		
+		//usando for nuevo
+		for (Persona per:  personas){
+			System.out.println(per.nombre);
+		}
 	}
 }
