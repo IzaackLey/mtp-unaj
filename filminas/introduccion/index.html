@@ -949,6 +949,11 @@
 			while(iter.hasNext()) {  
 				System.out.println(iter.next().getNombre()); 
 			}
+			
+			//usando for nuevo
+			for (Persona per:  personas){
+				System.out.println(per.nombre);
+			}
 		}
 	</script>	
 </section>
@@ -982,6 +987,10 @@
 			while(e.hasMoreElements())
 			{
 				System.out.println(e.nextElement().getNombre());
+			}
+			
+			for (Persona per : personas){
+				System.out.println(per.nombre);
 			}
 		}
 	</script>	
@@ -1055,6 +1064,10 @@
 	        // Remove element from hashSet :
 	        set.remove(new Integer(4));
 	        System.out.println(set);
+			
+			for (Integer entero : set){
+				System.out.println(entero);
+			}
 		}
 	</script>	
 </section>
