@@ -1,7 +1,3 @@
-import com.trolltech.qt.gui.QApplication;
-import com.trolltech.qt.gui.QPushButton;
-
-
 public class WeatherStation {
 
 

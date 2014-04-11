@@ -19,6 +19,7 @@ public class ForecastDisplay implements Observer, DisplayElement {
 			display();
 		}
 	}
+	
 
 	public void display() {
 		System.out.print("Forecast: ");

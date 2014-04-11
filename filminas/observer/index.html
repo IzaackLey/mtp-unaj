@@ -74,8 +74,8 @@
 </section>
 <section class="slide" id="observer3">
 	<h2>Estación Meteorológica</h2>
-	<p>No tenemos idea como es la implementación de los getters, ni como hace las estación meterelógica para saber cuando invocar a el método measurementsChanged(), pero sabemos que cuando esto ocurre tenemos que leer los datos de la centra y actualizar la información en los displys</p>
-	<p>El sistema tiene que se expandible para que otros desarrolladores puedan crear nuevos displays personalizados y que además los usuarios puedan agregar y sacar displays de la aplicación</p>
+	<p>No tenemos idea como es la implementación de los getters, ni como hace las estación meterelógica para saber cuando invocar a el método measurementsChanged(), pero sabemos que cuando esto ocurre tenemos que leer los datos de la central y actualizar la información en los displays</p>
+	<p>El sistema tiene que ser expandible para que otros desarrolladores puedan crear nuevos displays personalizados y que además los usuarios puedan agregar y sacar displays de la aplicación</p>
 </section>
 <section class="slide" id="observer4">
 	<h2>Primera implementación</h2>
@@ -131,7 +131,7 @@
 		<p>Ya que estamos atados a un tipo concreto determinado</p>
 		</li>
 		<li>No tenemos forma de agregar elementos en tiempo de ejecución.
-		<p>Para podes cambiar la cantidad de elementos en tiempo de ejecución necesitaríamos una interfaz que referencia a una interface</p>
+		<p>Para podes cambiar la cantidad de elementos en tiempo de ejecución necesitaríamos una interfaz que referencia a una interfaces</p>
 		</li>
 		<li>Los elementos Display no implementan una interfaz común.</li>
 		<li>No encapsulamos la parte que cambia.
@@ -202,8 +202,8 @@
 	<ul>
 		<li>Por que decimos que la relación es de uno a muchos?<br>
 			Con el patrón observer el Sujeto es el contiene el estado y lo controla. Osea hay un solo objeto con estado</li>
-		<li>Los observadores por el otro lado usan el estado por mas que no lo contengan. Todos los observadores que estan observando un objeto delegan la responsbilidad de ser avisados cuando hay un cambio de estado</li>
-		<li>La relación es un sujeto, muchos obsrvadores</li>
+		<li>Los observadores por el otro lado usan el estado por mas que no lo contengan. Todos los observadores que están observando un objeto delegan la responsabilidad de ser avisados cuando hay un cambio de estado</li>
+		<li>La relación es un sujeto, muchos observadores</li>
 	</ul>
 </section>
 <section class="slide" id="observer11">
@@ -229,8 +229,8 @@
 			public void update(float temp, float humidity, float pressure);
 		}
 	</script>
-	<p>La interfaz Observer esta implementada por todos los obsrvadores. Todos tiene que implementar el método update()</p>
-	<p>Los parametros del método son las variables que el subjet les mantiene actualizadas</p>
+	<p>La interfaz Observer esta implementada por todos los observadores. Todos tiene que implementar el método update()</p>
+	<p>Los parámetros del método son las variables que el subjet les mantiene actualizadas</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		public interface DisplayElement {
 			public void display();
@@ -348,7 +348,7 @@
 		}
 	</script>
 	<ul>
-		<li>Como implementa Observer el Subjet el subjet sabe que puede informarnos los cambios invocando a update() cuando sea necesario.</li>
+		<li>Como implementa Observer el Subjet sabe que puede informarnos los cambios invocando a update() cuando sea necesario.</li>
 		<li>En el constructor le pasamos un objeto subject para registrarse en él, osea se registramos en la estación metereológica que le enviamos acá (podría haber mas de una)<BR>
 		Ademas nos guardamos una referencia a el subject en el cual se registra para el caso que queremos desregsitrarnos</li>
 </section>
@@ -389,7 +389,6 @@
 	<ul>
 		<li>Lo único que sabe el Subjet del observer es que implemeta cierta interface, no necesita saber nada más. Sabe que tiene el método que le obliga a implementar la interfaz e invocandolo puede informarle sus cambios de estado a los observers</li>
 		<li>Se pueden agregar o sacar en tiempo de ejecución observers e incluso quedar sin ninguno</li>
-		<li>Se pueden agregar o sacar en tiempo de ejecución observers e incluso quedar sin ninguno</li>
 		<li>No necesitamos modificar el Subject para agregar nuevos tipos de observers, lo único que importa que que implementen determinada interfaz (Observer).</li>
 		<li>Podemos usar subject y observers independientemente unos del otro. En este ejemplo en el constructor se le pasa un objeto subjet, que si lo usamos para otro fin no tendría sentido.</li>
 		<li>Los cambios tanto en el observer como en el subject no afectan al otro mientras sigan implementando las interfaces subject y observer respectivamente</li>
@@ -408,7 +407,7 @@
 	<p>Inclusive tiene los modos pull y push para notificar a los obsevers</p>
 	<h3>Aplicando el Observer interno a la estación meteorológica</h3>
 	<ul>
-		<li>Subject: Para que un objeto se Subjet en nuestro ejemplo WhetherData tiene que extender de la clase java.util.Observable y por lo tanto heredar los métodos addObserver(), deleteObserver() y notifyObserver() junto con otros más</li>
+		<li>Subject: Para que un objeto sea Subjet en nuestro ejemplo WhetherData tiene que extender de la clase java.util.Observable y por lo tanto heredar los métodos addObserver(), deleteObserver() y notifyObserver() junto con otros más</li>
 		<li>Observers: Observer tiene que implementar la interfaz java.util.Observer e llamar al método addObserver() de cualquier objeto Observable</li>
 		<li>Envio de notificaiones del Observable a los observers:
 			<ul>
@@ -643,9 +642,9 @@
 	<ul>
 		<li>java.util.Observable esta violando el principio de diseño de programar a interfaces no a implementaciones ya que Observable es una clase concreta y no implementa ninguna clase
 			<ul>
-				<li>Una explicación de porque no es abstracta para permitir usar composicion en ves de herencia, lo cual es necesario cuando la clase que queremos observar ya hereda de otra.</li>
-				<li>Otra razón por la que no una interface porque mantiene la colección de los Observers que se van agregando.<BR>
-				Si hubiera sido una interfaz esto tendria que haber sido una de las cosas que habria que haber implementado</li>
+				<li>Una explicación de porque no es abstracta para permitir usar composición en ves de herencia, lo cual es necesario cuando la clase que queremos observar ya hereda de otra.</li>
+				<li>Otra razón por la que no usa interface porque mantiene la colección de los Observers que se van agregando.<BR>
+				Si hubiera sido una interfaz esto tendría que haber sido una de las cosas que habría que haber implementado</li>
 			</ul>
 		</li>
 		<li>Observable debería haber sido una interface y ademas proveer una implementación conveniente, como lo que pasa con ArrayList que implementa a la interface List</li>

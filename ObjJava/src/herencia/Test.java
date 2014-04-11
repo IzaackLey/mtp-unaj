@@ -24,19 +24,20 @@ public class Test{
 		}else{
 			figuraGeometrica = new Triangulo(6,6,6);
 		}
-		
-		Double perimetro = 0.0;
-		if (figuraGeometrica instanceof Triangulo) {
-			Triangulo triangulo  = (Triangulo) figuraGeometrica; //downcasting
-			perimetro = Calculador.getPerimetro(triangulo);
-			triangulo.print();
-		}else if (figuraGeometrica instanceof Cuadrado){
-			Cuadrado cuadrado = (Cuadrado) figuraGeometrica; //downcasting
-			perimetro = Calculador.getPerimetro(cuadrado);
-		}else if (figuraGeometrica instanceof Circulo){
-			Circulo circulo = (Circulo) figuraGeometrica; //downcasting
-			perimetro = Calculador.getPerimetro(circulo);
-		}
-		System.out.println("el perimetro es " + perimetro.toString());
+	
+		System.out.print(figuraGeometrica.toString());
+//		Double perimetro = 0.0;
+//		if (figuraGeometrica instanceof Triangulo) {
+//			Triangulo triangulo  = (Triangulo) figuraGeometrica; //downcasting
+//			perimetro = Calculador.getPerimetro(triangulo);
+//			triangulo.print();
+//		}else if (figuraGeometrica instanceof Cuadrado){
+//			Cuadrado cuadrado = (Cuadrado) figuraGeometrica; //downcasting
+//			perimetro = Calculador.getPerimetro(cuadrado);
+//		}else if (figuraGeometrica instanceof Circulo){
+//			Circulo circulo = (Circulo) figuraGeometrica; //downcasting
+//			perimetro = Calculador.getPerimetro(circulo);
+//		}
+//		System.out.println("el perimetro es " + perimetro.toString());
 	};	
 }

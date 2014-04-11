@@ -36,31 +36,31 @@ public class ComparatorComparable {
         ArrLstpersonas.add(persona2);
         ArrLstpersonas.add(persona3);
         ArrLstpersonas.add(persona4);
-        Collections.sort(ArrLstpersonas);
-        System.out.println("conjunto ordenado de personas id: "+ArrLstpersonas);
+//        Collections.sort(ArrLstpersonas);
+//        System.out.println("conjunto ordenado de personas id: "+ArrLstpersonas);
 		
         Collections.sort(ArrLstpersonas, new OrdenarPersonaPorId());
         System.out.println("conjunto ordenado de personas id: "+ArrLstpersonas);
         
         System.out.println("catidad personas instanciadas "+Persona.cantidadPersonas);
-
-        //coleccion naturalmente ordenada
-		Set<Persona> setPersonas = new TreeSet<Persona>();
-		setPersonas.add(persona1);
-		setPersonas.add(persona2);
-		setPersonas.add(persona3);
-		setPersonas.add(persona4);
-		
-		
-		System.out.println();
-		StringBuffer result = new StringBuffer();
-		result.append("lista ordemada alfabeticamente: ");
-		Iterator<String> itr = nombres.iterator(); 
-		while(itr.hasNext()) {
-		    Object element = itr.next(); 
-		    result.append(element + " ");
-		}
-		System.out.println(result);
+//
+//        //coleccion naturalmente ordenada
+//		Set<Persona> setPersonas = new TreeSet<Persona>();
+//		setPersonas.add(persona1);
+//		setPersonas.add(persona2);
+//		setPersonas.add(persona3);
+//		setPersonas.add(persona4);
+//		
+//		
+//		System.out.println();
+//		StringBuffer result = new StringBuffer();
+//		result.append("lista ordemada alfabeticamente: ");
+//		Iterator<String> itr = nombres.iterator(); 
+//		while(itr.hasNext()) {
+//		    Object element = itr.next(); 
+//		    result.append(element + " ");
+//		}
+//		System.out.println(result);
 		     
 	}
 
