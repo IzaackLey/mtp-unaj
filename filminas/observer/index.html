@@ -151,52 +151,6 @@
 	</ul>
 	<p>Si entendemos esto entonces entendemos como trabaja el patrón observer, con la pequeña diferencia que en el patrón llamamos <strong>Subject</strong> al editor y <strong>observers</strong> los subscriptores</p>
 </section>
-<section class="slide" id="observer7">
-	<h2>Patrón Observer</h2>
-	<p>Define una dependencia de uno-a-muchos entre objetos de forma que, cuando un objeto cambia de estado, se notifica a los objetos dependientes para que se actualicen automáticamente.<p/>
-	<ul>
-		<li>Clasificación: Se trata de un patrón de <strong>comportamiento</strong> en cuanto a propósito, y <strong>objeto</strong> en cuanto al ámbito , es decir que se ocupa de la comunicación entre objetos interconectados, como objetos incluidos en un objeto complejo.</li>
-		<li>Motivación: </li>
-		<ul>
-			<li>Mantener la consistencia entre objetos relacionados, sin aumentar el acoplamiento entre clases.</li>
-			<li>En un toolkit de GUI, separar los objetos de presentación (vistas) de los objetos de datos, de forma que se puedan tener varias vistas sincronizadas de los mismos datos (editor-subscriptor)</li>
-		</ul>	
-		<li>Aplicabilidad:</li>
-		<ul>
-			<li>Cuando una abstracción tiene dos aspectos, y uno depende del otro. Encapsular los aspectos en objetos distintos permite cambiarlos y reutilizarlos.</li>
-			<li>Cuando cambiar un objeto implica cambiar otros, pero no sabemos exactamente cuántos hay que cambiar</li>
-			<li>Cuando un objeto debe ser capaz de notificar algo a otros sin hacer suposiciones sobre quiénes son dichos objetos. Esto es, cuando se quiere bajo acoplamiento.</li>
-		</ul>
-	</ul>
-</section>
-<section class="slide" id="observer8">
-	<h2>Patrón Observer</h2>
-	<ul>
-		<li>Consecuencias: </li>
-		<ul>
-			<li>Permite modificar sujetos y observadores de manera independiente</li>
-			<li>Permite reutilizar un sujeto sin reutilizar sus observadores, y viceversa</li>
-			<li>Permite añadir observadores sin tener que cambiar el sujeto ni los demás observadores</li>
-			<li>El sujeto no sabe la clase concreta de sus observadores (mínimo acoplamiento)</li>
-			<li>El sujeto envía la notificación a todos los observadores suscritos (broadcast). Se pueden añadir/quitar observadores.</li>
-			<li>Una operación en el sujeto puede desencadenar cambios de estado en sus observadores.</li>
-		</ul>	
-		<li>Participantes:</li>
-		<ul>
-			<li>Subject:conoce a sus observadores, que pueden ser un número arbitrario y proporciona una interfaz para añadir y quitar objetos observadores</li>
-			<li>Observer: define la interfaz de los objetos a los que se deben notificar cambios en un sujeto</li>
-			<li>ConcreteSubject: almacena el estado de interés para sus observadores y envía notificaciones a sus observadores cuando su estado cambia</li>
-			<li>ConcreteObserver: mantiene una referencia a un ConcreteSubject, almacena el estado del sujeto que le resulta de interés, implementa la interfaz de Observer para mantener su estado consistente con el del sujeto</li>
-		</ul>
-	</ul>
-</section>
-<section class="slide" id="observer9">
-	<h2>Patrón Observer</h2>
-	<ul>
-		<li>Estructura:
-		<img src="observerClassDiagram.png"/></li>
-	</ul>	
-</section>
 <section class="slide" id="observer10">
 	<h2>Patrón Observer</h2>
 	<ul>
@@ -209,6 +163,7 @@
 <section class="slide" id="observer11">
 	<h2>Implementación</h2>
 	<img src="whetherStationObserver.png"/> 
+	<p>En realidad la relación de asociación es WheatherData tiene una colección de Observers, y no como aparece en la figura donde Subject tiene una colección de Observes, ya que Subject es una interface y no puede tener variables que no sean static final</p>
 
 </section>	
 <section class="slide" id="observer12">
@@ -654,6 +609,53 @@
 	</ul>
 </section>
 <section class="slide" id="observer28">
+	<h2>Patrón Observer</h2>
+	<p>Define una dependencia de uno-a-muchos entre objetos de forma que, cuando un objeto cambia de estado, se notifica a los objetos dependientes para que se actualicen automáticamente.<p/>
+	<ul>
+		<li>Clasificación: Se trata de un patrón de <strong>comportamiento</strong> en cuanto a propósito, y <strong>objeto</strong> en cuanto al ámbito , es decir que se ocupa de la comunicación entre objetos interconectados, como objetos incluidos en un objeto complejo.</li>
+		<li>Motivación: </li>
+		<ul>
+			<li>Mantener la consistencia entre objetos relacionados, sin aumentar el acoplamiento entre clases.</li>
+			<li>En un toolkit de GUI, separar los objetos de presentación (vistas) de los objetos de datos, de forma que se puedan tener varias vistas sincronizadas de los mismos datos (editor-subscriptor)</li>
+		</ul>	
+		<li>Aplicabilidad:</li>
+		<ul>
+			<li>Cuando una abstracción tiene dos aspectos, y uno depende del otro. Encapsular los aspectos en objetos distintos permite cambiarlos y reutilizarlos.</li>
+			<li>Cuando cambiar un objeto implica cambiar otros, pero no sabemos exactamente cuántos hay que cambiar</li>
+			<li>Cuando un objeto debe ser capaz de notificar algo a otros sin hacer suposiciones sobre quiénes son dichos objetos. Esto es, cuando se quiere bajo acoplamiento.</li>
+		</ul>
+	</ul>
+</section>
+<section class="slide" id="observer29">
+	<h2>Patrón Observer</h2>
+	<ul>
+		<li>Consecuencias: </li>
+		<ul>
+			<li>Permite modificar sujetos y observadores de manera independiente</li>
+			<li>Permite reutilizar un sujeto sin reutilizar sus observadores, y viceversa</li>
+			<li>Permite añadir observadores sin tener que cambiar el sujeto ni los demás observadores</li>
+			<li>El sujeto no sabe la clase concreta de sus observadores (mínimo acoplamiento)</li>
+			<li>El sujeto envía la notificación a todos los observadores suscritos (broadcast). Se pueden añadir/quitar observadores.</li>
+			<li>Una operación en el sujeto puede desencadenar cambios de estado en sus observadores.</li>
+		</ul>	
+		<li>Participantes:</li>
+		<ul>
+			<li>Subject:conoce a sus observadores, que pueden ser un número arbitrario y proporciona una interfaz para añadir y quitar objetos observadores</li>
+			<li>Observer: define la interfaz de los objetos a los que se deben notificar cambios en un sujeto</li>
+			<li>ConcreteSubject: almacena el estado de interés para sus observadores y envía notificaciones a sus observadores cuando su estado cambia</li>
+			<li>ConcreteObserver: mantiene una referencia a un ConcreteSubject, almacena el estado del sujeto que le resulta de interés, implementa la interfaz de Observer para mantener su estado consistente con el del sujeto</li>
+		</ul>
+	</ul>
+</section>
+<section class="slide" id="observer30">
+	<h2>Patrón Observer</h2>
+	<ul>
+		<li>Estructura:
+		<img src="observerClassDiagram.png"/></li>
+	</ul>	
+</section>
+
+<section class="slide" id="observer31">
 	<h2>Referencias</h2>
 	<p>Head First Design Patterns</p>
 </section>
