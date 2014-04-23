@@ -4,17 +4,17 @@ import java.util.*;
 public class ForecastDisplay implements WeatherObserver, DisplayElement {
 	private float currentPressure = 29.92f;  
 	private float lastPressure;
-	//private Subject weatherData;
+	private WeatherDataSubject weatherData;
 	
 	
 	public ForecastDisplay(WeatherDataSubject weatherData) {
-	//this.weatherData = weatherData;
+	this.weatherData = weatherData;
 	weatherData.registerObserver(this);
 }
 
 	
 	public void update(float temp, float humidity, float pressure) {
-                lastPressure = currentPressure;
+        lastPressure = currentPressure;
 		currentPressure = pressure;
 
 		display();
