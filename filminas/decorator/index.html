@@ -158,7 +158,7 @@
 	<ul>
 		<li>La implementación de hardcodear los valores en la superclase hacer que haya que modificar el código cada cambio de precio.<BR/>
 		Esto se podría haber solucionado haciendo variables de clase en ves de instancia y cargándolos en el programa cuando corre.</li>
-		<li>Condimentos nuevos hacen que haya que cambiar el método cost() de la suerclase.</li>
+		<li>Condimentos nuevos hacen que haya que cambiar el método cost() de la superclase.</li>
 		<li>Todos los brebajes nuevos van a tener los métodos de todos los condimentos aunque no se posible por regla de negocio.</li>
 		<li>Que pasa si uno quiere doble ración de condimento? (no podemos calcular el precio)</li>
 	</ul>		
@@ -199,9 +199,9 @@
 <section class="slide" id="decorator11">
 	<h2>Principio de diseño</h2>
 	<p>Las clases tiene que estar abiertas para la extensión pero cerradas para la modificación.</p>
-	<p>El objetivo es extender clases incorporar nuevos comportamientos si modificar el código existente. (heredar sin modificar el código).</p>
+	<p>El objetivo es extender clases incorporar nuevos comportamientos si modificar el código existente.</p>
 	<p>Se logran diseños que son resistentes al cambio y flexibles para incorporar nuevas funcionalidades y alcanzar los requerimientos de cambio.</p>
-	<p>Suena raro abierto para heredar cerrado para modificar pero hay técnicas en la programación orientada a objetos que permiten extender funcionalidad sin cambiar el código, por ejemplo el Observer, agregando nuevos observers al Subject sin sin agregar ningún código. Decorator es un buen ejemplos de este principio.</p>
+	<p>Suena raro abierto para extender cerrado para modificar pero hay técnicas en la programación orientada a objetos que permiten extender funcionalidad sin cambiar el código, por ejemplo el Observer, agregando nuevos observers al Subject sin sin agregar ningún código. Decorator es un buen ejemplos de este principio.</p>
 </section>
 <section class="slide" id="decorator12">
 	<h2>Principio de diseño</h2>
@@ -274,8 +274,9 @@
 	<h2>Patrón Decorator</h2>
 	<p>El patrón decorador agrega responsabilidades adicionales a un objeto dinámicamente.</BR>
 		Provee una alternativa flexible a la (herencia) para extender funcionalidad.</p>
-	<p>Tambien es conocido como wrapper</p>	
+	<p>También es conocido como wrapper</p>	
 	<ul>
+		<li>Clasificación: Se clasifica como patrón Estructural en cuanto a propósito y de objetos en cuanto a ámbito porque utiliza la composición para cambiar el comportamiento en tiempo de ejecución.</li>
 		<li>Motivación: A veces se quiere añadir funcionalidad a un objeto concreto, no a una clase entera</li>
 		<li>Aplicabilidad:</li>
 		<ul>
@@ -444,7 +445,7 @@
 </section>
 <section class="slide" id="decorator28">
 	<h2>Observaciones</h2>
-	<p>Lo importante es que los decoradores tienen el mimo tipo que el objeto que van a decorar. Entonces vamos a usar herencia para lograr que coincidan los tipos pero no la usaremos para adquirir un comportamiento.</p>
+	<p>Lo importante es que los decoradores tienen el mismo tipo que el objeto que van a decorar. Entonces vamos a usar herencia para lograr que coincidan los tipos pero no la usaremos para adquirir un comportamiento.</p>
 	<p>Se ve el echo que necesitan la misma interface que los componentes que envuelven, porque tienen que ponerse en el lugar del componente.</p>
 	<p>Cuando componemos un decorador con un componente (relación de composición entre component y decorator), le estamos agregando nuevo comportamiento, pero el comportamiento que le agregamos no es en base a herencia de una superclase sino de la composición.</p>
 	<p>Cuando un breabaje (ConcreteComponent) hereda de la clase abstracta Beverage (Componet) es para tener el tipo correcto no para heredar comportamiento. <BR/>
