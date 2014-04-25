@@ -156,7 +156,7 @@
 	<h2>Problemas de la implementación</h2>
 	<p><strong>Qué requerimientos o factores pueden cambiar que puedan impactar en el diseño?</strong></p>
 	<ul>
-		<li>La implementación de hardcodear los valores en la superclase hacer que haya que modificar el código cada cambio de precio.<BR/>
+		<li>La implementación de hardcodear los valores en la superclase hace que haya que modificar el código cuando hay un cambio de precio.<BR/>
 		Esto se podría haber solucionado haciendo variables de clase en ves de instancia y cargándolos en el programa cuando corre.</li>
 		<li>Condimentos nuevos hacen que haya que cambiar el método cost() de la superclase.</li>
 		<li>Todos los brebajes nuevos van a tener los métodos de todos los condimentos aunque no se posible por regla de negocio.</li>
@@ -187,7 +187,7 @@
 	<h2>Repaso de conceptos</h2>
 	<p>Como se hace entonces para tener re uso sin usar herencia?</p>
 	<p>Hay maneras de hacer heredar comportamiento en tiempo de ejecución a través de la composición y delegación.</p>
-	<p>Cuando se hereda comportamiento por subclases ese comportamiento esta seteado en tiempo de compilado, y además todas las subclases heredar el mismo comportamiento, quedando como alternativa la sobreescritura de los métodos heredados como alternativa para cambiar el comportamiento heredado.</p>
+	<p>Cuando se hereda comportamiento por medio de subclases ese comportamiento esta seteado en tiempo de compilado, y además todas las subclases heredan el mismo comportamiento, quedando como alternativa la sobreescritura de los métodos heredados como alternativa para cambiar el comportamiento heredado.</p>
 	<p>Sin embargo si puedo extender el comportamiento de un objeto a través de composición, puedo adquirirlo o cambiarlo en tiempo de ejecución.</p>
 </section>
 <section class="slide" id="decorator10">
@@ -264,68 +264,10 @@
 	<h2>Resumiendo</h2>
 	<ul>
 		<li>Los decoradores tienen el mismo tipo del objeto que decoran, esto quiere decir que tienen una variable de instancia para lo que decoran</li>
-		<li>Se pueden usar mas de un decorador para envolver a un objeto.</li>
+		<li>Se puede usar mas de un decorador para envolver a un objeto.</li>
 		<li>Dado que el decorador tiene el mismo supertipo del objeto que decora, podemos pasar sobre un objeto decorado en lugar del objeto original (envuelto).</li>
-		<li>El decorador agrega su propio comportamiento o antes o despues de delegar al objeto que decora para hacer el resto del trabajo.</li>
-		<li>Los objetos pueden ser decorados en cualquier momento, podemos decorar objetos en tiempo de ejecucion con la cantidad de decoradores que queramos.</li>
-	</ul>
-</section>
-<section class="slide" id="decorator19">
-	<h2>Patrón Decorator</h2>
-	<p>El patrón decorador agrega responsabilidades adicionales a un objeto dinámicamente.</BR>
-		Provee una alternativa flexible a la (herencia) para extender funcionalidad.</p>
-	<p>También es conocido como wrapper</p>	
-	<ul>
-		<li>Clasificación: Se clasifica como patrón Estructural en cuanto a propósito y de objetos en cuanto a ámbito porque utiliza la composición para cambiar el comportamiento en tiempo de ejecución.</li>
-		<li>Motivación: A veces se quiere añadir funcionalidad a un objeto concreto, no a una clase entera</li>
-		<li>Aplicabilidad:</li>
-		<ul>
-			<li>Para añadir responsabilidades a objetos concretos de manera dinámica y transparente, esto es, sin afectar a otros objetos</li>
-			<li>Para responsabilidades que se pueden añadir y quitar</li>
-			<li>Cuando la herencia sea impracticable, porque implique crear múltiples subclases para todas las combinaciones posibles</li>
-			<li>Hay una necesidad de extender la funcionalidad de una clase, pero no hay razones para extenderlo a través de la herencia.</li>
-			<li>Existe la necesidad de extender dinámicamente la funcionalidad de un objeto y quizás quitar la funcionalidad extendida.</li>
-		</ul>
-	</ul>
-</section>
-<section class="slide" id="decorator20">
-	<h2>Patrón Decorator</h2>
-	<ul>
-		<li>Consecuencias:</li>
-		<ul>
-			<li>Es más flexible que la herencia estática. </li>
-			<ul>
-				<li>Las responsabilidades se añaden y eliminan dinámicamente</li>
-				<li>Facilita definir una propiedad varias veces</li>
-			</ul>	
-			<li>Evita que las clases más altas en la jerarquía estén demasiado cargadas de funcionalidad y sean complejas</li>
-			<ul>
-				<li>No hay precio que pagar por propiedades que no se usan</li>
-				<li>Facilita la definición de nuevos decoradores</li>
-			</ul>	
-			<li>Un decorador y el componente al que se refiere no son idénticos (osea tienen distinto identificador, cada uno tiene su estado propio)</li>
-			<li>Provoca la creación de muchos objetos pequeños parecidos y encadenados, complicando la depuración</li>
-		</ul>	
-	</ul>
-</section>
-<section class="slide" id="decorator21">
-	<h2>Patrón Decorator</h2>
-	<ul>	
-		<li>Participantes:</li>
-		<ul>
-			<li>Component: define la interfaz de los objetos a los que se puede añadir responsabilidades de manera dinámica</li>
-			<li>ConcreteComponent: define un objeto al que añadir responsabilidades de manera dinámica</li>
-			<li>Decorator: mantiene una referencia al objeto componente y define una interfaz conforme a la del componente, osea implementan la misma interface o clase abstracta que el componente que se va a decorar.</li>
-			<li>ConcreteDecorator: añade responsabilidades al componente al que referencia.<BR/>
-			El decorador concreto tiene una variable de instancia para lo que decora (el componente que el decorador envuelve)</li>
-		</ul>	
-	</ul>
-</section>
-<section class="slide" id="decorator22">
-	<h2>Patrón Decorator</h2>
-	<ul>	
-		<li>Estructura:</li>
-		<img src="decoratorClassDiagram.png"/>
+		<li>El decorador agrega su propio comportamiento o antes o después de delegar al objeto que decora para hacer el resto del trabajo.</li>
+		<li>Los objetos pueden ser decorados en cualquier momento, podemos decorar objetos en tiempo de ejecución con la cantidad de decoradores que queramos.</li>
 	</ul>
 </section>
 <section class="slide" id="decorator23">
@@ -405,7 +347,7 @@
 		}
 	</script>
 	<ul>
-		<li>Los Beverage heredan de CondimentDecorator(Component), que a su vez hereda de Beverage(Component), uno lo obliga a implementar cost() y el otro getDescription()</li>
+		<li>Los Condimentos heredan de CondimentDecorator, que a su vez hereda de Beverage, uno lo obliga a implementar cost() y el otro getDescription()</li>
 		<li>Tiene una instancia del Beverage que se está envolviendo</li>
 		<li>En el constructor recibe el Beverage que esta decorando y guarda la referencia</li>
 		<li>En cost(), pimero delega el calculo de costo al objeto que esta decorando, y luego se calcula el costo de agregarle el condimento al resultado</li>
@@ -442,6 +384,64 @@
 		Dark Roast Coffee, Mocha, Mocha, Whip $1.49
 		House Blend Coffee, Soy, Mocha, Whip $1.34
 	</script>
+</section>
+<section class="slide" id="decorator19">
+	<h2>Patrón Decorator</h2>
+	<p>El patrón decorador agrega responsabilidades adicionales a un objeto dinámicamente.</BR>
+		Provee una alternativa flexible a la herencia para extender funcionalidad.</p>
+	<p>También es conocido como wrapper</p>	
+	<ul>
+		<li>Clasificación: Se clasifica como patrón Estructural en cuanto a propósito y de objetos en cuanto a ámbito porque utiliza la composición para cambiar el comportamiento en tiempo de ejecución.</li>
+		<li>Motivación: A veces se quiere añadir funcionalidad a un objeto concreto, no a una clase entera</li>
+		<li>Aplicabilidad:</li>
+		<ul>
+			<li>Para añadir responsabilidades a objetos concretos de manera dinámica y transparente, esto es, sin afectar a otros objetos</li>
+			<li>Para responsabilidades que se pueden añadir y quitar</li>
+			<li>Cuando la herencia sea impracticable, porque implique crear múltiples subclases para todas las combinaciones posibles</li>
+			<li>Hay una necesidad de extender la funcionalidad de una clase, pero no hay razones para extenderlo a través de la herencia.</li>
+			<li>Existe la necesidad de extender dinámicamente la funcionalidad de un objeto y quizás quitar la funcionalidad extendida.</li>
+		</ul>
+	</ul>
+</section>
+<section class="slide" id="decorator20">
+	<h2>Patrón Decorator</h2>
+	<ul>
+		<li>Consecuencias:</li>
+		<ul>
+			<li>Es más flexible que la herencia estática. </li>
+			<ul>
+				<li>Las responsabilidades se añaden y eliminan dinámicamente</li>
+				<li>Facilita definir una propiedad varias veces</li>
+			</ul>	
+			<li>Evita que las clases más altas en la jerarquía estén demasiado cargadas de funcionalidad y sean complejas</li>
+			<ul>
+				<li>No hay precio que pagar por propiedades que no se usan</li>
+				<li>Facilita la definición de nuevos decoradores</li>
+			</ul>	
+			<li>Un decorador y el componente al que se refiere no son idénticos (osea tienen distinto identificador, cada uno tiene su estado propio)</li>
+			<li>Provoca la creación de muchos objetos pequeños parecidos y encadenados, complicando la depuración</li>
+		</ul>	
+	</ul>
+</section>
+<section class="slide" id="decorator21">
+	<h2>Patrón Decorator</h2>
+	<ul>	
+		<li>Participantes:</li>
+		<ul>
+			<li>Component: define la interfaz de los objetos a los que se puede añadir responsabilidades de manera dinámica</li>
+			<li>ConcreteComponent: define un objeto al que añadir responsabilidades de manera dinámica</li>
+			<li>Decorator: mantiene una referencia al objeto componente y define una interfaz conforme a la del componente, osea implementan la misma interface o clase abstracta que el componente que se va a decorar.</li>
+			<li>ConcreteDecorator: añade responsabilidades al componente al que referencia.<BR/>
+			El decorador concreto tiene una variable de instancia para lo que decora (el componente que el decorador envuelve)</li>
+		</ul>	
+	</ul>
+</section>
+<section class="slide" id="decorator22">
+	<h2>Patrón Decorator</h2>
+	<ul>	
+		<li>Estructura:</li>
+		<img src="decoratorClassDiagram.png"/>
+	</ul>
 </section>
 <section class="slide" id="decorator28">
 	<h2>Observaciones</h2>
