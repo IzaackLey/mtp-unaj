@@ -1,9 +1,9 @@
 Singleton
 =========
-Permite la creacción de una sola instacia de una clase.
-Hay muchos objetos de los cuales necesitamos que exista tan solo uno, por ejemplo, objetos para loguear, objetos que manejan preferencias, drivers, etc. En estos casos el echo de que haya mas de un objeto nos puede llevar a compartamientos incorrectos.
-Una manera facil de lograr esto podria ser usando una variable estatica para referenciar el objeto. 
-Si bien esto es cierto en java el patron el singleton nos da un punto de acceso global sin los problemas de una varible global como por ejemplo que hay que iniciarla a iniciar la aplicacion, ademas de que no todos los lenguajes de programación soportan varibles estaticas.
+Permite la creación de una sola instancia de una clase.
+Hay muchos objetos de los cuales necesitamos que exista tan solo uno, por ejemplo, objetos para loguear, objetos que manejan preferencias, drivers, etc. En estos casos el echo de que haya mas de un objeto nos puede llevar a comportamientos incorrectos.
+Una manera fácil de lograr esto podría ser usando una variable estática para referenciar el objeto. 
+Si bien esto es cierto en java el patrón el singleton nos da un punto de acceso global sin los problemas de una variable global como por ejemplo que hay que iniciarla a iniciar la aplicación, ademas de que no todos los lenguajes de programación soportan variables estáticas.
 
 Entonces como hacemos para que haya un solo objetos de una clase.
 
@@ -14,7 +14,6 @@ Entonces como hacemos para que haya un solo objetos de una clase.
   ~~~
   
  * Se puede crear otro objeto de la clase MyObject?
- * Y si no la declaramos publica y la dejamos protected?
  * Y si hacemos esto?
   ~~~java   
      public MyClass(){
@@ -23,9 +22,9 @@ Entonces como hacemos para que haya un solo objetos de una clase.
   ~~~
  * Se puede instanciar una clase asi?
 
-   Se podría llamar desde la misma clase pero para esto necesitaria una instancia, y no puedo tener una instancia porque no la puedo instanciar.
+   Se podría llamar desde la misma clase pero para esto necesitaría una instancia, y no puedo tener una instancia porque no la puedo instanciar.
    Sería como que esta primero el huevo o la gallina.
- * Y si le agregamos un metodo asi se puede llamar?
+ * Y si le agregamos un método así se puede llamar?
   ~~~java   
      public MyClass(){
          private MyClass(){}
@@ -33,15 +32,15 @@ Entonces como hacemos para que haya un solo objetos de una clase.
      }
   ~~~
   Se puede porque es un método de clase para lo cual no necesitamos una instancia de la clase para llamarlo.
-  Asi sería la invocación:
+  Así sería la invocación:
   ~~~java   
      MyClass.getInstance();
   ~~~
 Con esto ya casi tenemos la forma de instanciar el objeto con un constructor privado.
 
-Escribamoslo
+Escribamos lo
 ------------
-singleton clasico
+singleton clásico
 -----------------
 
   ~~~java
@@ -80,13 +79,13 @@ Explicación
 		return uniqueInstance;
 	}
   ~~~
-getInstance() nos da una forma de instanciar la clase y devuelve la unica instncia de Singleton. Solo crea una instancia en el caso de que no haya una guardada en la varible estática y la devulve.
+getInstance() nos da una forma de instanciar la clase y devuelve la única instancia de Singleton. Solo crea una instancia en el caso de que no haya una guardada en la variable estática y la devuelve.
  
 La fabrica de chocolate
 -----------------------
-Vamos a hacer un controlador de una parte del proceso de una fabrica de chocolate. Vamos a controlar un hervidor cuya tarea es llenarse con una mezcla de leche y chocolate y llevarlos a puto de evullicion para recien ahi poder seguir con otra parte del proceso.
+Vamos a hacer un controlador de una parte del proceso de una fabrica de chocolate. Vamos a controlar un hervidor cuya tarea es llenarse con una mezcla de leche y chocolate y llevarlos a puto de ebullición para recién ahí poder seguir con otra parte del proceso.
 
-El codigo previene de que se pueda vaciar cuando la mezcla todavía no esta hervida o que se pueda llenar cuando esta lleno.
+El código previene de que se pueda vaciar cuando la mezcla todavía no esta hervida o que se pueda llenar cuando esta lleno.
   ~~~java
     public class ChocolateBoiler {
     	private boolean empty;
@@ -129,12 +128,12 @@ El codigo previene de que se pueda vaciar cuando la mezcla todavía no esta herv
     	}
     }
   ~~~
-El diseño parace bueno pero nada impida que haya mas de una instacia de la clase ChocoloteBoiler.
+El diseño parece bueno pero nada impida que haya mas de una instancia de la clase ChocoloteBoiler.
 
 Que pasaría se instanciara mas de una instancia de la clase ?
-Si lo que tratamos de simular es la existencia de un solo ChocolateBoiler entonces deberíamos tener uno solo controladors.
-Si tenemos mas de uno, cada uno tendría su estado aparte y esto no etaria representado la realidad.
-Así uno podria estar lleno y el otro no y el metodo fill haría que se vuelva a llenar.
+Si lo que tratamos de simular es la existencia de un solo ChocolateBoiler entonces deberíamos tener uno solo controlador.
+Si tenemos mas de una instancia de cada uno tendría su estado aparte y esto no etaria representado la realidad.
+Así uno podría estar lleno y el otro no y el metodo fill haría que se vuelva a llenar.
 
 Hagamos ChocolateBoiler única usando singleton
 
@@ -164,10 +163,10 @@ Hagamos ChocolateBoiler única usando singleton
   
 Patrón Singleton
 ----------------
-Asegura que una clase tenga una sola instacia de ella y da un punto de acceso global a ella.
+Asegura que una clase tenga una sola instancia de ella y da un punto de acceso global a ella.
  * Motivación: 
      * Es importante que algunas clases tengan exactamente una instancia.
-     * Para asegurar que la instacia se deja que sea la propia clase la responsable de la cración de su única instancia, quien debe garantizar que no se pueda crear ninguna otra (interceptando las peticiones para crear nuevos objetos) y proporcione un modo de acceder a ella. 
+     * Para asegurar que la instacia se deja que sea la propia clase la responsable de la creación de su única instancia, quien debe garantizar que no se pueda crear ninguna otra (interceptando las peticiones para crear nuevos objetos) y proporcione un modo de acceder a ella. 
 
 
  * Aplicabilidad: Cuando deba haber exactamente una instancia de una clase y ésta debe ser accesible a los clientes desde un punto de acceso conocido.
@@ -213,7 +212,7 @@ entre ellos y también facilidades de sincronización, cuando es necesario.
     //el resto de los métodos
 }
   ~~~
-Lo que ocurre es que antes de que haya una instacia de la clase cuando tengo que crear el objeto único, puede ocurrir el caso de que distintos hilos creen distintas instancias, una sola de las cuales va a quedar guardada en la variables estática, pero de acuerdo como se ejecuten los hilos pueda devolver distintos objetos.
+Lo que ocurre es que antes de que haya una instancia de la clase cuando tengo que crear el objeto único, puede ocurrir el caso de que distintos hilos creen distintas instancias, una sola de las cuales va a quedar guardada en la variables estática, pero de acuerdo como se ejecuten los hilos pueda devolver distintos objetos.
 
 Si bien parece poco probable esto puedo ocurrir y debemos buscar la forma de evitar esto.
 
@@ -238,11 +237,11 @@ Agregando el modificador syncronyzed a getInstance(), forzamos a cada hilo a esp
 
 Esto significa que si un hilo entra al método los demás deben esperar a que termine para poder invocarlo.
 
-El problema de esta implementación es que el uso de syncronized es caro en lo que a performace se refiere.
+El problema de esta implementación es que el uso de syncronized es caro en lo que a performance se refiere.
 
-El problema de que se instacie mas de un objeto de esta clase es la primera vez, pero este método se ejecuta todas las veces que quiero usar el objeto.
+El problema de que se instancie mas de un objeto de esta clase es la primera vez, pero este método se ejecuta todas las veces que quiero usar el objeto.
 
-Así que una vez que esta instaciado no necesitamos mas que el método sea syncronyzed.
+Así que una vez que esta instanciado no necesitamos mas que el método sea syncronyzed.
 
 Alternativas para mejorar la performace
 ---------------------------------------
@@ -268,8 +267,8 @@ Usando esta opción le delegamos a la JVM la creacion de la instacia del objeto.
 La JVM nos garantiza que cuando la tengamos que usar va a estar disponible.
 Inclusive la JVM puede que no la cree hasta que la necesitemos, con lo cual termina siendo lo mismo.
 
-**Sincronizo despues de chequear que no haya una instancia**
-Primer chequeamos para ver si hay una instacia creada y si no hay (aca es donde se puede compĺicar), recien ahí sincronizo. 
+**Sincronizo después de chequear que no haya una instancia**
+Primer chequeamos para ver si hay una instancia creada y si no hay (acá es donde se puede compĺicar), recién ahí sincronizo. 
   ~~~java
     public class Singleton {
     	private volatile static Singleton uniqueInstance;
@@ -286,7 +285,7 @@ Primer chequeamos para ver si hay una instacia creada y si no hay (aca es donde 
     	}
     }
   ~~~
-Esta opcion esta disponible en las versiones de java a partir de 1.5
+Esta opción esta disponible en las versiones de java a partir de 1.5
 
 
 Referencias
