@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>Strategy</title>
+	
+	<meta name="description" content="A jQuery library for modern HTML presentations">
+	<meta name="author" content="Caleb Troughton">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	
+	<!-- Core and extension CSS files -->
+	<link rel="stylesheet" href="../core/deck.core.css">
+	<link rel="stylesheet" href="../extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="../extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="../extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="../extensions/status/deck.status.css">
+	<link rel="stylesheet" href="../extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="../extensions/scale/deck.scale.css">
+	
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="../themes/style/swiss.css">
+	
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="../themes/transition/horizontal-slide.css">
+	
+	<script src="../modernizr.custom.js"></script>
+	
+
+    <!-- SintaxHighlighter -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SyntaxHighlighter Large File Demo</title>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/XRegExp.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shCore.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushJava.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushPlain.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushPython.js"></script>
+	<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shCoreEclipse.css"/>
+	<!--link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shThemeEclipse.css"/-->
+	
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	
+	
+</head>
+
+<body class="deck-container">
+
+<!-- Begin slides -->
+<section class="slide" id="strategy1">
+	<h2>Simulador de patos</h2>
+	<p>Comenzamos con un simple simulador de patos que tiene varias especias qua nadan y hacen quack.<BR>
+	Vemos como queda el diseño incial</p>
+	<img src="duckSim1stEd.png">
+	<p>Duck abtracto que tiene las implementaciones de quack y swing, pero display estara implementada por cada subclase.</p>
+</section>
+
+<section class="slide" id="strategy2">
+	<h2>Primera versión</h2>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public abstract class Duck {
+			public void quack(){
+				System.out.println("Quack");
+			}
+			public void fly() {
+				System.out.println("I'm flying");
+			}
+			public void swing(){
+				System.out.println("I'm swiming");
+			}
+			public abstract void display();  
+		}
+
+	</script>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class MallardDuck extends Duck{
+			public void display() {
+				System.out.println("I'm a MallardDuck duck");		
+			}
+		}
+	</script>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class RedHeadDuck extends Duck{
+			public void display() {
+				System.out.println("Read Head Duck");
+			}
+		}
+	</script>
+</section>
+<section class="slide" id="strategy3">
+	<h2>Características del diseño</h2>
+	<ul>
+		<li>El codigo de implementacion de quack, swing y fly no esta duplicado </li>
+		<ul>
+			<li>Principio de mantenimiento</li>
+			<li>Principio de reutilización</li>
+		</ul>
+	</ul>
+	<p>Si ahora queremos que los patos ademas vuelen?</p>
+	<ul>
+		<li>Agregamos el metodo en la clase padre y listo</li>
+	</ul>
+</section>
+
+<section class="slide" id="strategy4">
+	<h2>Nuevas especificaciones</h2>
+	<p>Si ahora queremos un pato de goma?</p>
+	<ul>
+		<li>Creamos una clase RubberDuck que herede de Duck y tenemos un pato que vuela hacer quack y nada</li>
+	</ul>
+	<p>Pero acá viene el problema: Como hereda de Duck puede volar, cosa que no deberia y además hace quicki en vez de quack</p>
+	<p>Qué solución le podemos encotra a esto?</p>
+</section>
+<section class="slide" id="strategy5">
+	<h2>Posible solución</h2>
+	<p>Una posible solución es sobreescribo el metodo fly() y el metodo quack() en la clase RubberDuck</p>
+	<p>Y si quiero hacer un pato de madera que no hace ni quack, ni vuela?</p>
+	<ul>
+		<li>Podría sobreescrbir los 2 métodos, pero ya los principios de reutilización y facilidad de manetenimieto se perderían.</li>
+	</ul>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class RubberDuck extends Duck{
+			public void display() {
+				System.out.println("RubberDuck");
+			}
+			//sobreescribe la clase fly heredada
+			public void fly(){
+				System.out.println("I can't fly");
+			}
+			//sobreescribe la clase fly heredada
+			public void quack(){
+				System.out.println("Quick");
+			}
+		}
+	</script>
+	<p>Y si agregamos otra clase pato de decoración, que no vuela, ni hace quack, me pasa lo mismo</p>
+	<img src="duckSim1stEd2.png"/>
+</section>
+
+
+<section class="slide" id="strategy6">
+	<h2>Características del diseño</h2>
+	<p>Cuales son desventajas o limitaciones del uso de herencia de la implementación actual?</p>
+	<ul>
+		<li>El código se duplica en las subclases</li>
+		<li>Es dificil cambiar el comportamiento en tiempo de ejecución</li>
+		<li>Es dificil predecir el comportamiento de todos los patos sin mirar la implementación</li>
+		<li>Los cambios pueden afectar a otros patos sin tener la intención de hacerlo</li>
+	</ul>
+</section>
+<section class="slide" id="strategy7">
+	<h2>Otra posible solución</h2>
+	<p>Otra posible solución es el uso de interfaces</p>
+	<ul>
+		<li>Hacemos dos interfaces flyable y quackable y cada pata las implementa de acuerdo a si va a volar o quackear o no</li>
+	</ul>
+	<img src="duckSim2stEd.png"/>
+</section>
+
+<section class="slide" id="strategy7a">
+	<h2>Implementación usando interfaces</h2>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public abstract class Duck {
+			public abstract void display();
+			
+			public void swing(){
+				System.out.println("I'm swiming");
+			}
+		}
+	</script>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface Flyable {
+			public void fly();
+		}
+	</script>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface Quackable {
+			public void quack();
+		}
+	</script>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class RedHeadDuck extends Duck implements Quackable, Flyable{
+			public void display() {
+				System.out.println("Read Head Duck");
+			}
+			public void quack(){
+				System.out.println("Quack");
+			}
+			public void fly() {
+				System.out.println("I'm flying");
+			}
+		}
+	</script>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class MallardDuck extends Duck implements Quackable, Flyable{
+			public void display() {
+				System.out.println("I'm a MallardDuck duck");		
+			}
+			public void quack(){
+				System.out.println("Quack");
+			}
+			public void fly() {
+				System.out.println("I'm flying");
+			}
+		}
+	</script>
+	<p>Se puede ver como el código esta duplicado y si quisieramos hacer un cambio en quack para que dijera otra cosa habria que hacerlo en todas las clases que tiene el código repetido </p>
+</section>
+
+<section class="slide" id="strategy8">
+	<h2>Simulador de patos</h2>
+	<p>Que ventajas y desventajas tiene el uso de intefaces?</p>
+	<ul>
+		<li>Solucionamos el tema de que no todas los patos o vuelan a hacen quack, con esto lo elegimos cuando creamos la clase, se soluciona el problema del compartamiento inesperados y que un cambio afecte al resto</li>
+		<li>Desaparece el concepto de reuso de codigo y aparece duplicacion de codigo con todo el problema de mantenimiento que esto acarrea</li>
+		<li>En java no se puede heredar de mas de una clase semiabracta (con implemntaciones) y las interfaces no tiene implementacion de codigo.</li>
+		<li>Segimos teniendo el problema de que no se puede cambiar la estrategia en tiempo de ejecución.</li>
+	</ul>
+</section>
+<section class="slide" id="strategy9">
+	<h2>Constante del desarrollo de software</h2>
+	<p>Una cosa que es constante en el desarrollo de software es el cambio. No importa lo bueno que sea el diseño las aplicaciones tiene que ir cambiando para adaptarse a los nuevos requierimientos</p>
+	<p>El diseño original andaba hasta que aparecio un pato que no volaba y tuvimos que empezar a buscar una forma de incorporar el cambio y se nos complicó</p>
+	<ul>
+		<li>El primer diseño basado en herencia no fuenciono ya que los comportamiento cambianban en las distintas sublcases, lo que hizo que no se rehutilizara el codigo de la superclase</li>
+		<li>El segundo diseño no tiene mucho sentido ya que el codigo se tiene que implementar en las subclase y repetir en las que tienen el mismo comportamiento, habiendo asi codigo duplicacdo y complicando el matenimiento. <BR>
+		En un leguaje con herencia multiple este diseño podria haber sido efectivo</li>
+	</ul>	
+</section>
+<section class="slide" id="strategy10">
+	<h2>Principio de diseño</h2>
+	<h3>Identificar los aspectos de la aplicacion que varian y separarlos de los que permanecen.</h3>
+	<ul>
+		<li>No varian</li>
+		<ul>
+			<li>Swing</li>
+		</ul>
+		<li>Varian</li>
+		<ul>
+			<li>Fly</li>
+			<li>Quack</li>
+		</ul>
+	</ul>
+	<p>Siempre tenemos aspectos o comportamientos de la aplicacion que son propensos a los cambios con los nuevos requerimiéntos, lo que tenemos que hacer es identificar estos y separarlos de los aspectos que no cambian</p> 	
+</section>
+<section class="slide" id="strategy11">
+	<h2>Separamos las partes que cambian</h2>
+	<p>Sabemos que fly() y quack() son las partes que varian entre las distintas especies de patos</p>
+	<p>Sacamos estos métodos de la clase Duck y vamos a crear 2 conjuntos de clases que representa los comportamientos de volar y de hacer quack</p>
+	<p>Comportamiento de Quacks (QuackBehavior)</p>
+	<ul>
+		<li>No hace nada</li>
+		<li>Hace quack</li>
+		<li>Hace quick (pato de goma)</li>
+	</ul>
+	<p>Comportamiento de vuelo (FlyBehavior)</p>	
+	<ul>
+		<li>Vuela solo</li>
+		<li>Vuela en grupo</li>
+		<li>No vuela</li>
+	</ul>	
+	<p>En primer lugar vamos a mantener las cosas flexibles y asi poder asignarles comportamientos a los patos sin tener que implementar todo el codigo cada vez.</p>
+	<p>En segundo lugar vamos a hacer que se pueda cambiar el comportamiento en tiempo de ejecucion. Un pato que no vuela podria empezar a volar, o viceversa. (Seters de comportaminto, SetBehavior)</p>
+	<p>Inicialmente el comportamiento venia de la implementacion superclase abstracta Duck, o de la implementación específica de la subclase (esto cuando sobreescrbimos el método para cambiar el comportamiento). En ambos casos estamos dependiendo de una implementación específica, y no hay manera de cambiarla sin escribir codigo nuevo.</p> 
+</section>
+<section class="slide" id="strategy12">
+	<h2>Separamos las partes que cambian</h2>
+	<p>En el nuevo diseño no van a ser las clases de Duck las que van a implementar las interfaces de volar o hacer quack, sino que va a ser un grupo de clases cuyo único objetivo es representar un comportamiento QuackBehavior o FlyBehavior</p>
+	<img src="quackFlyBehaviorInterface.png"/>
+	<p>Todas las clases que implementen alguna estrategia de vuelo tiene tienen que implementar el metodo fly().<BR>
+	Las clases FlyWithWings, FlyWithRochet, FlyNoWay son los que tiene la implementacion concreta de fly()
+	<p>Con este diseño otros objetos puede usar los comportamintos ya que el codigo no esta mas escondido dentro de las clases de patos</p>
+	</p>	
+</section>
+<section class="slide" id="strategy13">
+	<h2>Separamos las partes que cambian</h2>
+	<p>Esto en contraste con lo que haciamos antes donde el comportamiento venia de la implementación concreta de la superclase abstracta Duck, o de la implementación específica de la subclase (esto cuando sobreescrbimos el método para cambiar el comportamiento). En ambos casos estamos dependiendo de una implementación específica, y no hay manera de cambiarla sin escribir codigo nuevo.</p>
+	<p>Con el nuevo diseño las subclases de Duck van tener el comportamiento referenciando a un objeto que implementa una interfaz (QuackBehavior y FlyBehavior), con lo que la implementación del comportamiento va a estar implementado por una clase que implemente esa interfaz</p>
+	<p>O sea el código va a estar en la clase concreta que sea del tipo (implements) de esa interfaz (podria haber sido una clase abtracta)</p>
+	<img src="duckClassDiagram1.png"/>
+</section>
+<section class="slide" id="strategy14">
+	<h2>Principio de diseño</h2>
+	<h3>Programar a interfaces, no a implementaciones</h3>
+	<p>Programar a una interface no significa usar interfaces sino programar a un supertipo, ya sea interface o clase abstracta</p>
+	<p>Si tenemos un diagrama de clases asi:</p>}
+	<img src="animalClassDiagram.png">
+	<p>Programar a la implementacion sería</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		Dog dog = new Dog();
+		dog.bark();
+	</script>
+
+	<p>Programar a una interface/supertipo sería:</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		Animal animal = new Dog();
+		animal.makeSound();
+	</script>
+	<p>Sabemos que es un perro pero usamos el animal como referencia polimorfica</p>
+	<p>Asignamos la implementacion concreta en tiempo de ejecuciín</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		animal = getAnimal();
+		animal.makeSound();
+	</script>
+</section>
+<section class="slide" id="strategy15">
+	<h2>Armando la aplicación</h2>
+	<p>Agregamos dos variables de instancia a la clase Duck()</p>
+	<img src="duckSuperClass.png"/>
+	<p>FlyBehavior y QuackBehavior estan delcaradas como interfaces<BR>
+	<ul>
+		<li>performQuack()  remplaza a quack()</li>
+		<li>performFly() remplaza a fly()</li>
+	</ul>	
+</section>
+<section class="slide" id="strategy16">
+	<h2>Armando la aplicación</h2>
+	<p>La superclase abstracta Duck</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public abstract class Duck {
+			FlyBehavior flyBehavior;  //declaro los atributos del tipo de las intefaces
+			QuackBehavior quackBehavior;
+			
+			public abstract void display();
+			public void performFly(){
+				flyBehavior.fly();        //delega el comportamiento a la clase concreta?
+			}
+			public void performQuack(){
+				quackBehavior.quack();    //delega el comportamiento a la clase
+			}
+			public void swim(){
+				System.out.println("All ducks float, even decoys");
+			}
+		}
+	</script>
+	<ul>
+		<li>En ves de manejar el comportamiento Quack o Fly delega el comportamiento al objeto referenciado por el parametro quackBeahavior (en tiempo de ejecucion).</li>
+		<li>Si bien quackBehavior esta declarado como interfaz en tiempo de ejecucion va a ser un objeto concreto de tipo FlyWithWings o FlyNoWay (clases concretas), que tiene la implementacion y tienen SI O SI el metodo fly()</li>
+	</ul>
+</section>
+<section class="slide" id="strategy17">
+	<h2>Armando la aplicación</h2>
+	<p>La sublcase concreta MallardDuck</p>
+	<p>Seteamos las varibles de instancia flyBehavior y quackBehavior;</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class MallardDuck extends Duck{
+			public MallardDuck(){
+				quackBehavior = new Quack();
+				flyBehavior = new FlyWithWings();
+			}
+			public void display() {
+				System.out.println("Mallad Duck");
+				
+			}
+		}
+	</script>
+	<p>Recordemos que las varibles flyBehavior y quackBehavior estan declaradas en la clase padre Duck</p>
+</section>
+<section class="slide" id="strategy18">
+	<h2>Armando la aplicación</h2>
+	<p>La interfaces QuackBehavior</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public interface QuackBehavior {
+			public void quack();
+		}
+	</script>
+	<p>Una de las implementaciones de QuackBehavior</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public class Quack implements QuackBehavior{
+			public void quack(){
+				System.out.println("Quack");
+			}
+		}
+	</script>
+	<p>Corremos un prueba del proyecto</p>
+	<script type="syntaxhighlighter" class="brush:java ; toolbar: false;">
+		public class MiniDuckSimulator {
+			public static void main(String[] args){
+				Duck mallard = new MallardDuck();
+				mallard.display();
+				mallard.performQuack();
+				mallard.performFly();
+			}
+		}
+	</script>
+	<p>Salida por cosola</p>
+	<script type="syntaxhighlighter" class="brush: text; toolbar: false;">
+		Mallad Duck
+		Quack
+		I m flying
+	</script>
+</section>
+<section class="slide" id="strategy19">
+	<h2>Seteamos el comportamiento dinámicamente</h2>
+	<p>Agregando setters de comportamiento a la clase Duck vamos a poder cambiar el comportamiento dinámicamente</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		public void setFlyBehavior(FlyBehavior flyBehavior){
+			this.flyBehavior = flyBehavior;
+		}
+		public void setQuackBehavior(QuackBehavior quackBehavior){
+			this.quackBehavior = quackBehavior;
+		}
+	</script>
+	<p>Ahora vamos a poder hace esto</p>
+	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+		Duck model = new ModelDuck();
+		model.display();
+		model.performFly();
+		model.performQuack();
+		model.setFlyBehavior(new FlyWithRocket());
+		model.performFly();
+	</script>
+	<p>Salida por cosola</p>
+	<script type="syntaxhighlighter" class="brush: text; toolbar: false;">
+		I m a model Duck
+		I can t fly
+		Quack
+		I m flying with a Rocket
+	</script>
+</section>
+<section class="slide" id="strategy20">
+	<h2>Diagrama de clases completo</h2>
+	<img src="duckSimulatorStrategy.png"/>
+</section>
+<section class="slide" id="strategy21">
+	<h2>Principio de diseño</h2>
+	<h3>"Tener un" puede ser mejor que "ser un"</h3>
+	<p><strong>Favorecer la composicion sobre la herencia</strong></p>
+	<p>En el ejemplo en ves de heredar el comportamiento, los patos obtien el comportamineto por medio del uso de la composición</p>
+	<p>El uso de la composición sobre la herencia, da mayor flexibilidad y no solo permite encapsular en familias los distintos comportamientos sino que ademas permite hacer cambios de comportamiento en tiempos de ejecución.</p>
+</section>
+<section class="slide" id="strategy22">
+	<h2>Patrón de diseño Strategy</h2>
+	<p>El patrón Strategy permite mantener un conjunto de algoritmos de los que el objeto cliente puede elegir aquel que le conviene e intercambiarlo según sus necesidades.</p>
+	<ul>
+		<li>Clasificación: Se clasifica como patrón de comportamiento porque determina como se debe realizar el intercambio de mensajes entre diferentes objetos para resolver una tarea.<BR>
+		Se usa para cambiar </li>
+		<li>Motivación:</li>
+		<ul>
+			<li>Incluir el codigo de las clases clientes hacen que sean demasiado pesados y dificiles de mantener</li>
+			<li>El ciente no va a necesitar todos los algoritmos entodos los casos.</li>
+			<li>Si hay distintos clientes que usen los mismo algoritmos se debe repetir el codigo.</li>
+			<li>Se puede cambiar de algoritmo en tiempo de ejecución.</li>
+		</ul>
+		<li>Aplicabilidad</li>
+		<ul>
+			<li>Cualquier programa que ofrezca un servicio o función determinada, que pueda ser realizada de varias maneras, es candidato a utilizar el patrón estrategia. Si muchas clases relacionadas se diferencian únicamente por su comportamiento, se crea una superclase que almacene el comportamiento común y que hará de interfaz hacia las clases concretas.</li>
+			<li>Si un algoritmo utiliza información que no deberían conocer los clientes, la utilización del patrón estrategia evita la exposición de dichas estructuras.</li>
+			<li>Si se necesita cambiar dinámicamente de comportamiento</li>
+			<li>Algoritmos que comparten la misma interface</li>
+		</ul>
+
+	</ul>
+</section>
+<section class="slide" id="strategy23">
+	<h2>Patrón de diseño Strategy</h2>
+	<ul>
+		<li>Consecuencias:</li>
+		<ul>
+			<li>Beneficio: Gerarquias de estrategias que definen una familia de algoritmos, se usa la herencia para agrupar las distintas familias de algoritmos</li>
+			<li>Beneficio: da una alternativa mas reusable y dinamica a las subclases mientras que no cambien las interfaces</li>
+			<li>Beneficio: Las estrategias pueden tener distintas implementaciones y el cliente puede optar por la mas conveninete</li>
+			<li>Desventaja: Los clientes deben conocer las distintas estrategias para poder seleccionar las mas apropiada</li>
+			<li>Desventaja: aumenta el número de objetos creados, por lo que se produce una penalización en la comunicación entre estrategia y contexto</li>
+		</ul>
+		<li>Participantes</li>
+		<ul>
+			<li>Contexto (Context) : Es el elemento que usa los algoritmos, por tanto, delega en la jerarquía de estrategias. Configura una estrategia concreta mediante una referencia a la estrategia necesaria. Puede definir una interfaz que permita a la estrategia el acceso a sus datos en caso de que fuese necesario el intercambio de información entre el contexto y la estrategia. En caso de no definir dicha interfaz, el contexto podría pasarse a sí mismo a la estrategia como parámetro.</li>
+			<li>Estrategia (Strategy): Declara una interfaz común para todos los algoritmos soportados. Esta interfaz será usada por el contexto para invocar a la estrategia concreta.</li>
+			<li>EstrategiaConcreta (ConcreteStrategy): Implementa el algoritmo utilizando la interfaz definida por la estrategia.</li>
+		</ul>
+	</ul>
+</section>
+<section class="slide" id="strategy24">
+	<h2>Patrón de diseño Strategy</h2>
+	<ul>
+		<li>Estructura:</li>
+		<img src="strategyClassDiagram.png"/>
+	</ul>
+</section>
+<section class="slide" id="strategy25">
+	<h2>Organización de los patrones</h2>
+	<ul>
+		<li>Crecionales</li>
+		<ul>
+			<li>Clase: Los patrones creacionales de Clases usan la herencia como un mecanismo para lograr la instanciación de la Clase.</li>
+			<li>Objeto: Los patrones creacionales de objetos son más escalables y dinámicos comparados de los patrones creacionales de Clases.</li>
+		</ul>
+		<li>Estructurales</li>
+		<ul>
+			<li>Clase: Los patrones estructurales de Clases usan la herencia para proporcionar interfaces más útiles combinando la funcionalidad de múltiples Clases.</li>
+			<li>Objeto:Los patrones estructurales de objetos crean objetos complejos agregando objetos individuales para construir grandes estructuras. La composición de l patrón estructural del objeto puede ser cambiado en tiempo de ejecución, el cual nos da flexibilidad adicional sobre los patrones estructurales de Clases.</li>
+		</ul>
+		<li>Comportamiento</li>
+		<ul>
+			<li>Clase: Los patrones de comportamiento de Clases usan la herencia para distribuir el comportamiento entre Clases.</li>
+			<li>Objeto:Los patrones de comportamiento de objetos nos permite analizar los patrones de comunicación entre objetos interconectados, como objetos incluidos en un objeto complejo. </li>
+		</ul>
+	</ul>
+</section>
+<section class="slide" id="strategy26">
+	<h2>Organización de los patrones</h2>
+	<img src="patternsClasificationTable.png"/>
+</section>
+<section class="slide" id="strategy27">
+	<h2>Referencias</h2>
+	<p>Head First Design Patterns</p>
+	<p>http://es.wikipedia.org/wiki/Strategy_(patr%C3%B3n_de_dise%C3%B1o)</p>
+	<p>http://www.ciberaula.com/articulo/diseno_patrones_j2ee</p>
+
+</section>
+<!----------------------------------------------------------------------------------------------->
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+	/
+	<span class="deck-status-total"></span>
+</p>
+
+<!-- deck.goto snippet -->
+<form action="." method="get" class="goto-form">
+	<label for="goto-slide">Go to slide:</label>
+	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+	<datalist id="goto-datalist"></datalist>
+	<input type="submit" value="Go">
+</form>
+
+<!-- deck.hash snippet -->
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+
+<!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../jquery-1.7.2.min.js"><\/script>')</script>
+
+<!-- Deck Core and extensions -->
+<script src="../core/deck.core.js"></script>
+<script src="../extensions/hash/deck.hash.js"></script>
+<script src="../extensions/menu/deck.menu.js"></script>
+<script src="../extensions/goto/deck.goto.js"></script>
+<script src="../extensions/status/deck.status.js"></script>
+<script src="../extensions/navigation/deck.navigation.js"></script>
+<script src="../extensions/scale/deck.scale.js"></script>
+
+<!-- Initialize the deck -->
+<script>
+$(function() {
+	$.deck('.slide');
+});
+</script>
+
+</body>
+
+
+
+</html>
