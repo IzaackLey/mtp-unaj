@@ -8,6 +8,7 @@ public abstract class Personaje {
 	public Personaje(SpeedBehavior speedBehavior, EatBehavior eatBehavior){
 		this.speedBehavior = speedBehavior;
 		this.eatBehavior = eatBehavior;
+		this.nombre = "poneme un nombre";
 	}
 	public String getNombre(){
 		String salida;

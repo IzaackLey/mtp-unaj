@@ -2,17 +2,17 @@ package observerAcopladoFuerte;
 
 import java.util.*;
 
-public class StatisticsDisplay implements Observer, DisplayElement {
+public class StatisticsDisplay extends Observer implements DisplayElement {
 	private float maxTemp = 0.0f;
 	private float minTemp = 200;
 	private float tempSum= 0.0f;
 	private int numReadings;
-	private WeatherData weatherData;
+
 	private float temperature;
 	private float humidity;
 
 	public StatisticsDisplay(WeatherData weatherData) {
-		this.weatherData = weatherData;
+		super(weatherData);
 		weatherData.registerObserver(this);
 	}
 
