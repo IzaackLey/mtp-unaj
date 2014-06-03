@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>Visitor</title>
+	
+	<meta name="description" content="A jQuery library for modern HTML presentations">
+	<meta name="author" content="Caleb Troughton">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	
+	<!-- Core and extension CSS files -->
+	<link rel="stylesheet" href="../core/deck.core.css">
+	<link rel="stylesheet" href="../extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="../extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="../extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="../extensions/status/deck.status.css">
+	<link rel="stylesheet" href="../extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="../extensions/scale/deck.scale.css">
+	
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="../themes/style/swiss.css">
+	
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="../themes/transition/horizontal-slide.css">
+	
+	<script src="../modernizr.custom.js"></script>
+	
+
+    <!-- SintaxHighlighter -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SyntaxHighlighter Large File Demo</title>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/XRegExp.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shCore.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushJava.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushPlain.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushPython.js"></script>
+	<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shCoreEclipse.css"/>
+	<!--link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shThemeEclipse.css"/-->
+	
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+	
+	
+</head>
+
+<body class="deck-container">
+
+<!-- Begin slides -->
+<section class="slide" id="visitor1">
+	<h2>Visitor</h2>
+	<p>Tenemos varios tipos de publicaciones que queremos unificar la forma en que se muestran</p>
+	<h3>Noticias</h3>
+	<img src="NewsNote.png"/>
+	<h3>Publicidad de google</h3>
+	<img src="GoogleNotes.png"/>
+	<h3>Publicación de Amazon</h3>
+	<img src="AmazonNote.png"/>
+
+</section>
+
+<section class="slide" id="visitor2">
+	<h2>Visitor</h2>
+	<p>Los parámetros que tendrían cada uno de los objetos seria algo así</p>
+	<img src="NotesParameters.png"/>
+	<p>Una posible forma de poder unificar la forma de mostrarlos sería usar herencia y que todos tengan un método para imprimir</p>
+	<img src="NoteInheritance.png"/>
+	<p>Pero si queremos agregar otra operación tenemos que volver a modificar toda la estructura de clase</p>
+	<p>El patrón Visitor me permite tener la flexibilidad de agregar nuevas operaciones sobre la estructura de objetos sin tener que tocar el código de la misma.</p>
+</section>
+<section class="slide" id="visitor3">
+	<h2>Patrón Visitor</h2>
+	<p>Visitor es una forma de separar de la estrctura de objetos en la que opera. Cada nueva visitor concreto agrega una nueva operación</p>
+	<ul>
+		<li>Motivación: Poder agregar nuevas operaciones sin tener que cambiar el código de una estructura de clases. Una manera de seguir el principio de abierto para la extensión cerrado para la modificación.
+		Permite iterar una estructura de clases podiendo utilizar las distintas operaciones agregadas por el visitor	
+		</li>
+		<li>Aplicabilidad: 
+			<ul>
+				<li>Una estructura de objetos contiene muchas clases de objetos con interfaces distintas, y se quiere realizar sobre ellos operaciones que son distintas en cada clase concreta</li>
+				<li>Se quieren realizar muchas operaciones distintas sobre los objetos de una estructura, sin incluir dichas operaciones en las clases</li>
+				<li>Las clases que forman la estructura de objetos no cambian, pero las operaciones sobre ellas sí</li>
+				<li>Utilizar el patrón visitor si la jerarquía de clases es estable</li>
+			</ul>	
+		</li>
+	</ul>	
+</section>
+<section class="slide" id="visitor4">
+	<h2>Patrón Visitor</h2>
+	<ul>
+		<li>Participantes: 
+			<ul>
+				<li><strong>Visitor:</strong> define una operación de visita para cada clase de elemento concreto en la estructura de objetos</li>
+				<li><strong>ConcreteVisitor:</strong> Implementa la interfaz Visitor .Cada operación implementa un fragmento de la labor global del visitor concreto, pudiendo almacenar información local</li>
+				<li><strong>Element:</strong> define una operación accept con un visitor como argumento</li>
+				<li><strong>ConcreteElement (AssignmentNode):</strong> implementa la operación accept()</li>
+				<li><strong>Client:</strong> Elije que operación va a utilizar seleccionado el visitor apropiado</li>
+			</ul>	
+		</li>
+		<li>Consecuencias:
+			<ul>
+				<li>Facilita la definición de nuevas operaciones</li>
+				<li>Agrupa operaciones relacionadas</li>
+				<li>Añadir nuevas clases ConcreteElement es costoso. Utilizar para jerarquías estables</li>
+				<li>Permite atravesar jerarquías de objetos que no están relacionados por un padre común</li>
+				<li>Permite atravesar jerarquías de objetos que no están relacionados por un padre común</li>
+				<li>El visitor puede acumular el estado de una operación al visitar la estructura de objetos, en vez de pasarlo como argumento o usar variables globales</li>
+				<li>Rompe la encapsulación</li>
+			</ul>	
+		</li>	
+	</ul>	
+</section>
+<section class="slide" id="visitor5">
+	<h2>Patrón Visitor</h2>
+	<ul>
+		<li>Estructura: 
+			<img src="visitorClassDiagram.png"/>
+		</li>
+	</ul>	
+</section>
+
+
+<section class="slide" id="visitor8">
+	<h2>Visitor</h2>
+	<h3>Implementación</h3>
+	<p>Crear una jerarquía de clases de visitantes. Esta jerarquizar define un método visit() en la clase abstracta para que las clases concretas implemente en ese método la operación que se desea agregar. El método visit() acepta un solo argumento; un puntero o una referencia a una clase de elemento de la jerarquía de clases a la que queremos agregarle la operación o funcionalidad.</p>
+	<img src="VisitorHierarchy.png"/>
+
+</section>
+
+
+
+<section class="slide" id="adapter6">
+	<h2>Adapter</h2>
+	<h3>Paso a paso lo que hicimos</h3>
+	<ol>
+		<li>El cliente hace la llamada al adaptador llamando a algun método de la interfaz destino.<BR/>
+		En este caso la interfaz destino es Duck.
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			new TurkeyAdapter(new WildTurkey()).quack();
+		</script>
+		</li>
+		<li>El adaptador traduce las llamadas en uno o muchas llamadas al objeto envuelto o contenido por el adapter. En este caso Turkey
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			public void quack() {
+				turkey.gobble();
+			}
+		</script>
+		</li>
+		<li>El cliente recibie los resultados sin saber que hubo un adapter en el medio haciendo la traduccion.</li>
+	</ol>	
+</section>
+<section class="slide" id="strategy27">
+	<h2>Referencias</h2>
+	<p>Head First Design Patterns</p>
+	<p>http://www.cogentconsulting.com.au/</p>
+	<p>http://es.wikipedia.org/wiki/Visitor_(patr%C3%B3n_de_dise%C3%B1o)</p>
+	<p>http://en.wikipedia.org/wiki/Visitor_pattern</p>
+</section>
+<!----------------------------------------------------------------------------------------------->
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+	/
+	<span class="deck-status-total"></span>
+</p>
+
+<!-- deck.goto snippet -->
+<form action="." method="get" class="goto-form">
+	<label for="goto-slide">Go to slide:</label>
+	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+	<datalist id="goto-datalist"></datalist>
+	<input type="submit" value="Go">
+</form>
+
+<!-- deck.hash snippet -->
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+
+<!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../jquery-1.7.2.min.js"><\/script>')</script>
+
+<!-- Deck Core and extensions -->
+<script src="../core/deck.core.js"></script>
+<script src="../extensions/hash/deck.hash.js"></script>
+<script src="../extensions/menu/deck.menu.js"></script>
+<script src="../extensions/goto/deck.goto.js"></script>
+<script src="../extensions/status/deck.status.js"></script>
+<script src="../extensions/navigation/deck.navigation.js"></script>
+<script src="../extensions/scale/deck.scale.js"></script>
+
+<!-- Initialize the deck -->
+<script>
+$(function() {
+	$.deck('.slide');
+});
+</script>
+
+</body>
+
+
+
+</html>
