@@ -37,6 +37,7 @@
 	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/XRegExp.js"></script>
 	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shCore.js"></script>
 	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushJava.js"></script>
+	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushBash.js"></script>
 	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushPlain.js"></script>
 	<script type="text/javascript" src="../SyntaxHighlighter-master/scripts/shBrushPython.js"></script>
 	<link type="text/css" rel="stylesheet" href="../SyntaxHighlighter-master/styles/shCoreEclipse.css"/>
@@ -127,34 +128,146 @@
 <section class="slide" id="visitor8">
 	<h2>Visitor</h2>
 	<h3>Implementación</h3>
-	<p>Crear una jerarquía de clases de visitantes. Esta jerarquizar define un método visit() en la clase abstracta para que las clases concretas implemente en ese método la operación que se desea agregar. El método visit() acepta un solo argumento; un puntero o una referencia a una clase de elemento de la jerarquía de clases a la que queremos agregarle la operación o funcionalidad.</p>
+	<p>Crear una jerarquía de clases de visitantes. Esta jerarquizar define un método visit() en la clase abstracta para que las clases concretas implementen en ese método la operación que se desea agregar. El método visit() acepta un solo argumento; un puntero o una referencia a una clase de elemento de la jerarquía de clases a la que queremos agregarle la operación o funcionalidad.</p>
 	<img src="VisitorHierarchy.png"/>
+	<p>Cada operación que se va a agregar se implementa en el visitor concreto. En este caso tenemos dos formas de presentación de las publicaciones</p>
 
 </section>
-
-
-
-<section class="slide" id="adapter6">
-	<h2>Adapter</h2>
-	<h3>Paso a paso lo que hicimos</h3>
+<section class="slide" id="visitor9">
+	<h2>Visitor</h2>
+	<h3>Implementación</h3>
 	<ol>
-		<li>El cliente hace la llamada al adaptador llamando a algun método de la interfaz destino.<BR/>
-		En este caso la interfaz destino es Duck.
+		<li>Creamos la interface o clase abtracta visitor
 		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
-			new TurkeyAdapter(new WildTurkey()).quack();
-		</script>
-		</li>
-		<li>El adaptador traduce las llamadas en uno o muchas llamadas al objeto envuelto o contenido por el adapter. En este caso Turkey
-		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
-			public void quack() {
-				turkey.gobble();
+			public interface NoteVisitor {
+				void visit(GoggleNote note);
+				void visit(AmazonNote note);
+				void visit(NewsNote note);
 			}
 		</script>
 		</li>
-		<li>El cliente recibie los resultados sin saber que hubo un adapter en el medio haciendo la traduccion.</li>
+		<li>Una de las clases que imprime. Cada operación que se quiera hacer sobre los objetos de la jerarquía va a terminar siendo una clase mas concreta de tipo NoteVisitor
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			public class NoteRawPrinter implements NoteVisitor{
+				public void visit(GoggleNote note) {
+					System.out.println("Nota de google");
+					System.out.println("Cabecera: " + note.heading);
+					System.out.println();
+				}
+				public void visit(AmazonNote note) {
+					System.out.println("Nota de Amazon");
+					System.out.println("Titulo: " + note.title);
+					System.out.println();
+				}
+				public void visit(NewsNote note) {
+					System.out.println("Nota de Noticias");
+					System.out.println("Cabecera:" + note.headline);
+					System.out.println("");
+				}
+			}
+		</script>
+		</li>
 	</ol>	
 </section>
-<section class="slide" id="strategy27">
+<section class="slide" id="visitor10">
+	<h2>Visitor</h2>
+	<h3>Implementación</h3>
+	<p>Creamos una interface o clase abstracta Note de la que van a heredar las clases no relacionadas AmazonNote, GoggleNote, NewsNote con un solo metodos accept() que recibe un argumento simple que es la clase abstracta de la jerarquía de visitor</p>
+	<img src="ElemetsHierarchy.png"/>
+</section>
+<section class="slide" id="visitor11">
+	<h2>Visitor</h2>
+	<h3>Implementación</h3>
+	<ol>
+		<li>Creamos la interface o clase abtracta Note
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			public interface Note {
+				void accept(NoteVisitor visitor);
+			}
+		</script>
+		</li>
+		<li>Hacemos que las clases hereden de la clase Note e implementamos el método accept()
+		<script type="syntaxhighlighter" class="brush: plain; toolbar: false;">
+			public class GoggleNote implements Note{
+				public String heading;
+				public String excerpt;
+				public String url;
+				
+				public GoggleNote(String heading, String excerpt, String url){
+					this.heading = heading;
+					this.excerpt = excerpt;
+					this.url = url;
+				}
+				
+				public void accept(NoteVisitor visitor){
+					visitor.visit(this);
+				}
+			}
+		</script>
+		<p>El método accept() que usa el argumento de tipo visitor que fue pasado como parámetro en el método para llamar al método visit y pasar como argumento la clase concreta en la que estamos (this)</p>
+		<p>El método visit utiliza la sobrecarga del método para encontrar la operación adecuada a el tipo de la clase que llama al visit</p>
+		<!--p>Cada método visit de un visitante concreto puede ser pensado como un método que no es de una sola clase, sino de un par de clases: la del <strong>visitante concreto</strong> y la del <strong>elemento particular</strong>. Así el patrón visitor simula el envío doble (Double-Dispatch) en un lenguaje convencional orientado a objetos de envío único (Single-Dispatch), como son Java o C++.</p-->
+		</li>
+	</ol>	
+</section>
+<section class="slide" id="visitor12">
+	<h2>Visitor</h2>
+	<h3>Implementación</h3>
+	<ol>
+		<li>Creamos 2 notas unas de Amazon y una de google
+		<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+			Note amazonNote = new AmazonNote("Costa ardiente","Wilbur Smith", "ISBN:99898989", 190);
+			Note googleNote = new GoggleNote("cosa", "cosa", "http://cosas.com");
+		</script>
+		</li>
+		<li>Creamos un visitador simple y uno detallado
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				NoteVisitor noteRawPrinter = new NoteRawPrinter();
+				NoteVisitor noteDetalisPrinter = new NoteDetalisPrinter();
+			</script>
+		</li>
+		<li>Le mandamos a la nota el visitador detallado
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				amazonNote.accept(noteDetalisPrinter);
+				googleNote.accept(noteDetalisPrinter);
+			</script>
+		</li>
+		<li>
+			No da la impresión detallada de cada una de las notas
+			<script type="syntaxhighlighter" class="brush: text; toolbar: false;">
+				Titulo: Costa ardiente
+				Precio: 190.0
+				Autor: Wilbur Smith
+				ISBN: 99898989
+
+				Cabecera: cosa
+				Extractocosa
+				URL: http://cosas.com
+			</script>
+		</li>
+	</ol>	
+</section>
+<section class="slide" id="visitor13">
+	<h2>Visitor</h2>
+	<h3>Implementación</h3>
+	<ol>
+		<li>Le mandamos a la nota el visitador simple
+			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
+				amazonNote.accept(noteRawPrinter);
+				googleNote.accept(noteRawPrinter);
+			</script>
+		</li>
+		<li>
+			No da la impresión simple de cada una de las notas
+			<script type="syntaxhighlighter" class="brush: text; toolbar: false;">
+				Titulo: Costa ardiente
+
+				Cabecera: cosa
+			</script>
+		</li>
+	</ol>	
+</section>
+<section class="slide" id="visitor14">
 	<h2>Referencias</h2>
 	<p>Head First Design Patterns</p>
 	<p>http://www.cogentconsulting.com.au/</p>
