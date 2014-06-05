@@ -53,8 +53,8 @@
 <!-- Begin slides -->
 <section class="slide" id="iterator1">
 	<h2>Iterator</h2>
-	<p>Hay muchas maneras de guardar cosas en una coleccioón, podemos guardar en Stacks, Array, ArrayList, HashTable, cada una tiene sus ventajas y desventajas, pero en algun punto hay que iterar los objetos, y cuando lo hacemos es bueno no mostrarle la implemnetacion al cliente.</p>
-	<p>Vamos a juntar 2 implementaciones de restaurant. Uno hace panques y el otro desayunos, y tienen la misma implementacion para los item de menu pero usan distintas colecciones, uno usa ArrayList y el otro Array</p>
+	<p>Hay muchas maneras de guardar cosas en una colección, podemos guardar en Stacks, Array, ArrayList, HashTable, cada una tiene sus ventajas y desventajas, pero en algún punto hay que iterar los objetos, y cuando lo hacemos es bueno no mostrarle la implemnetacion al cliente.</p>
+	<p>Vamos a juntar 2 implementaciones de restaurant. Uno hace panqueques y el otro desayunos, y tienen la misma implementacion para los item de menú pero usan distintas colecciones, uno usa ArrayList y el otro Array</p>
 </section>
 <section class="slide" id="iterator2">
 	<h2>Iterator</h2>
@@ -91,7 +91,7 @@
 	<h2>Iterator</h2>
 	<ul>
 		<li>Esta la implementación que usa ArrayList</li>
-		<li>Cada item de menu se agrega en el contructor llamando al método addItem()</li>
+		<li>Cada item de menú se agrega en el constructor llamando al método addItem()</li>
 		<li>addItem() crea un nuevo menuitem, y lo agrega al ArrayList</li>
 		<li><p>getMenuItems() retorna el ArrayList con los items.</p>
 			<p>Acá le estamos mostrando la implementación al cliente porque le pasamos el ArrayList.<p/>
@@ -192,15 +192,15 @@
 <section class="slide" id="iterator7">
 	<h2>Iterator</h2>
 	<p>Sería bueno encontrar una interface que permitiera implementar la misma interface a los menús.
-		Si no fuera por la diferencia del tipo que devuelve getMenuItem(), de esta manera podríamos minimizar las referencias concreatas y evitar las iteraciones múltiples
+		Si no fuera por la diferencia del tipo que devuelve getMenuItem(), de esta manera podríamos minimizar las referencias concretas y evitar las iteraciones múltiples
 	</p>
-	<p>El patron Itrator nos va a ayudar a encapsular iteración.</p>
+	<p>El patrón Itrator nos va a ayudar a encapsular iteración.</p>
 	<img src="arrayListIterator.png"/></li>
 </section>
 <section class="slide" id="iterator6c">
 	<h2>Iterator</h2>
 	<img src="arrayIterator.png"/>
-	<p>Con iterator el cliente obtien un iterator en ves de la coleccion y con este puede acceder a los elementos de una forma única</p>
+	<p>Con iterator el cliente obtiene un iterator en ves de la colección y con este puede acceder a los elementos de una forma única</p>
 </section>
 <section class="slide" id="iterator7">
 	<h2>Iterator</h2>
@@ -259,7 +259,7 @@
 			}
 		}
 	</script>
-	<p>Cuandi hasNext() devuelve false, quiere decir se acabaron las posiciones o la siguiente posición  es null. Cuando esto se da, tengo que terminar con las iteraciones</p>
+	<p>Cuando hasNext() devuelve false, quiere decir se acabaron las posiciones o la siguiente posición  es null. Cuando esto se da, tengo que terminar con las iteraciones</p>
 </section>
 <section class="slide" id="iterator8">
 	<h2>Iterator</h2>
@@ -271,8 +271,8 @@
 		}
 	</script>
 	<p>El método createIterator() devuelve un objeto DinerMenuIterator usando el Array y se lo devuelve al cliente</p>
-	<p>El cliente va a recibir un iterator y no tiene porque saber como esta implementado el iterator. Lo unico que tiene que saber es como se usa un iterator, e ir recorriendo los elementos.</p></bR>
-	<p>Para la clase PancakeHouseMenu tenemos que implementar tambien el metodo createIterator(), pero como usa ArrayList que ya tiene Iterator implementado, asi que simplemente lo devolvemos</p>
+	<p>El cliente va a recibir un iterator y no tiene porque saber como esta implementado el iterator. Lo único que tiene que saber es como se usa un iterator, e ir recorriendo los elementos.</p></bR>
+	<p>Para la clase PancakeHouseMenu tenemos que implementar tambien el metodo createIterator(), pero como usa ArrayList que ya tiene Iterator implementado, así que simplemente lo devolvemos</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		public Iterator createIterator() {
 			return menuItems.iterator();
@@ -315,13 +315,13 @@
 		 	//other methods here
 		}
 	</script>
-	<p>Ahora el metodo <strong>printMenu(Iterator iterator)</strong> que recibe un Iterator imprime sin saber que implementacion interna tiene la coleccion. En esta implementacion usamos el mismo método para iterar los elementos de los dos menús,  PancakeHouseMenu y DinerMenu</p>
+	<p>Ahora el método <strong>printMenu(Iterator iterator)</strong> que recibe un Iterator imprime sin saber que implementacion interna tiene la coleccion. En esta implementacion usamos el mismo método para iterar los elementos de los dos menús,  PancakeHouseMenu y DinerMenu</p>
 </section>
 <section class="slide" id="iterator10">
 	<h2>Iterator</h2>
 	<h4>Mejoras en el diseño</h4> 
 	<ul>
-		<li>Ahora la implementacion del menu esta encapsulada. Antes cuando queriamos los items del menú obteniamos un ArrayList o un Array con lo que no se respetaba la encapsulación.</li>
+		<li>Ahora la implementacion del menu esta encapsulada. Antes cuando queríamos los items del menú obteníamos un ArrayList o un Array con lo que no se respetaba la encapsulación.</li>
 		<li>Iteramos colecciones que polimorficamente soportan cualquier coleccion que implemente la interfaz java.util.Iterator.</li>
 		<li>Lo otro que logramos es que los menus tengan exactamente los mismos métodos.</li>
 	</ul>
@@ -373,9 +373,9 @@
 	<h2>Iterator</h2>
 	<h4>Como quedo el diseño</h4> 
 	<ul>
-		<li>PancakeHouseMenu y DinerMenu implementan la interface Mwnu.</li>
-		<li>Waitress refiere a los menu usando la interface <strong>Menu</strong> en ves de una clase concreta. Esto reduce la dependencia enter Waitress y las clases concretas. Recordemos <strong>"Programar a interfaces no a implementaciones"</strong></li>
-		<li>Desacoplamos a Waitress de las implementaciones de los menus, y podemos iterar sobre cualquier lista de items sin saber la implementación.
+		<li>PancakeHouseMenu y DinerMenu implementan la interface Menú.</li>
+		<li>Waitress refiere a los menú usando la interface <strong>Menu</strong> en ves de una clase concreta. Esto reduce la dependencia enter Waitress y las clases concretas. Recordemos <strong>"Programar a interfaces no a implementaciones"</strong></li>
+		<li>Desacoplamos a Waitress de las implementaciones de los menús, y podemos iterar sobre cualquier lista de items sin saber la implementación.
 		<li>Estructura:</li>
 	</ul>	
 	<img src="restaurantClassDiagram.png"/>
@@ -462,11 +462,11 @@
 		</ul>
 	</p>
 	<p>Sabemos que siempre tratamos de evitar el cambio a toda costa, porque sabemos todas las oportunidades de generar problemas que esto tiene. Tener 2 razones para cambiar incrementa las posibilidades de cambio.</p>
-	<p>La solución es asignar solo una responsabilidad a una clase. Si bien esto no es una tarea facil, hay observar cuando una clase esta cambiando en mas de una manera.</p>
+	<p>La solución es asignar solo una responsabilidad a una clase. Si bien esto no es una tarea fácil, hay observar cuando una clase esta cambiando en mas de una manera.</p>
 </section>
 <section class="slide" id="iterator18">
 	<h2>Iterator</h2>
-	<p>Si bien el diseño quedo bastante bien, cada vez que queremos agregar un menu nuevo tenemos que tocar el código de la clase Waitress, para agregar la referencia al menu</p>
+	<p>Si bien el diseño quedo bastante bien, cada vez que queremos agregar un menu nuevo tenemos que tocar el código de la clase Waitress, para agregar la referencia al menú</p>
 	<p>Estamos violando el principio de <strong>"Las clases tiene que estar abiertas para la extensión pero cerradas para la modificación."</strong></p>
 	<p>Ponemos los menús y luego iteramos cada menú</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
@@ -502,7 +502,7 @@
 	<h2>Iterator</h2>
 	<h4>Ahora si queremos agregar un submenu postre</h4>
 	<p>Tendríamos no solo que soportar múltiple menús, sino que menús submenús</p>
-	<p>Seria deseable que el menu dessert sea un elemento de la colección DinnerMenu</p>
+	<p>Seria deseable que el menú dessert sea un elemento de la colección DinnerMenu</p>
 	<img src="subMenu.png"/>
 	<p>Necesitamos guardar un subMenu en DinerMenu, pero no podemos Asignar un Menu a un Array de MenuItem porque son tipos diferentes.</p>
 </section>
@@ -511,7 +511,7 @@
 	<h4>Refactoring</h4>
 	<p>Con el nivel de complejidad que alcanzamos si no hacemos un refactoring no vamos a poder soportar la funcionalidad de submenus.</p>
 	<ul>
-		<li>Necesitamos una estructura de árbol para guardar los menus y submenus
+		<li>Necesitamos una estructura de árbol para guardar los menús y submenus
 			<img src="treeMenuStructure.png"/>
 		</li>
 	</ul>	
@@ -520,7 +520,7 @@
 	<h2>Iterator</h2>
 	<h4>Refactoring</h4>
 	<ul>
-		<li>Necesitamso asegurarnos que hay una manera de recorrer los item de cada menu
+		<li>Necesitamso asegurarnos que hay una manera de recorrer los item de cada menú
 			<img src="treeMenuStructureTransverse.png"/>
 		</li>
 		<li>Podríamos necesitar recorrer los items de una manera mas flexible que la actual, como por ejemplo recorrer todos los items de los postres o el menu de la Cena inclusive con los postres
@@ -532,7 +532,7 @@
 	<h2>Patrón Compostite</h2>
 	<p>Componer objetos en estructuras arbóreas para representar jerarquías todo-parte. Manipular todos los objetos del árbol de manera uniforme</p>
 	<ul>
-		<li>Motivación: Poniendo objetos simples (menuItems) y contenedores (menus) en la misma estructura creamos una estructura de todo-parte que los clientes los tratan de la misma manera.
+		<li>Motivación: Poniendo objetos simples (menuItems) y contenedores (menús) en la misma estructura creamos una estructura de todo-parte que los clientes los tratan de la misma manera.
 		</li>
 		<li>Aplicabilidad: 
 			<ul>
@@ -609,10 +609,10 @@
 	<h4>Aplicando Composite a los menus</h4>
 	<ul>
 		<li>Waitress: va a usar MenuComponet como interface de acceso a Menu y MenuItems</li>
-		<li>MenuComponent: la interface de Menu y MenuItem. En la implemnetacion usamos una clase abstracta para poder proveer implmenteciones por default. Tenemos una combiancions de los métodos de las implementaciones anteriores de Menu y MenuItem, y ademas agregamos print(), add(), remove(), getChild()</li>
-		<li>MenuItem: sobreescribe los que le interesan y los deja los que no (add(), remove(), etc), ya que solo podemos agregar componetes al Menu.
+		<li>MenuComponent: la interface de Menu y MenuItem. En la implemnetacion usamos una clase abstracta para poder proveer implmenteciones por default. Tenemos una combianciones de los métodos de las implementaciones anteriores de Menu y MenuItem, y ademas agregamos print(), add(), remove(), getChild()</li>
+		<li>MenuItem: sobreescribe los que le interesan y los deja los que no (add(), remove(), etc), ya que solo podemos agregar componentes al Menú.
 		</li>
-		<li>Menu: sobreescribe los metodos que necesita y los que no deja la implementacion por defecto.</li>
+		<li>Menu: sobreescribe los métodos que necesita y los que no deja la implementacion por defecto.</li>
 	</ul>
 </section>
 <section class="slide" id="iterator28">
@@ -742,10 +742,10 @@
 		}
 	</script>
 	<ul>
-		<li>Usamos un ArrayList para guardar los MenuItems o Menus</li>
-		<li>Guardamos en nombre para saber que menu es, esto era distinto cuando teníamos distintas atributos para cada menu.</li>
-		<li>add(), remove() y getChild() funcionan tanto para Menu como para MenuItems ya que ambos son menuComent</li>
-		<li>print() itera en todos los elementos de la coleccion y a cada uno (Menu o MenuItem) le delega la impresión ya que ambos cuentan con la implementación. De esta manera se van a ir llamando recursivamente a los MenuComponente hasta que uno sea una hoja osea un MenuItem y e imprima y ahi se corta la llamada recursiva.</li>
+		<li>Usamos un ArrayList para guardar los MenuItems o Menús</li>
+		<li>Guardamos en nombre para saber que menú es, esto era distinto cuando teníamos distintas atributos para cada menu.</li>
+		<li>add(), remove() y getChild() funcionan tanto para Menú como para MenuItems ya que ambos son menuComent</li>
+		<li>print() itera en todos los elementos de la colección y a cada uno (Menu o MenuItem) le delega la impresión ya que ambos cuentan con la implementación. De esta manera se van a ir llamando recursivamente a los MenuComponente hasta que uno sea una hoja osea un MenuItem y e imprima y ahí se corta la llamada recursiva.</li>
 	</ul>	
 </section>
 <section class="slide" id="iterator31">
@@ -821,8 +821,8 @@
 	<p>Ya estamos usando Iterator en la implementacion interna print() de los Menus, pero si queremos que la mesera (waitress) itere el composite entero por ejemplo si quiere recorrer todo y sacar los items vegetarianos, tenemos que cambiar la implementación.</p>
 	<p>Para implementar el Composite Iterator vamos a agregar createIterator() en cada component</p>
 	<p>Arrancamos con la clase abstracta MenuComponet</p>
-	<p>Esto significa que cada Menu y MenuItem van a tener que implementar este método.<BR/>
-	Esto significa también que llamando a createIterator() en el composite deberia aplicar a todos los hijos del composite.</p>
+	<p>Esto significa que cada Menú y MenuItem van a tener que implementar este método.<BR/>
+	Esto significa también que llamando a createIterator() en el composite debería aplicar a todos los hijos del composite.</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		public class Menu extends MenuComponent {	
 			//other code here doesn't change
@@ -831,7 +831,7 @@
 			}
 		}	
 	</script>
-	<p>Vamos usar el CompositeIterator, que sabe como iterar sobre un composite. Recibe como parámetro el iterator del menu</p>
+	<p>Vamos usar el CompositeIterator, que sabe como iterar sobre un composite. Recibe como parámetro el iterator del menú</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		public class MenuItem extends MenuComponent {
 			//other code here doesn't change
@@ -920,7 +920,7 @@
 					stack.push(iterator);
 				}
 			</script>
-			En el contructor le pasamos el iterador del nivel mas alto del composite que vamos a recorrer. Lo ponemos en un estrutura de pila (stack)</li>
+			En el contructor le pasamos el iterador del nivel mas alto del composite que vamos a recorrer. Lo ponemos en un estructura de pila (stack)</li>
 		<li>
 			<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 				public Object next() {
@@ -972,14 +972,14 @@
 <section class="slide" id="iterator35">
 	<h2>Compostite</h2>
 	<h4>Composite Iterator</h4>
-	<p>Cuando implementamos el print() en la clase MenuComponet usamos un iterador para recorrer los nodos en el componente si el nodo era un Menu en ves de un MenuItem entonces llamabamos recursivamente al metodo print(). MenuComponent manejaba la iteracion internamente.</p>
-	<p>Con este código estamos implementando un iterador externo que debe mantener su posicion en la iteracion para que el cliente externo pueda menejar la interacion llmando a next() y hasNext(). Pero en este caso necesitamos la posicion sobre la estructura recursiva del composite.</p>
-	<p>La pila es la que mantiene nuestra posicion mientras vamos para arriba y para abajo en la estrutura de arbol del composite</p>
+	<p>Cuando implementamos el print() en la clase MenuComponet usamos un iterador para recorrer los nodos en el componente si el nodo era un Menu en ves de un MenuItem entonces llamábamos recursivamente al método print(). MenuComponent manejaba la iteracion internamente.</p>
+	<p>Con este código estamos implementando un iterador externo que debe mantener su posicion en la iteracion para que el cliente externo pueda menejar la interacion llamando a next() y hasNext(). Pero en este caso necesitamos la posición sobre la estructura recursiva del composite.</p>
+	<p>La pila es la que mantiene nuestra posiciona mientras vamos para arriba y para abajo en la estructura de árbol del composite</p>
 </section>
 <section class="slide" id="iterator35">
 	<h2>Compostite</h2>
 	<h4>Usemos el Composite Iterator</h4>
-	<p>Ya tenémos la manera de iterar desde el cliente todos los elementos del menu (MenuItems y Menu). Asi que busquemos un menú vegetariano.</p>
+	<p>Ya tenemos la manera de iterar desde el cliente todos los elementos del menú (MenuItems y Menú). Así que busquemos un menú vegetariano.</p>
 	<script type="syntaxhighlighter" class="brush: java; toolbar: false;">
 		public class Waitress {
 			MenuComponent allMenus;
@@ -1004,7 +1004,7 @@
 			}
 		}
 	</script>
-	<p>Cacheamos la excepacion porque en la clase abstract MenuComponent implmentamos isVegetarian() que tirar excepcion y como en los Menu no esta implementado porque no soporta la operacion, nos va a tirar excepcion. Por eso la cacheamos y seguimos recorriendo </p>
+	<p>Cacheamos la excepción porque en la clase abstract MenuComponent implmentamos isVegetarian() que tirar excepción y como en los Menú no esta implementado porque no soporta la operacion, nos va a tirar excepción. Por eso la cacheamos y seguimos recorriendo </p>
 </section>
 
 <section class="slide" id="iterator188">
