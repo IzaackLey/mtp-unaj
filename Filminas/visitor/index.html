@@ -268,6 +268,14 @@
 	</ol>	
 </section>
 <section class="slide" id="visitor14">
+	<h2>Visitor</h2>
+	<p>Recordemos que hay que usar visitor en jerarquías de clases estáticas.</p>
+	<p>La estructura de clases que teníamos era:</p>
+	<img src="ElemetsHierarchy.png"/>
+	<p>Si queremos agregar un elemento RssNote por ejemplo tenemos que modificar la interfaces NoteVisitor y agregar el visit(RssNote) lo que implica tocar en esta caso cada una de las clases Concretas NoteVisitor, en este caso NoteDetailPrinter y NoteRawPrinter</p>	
+	<img src="VisitorHierarchy.png"/>
+</section>
+<section class="slide" id="visitor14">
 	<h2>Referencias</h2>
 	<p>Head First Design Patterns</p>
 	<p>http://www.cogentconsulting.com.au/</p>
