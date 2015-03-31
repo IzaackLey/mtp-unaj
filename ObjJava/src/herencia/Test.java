@@ -3,6 +3,7 @@ package herencia;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class Test{
 	public static void main(String[] args) throws IOException {
@@ -16,6 +17,8 @@ public class Test{
         }
 	        	    
 		FiguraGeometrica figuraGeometrica;
+
+		
 		
 		if (ClaseAbstracta.opcion==0){
 			figuraGeometrica = new Circulo(10);
@@ -25,8 +28,15 @@ public class Test{
 			figuraGeometrica = new Triangulo(6,6,6);
 		}
 	
-		System.out.print(figuraGeometrica.toString());
-//		Double perimetro = 0.0;
+		System.out.println(figuraGeometrica.toString());
+		
+		FiguraGeometrica f1 = new Circulo(23);
+		FiguraGeometrica f2 = new Cuadrado(34);
+		if (f1.compareTo(f2)==1)
+			System.out.println("f1 es mayor que f2");
+		else
+			System.out.println("f2 es mayor que f1");
+		
 //		if (figuraGeometrica instanceof Triangulo) {
 //			Triangulo triangulo  = (Triangulo) figuraGeometrica; //downcasting
 //			perimetro = Calculador.getPerimetro(triangulo);

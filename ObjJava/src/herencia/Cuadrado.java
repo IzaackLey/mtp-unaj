@@ -15,4 +15,5 @@ public class Cuadrado extends FiguraGeometrica{
 	public String toString() {
 		return String.format("figura:%s lado:%f, area:%f",nombre, lado, getArea());
 	}
+
 }

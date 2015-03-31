@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.5" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
-  <class id="1" language="java" name="herencia.FiguraGeometrica" project="ObjJava" 
-    file="/ObjJava/src/herencia/FiguraGeometrica.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="189" width="186" x="140" y="141"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="false" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
-      <operations public="true" package="true" protected="true" private="true" static="false"/>    
-    </display>  
-  </class>  
-  <class id="2" language="java" name="herencia.Cuadrado" project="ObjJava" file="/ObjJava/src/herencia/Cuadrado.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="353" y="496"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="false" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
-      <operations public="true" package="true" protected="true" private="true" static="false"/>    
-    </display>  
-  </class>  
-  <class id="3" language="java" name="herencia.Circulo" project="ObjJava" file="/ObjJava/src/herencia/Circulo.java" 
+  <class id="1" language="java" name="herencia.Circulo" project="ObjJava" file="/ObjJava/src/herencia/Circulo.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="129" y="503"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="false" 
@@ -28,13 +10,44 @@
       <operations public="true" package="true" protected="true" private="true" static="false"/>    
     </display>  
   </class>  
-  <generalization id="4">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
+  <class id="2" language="java" name="herencia.Cuadrado" project="ObjJava" file="/ObjJava/src/herencia/Cuadrado.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="345" y="499"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="false" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <operations public="true" package="true" protected="true" private="true" static="false"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="herencia.Triangulo" project="ObjJava" file="/ObjJava/src/herencia/Triangulo.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="586" y="462"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="false" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <operations public="true" package="true" protected="true" private="true" static="false"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="herencia.FiguraGeometrica" project="ObjJava" 
+    file="/ObjJava/src/herencia/FiguraGeometrica.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="359" y="235"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="false" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <operations public="true" package="true" protected="true" private="true" static="false"/>    
+    </display>  
+  </class>  
   <generalization id="5">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <generalization id="6">    
     <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <generalization id="7">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="4"/>  
   </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="false" visibility="true">    
