@@ -17,6 +17,8 @@ public class Test {
 		System.out.println();
 		//cambio de estrategia de proxima cancion
 		System.out.println("cambio de estrategia de proxima cancion");
+		
+		
 		player.SetNextSongBehavior(new RandomSong());
 		System.out.println("nombre: "+player.getCurrentSong().songName+"-- cancion: "+player.getCurrentSong().artistName);
 		player.next();

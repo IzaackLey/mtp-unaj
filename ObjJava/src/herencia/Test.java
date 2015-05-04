@@ -30,13 +30,6 @@ public class Test{
 	
 		System.out.println(figuraGeometrica.toString());
 		
-		FiguraGeometrica f1 = new Circulo(23);
-		FiguraGeometrica f2 = new Cuadrado(34);
-		if (f1.compareTo(f2)==1)
-			System.out.println("f1 es mayor que f2");
-		else
-			System.out.println("f2 es mayor que f1");
-		
 //		if (figuraGeometrica instanceof Triangulo) {
 //			Triangulo triangulo  = (Triangulo) figuraGeometrica; //downcasting
 //			perimetro = Calculador.getPerimetro(triangulo);

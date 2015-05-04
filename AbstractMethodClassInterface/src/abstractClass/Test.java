@@ -1,3 +1,5 @@
+package abstractClass;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,7 +18,7 @@ public class Test{
         }
 	      
 
-		FiguraGeometrica figuraGeometrica = null;
+		FiguraGeometrica figuraGeometrica;
 		
 		if (opcion==0){
 			figuraGeometrica = new Circulo(10);

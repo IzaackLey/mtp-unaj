@@ -22,7 +22,7 @@ public class ArrayListDemo {
 			System.out.println(iter.next().nombre); 
 		}
 		
-		//usando for nuevo
+		//usando foreach nuevo
 		for (Persona per:  personas){
 			System.out.println(per.nombre);
 		}

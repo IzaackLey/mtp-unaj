@@ -1,4 +1,8 @@
-public class Triangulo extends FiguraGeometrica{
+package abstractClass;
+
+
+
+public class Triangulo extends FiguraGeometrica implements Comparable<Triangulo>{
 
 	public double lado1;
 	public double lado2;
@@ -25,5 +29,11 @@ public class Triangulo extends FiguraGeometrica{
     public void print() {
         System.out.println(this.toString());
     }
+
+	@Override
+	public int compareTo(Triangulo arg0) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
     
 }

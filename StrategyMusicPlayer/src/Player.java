@@ -34,4 +34,5 @@ public class Player {
 	public void SetNextSongBehavior(NextSongBehavior next){
 		this.next = next;
 	}
+	
 }

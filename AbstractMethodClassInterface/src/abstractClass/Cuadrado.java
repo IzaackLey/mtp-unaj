@@ -1,3 +1,7 @@
+package abstractClass;
+
+
+
 public class Cuadrado extends FiguraGeometrica{
 	public double lado; 	
 		
@@ -6,11 +10,15 @@ public class Cuadrado extends FiguraGeometrica{
 		this.lado = lado;
 	}
 
-	public double getArea() {
-		return Math.pow(this.lado,2);
-	}
+
 
 	public String toString() {
 		return String.format("figura:%s lado:%f, area:%f",nombre, lado, getArea());
 	}
+
+
+	public double getArea() {
+		return Math.pow(this.lado,2);
+	}
+
 }

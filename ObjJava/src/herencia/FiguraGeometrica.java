@@ -19,4 +19,7 @@ public abstract class FiguraGeometrica implements Comparable<FiguraGeometrica>{
 	public int compareTo(FiguraGeometrica f) {
 		return	Double.compare(this.getArea(), f.getArea());
 	}
+	public static int getCantidadFiguras() {
+		return cantidadFiguras;
+	}
 }

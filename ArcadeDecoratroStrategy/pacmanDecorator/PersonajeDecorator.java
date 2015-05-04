@@ -6,9 +6,9 @@ public abstract class PersonajeDecorator extends Personaje{
 		this.personaje = personaje;
 	}
 	
-	public int getAvance(){
-		return personaje.getAvance();
-	}
+//	public int getAvance(){
+//		return personaje.getAvance();
+//	}
 	
 	public String getNombre() {
 		return personaje.getNombre();

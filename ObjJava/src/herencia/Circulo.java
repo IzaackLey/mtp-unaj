@@ -17,4 +17,7 @@ public class Circulo extends FiguraGeometrica{
 	public String toString() {
 		return String.format("figura:%s radio:%f, area:%f",nombre, radio, getArea());
 	}
+	public double getRadio(){
+		return radio;
+	}
 }

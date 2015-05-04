@@ -21,5 +21,9 @@ public class Eat extends PersonajeDecorator{
 		else
 			return personaje.getNombre() + ", me pueden comer";
 	}
+	
+	public int getAvance() {
+		return personaje.getAvance();
+	}
 
 }
